@@ -27,12 +27,12 @@ export interface IEvent {
   popularity?: number;
   description?: string;
   status?: string;
-  access_method?: AccessMethod | null;
+  access_method?: AccessMethod;
   event_promotion?: null;
   announcements?: Announcements;
   conditional?: boolean;
   enddatetime_utc?: null;
-  visible_at?: string | null;
+  visible_at?: string;
   is_visible_override?: string;
   tdc_pvo_id?: number;
   tdc_pv_id?: number;
@@ -55,7 +55,7 @@ export interface Performer {
   image?: string;
   id?: number;
   images?: PerformerImages;
-  divisions?: Division[] | null;
+  divisions?: Division[];
   has_upcoming_events?: boolean;
   primary?: boolean;
   stats?: PerformerStats;
@@ -64,13 +64,13 @@ export interface Performer {
   url?: string;
   score?: number;
   slug?: string;
-  home_venue_id?: number | null;
+  home_venue_id?: number;
   short_name?: string;
   num_upcoming_events?: number;
-  colors?: Colors | null;
+  colors?: Colors;
   image_license?: string;
   popularity?: number;
-  location?: Location | null;
+  location?: Location;
   image_rights_message?: string;
   home_team?: boolean;
   away_team?: boolean;
@@ -146,7 +146,7 @@ export interface PerformerStats {
 export interface Taxonomy {
   id?: number;
   name?: string;
-  parent_id?: number | null;
+  parent_id?: number;
   document_source?: DocumentSource;
   rank?: number;
   seo_event_type?: string;
@@ -155,14 +155,14 @@ export interface Taxonomy {
 export interface EventStats {
   listing_count?: number;
   average_price?: number;
-  lowest_price_good_deals?: number | null;
+  lowest_price_good_deals?: number;
   lowest_price?: number;
   highest_price?: number;
   visible_listing_count?: number;
   dq_bucket_counts?: number[];
   median_price?: number;
   lowest_sg_base_price?: number;
-  lowest_sg_base_price_good_deals?: number | null;
+  lowest_sg_base_price_good_deals?: number;
 }
 
 export interface Venue {
@@ -184,7 +184,7 @@ export interface Venue {
   extended_address?: string;
   id?: number;
   popularity?: number;
-  access_method?: AccessMethod | null;
+  access_method?: AccessMethod;
   metro_code?: number;
   capacity?: number;
   display_location?: string;

@@ -1,13 +1,27 @@
 import { Box, Card, Typography, Divider } from "@mui/joy";
-import ShowsTable from "./ShowsTable";
+import MainTable from "./MainTable";
+import TypeIt from "typeit-react";
 
 export default function App() {
   return (
-    <Box sx={{ height: "100vh", p: 4 }}>
-      <Card variant="soft" size="lg" sx={{ alignItems: "center" }}>
-        <Typography level="h1">gig.quest</Typography>
+    <Box
+      sx={{
+        height: "100vh",
+        p: 3,
+      }}
+    >
+      <Card
+        size="lg"
+        sx={{
+          pt: 0,
+          alignItems: "center",
+        }}
+      >
+        <Typography fontSize="4rem">
+          <TypeIt>gig.quest</TypeIt>
+        </Typography>
         <Divider />
-        <ShowsTable />
+        <MainTable />
       </Card>
     </Box>
   );
