@@ -125,7 +125,7 @@ export default function ShowsTable() {
               <td>{makePerformersString(event.performers)}</td>
               <td>
                 <Link
-                  href={`https://www.google.com/maps/search/${event.venue?.name?.replace(
+                  href={`https://www.google.com/maps/search/${event.venue?.name?.replaceAll(
                     " ",
                     "+"
                   )}`}
