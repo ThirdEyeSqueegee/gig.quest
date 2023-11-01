@@ -19,7 +19,7 @@ export const setIcon = (eventType: string) => {
   switch (eventType) {
     case "nba":
       return (
-        <Tooltip title="NBA" variant="soft" size="lg" arrow placement="bottom">
+        <Tooltip title="NBA" variant="soft" size="lg" arrow>
           <SportsBasketball color="warning" />
         </Tooltip>
       );
@@ -38,7 +38,7 @@ export const setIcon = (eventType: string) => {
       );
     case "mls":
       return (
-        <Tooltip title="MLS" variant="soft" size="lg" arrow placement="bottom">
+        <Tooltip title="MLS" variant="soft" size="lg" arrow>
           <SportsSoccer />
         </Tooltip>
       );
@@ -93,7 +93,7 @@ export const setIcon = (eventType: string) => {
       );
     case "nhl":
       return (
-        <Tooltip title="NHL" variant="soft" size="lg" arrow placement="bottom">
+        <Tooltip title="NHL" variant="soft" size="lg" arrow>
           <SportsHockey />
         </Tooltip>
       );
