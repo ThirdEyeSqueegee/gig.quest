@@ -22,12 +22,14 @@ import {
 } from "@mui/icons-material";
 import { setIcon } from "./SetIcon";
 import { parsePerformers } from "./ParsePerformers";
+import { useOrientation } from "@uidotdev/usehooks";
 
 export default function MainTable() {
   const [range, setRange] = useState("5mi");
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [events, setEvents] = useState<IEvent[]>([]);
+  const orientation = useOrientation();
 
   const getEvents = () => {
     axios
@@ -70,7 +72,7 @@ export default function MainTable() {
     getEvents();
   }, [page, rowsPerPage, range]);
 
-  return (
+  return orientation.type.includes("landscape") ? (
     <Table sx={{ height: "67vh" }} size="lg">
       <thead>
         <tr>
@@ -230,5 +232,7 @@ export default function MainTable() {
         </tr>
       </tfoot>
     </Table>
+  ) : (
+    <Box>Please switch to landscape mode</Box>
   );
 }
