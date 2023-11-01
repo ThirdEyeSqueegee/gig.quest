@@ -10,6 +10,7 @@ import {
   LinearProgress,
   Typography,
   Tooltip,
+  CircularProgress,
 } from "@mui/joy";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -70,13 +71,13 @@ export default function MainTable() {
   }, [page, rowsPerPage, range]);
 
   return (
-    <Table sx={{ height: "75vh" }} size="lg">
+    <Table sx={{ height: "67vh" }} size="lg">
       <thead>
         <tr>
-          <th>
+          <th style={{ width: "7.5%" }}>
             <Typography level="h4">Type</Typography>
           </th>
-          <th>
+          <th style={{ width: "30%" }}>
             <Typography level="h4">Performers</Typography>
           </th>
           <th>
@@ -91,78 +92,87 @@ export default function MainTable() {
           <th>
             <Typography level="h4">Popularity</Typography>
           </th>
-          <th>
+          <th style={{ width: "7.5%" }}>
             <Typography level="h4">Link</Typography>
           </th>
         </tr>
       </thead>
       <tbody>
-        {events.map((event) => (
-          <tr key={event.id}>
-            <td>{setIcon(event.type!)}</td>
-            <td>{parsePerformers(event.performers, event.type)}</td>
-            <td>
-              <Link
-                href={`https://www.google.com/maps/search/${event.venue?.name?.replaceAll(
-                  " ",
-                  "+"
-                )}`}
-              >
-                {event.venue?.name}
-              </Link>
-            </td>
-            <td>
-              {new Date(`${event.datetime_utc!}+00:00`).toLocaleString(
-                "en-US",
-                {
-                  weekday: "short",
-                  month: "short",
-                  day: "numeric",
-                  year: "numeric",
-                  hour: "numeric",
-                  minute: "numeric",
-                }
-              )}
-            </td>
-            <td>
-              <Tooltip
-                title={`Avg.: $${event.stats?.average_price}`}
-                variant="soft"
-                size="lg"
-                color="success"
-              >
-                <Typography>
-                  ${event.stats?.lowest_price} - ${event.stats?.highest_price}
-                </Typography>
-              </Tooltip>
-            </td>
-            <td>
-              <Tooltip
-                title={(event.score! * 100).toFixed(1)}
-                variant="soft"
-                size="lg"
-              >
-                <LinearProgress
-                  determinate
-                  variant="solid"
-                  color={
-                    event.score! > 0.66
-                      ? "success"
-                      : event.score! > 0.5
-                      ? "primary"
-                      : "danger"
+        {events.length > 0 ? (
+          events.map((event) => (
+            <tr key={event.id}>
+              <td>{setIcon(event.type!)}</td>
+              <td>{parsePerformers(event.performers, event.type)}</td>
+              <td>
+                <Link
+                  href={`https://www.google.com/maps/search/${event.venue?.name?.replaceAll(
+                    " ",
+                    "+"
+                  )}`}
+                >
+                  {event.venue?.name}
+                </Link>
+              </td>
+              <td>
+                {new Date(`${event.datetime_utc!}+00:00`).toLocaleString(
+                  "en-US",
+                  {
+                    weekday: "short",
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
+                    hour: "numeric",
+                    minute: "numeric",
                   }
-                  value={event.score! * 100}
+                )}
+              </td>
+              <td>
+                <Tooltip
+                  title={`Avg.: $${event.stats?.average_price}`}
+                  variant="soft"
                   size="lg"
-                  sx={{ width: "80%" }}
-                />
-              </Tooltip>
-            </td>
-            <td>
-              <Link href={event.url}>Tickets</Link>
-            </td>
-          </tr>
-        ))}
+                  color="success"
+                  arrow
+                  placement="left"
+                >
+                  <Typography>
+                    ${event.stats?.lowest_price} - ${event.stats?.highest_price}
+                  </Typography>
+                </Tooltip>
+              </td>
+              <td>
+                <Tooltip
+                  title={(event.score! * 100).toFixed(1)}
+                  variant="soft"
+                  size="lg"
+                  arrow
+                >
+                  <LinearProgress
+                    determinate
+                    variant="solid"
+                    color={
+                      event.score! > 0.66
+                        ? "success"
+                        : event.score! > 0.5
+                        ? "primary"
+                        : "danger"
+                    }
+                    value={event.score! * 100}
+                    size="lg"
+                    sx={{ width: "80%" }}
+                  />
+                </Tooltip>
+              </td>
+              <td>
+                <Link href={event.url}>Tickets</Link>
+              </td>
+            </tr>
+          ))
+        ) : (
+          <Box>
+            <CircularProgress color="neutral" size="lg" />
+          </Box>
+        )}
       </tbody>
       <tfoot>
         <tr>
