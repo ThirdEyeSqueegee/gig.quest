@@ -1,28 +1,23 @@
+import { LocalActivity } from "@mui/icons-material";
 import {
   Box,
-  FormControl,
-  FormLabel,
-  IconButton,
-  Select,
-  Table,
-  Option,
-  Link,
-  LinearProgress,
-  Typography,
-  Tooltip,
+  Button,
+  Card,
+  CardContent,
   CircularProgress,
+  LinearProgress,
+  Link,
+  Table,
+  Tooltip,
+  Typography,
 } from "@mui/joy";
+import { useOrientation } from "@uidotdev/usehooks";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Footer from "./Footer";
 import { Events, IEvent } from "./Interfaces";
-import {
-  KeyboardArrowLeft,
-  KeyboardArrowRight,
-  KeyboardDoubleArrowLeft,
-} from "@mui/icons-material";
-import { setIcon } from "./SetIcon";
 import { parsePerformers } from "./ParsePerformers";
-import { useOrientation } from "@uidotdev/usehooks";
+import { setIcon } from "./SetIcon";
 
 export default function MainTable() {
   const [range, setRange] = useState("5mi");
@@ -111,6 +106,8 @@ export default function MainTable() {
                     " ",
                     "+"
                   )}`}
+                  target="_blank"
+                  rel="noopener"
                 >
                   {event.venue?.name}
                 </Link>
@@ -130,7 +127,11 @@ export default function MainTable() {
               </td>
               <td>
                 <Tooltip
-                  title={`Avg.: $${event.stats?.average_price}`}
+                  title={`Avg.: $${
+                    event.stats?.average_price
+                      ? event.stats?.average_price
+                      : "N/A"
+                  }`}
                   variant="soft"
                   size="lg"
                   color="success"
@@ -138,7 +139,9 @@ export default function MainTable() {
                   placement="left"
                 >
                   <Typography>
-                    ${event.stats?.lowest_price} - ${event.stats?.highest_price}
+                    {event.stats?.lowest_price
+                      ? `$${event.stats.lowest_price} - $${event.stats.highest_price}`
+                      : "N/A"}
                   </Typography>
                 </Tooltip>
               </td>
@@ -166,73 +169,125 @@ export default function MainTable() {
                 </Tooltip>
               </td>
               <td>
-                <Link href={event.url}>Tickets</Link>
+                <Button
+                  size="sm"
+                  variant="outlined"
+                  startDecorator={<LocalActivity />}
+                >
+                  <Link target="_blank" rel="noopener" href={event.url} overlay>
+                    Tickets
+                  </Link>
+                </Button>
               </td>
             </tr>
           ))
         ) : (
-          <Box>
-            <CircularProgress color="neutral" size="lg" />
-          </Box>
+          <tr>
+            <td>
+              <CircularProgress color="neutral" size="lg" />
+            </td>
+          </tr>
         )}
       </tbody>
       <tfoot>
         <tr>
           <td colSpan={7}>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: 2,
-                justifyContent: "flex-end",
-              }}
-            >
-              <FormControl orientation="horizontal" size="sm">
-                <FormLabel>Range:</FormLabel>
-                <Select onChange={handleChangeRange} value={range}>
-                  <Option value={"5mi"}>5 mi</Option>
-                  <Option value={"10mi"}>10 mi</Option>
-                  <Option value={"25mi"}>25 mi</Option>
-                  <Option value={"50mi"}>50 mi</Option>
-                </Select>
-              </FormControl>
-              <FormControl orientation="horizontal" size="sm">
-                <FormLabel>Rows per page:</FormLabel>
-                <Select onChange={handleChangeRowsPerPage} value={rowsPerPage}>
-                  <Option value={10}>10</Option>
-                  <Option value={20}>20</Option>
-                  <Option value={30}>30</Option>
-                </Select>
-              </FormControl>
-              <Box sx={{ display: "flex", gap: 1 }}>
-                <IconButton
-                  variant="outlined"
-                  disabled={page === 1}
-                  onClick={() => handleChangePage(1)}
-                  sx={{ mr: 2 }}
-                >
-                  <KeyboardDoubleArrowLeft />
-                </IconButton>
-                <IconButton
-                  variant="outlined"
-                  disabled={page === 1}
-                  onClick={() => handleChangePage(page - 1)}
-                >
-                  <KeyboardArrowLeft />
-                </IconButton>
-                <IconButton
-                  variant="outlined"
-                  onClick={() => handleChangePage(page + 1)}
-                >
-                  <KeyboardArrowRight />
-                </IconButton>
-              </Box>
-            </Box>
+            <Footer
+              page={page}
+              setPage={setPage}
+              range={range}
+              setRange={setRange}
+              rowsPerPage={rowsPerPage}
+              setRowsPerPage={setRowsPerPage}
+              justify="flex-end"
+            />
           </td>
         </tr>
       </tfoot>
     </Table>
   ) : (
-    <Box>Please switch to landscape mode</Box>
+    <Box width="100%">
+      {events.map((event) => {
+        return (
+          <Card size="sm" sx={{ m: 1 }}>
+            {parsePerformers(event.performers, event.type)}
+            <Link
+              fontSize="0.75rem"
+              href={`https://www.google.com/maps/search/${event.venue?.name?.replaceAll(
+                " ",
+                "+"
+              )}`}
+              target="_blank"
+              rel="noopener"
+            >
+              {event.venue?.name}
+            </Link>
+            <CardContent>
+              {new Date(`${event.datetime_utc!}+00:00`).toLocaleString(
+                "en-US",
+                {
+                  weekday: "short",
+                  month: "short",
+                  day: "numeric",
+                  year: "numeric",
+                  hour: "numeric",
+                  minute: "numeric",
+                }
+              )}
+              <Box
+                sx={{ position: "absolute", top: "0.875rem", right: "0.5rem" }}
+              >
+                {setIcon(event.type!)}
+              </Box>
+              <LinearProgress
+                determinate
+                variant="solid"
+                color={
+                  event.score! > 0.66
+                    ? "success"
+                    : event.score! > 0.5
+                    ? "primary"
+                    : "danger"
+                }
+                value={event.score! * 100}
+                size="lg"
+                sx={{
+                  width: "20%",
+                  position: "absolute",
+                  top: "45%",
+                  right: "0.5rem",
+                }}
+              />
+              <Button
+                size="sm"
+                variant="outlined"
+                sx={{
+                  position: "absolute",
+                  bottom: "0.875rem",
+                  right: "0.5rem",
+                }}
+                startDecorator={<LocalActivity />}
+              >
+                <Link target="_blank" rel="noopener" href={event.url} overlay>
+                  Tickets
+                </Link>
+              </Button>
+              {event.stats?.lowest_price
+                ? `$${event.stats.lowest_price} - $${event.stats.highest_price}`
+                : "N/A"}
+            </CardContent>
+          </Card>
+        );
+      })}
+      <Footer
+        page={page}
+        setPage={setPage}
+        range={range}
+        setRange={setRange}
+        rowsPerPage={rowsPerPage}
+        setRowsPerPage={setRowsPerPage}
+        justify="center"
+      />
+    </Box>
   );
 }
