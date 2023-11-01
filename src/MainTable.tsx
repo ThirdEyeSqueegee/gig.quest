@@ -73,25 +73,25 @@ export default function MainTable() {
     <Table sx={{ height: "75vh" }} size="lg">
       <thead>
         <tr>
-          <th style={{ width: "3%" }}>
+          <th>
             <Typography level="h4">Type</Typography>
           </th>
-          <th style={{ width: "30%" }}>
+          <th>
             <Typography level="h4">Performers</Typography>
           </th>
-          <th style={{ width: "20%" }}>
+          <th>
             <Typography level="h4">Venue</Typography>
           </th>
           <th>
             <Typography level="h4">Date</Typography>
           </th>
-          <th style={{ width: "7.5%" }}>
+          <th>
             <Typography level="h4">Prices</Typography>
           </th>
-          <th style={{ width: "10%" }}>
+          <th>
             <Typography level="h4">Popularity</Typography>
           </th>
-          <th style={{ width: "5%" }}>
+          <th>
             <Typography level="h4">Link</Typography>
           </th>
         </tr>
