@@ -5,6 +5,7 @@ on:
     branches: main
     paths:
       - "src/**"
+      - "index.html"
       - "package.json"
       - "tsconfig.json"
       - "vite.config.js"
