@@ -1,7 +1,7 @@
 import { Box, Link, Typography } from "@mui/joy";
+import { isMobile } from "react-device-detect";
 import { JSX } from "react/jsx-runtime";
 import { Performer } from "./Interfaces";
-import { isMobile } from "react-device-detect";
 
 export const parsePerformers = (
   performers: Performer[] | undefined,

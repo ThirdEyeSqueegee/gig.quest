@@ -1,8 +1,8 @@
+import { GitHub } from "@mui/icons-material";
 import { Box, Card, Divider, IconButton, Link, Typography } from "@mui/joy";
 import { useOrientation } from "@uidotdev/usehooks";
 import TypeIt from "typeit-react";
 import MainTable from "./MainTable";
-import { GitHub } from "@mui/icons-material";
 
 export default function App() {
   const orientation = useOrientation();
@@ -11,7 +11,7 @@ export default function App() {
     <Box
       sx={{
         height: "100vh",
-        p: orientation.type.includes("portrait") ? 1 : 3,
+        p: orientation.type.includes("portrait") ? 1 : 2,
       }}
     >
       <Card

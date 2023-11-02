@@ -14,6 +14,7 @@ import {
 import { useOrientation } from "@uidotdev/usehooks";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { isMobile } from "react-device-detect";
 import Footer from "./Footer";
 import { Events, IEvent } from "./Interfaces";
 import { parsePerformers } from "./ParsePerformers";
@@ -23,6 +24,7 @@ export default function MainTable() {
   const [range, setRange] = useState("5mi");
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [eventCount, setEventCount] = useState(0);
   const [events, setEvents] = useState<IEvent[]>([]);
   const [notFound, setNotFound] = useState(false);
 
@@ -45,11 +47,14 @@ export default function MainTable() {
           if (response.data.events.length > 0) {
             setEvents(response.data.events);
             setNotFound(false);
+            setEventCount(response.data.meta!.total!);
           } else {
             setNotFound(true);
+            setEventCount(0);
           }
         } else {
           setNotFound(true);
+          setEventCount(0);
         }
       });
   };
@@ -63,7 +68,7 @@ export default function MainTable() {
     <Table sx={{ height: "67vh" }} size="lg">
       <thead>
         <tr>
-          <th style={{ width: "7.5%" }}>
+          <th style={{ width: isMobile ? "7.5%" : "5%", textAlign: "center" }}>
             <Typography level="h4">Type</Typography>
           </th>
           <th style={{ width: "30%" }}>
@@ -78,10 +83,10 @@ export default function MainTable() {
           <th>
             <Typography level="h4">Prices</Typography>
           </th>
-          <th>
+          <th style={{ width: isMobile ? "15%" : "" }}>
             <Typography level="h4">Popularity</Typography>
           </th>
-          <th style={{ width: "7.5%" }}>
+          <th style={{ width: isMobile ? "15%" : "7.5%" }}>
             <Typography level="h4">Link</Typography>
           </th>
         </tr>
@@ -90,7 +95,7 @@ export default function MainTable() {
         {events.length > 0 ? (
           events.map((event) => (
             <tr key={event.id}>
-              <td>{setIcon(event.type!)}</td>
+              <td style={{ textAlign: "center" }}>{setIcon(event.type!)}</td>
               <td>{parsePerformers(event.performers, event.type)}</td>
               <td>
                 <Link
@@ -166,7 +171,13 @@ export default function MainTable() {
                   variant="outlined"
                   startDecorator={<LocalActivity />}
                 >
-                  <Link target="_blank" rel="noopener" href={event.url} overlay>
+                  <Link
+                    target="_blank"
+                    rel="noopener"
+                    href={event.url}
+                    underline="none"
+                    overlay
+                  >
                     Tickets
                   </Link>
                 </Button>
@@ -196,6 +207,7 @@ export default function MainTable() {
               rowsPerPage={rowsPerPage}
               setRowsPerPage={setRowsPerPage}
               justify="flex-end"
+              eventCount={eventCount}
             />
           </td>
         </tr>
@@ -232,44 +244,47 @@ export default function MainTable() {
                   minute: "numeric",
                 }
               )}
-              <Box
-                sx={{ position: "absolute", top: "0.875rem", right: "0.5rem" }}
-              >
+              <Box position="absolute" top="0.5rem" right="0.5rem">
                 {setIcon(event.type!)}
               </Box>
-              <LinearProgress
-                determinate
-                variant="solid"
-                color={
-                  event.score! > 0.66
-                    ? "success"
-                    : event.score! > 0.5
-                    ? "primary"
-                    : "danger"
-                }
-                value={event.score! * 100}
-                size="lg"
-                sx={{
-                  width: "20%",
-                  position: "absolute",
-                  top: "45%",
-                  right: "0.5rem",
-                }}
-              />
-              <Button
-                size="sm"
-                variant="outlined"
-                sx={{
-                  position: "absolute",
-                  bottom: "0.875rem",
-                  right: "0.5rem",
-                }}
-                startDecorator={<LocalActivity />}
+              <Box
+                display="flex"
+                flexDirection="column"
+                position="absolute"
+                bottom="0.5rem"
+                right="0.5rem"
+                alignItems="center"
               >
-                <Link target="_blank" rel="noopener" href={event.url} overlay>
-                  Tickets
-                </Link>
-              </Button>
+                <LinearProgress
+                  determinate
+                  variant="solid"
+                  color={
+                    event.score! > 0.66
+                      ? "success"
+                      : event.score! > 0.5
+                      ? "primary"
+                      : "danger"
+                  }
+                  value={event.score! * 100}
+                  sx={{ mb: 1, width: "80%" }}
+                />
+                <Button
+                  size="sm"
+                  variant="outlined"
+                  startDecorator={<LocalActivity />}
+                >
+                  <Link
+                    target="_blank"
+                    rel="noopener"
+                    href={event.url}
+                    underline="none"
+                    overlay
+                  >
+                    Tickets
+                  </Link>
+                </Button>
+              </Box>
+
               {event.stats?.lowest_price
                 ? `$${event.stats.lowest_price} - $${event.stats.highest_price}`
                 : "N/A"}
@@ -285,6 +300,7 @@ export default function MainTable() {
         rowsPerPage={rowsPerPage}
         setRowsPerPage={setRowsPerPage}
         justify="center"
+        eventCount={eventCount}
       />
     </Box>
   );

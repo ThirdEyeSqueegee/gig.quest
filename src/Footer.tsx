@@ -10,8 +10,10 @@ import {
   IconButton,
   Option,
   Select,
+  Typography,
 } from "@mui/joy";
 import { useOrientation } from "@uidotdev/usehooks";
+import { isMobile } from "react-device-detect";
 
 export default function Footer(props: {
   page: number;
@@ -21,6 +23,7 @@ export default function Footer(props: {
   range: string;
   setRange: React.Dispatch<React.SetStateAction<string>>;
   justify: string;
+  eventCount: number;
 }) {
   const orientation = useOrientation();
 
@@ -44,54 +47,67 @@ export default function Footer(props: {
   };
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        alignItems: "center",
-        gap: orientation.type.includes("portrait") ? 1 : 2,
-        justifyContent: props.justify,
-      }}
-    >
-      <FormControl orientation="horizontal" size="sm">
-        <FormLabel>Range:</FormLabel>
-        <Select onChange={handleChangeRange} value={props.range}>
-          <Option value={"5mi"}>5 mi</Option>
-          <Option value={"10mi"}>10 mi</Option>
-          <Option value={"25mi"}>25 mi</Option>
-          <Option value={"50mi"}>50 mi</Option>
-        </Select>
-      </FormControl>
-      <FormControl orientation="horizontal" size="sm">
-        <FormLabel>Rows:</FormLabel>
-        <Select onChange={handleChangeRowsPerPage} value={props.rowsPerPage}>
-          <Option value={10}>10</Option>
-          <Option value={20}>20</Option>
-          <Option value={30}>30</Option>
-        </Select>
-      </FormControl>
-      <Box sx={{ display: "flex", gap: 1 }}>
-        <IconButton
-          variant="outlined"
-          disabled={props.page === 1}
-          onClick={() => handleChangePage(1)}
-          sx={{ mr: orientation.type.includes("portrait") ? 1 : 2 }}
-        >
-          <KeyboardDoubleArrowLeft />
-        </IconButton>
-        <IconButton
-          variant="outlined"
-          disabled={props.page === 1}
-          onClick={() => handleChangePage(props.page - 1)}
-        >
-          <KeyboardArrowLeft />
-        </IconButton>
-        <IconButton
-          variant="outlined"
-          onClick={() => handleChangePage(props.page + 1)}
-        >
-          <KeyboardArrowRight />
-        </IconButton>
+    <>
+      <Box
+        display="flex"
+        alignItems="center"
+        gap={orientation.type.includes("portrait") ? 1 : 2}
+        justifyContent={props.justify}
+      >
+        <FormControl orientation="horizontal" size="sm">
+          <FormLabel>Range:</FormLabel>
+          <Select onChange={handleChangeRange} value={props.range}>
+            <Option value={"5mi"}>5 mi</Option>
+            <Option value={"10mi"}>10 mi</Option>
+            <Option value={"25mi"}>25 mi</Option>
+            <Option value={"50mi"}>50 mi</Option>
+          </Select>
+        </FormControl>
+        <FormControl orientation="horizontal" size="sm">
+          <FormLabel>Rows:</FormLabel>
+          <Select onChange={handleChangeRowsPerPage} value={props.rowsPerPage}>
+            <Option value={10}>10</Option>
+            <Option value={20}>20</Option>
+            <Option value={30}>30</Option>
+          </Select>
+        </FormControl>
+        <Box display="flex" gap={1}>
+          <IconButton
+            variant="outlined"
+            disabled={props.page === 1}
+            onClick={() => handleChangePage(1)}
+            sx={{ mr: orientation.type.includes("portrait") ? 1 : 2 }}
+          >
+            <KeyboardDoubleArrowLeft />
+          </IconButton>
+          <IconButton
+            variant="outlined"
+            disabled={props.page === 1}
+            onClick={() => handleChangePage(props.page - 1)}
+          >
+            <KeyboardArrowLeft />
+          </IconButton>
+          <IconButton
+            variant="outlined"
+            onClick={() => handleChangePage(props.page + 1)}
+          >
+            <KeyboardArrowRight />
+          </IconButton>
+        </Box>
       </Box>
-    </Box>
+      <Box
+        display="flex"
+        alignItems="center"
+        gap={orientation.type.includes("portrait") ? 1 : 2}
+        justifyContent="flex-end"
+        mx={isMobile ? 3 : 0}
+      >
+        <Typography level="body-sm">{`${
+          1 + (props.page - 1) * props.rowsPerPage
+        }-${props.rowsPerPage + (props.page - 1) * props.rowsPerPage} of ${
+          props.eventCount
+        }`}</Typography>
+      </Box>
+    </>
   );
 }
