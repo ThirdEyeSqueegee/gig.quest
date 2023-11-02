@@ -9,18 +9,9 @@ export default function App() {
 
   return (
     <Box
-      sx={{
-        height: "100vh",
-        p: orientation.type.includes("portrait") ? 1 : 2,
-      }}
+      sx={{ height: "100vh", p: orientation.type.includes("portrait") ? 1 : 2 }}
     >
-      <Card
-        sx={{
-          pt: 0,
-          px: 0,
-          alignItems: "center",
-        }}
-      >
+      <Card sx={{ p: 0, alignItems: "center" }}>
         <Typography fontSize="4rem">
           <TypeIt>gig.quest</TypeIt>
         </Typography>

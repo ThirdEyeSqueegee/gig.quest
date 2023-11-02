@@ -76,7 +76,6 @@ export default function Footer(props: {
             variant="outlined"
             disabled={props.page === 1}
             onClick={() => handleChangePage(1)}
-            sx={{ mr: orientation.type.includes("portrait") ? 1 : 2 }}
           >
             <KeyboardDoubleArrowLeft />
           </IconButton>
@@ -100,7 +99,7 @@ export default function Footer(props: {
         alignItems="center"
         gap={orientation.type.includes("portrait") ? 1 : 2}
         justifyContent="flex-end"
-        mx={isMobile ? 3 : 0}
+        mx={isMobile ? (orientation.type.includes("landscape") ? 0 : 4) : 0}
       >
         <Typography level="body-sm">{`${
           1 + (props.page - 1) * props.rowsPerPage

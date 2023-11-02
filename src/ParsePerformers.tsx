@@ -47,7 +47,6 @@ export const parsePerformers = (
     .split(is1v1 ? "vs." : "//")
     .filter((e) => e.length > 0)
     .map((e) => e.trim());
-  console.log(tokens);
 
   if (is1v1) {
     return (
@@ -63,7 +62,7 @@ export const parsePerformers = (
           {tokens[0]}
         </Link>
         <Typography level="body-sm" sx={{ mx: 1, my: "auto" }}>
-          {"vs."}
+          vs.
         </Typography>
         <Link
           href={`https://www.google.com/search?q=${tokens[1].replaceAll(
@@ -105,11 +104,11 @@ export const parsePerformers = (
       }
     });
     return (
-      <Box display="flex" flexWrap="wrap">
+      <Box display="flex" flexWrap="wrap" width={isMobile ? "90%" : "100%"}>
         {jsx}
       </Box>
     );
   } else {
-    return <Typography>{str}</Typography>;
+    return <Typography width={isMobile ? "90%" : "100%"}>{str}</Typography>;
   }
 };

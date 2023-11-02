@@ -7,6 +7,7 @@ import {
   CircularProgress,
   LinearProgress,
   Link,
+  Stack,
   Table,
   Tooltip,
   Typography,
@@ -185,12 +186,16 @@ export default function MainTable() {
             </tr>
           ))
         ) : notFound ? (
-          <tr>
-            <td>No events found. Try increasing the search radius.</td>
+          <tr style={{ height: "85%" }}>
+            <td colSpan={7} align="center">
+              <Typography>
+                No events found. Try increasing the search radius.
+              </Typography>
+            </td>
           </tr>
         ) : (
-          <tr>
-            <td>
+          <tr style={{ height: "85%" }}>
+            <td colSpan={7} align="center">
               <CircularProgress color="neutral" size="lg" />
             </td>
           </tr>
@@ -214,84 +219,97 @@ export default function MainTable() {
       </tfoot>
     </Table>
   ) : (
-    <Box width="100%">
-      {events.map((event) => {
-        return (
-          <Card size="sm" sx={{ m: 1 }}>
-            <Box width="90%">
+    <Stack width="100%">
+      {events.length > 0 ? (
+        events.map((event) => {
+          return (
+            <Card size="sm" sx={{ mx: 1, mb: 1 }}>
               {parsePerformers(event.performers, event.type)}
-            </Box>
-            <Link
-              fontSize="0.75rem"
-              href={`https://www.google.com/maps/search/${event.venue?.name?.replaceAll(
-                " ",
-                "+"
-              )}`}
-              target="_blank"
-              rel="noopener"
-            >
-              {event.venue?.name}
-            </Link>
-            <CardContent>
-              {new Date(`${event.datetime_utc!}+00:00`).toLocaleString(
-                "en-US",
-                {
-                  weekday: "short",
-                  month: "short",
-                  day: "numeric",
-                  year: "numeric",
-                  hour: "numeric",
-                  minute: "numeric",
-                }
-              )}
-              <Box position="absolute" top="0.5rem" right="0.5rem">
-                {setIcon(event.type!)}
-              </Box>
-              <Box
-                display="flex"
-                flexDirection="column"
-                position="absolute"
-                bottom="0.5rem"
-                right="0.5rem"
-                alignItems="center"
+              <Link
+                fontSize="0.75rem"
+                href={`https://www.google.com/maps/search/${event.venue?.name?.replaceAll(
+                  " ",
+                  "+"
+                )}`}
+                target="_blank"
+                rel="noopener"
               >
-                <LinearProgress
-                  determinate
-                  variant="solid"
-                  color={
-                    event.score! > 0.66
-                      ? "success"
-                      : event.score! > 0.5
-                      ? "primary"
-                      : "danger"
+                {event.venue?.name}
+              </Link>
+              <CardContent>
+                {new Date(`${event.datetime_utc!}+00:00`).toLocaleString(
+                  "en-US",
+                  {
+                    weekday: "short",
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
+                    hour: "numeric",
+                    minute: "numeric",
                   }
-                  value={event.score! * 100}
-                  sx={{ mb: 1, width: "80%" }}
-                />
-                <Button
-                  size="sm"
-                  variant="outlined"
-                  startDecorator={<LocalActivity />}
+                )}
+                <Box position="absolute" top="0.75rem" right="0.75rem">
+                  {setIcon(event.type!)}
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="column"
+                  position="absolute"
+                  bottom="0.75rem"
+                  right="0.75rem"
+                  alignItems="center"
                 >
-                  <Link
-                    target="_blank"
-                    rel="noopener"
-                    href={event.url}
-                    underline="none"
-                    overlay
+                  <LinearProgress
+                    determinate
+                    variant="solid"
+                    color={
+                      event.score! > 0.66
+                        ? "success"
+                        : event.score! > 0.5
+                        ? "primary"
+                        : event.score! > 0.25
+                        ? "warning"
+                        : "danger"
+                    }
+                    value={event.score! * 100}
+                    sx={{ mb: 1, width: "80%" }}
+                  />
+                  <Button
+                    size="sm"
+                    variant="outlined"
+                    startDecorator={<LocalActivity />}
                   >
-                    Tickets
-                  </Link>
-                </Button>
-              </Box>
-
-              {event.stats?.lowest_price
-                ? `$${event.stats.lowest_price} - $${event.stats.highest_price}`
-                : "N/A"}
-            </CardContent>
-          </Card>
-        );
-      })}
+                    <Link
+                      target="_blank"
+                      rel="noopener"
+                      href={event.url}
+                      underline="none"
+                      overlay
+                    >
+                      Tickets
+                    </Link>
+                  </Button>
+                </Box>
+                <Typography level="body-sm">
+                  {event.stats?.lowest_price
+                    ? `$${event.stats.lowest_price} - $${event.stats.highest_price}`
+                    : "N/A"}
+                </Typography>
+              </CardContent>
+            </Card>
+          );
+        })
+      ) : notFound ? (
+        <Typography alignSelf="center">
+          No events found. Try increasing the search radius.
+        </Typography>
+      ) : (
+        <CircularProgress
+          color="neutral"
+          size="lg"
+          sx={{ alignSelf: "center" }}
+        />
+      )}
       <Footer
         page={page}
         setPage={setPage}
@@ -302,6 +320,6 @@ export default function MainTable() {
         justify="center"
         eventCount={eventCount}
       />
-    </Box>
+    </Stack>
   );
 }
