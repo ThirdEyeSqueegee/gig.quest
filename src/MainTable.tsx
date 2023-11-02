@@ -24,6 +24,8 @@ export default function MainTable() {
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [events, setEvents] = useState<IEvent[]>([]);
+  const [notFound, setNotFound] = useState(false);
+
   const orientation = useOrientation();
 
   const getEvents = () => {
@@ -39,27 +41,17 @@ export default function MainTable() {
         },
       })
       .then((response) => {
-        setEvents(response.data.events!);
+        if (response.data.events) {
+          if (response.data.events.length > 0) {
+            setEvents(response.data.events);
+            setNotFound(false);
+          } else {
+            setNotFound(true);
+          }
+        } else {
+          setNotFound(true);
+        }
       });
-  };
-
-  const handleChangePage = (newPage: number) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (
-    event: React.SyntheticEvent | null,
-    newValue: number | null
-  ) => {
-    setRowsPerPage(newValue!);
-    setPage(1);
-  };
-
-  const handleChangeRange = (
-    event: React.SyntheticEvent | null,
-    newValue: string | null
-  ) => {
-    setRange(newValue!);
   };
 
   useEffect(() => {
@@ -181,6 +173,10 @@ export default function MainTable() {
               </td>
             </tr>
           ))
+        ) : notFound ? (
+          <tr>
+            <td>No events found. Try increasing the search radius.</td>
+          </tr>
         ) : (
           <tr>
             <td>

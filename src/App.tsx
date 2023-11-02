@@ -1,7 +1,8 @@
-import { Box, Card, Divider, Typography } from "@mui/joy";
+import { Box, Card, Divider, IconButton, Link, Typography } from "@mui/joy";
 import { useOrientation } from "@uidotdev/usehooks";
 import TypeIt from "typeit-react";
 import MainTable from "./MainTable";
+import { GitHub } from "@mui/icons-material";
 
 export default function App() {
   const orientation = useOrientation();
@@ -23,6 +24,19 @@ export default function App() {
         <Typography fontSize="4rem">
           <TypeIt>gig.quest</TypeIt>
         </Typography>
+        <IconButton
+          sx={{ position: "absolute", top: "0.5rem", right: "0.5rem" }}
+        >
+          <Link
+            href="https://github.com/ThirdEyeSqueegee/gig.quest"
+            target="_blank"
+            rel="noopener"
+            overlay
+            color="neutral"
+          >
+            <GitHub />
+          </Link>
+        </IconButton>
         <Divider />
         <MainTable />
       </Card>

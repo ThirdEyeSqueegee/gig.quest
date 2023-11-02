@@ -1,6 +1,7 @@
 import { Box, Link, Typography } from "@mui/joy";
 import { JSX } from "react/jsx-runtime";
 import { Performer } from "./Interfaces";
+import { isMobile } from "react-device-detect";
 
 export const parsePerformers = (
   performers: Performer[] | undefined,
@@ -54,6 +55,8 @@ export const parsePerformers = (
             " ",
             "+"
           )}`}
+          target="_blank"
+          rel="noopener"
         >
           {tokens[0]}
         </Link>
@@ -65,6 +68,8 @@ export const parsePerformers = (
             " ",
             "+"
           )}`}
+          target="_blank"
+          rel="noopener"
         >
           {tokens[1]}
         </Link>
@@ -74,7 +79,14 @@ export const parsePerformers = (
     const jsx: JSX.Element[] = [];
     tokens.forEach((t, i) => {
       jsx.push(
-        <Link key={i} href={`https://open.spotify.com/search/${t}`}>
+        <Link
+          key={i}
+          href={`https://open.spotify.com/search/${
+            isMobile ? `results/${t}` : t
+          }`}
+          target="_blank"
+          rel="noopener"
+        >
           {t}
         </Link>
       );

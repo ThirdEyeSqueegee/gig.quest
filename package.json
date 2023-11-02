@@ -20,6 +20,7 @@
     "@uidotdev/usehooks": "^2.4.1",
     "axios": "^1.6.0",
     "react": "^18.2.0",
+    "react-device-detect": "^2.2.3",
     "react-dom": "^18.2.0",
     "typeit-react": "^2.6.4"
   },
