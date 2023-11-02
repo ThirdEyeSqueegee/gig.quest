@@ -206,7 +206,9 @@ export default function MainTable() {
       {events.map((event) => {
         return (
           <Card size="sm" sx={{ m: 1 }}>
-            {parsePerformers(event.performers, event.type)}
+            <Box width="90%">
+              {parsePerformers(event.performers, event.type)}
+            </Box>
             <Link
               fontSize="0.75rem"
               href={`https://www.google.com/maps/search/${event.venue?.name?.replaceAll(

@@ -97,6 +97,12 @@ export const setIcon = (eventType: string) => {
           <SportsHockey />
         </Tooltip>
       );
+    case "hockey":
+      return (
+        <Tooltip title="Hockey" variant="soft" size="lg" arrow>
+          <SportsHockey />
+        </Tooltip>
+      );
     case "minor_league_hockey":
       return (
         <Tooltip title="Minor League Hockey" variant="soft" size="lg" arrow>

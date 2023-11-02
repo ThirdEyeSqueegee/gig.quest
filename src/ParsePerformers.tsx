@@ -12,6 +12,7 @@ export const parsePerformers = (
   if (
     eventType === "nba" ||
     eventType === "womens_college_volleyball" ||
+    eventType === "hockey" ||
     eventType === "nhl" ||
     eventType === "mls" ||
     eventType?.includes("ncaa")
@@ -40,6 +41,7 @@ export const parsePerformers = (
   str = str.replaceAll(" Football", "");
   str = str.replaceAll(" Mens Basketball", "");
   str = str.replaceAll(" Womens Basketball", "");
+  str = str.replaceAll(" Womens National Hockey", "");
 
   const tokens = str
     .split(is1v1 ? "vs." : "//")
@@ -102,7 +104,11 @@ export const parsePerformers = (
         );
       }
     });
-    return <Box display="flex">{jsx}</Box>;
+    return (
+      <Box display="flex" flexWrap="wrap">
+        {jsx}
+      </Box>
+    );
   } else {
     return <Typography>{str}</Typography>;
   }
