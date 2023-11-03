@@ -34,6 +34,8 @@ jobs:
         run: |
           echo VITE_SEATGEEK_CLIENT_ID=${{ secrets.SEATGEEK_CLIENT_ID }} >> .env
           echo VITE_SEATGEEK_CLIENT_SECRET=${{ secrets.SEATGEEK_CLIENT_SECRET }} >> .env
+          echo VITE_SPOTIFY_CLIENT_ID=${{ secrets.SPOTIFY_CLIENT_ID }} >> .env
+          echo VITE_SPOTIFY_CLIENT_SECRET=${{ secrets.SPOTIFY_CLIENT_SECRET }} >> .env
 
       - name: Setup Node
         uses: actions/setup-node@v4
