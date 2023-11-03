@@ -1,31 +1,33 @@
-import { Box, Link, Typography } from "@mui/joy";
+import { Box, Link, Tooltip, Typography } from "@mui/joy";
 import { isMobile } from "react-device-detect";
 import { JSX } from "react/jsx-runtime";
-import { Performer } from "./Interfaces";
+import { ArtistDetails, Performer } from "./Interfaces";
+import { SpotifyTooltip } from "./SpotifyTooltip";
 
-export const parsePerformers = (
-  performers: Performer[] | undefined,
-  eventType: string | undefined
-) => {
+export const Performers = (props: {
+  performers: Performer[];
+  eventType: string;
+  getArtistDetails: (artistName: string) => Promise<ArtistDetails>;
+}) => {
   let is1v1 = false;
   let str = "";
   if (
-    eventType === "nba" ||
-    eventType === "womens_college_volleyball" ||
-    eventType === "hockey" ||
-    eventType === "nhl" ||
-    eventType === "mls" ||
-    eventType?.includes("ncaa")
+    props.eventType === "nba" ||
+    props.eventType === "womens_college_volleyball" ||
+    props.eventType === "hockey" ||
+    props.eventType === "nhl" ||
+    props.eventType === "mls" ||
+    props.eventType?.includes("ncaa")
   ) {
     is1v1 = true;
-    str = `${performers![0].name} vs. ${performers![1].name}`;
+    str = `${props.performers![0].name} vs. ${props.performers![1].name}`;
   } else {
-    if (performers!.length > 1) {
-      performers?.forEach((p, i) => {
+    if (props.performers!.length > 1) {
+      props.performers?.forEach((p, i) => {
         if (p.primary) {
           str += p.name + " // ";
         } else {
-          if (i === performers.length - 1) {
+          if (i === props.performers.length - 1) {
             str += p.name;
           } else {
             str += p.name + " // ";
@@ -33,7 +35,7 @@ export const parsePerformers = (
         }
       });
     } else {
-      str += performers![0].name;
+      str += props.performers![0].name;
     }
   }
 
@@ -76,20 +78,30 @@ export const parsePerformers = (
         </Link>
       </Box>
     );
-  } else if (eventType === "concert") {
+  } else if (props.eventType === "concert") {
     const jsx: JSX.Element[] = [];
     tokens.forEach((t, i) => {
       jsx.push(
-        <Link
+        <Tooltip
           key={i}
-          href={`https://open.spotify.com/search/${
-            isMobile ? `results/${t}` : t
-          }`}
-          target="_blank"
-          rel="noopener"
+          title={
+            <SpotifyTooltip
+              artist={t}
+              getArtistDetails={props.getArtistDetails}
+            />
+          }
+          arrow
+          variant="plain"
+          sx={{ borderRadius: 15 }}
         >
-          {t}
-        </Link>
+          <Link
+            href={`https://open.spotify.com/search/${
+              isMobile ? `results/${t}` : t
+            }`}
+          >
+            {t}
+          </Link>
+        </Tooltip>
       );
       if (i !== tokens.length - 1 && tokens.length > 1) {
         jsx.push(

@@ -1,3 +1,10 @@
+export type ArtistDetails = {
+  genres: string[];
+  url: string;
+  followers: number;
+  popularity: number;
+};
+
 export interface Events {
   events?: IEvent[];
   meta?: Meta;

@@ -13,7 +13,6 @@ import {
   Typography,
 } from "@mui/joy";
 import { useOrientation } from "@uidotdev/usehooks";
-import { isMobile } from "react-device-detect";
 
 export default function Footer(props: {
   page: number;
@@ -47,7 +46,7 @@ export default function Footer(props: {
   };
 
   return (
-    <>
+    <Box mt={-1}>
       <Box
         display="flex"
         alignItems="center"
@@ -94,19 +93,13 @@ export default function Footer(props: {
           </IconButton>
         </Box>
       </Box>
-      <Box
-        display="flex"
-        alignItems="center"
-        gap={orientation.type.includes("portrait") ? 1 : 2}
-        justifyContent="flex-end"
-        mx={isMobile ? (orientation.type.includes("landscape") ? 0 : 4) : 0}
-      >
+      <Box display="flex" alignItems="center" justifyContent="center" my={1}>
         <Typography level="body-sm">{`${
           1 + (props.page - 1) * props.rowsPerPage
         }-${props.rowsPerPage + (props.page - 1) * props.rowsPerPage} of ${
           props.eventCount
         }`}</Typography>
       </Box>
-    </>
+    </Box>
   );
 }
