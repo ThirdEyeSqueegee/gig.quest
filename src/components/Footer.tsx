@@ -13,6 +13,7 @@ import {
   Typography,
 } from "@mui/joy";
 import { useOrientation } from "@uidotdev/usehooks";
+import { isMobile } from "react-device-detect";
 
 export default function Footer(props: {
   page: number;
@@ -31,6 +32,9 @@ export default function Footer(props: {
     event: React.SyntheticEvent | null,
     newValue: number | null
   ) => {
+    if (isMobile || props.rowsPerPage > 10) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
     props.setRowsPerPage(newValue!);
     props.setPage(1);
   };
@@ -39,6 +43,9 @@ export default function Footer(props: {
     event: React.SyntheticEvent | null,
     newValue: string | null
   ) => {
+    if (isMobile || props.rowsPerPage > 10) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
     props.setRange(newValue!);
     props.setPage(1);
   };
@@ -91,20 +98,35 @@ export default function Footer(props: {
           <IconButton
             variant="outlined"
             disabled={props.page === 1}
-            onClick={() => props.setPage(1)}
+            onClick={() => {
+              if (isMobile || props.rowsPerPage > 10) {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }
+              props.setPage(1);
+            }}
           >
             <KeyboardDoubleArrowLeft />
           </IconButton>
           <IconButton
             variant="outlined"
             disabled={props.page === 1}
-            onClick={() => props.setPage(props.page - 1)}
+            onClick={() => {
+              if (isMobile || props.rowsPerPage > 10) {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }
+              props.setPage(props.page - 1);
+            }}
           >
             <KeyboardArrowLeft />
           </IconButton>
           <IconButton
             variant="outlined"
-            onClick={() => props.setPage(props.page + 1)}
+            onClick={() => {
+              if (isMobile || props.rowsPerPage > 10) {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }
+              props.setPage(props.page + 1);
+            }}
           >
             <KeyboardArrowRight />
           </IconButton>

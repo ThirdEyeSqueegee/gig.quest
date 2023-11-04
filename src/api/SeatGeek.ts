@@ -12,6 +12,12 @@ export const getEvents = async (
       if (e === "Sports") {
         return "&type.eq=nba&type.eq=ncaa_basketball&type.eq=ncaa_womens_basketball&type.eq=ncaa_soccer&type.eq=mls&type.eq=ncaa_football&type.eq=nhl&type.eq=hockey&type.eq=minor_league_hockey&type.eq=auto_racing&type.eq=womens_college_volleyball";
       }
+      if (e === "Theater") {
+        return "&type=theater&type=broadway_tickets_national";
+      }
+      if (e === "Concert") {
+        return "&type=concert&type=classical&type=classical_opera&type=classical_orchestral_instrumental";
+      }
       return `&type.eq=${e.toLowerCase()}`;
     })
     .toString()
