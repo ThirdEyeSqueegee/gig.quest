@@ -91,7 +91,14 @@ export const EventTable = (props: {
                   }
                   variant="soft"
                 >
-                  <Typography>
+                  <Typography
+                    sx={{
+                      "&:hover": {
+                        transform: "scale(1.1)",
+                        transition: "all 0.15s ease-out",
+                      },
+                    }}
+                  >
                     {e.stats?.lowest_price
                       ? `$${e.stats?.lowest_price} - $${e.stats?.highest_price}`
                       : "¯\\_(ツ)_/¯"}

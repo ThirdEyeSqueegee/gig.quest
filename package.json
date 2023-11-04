@@ -21,7 +21,8 @@
     "react": "^18.2.0",
     "react-device-detect": "^2.2.3",
     "react-dom": "^18.2.0",
-    "typeit-react": "^2.6.4"
+    "typeit-react": "^2.6.4",
+    "use-count-up": "^3.0.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.34",

@@ -32,6 +32,12 @@ export const Performers = (props: {
                   href={props.artistMap?.get(t)?.external_urls.spotify}
                   rel="noopener"
                   target="_blank"
+                  sx={{
+                    "&:hover": {
+                      transform: "scale(1.1)",
+                      transition: "all 0.15s ease-out",
+                    },
+                  }}
                 >
                   {t}
                 </Link>

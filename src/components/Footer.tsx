@@ -80,12 +80,10 @@ export default function Footer(props: {
             defaultValue={[""]}
             multiple
             onChange={handleChangeFilter}
-            {...(props.filter.length > 1 && {
+            {...(props.filter.length !== 1 && {
               endDecorator: (
                 <IconButton
                   size="sm"
-                  variant="plain"
-                  color="neutral"
                   onMouseDown={(event) => {
                     event.stopPropagation();
                   }}
@@ -94,7 +92,7 @@ export default function Footer(props: {
                     action.current?.focusVisible();
                   }}
                 >
-                  <CloseRounded />
+                  <CloseRounded fontSize="small" />
                 </IconButton>
               ),
               indicator: null,
