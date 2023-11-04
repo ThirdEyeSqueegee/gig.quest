@@ -22,7 +22,6 @@ export const getEvents = async (
     })
     .toString()
     .replaceAll(",", "");
-  console.log("filterString: ", filterString);
   if (eventTypes && eventTypes.length > 0 && !eventTypes.includes("All")) {
     const response = await axios.get<TEvents>(
       `https://api.seatgeek.com/2/events/?geoip=true&range=${range}&per_page=${rowsPerPage}&page=${page}&client_id=${

@@ -25,7 +25,7 @@ export default function App() {
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [range, setRange] = useState("5mi");
-  const [filter, setFilter] = useState(["All"]);
+  const [filter, setFilter] = useState([""]);
 
   const [events, setEvents] = useState<TEvents>();
   const [aMap, setAMap] = useState<Map<string, TSpotifyResult>>();

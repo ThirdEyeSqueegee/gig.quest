@@ -1,18 +1,22 @@
 import {
+  CloseRounded,
   KeyboardArrowLeft,
   KeyboardArrowRight,
   KeyboardDoubleArrowLeft,
 } from "@mui/icons-material";
 import {
   Box,
+  Chip,
   FormControl,
   FormLabel,
   IconButton,
   Option,
   Select,
+  SelectStaticProps,
   Typography,
 } from "@mui/joy";
 import { useOrientation } from "@uidotdev/usehooks";
+import { useRef } from "react";
 import { isMobile } from "react-device-detect";
 
 export default function Footer(props: {
@@ -26,6 +30,8 @@ export default function Footer(props: {
   filter: string[];
   setFilter: React.Dispatch<React.SetStateAction<string[]>>;
 }) {
+  const action: SelectStaticProps["action"] = useRef(null);
+
   const orientation = useOrientation();
 
   const handleChangeRowsPerPage = (
@@ -69,8 +75,41 @@ export default function Footer(props: {
       >
         <FormControl orientation="horizontal" size="sm">
           <FormLabel>Filter:</FormLabel>
-          <Select defaultValue={["All"]} multiple onChange={handleChangeFilter}>
-            <Option value="All">All</Option>
+          <Select
+            action={action}
+            defaultValue={[""]}
+            multiple
+            onChange={handleChangeFilter}
+            {...(props.filter.length > 1 && {
+              endDecorator: (
+                <IconButton
+                  size="sm"
+                  variant="plain"
+                  color="neutral"
+                  onMouseDown={(event) => {
+                    event.stopPropagation();
+                  }}
+                  onClick={() => {
+                    props.setFilter([""]);
+                    action.current?.focusVisible();
+                  }}
+                >
+                  <CloseRounded />
+                </IconButton>
+              ),
+              indicator: null,
+            })}
+            renderValue={(selected) => (
+              <Box sx={{ display: "flex", gap: "0.25rem" }}>
+                {selected.map((selectedOption) => (
+                  <Chip size="sm" variant="soft">
+                    {selectedOption.label}
+                  </Chip>
+                ))}
+              </Box>
+            )}
+            value={props.filter}
+          >
             <Option value="Concert">Concert</Option>
             <Option value="Comedy">Comedy</Option>
             <Option value="Sports">Sports</Option>
