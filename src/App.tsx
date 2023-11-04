@@ -1,93 +1,103 @@
-import { GitHub } from "@mui/icons-material";
-import { Box, Card, Divider, IconButton, Link, Typography } from "@mui/joy";
+import { GitHub, LocationOn } from "@mui/icons-material";
+import {
+  Box,
+  Card,
+  CardContent,
+  CircularProgress,
+  Divider,
+  IconButton,
+  Tooltip,
+  Typography,
+} from "@mui/joy";
 import { useOrientation } from "@uidotdev/usehooks";
 import { useEffect, useState } from "react";
+import { isMobile } from "react-device-detect";
 import TypeIt from "typeit-react";
-import { getArtistDetails, getEvents, getSpotifyToken } from "./API";
-import { EventStack } from "./EventStack";
-import EventTable from "./EventTable";
-import Footer from "./Footer";
-import { IEvent } from "./Interfaces";
+import { getEvents } from "./API/SeatGeek";
+import { getSpotifyToken, searchArtist } from "./API/Spotify";
+import { TEvents, TSpotifyResult } from "./Types";
+import { EventStack } from "./components/EventStack";
+import { EventTable } from "./components/EventTable";
+import Footer from "./components/Footer";
 
 export default function App() {
   const [page, setPage] = useState(1);
-  const [range, setRange] = useState("5mi");
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [range, setRange] = useState("5mi");
 
-  const [events, setEvents] = useState<IEvent[]>([]);
-  const [eventCount, setEventCount] = useState(0);
-  const [notFound, setNotFound] = useState(false);
+  const [events, setEvents] = useState<TEvents>();
 
   const orientation = useOrientation();
 
-  useEffect(() => {
-    getEvents(page, rowsPerPage, range).then((events) => {
-      setEvents(events.events);
-      setEventCount(events.eventCount);
-      setNotFound(events.notFound);
-    });
-  }, [page, rowsPerPage, range]);
+  const [aMap, setAMap] = useState<Map<string, TSpotifyResult>>();
 
   useEffect(() => {
-    async function cb() {
-      const token = localStorage.getItem("spotifyToken");
-      if (!token) {
-        await getSpotifyToken();
+    (async () => {
+      await getSpotifyToken();
+      const events = await getEvents(page, rowsPerPage, range);
+      setEvents(events);
+
+      const artistMap = new Map<string, TSpotifyResult>();
+      for (const e of events.events!) {
+        await Promise.all(
+          e.performers!.map(async (p) => {
+            const details = await searchArtist(p.name!);
+            artistMap.set(p.name!, details);
+          })
+        );
       }
-    }
 
-    cb();
-  }, []);
+      setAMap(artistMap);
+    })();
+  }, [page, range, rowsPerPage]);
 
   return (
-    <Box
-      sx={{ height: "85vh", p: orientation.type.includes("portrait") ? 1 : 2 }}
-    >
-      <Card sx={{ p: 0, alignItems: "center" }}>
-        <Typography fontSize="4rem">
+    <Box p={isMobile ? 1 : 2}>
+      <Card sx={{ alignItems: "center" }}>
+        <Typography
+          level="h1"
+          mb={orientation.type.includes("portrait") ? 1 : 0}
+        >
           <TypeIt>gig.quest</TypeIt>
         </Typography>
-        <IconButton
-          sx={{ position: "absolute", top: "0.5rem", right: "0.5rem" }}
-        >
-          <Link
-            href="https://github.com/ThirdEyeSqueegee/gig.quest"
-            target="_blank"
-            rel="noopener"
-            overlay
-            color="neutral"
-          >
-            <GitHub />
-          </Link>
-        </IconButton>
-        <Divider />
-        <Box width="100%">
-          {orientation.type.includes("landscape") ? (
-            <EventTable
-              events={events}
-              setEvents={setEvents}
-              notFound={notFound}
-              getArtistDetails={getArtistDetails}
-            />
-          ) : (
-            <EventStack
-              events={events}
-              setEvents={setEvents}
-              notFound={notFound}
-              getArtistDetails={getArtistDetails}
-            />
-          )}
+        <Box display="flex">
+          <LocationOn fontSize="small" color="error" />
+          <Typography level="body-sm">
+            {events?.meta?.geolocation ? (
+              `${events?.meta?.geolocation?.city}, ${events?.meta?.geolocation?.state} (${range})`
+            ) : (
+              <CircularProgress size="sm" color="danger" />
+            )}
+          </Typography>
         </Box>
-        <Footer
-          page={page}
-          setPage={setPage}
-          range={range}
-          setRange={setRange}
-          rowsPerPage={rowsPerPage}
-          setRowsPerPage={setRowsPerPage}
-          justify="center"
-          eventCount={eventCount}
-        />
+        <CardContent sx={{ width: "100%" }}>
+          {orientation.type.includes("landscape") ? (
+            aMap && <EventTable events={events} artistMap={aMap} />
+          ) : (
+            <EventStack events={events} artistMap={aMap} />
+          )}
+          <Divider />
+          <Footer
+            page={page}
+            rowsPerPage={rowsPerPage}
+            range={range}
+            setPage={setPage}
+            setRowsPerPage={setRowsPerPage}
+            setRange={setRange}
+            eventCount={events?.meta?.total}
+          />
+        </CardContent>
+        <Tooltip arrow title="Source" variant="soft">
+          <IconButton
+            sx={{ position: "absolute", top: "0.5rem", right: "0.25rem" }}
+          >
+            <GitHub
+              fontSize={
+                orientation.type.includes("portrait") ? "medium" : "large"
+              }
+            />
+          </IconButton>
+        </Tooltip>
       </Card>
     </Box>
   );

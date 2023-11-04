@@ -21,14 +21,9 @@ export default function Footer(props: {
   setRowsPerPage: React.Dispatch<React.SetStateAction<number>>;
   range: string;
   setRange: React.Dispatch<React.SetStateAction<string>>;
-  justify: string;
-  eventCount: number;
+  eventCount: number | undefined;
 }) {
   const orientation = useOrientation();
-
-  const handleChangePage = (newPage: number) => {
-    props.setPage(newPage);
-  };
 
   const handleChangeRowsPerPage = (
     event: React.SyntheticEvent | null,
@@ -38,24 +33,22 @@ export default function Footer(props: {
     props.setPage(1);
   };
 
-  const handleChangeRange = (
-    event: React.SyntheticEvent | null,
-    newValue: string | null
-  ) => {
-    props.setRange(newValue!);
-  };
-
   return (
-    <Box mt={-1}>
+    <Box mt={1}>
       <Box
         display="flex"
         alignItems="center"
         gap={orientation.type.includes("portrait") ? 1 : 2}
-        justifyContent={props.justify}
+        justifyContent="center"
       >
         <FormControl orientation="horizontal" size="sm">
           <FormLabel>Range:</FormLabel>
-          <Select onChange={handleChangeRange} value={props.range}>
+          <Select
+            onChange={(e, v) => {
+              v ? props.setRange(v) : null;
+            }}
+            value={props.range}
+          >
             <Option value={"5mi"}>5 mi</Option>
             <Option value={"10mi"}>10 mi</Option>
             <Option value={"25mi"}>25 mi</Option>
@@ -74,26 +67,26 @@ export default function Footer(props: {
           <IconButton
             variant="outlined"
             disabled={props.page === 1}
-            onClick={() => handleChangePage(1)}
+            onClick={() => props.setPage(1)}
           >
             <KeyboardDoubleArrowLeft />
           </IconButton>
           <IconButton
             variant="outlined"
             disabled={props.page === 1}
-            onClick={() => handleChangePage(props.page - 1)}
+            onClick={() => props.setPage(props.page - 1)}
           >
             <KeyboardArrowLeft />
           </IconButton>
           <IconButton
             variant="outlined"
-            onClick={() => handleChangePage(props.page + 1)}
+            onClick={() => props.setPage(props.page + 1)}
           >
             <KeyboardArrowRight />
           </IconButton>
         </Box>
       </Box>
-      <Box display="flex" alignItems="center" justifyContent="center" my={1}>
+      <Box display="flex" alignItems="center" justifyContent="center" mt={1}>
         <Typography level="body-sm">{`${
           1 + (props.page - 1) * props.rowsPerPage
         }-${props.rowsPerPage + (props.page - 1) * props.rowsPerPage} of ${
