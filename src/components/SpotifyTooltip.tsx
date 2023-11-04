@@ -17,6 +17,8 @@ export const SpotifyTooltip = (props: { genres: string[] | undefined }) => {
             </Chip>
           );
         })
+      ) : props.genres && props.genres.length === 0 ? (
+        "¯\\_(ツ)_/¯"
       ) : (
         <CircularProgress color="success" />
       )}

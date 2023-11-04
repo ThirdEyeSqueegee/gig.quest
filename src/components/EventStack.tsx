@@ -11,11 +11,11 @@ export const EventStack = (props: {
   artistMap: Map<string, TSpotifyResult> | undefined;
 }) => {
   return (
-    <Stack spacing={1}>
+    <Stack spacing={1} width="100%">
       {props.events?.events?.map((e, i) => {
         return (
           <Card key={i} sx={{ width: "100%", p: 1 }}>
-            <Box display="flex" justifyContent="space-between">
+            <Box display="flex" justifyContent="space-between" gap={1}>
               <Performers
                 performers={e.performers}
                 eventType={e.type}
@@ -23,7 +23,7 @@ export const EventStack = (props: {
               />
               <EventTypeIcon eventType={e.type} />
             </Box>
-            <CardContent>
+            <CardContent sx={{ width: "70%" }}>
               <Typography fontSize="0.85rem">
                 <Link
                   href={`https://www.google.com/maps/search/${e.venue?.name
@@ -52,26 +52,26 @@ export const EventStack = (props: {
                   ? `$${e.stats?.lowest_price} - $${e.stats?.highest_price}`
                   : "¯\\_(ツ)_/¯"}
               </Typography>
-              <Box position="absolute" bottom="0.6rem" right="0.5rem">
-                <PopularityBar e={e} />
-                <Button
-                  size="sm"
-                  startDecorator={<LocalActivity />}
-                  variant="outlined"
-                  sx={{ mt: 1 }}
-                >
-                  <Link
-                    href={e.url}
-                    overlay
-                    rel="noopener"
-                    target="_blank"
-                    underline="none"
-                  >
-                    Tickets
-                  </Link>
-                </Button>
-              </Box>
             </CardContent>
+            <Box position="absolute" bottom="0.6rem" right="0.5rem">
+              <PopularityBar e={e} />
+              <Button
+                size="sm"
+                startDecorator={<LocalActivity />}
+                variant="outlined"
+                sx={{ mt: 1 }}
+              >
+                <Link
+                  href={e.url}
+                  overlay
+                  rel="noopener"
+                  target="_blank"
+                  underline="none"
+                >
+                  Tickets
+                </Link>
+              </Button>
+            </Box>
           </Card>
         );
       })}

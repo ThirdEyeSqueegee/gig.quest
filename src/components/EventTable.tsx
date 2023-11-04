@@ -15,25 +15,29 @@ export const EventTable = (props: {
       <thead>
         <tr>
           <th style={{ width: "5%" }}>
-            <Typography level="h4">Type</Typography>
+            <Typography level={isMobile ? "title-md" : "h4"}>Type</Typography>
           </th>
-          <th style={{ width: "30%" }}>
-            <Typography level="h4">Performers</Typography>
+          <th style={{ width: isMobile ? "25%" : "30%" }}>
+            <Typography level={isMobile ? "title-md" : "h4"}>
+              Performers
+            </Typography>
           </th>
-          <th style={{ width: "30%" }}>
-            <Typography level="h4">Venue</Typography>
+          <th style={{ width: isMobile ? "20%" : "30%" }}>
+            <Typography level={isMobile ? "title-md" : "h4"}>Venue</Typography>
           </th>
-          <th style={{ width: "20%" }}>
-            <Typography level="h4">Date</Typography>
+          <th style={{ width: "15%" }}>
+            <Typography level={isMobile ? "title-md" : "h4"}>Date</Typography>
           </th>
-          <th style={{ width: "7.5%" }}>
-            <Typography level="h4">Prices</Typography>
+          <th style={{ width: isMobile ? "12.5%" : "7.5%" }}>
+            <Typography level={isMobile ? "title-md" : "h4"}>Prices</Typography>
           </th>
-          <th style={{ width: "10%" }}>
-            <Typography level="h4">Popularity</Typography>
+          <th style={{ width: isMobile ? "12.5%" : "10%" }}>
+            <Typography level={isMobile ? "title-md" : "h4"}>
+              Popularity
+            </Typography>
           </th>
-          <th style={{ width: "7.5%" }}>
-            <Typography level="h4">Link</Typography>
+          <th style={{ width: isMobile ? "15%" : "7.5%" }}>
+            <Typography level={isMobile ? "title-md" : "h4"}>Link</Typography>
           </th>
         </tr>
       </thead>
@@ -98,7 +102,11 @@ export const EventTable = (props: {
                 <PopularityBar e={e} />
               </td>
               <td>
-                <Button startDecorator={<LocalActivity />} variant="outlined">
+                <Button
+                  size={isMobile ? "sm" : "md"}
+                  startDecorator={<LocalActivity />}
+                  variant="outlined"
+                >
                   <Link
                     href={e.url}
                     overlay
