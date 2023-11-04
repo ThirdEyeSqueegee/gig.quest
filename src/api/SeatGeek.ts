@@ -5,7 +5,11 @@ export const getEvents = async (
   page: number,
   rowsPerPage: number,
   range: string,
-  eventTypes: string[] | undefined
+  eventTypes: string[] | undefined,
+  sortProps: {
+    sortDate: boolean | undefined;
+    sortPopularity: boolean | undefined;
+  }
 ) => {
   const filterString = eventTypes
     ?.map((e) => {
@@ -28,22 +32,38 @@ export const getEvents = async (
         import.meta.env.VITE_SEATGEEK_CLIENT_ID
       }&client_secret=${
         import.meta.env.VITE_SEATGEEK_CLIENT_SECRET
-      }${filterString}`
+      }${filterString}${
+        sortProps.sortDate !== undefined
+          ? sortProps.sortDate === true
+            ? "&sort=datetime_utc.asc"
+            : "&sort=datetime_utc.desc"
+          : ""
+      }${
+        sortProps.sortPopularity !== undefined
+          ? sortProps.sortPopularity === true
+            ? "&sort=score.asc"
+            : "&sort=score.desc"
+          : ""
+      }`
     );
     return response.data;
   }
   const response = await axios.get<TEvents>(
-    "https://api.seatgeek.com/2/events/",
-    {
-      params: {
-        geoip: true,
-        range: range,
-        per_page: rowsPerPage,
-        page: page,
-        client_id: import.meta.env.VITE_SEATGEEK_CLIENT_ID,
-        client_secret: import.meta.env.VITE_SEATGEEK_CLIENT_SECRET,
-      },
-    }
+    `https://api.seatgeek.com/2/events/?geoip=true&range=${range}&per_page=${rowsPerPage}&page=${page}&client_id=${
+      import.meta.env.VITE_SEATGEEK_CLIENT_ID
+    }&client_secret=${import.meta.env.VITE_SEATGEEK_CLIENT_SECRET}${
+      sortProps.sortDate !== undefined
+        ? sortProps.sortDate === true
+          ? "&sort=datetime_utc.asc"
+          : "&sort=datetime_utc.desc"
+        : ""
+    }${
+      sortProps.sortPopularity !== undefined
+        ? sortProps.sortPopularity === true
+          ? "&sort=score.asc"
+          : "&sort=score.desc"
+        : ""
+    }`
   );
   return response.data;
 };

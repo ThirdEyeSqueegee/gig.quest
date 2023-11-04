@@ -30,12 +30,18 @@ export default function App() {
   const [events, setEvents] = useState<TEvents>();
   const [aMap, setAMap] = useState<Map<string, TSpotifyResult>>();
 
+  const [sortDate, setSortDate] = useState<boolean | undefined>(true);
+  const [sortPopularity, setSortPopularity] = useState<boolean>();
+
   const orientation = useOrientation();
 
   useEffect(() => {
     (async () => {
       await getSpotifyToken();
-      const events = await getEvents(page, rowsPerPage, range, filter);
+      const events = await getEvents(page, rowsPerPage, range, filter, {
+        sortDate,
+        sortPopularity,
+      });
       setEvents(events);
 
       const artistMap = new Map<string, TSpotifyResult>();
@@ -52,7 +58,7 @@ export default function App() {
 
       setAMap(artistMap);
     })();
-  }, [page, range, rowsPerPage, filter]);
+  }, [page, range, rowsPerPage, filter, sortDate, sortPopularity]);
 
   return (
     <Box p={isMobile ? 1 : 2}>
@@ -76,7 +82,15 @@ export default function App() {
         <CardContent sx={{ width: "100%", alignItems: "center" }}>
           {orientation.type.includes("landscape") ? (
             aMap ? (
-              <EventTable events={events} artistMap={aMap} />
+              <EventTable
+                events={events}
+                artistMap={aMap}
+                sortDate={sortDate}
+                setSortDate={setSortDate}
+                sortPopularity={sortPopularity}
+                setSortPopularity={setSortPopularity}
+                setPage={setPage}
+              />
             ) : (
               <CircularProgress size="lg" />
             )

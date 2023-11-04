@@ -80,7 +80,7 @@ export default function Footer(props: {
             defaultValue={[""]}
             multiple
             onChange={handleChangeFilter}
-            {...(props.filter.length !== 1 && {
+            {...(props.filter.length > 0 && {
               endDecorator: (
                 <IconButton
                   size="sm"
@@ -88,7 +88,7 @@ export default function Footer(props: {
                     event.stopPropagation();
                   }}
                   onClick={() => {
-                    props.setFilter([""]);
+                    props.setFilter([]);
                     action.current?.focusVisible();
                   }}
                 >
