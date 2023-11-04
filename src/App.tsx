@@ -91,11 +91,19 @@ export default function App() {
           <IconButton
             sx={{ position: "absolute", top: "0.5rem", right: "0.25rem" }}
           >
-            <GitHub
-              fontSize={
-                orientation.type.includes("portrait") ? "medium" : "large"
-              }
-            />
+            <Link
+              color="neutral"
+              href="https://github.com/ThirdEyeSqueegee/gig.quest"
+              overlay
+              target="_blank"
+              rel="noopener"
+            >
+              <GitHub
+                fontSize={
+                  orientation.type.includes("portrait") ? "medium" : "large"
+                }
+              />
+            </Link>
           </IconButton>
         </Tooltip>
       </Card>
