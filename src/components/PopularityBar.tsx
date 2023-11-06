@@ -6,7 +6,7 @@ import { Event } from "../Interfaces";
 export const PopularityBar = (props: { e: Event }) => {
   const { value, reset } = useCountUp({
     isCounting: true,
-    duration: 1,
+    duration: 0.5,
     start: 0,
     end: props.e.score ? props.e.score * 100 : 0,
   });

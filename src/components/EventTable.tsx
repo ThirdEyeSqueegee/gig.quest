@@ -25,22 +25,27 @@ const SortButton = (props: {
   children: React.ReactNode;
 }) => {
   return (
-    <IconButton
-      size="sm"
-      variant="plain"
-      onClick={props.handleSort}
-      sx={{
-        fontSize: isMobile ? "16px" : "20px",
-        "--IconButton-size": "24px",
-        alignSelf: "center",
-        paddingInline: 0,
-        "&:active": {
-          backgroundColor: "transparent",
-        },
-      }}
-    >
-      {props.children}
-    </IconButton>
+    <Tooltip arrow title="Sort" variant="soft">
+      <IconButton
+        size="sm"
+        variant="plain"
+        onClick={props.handleSort}
+        sx={{
+          fontSize: isMobile ? "0.75rem" : "1rem",
+          "--IconButton-size": "1.25rem",
+          alignSelf: "center",
+          paddingInline: 0,
+          "&:active": {
+            backgroundColor: "transparent",
+          },
+          "&:hover": {
+            backgroundColor: "transparent",
+          },
+        }}
+      >
+        {props.children}
+      </IconButton>
+    </Tooltip>
   );
 };
 
@@ -74,7 +79,7 @@ export const EventTable = (props: {
   };
 
   return (
-    <Table size={isMobile ? "md" : "lg"}>
+    <Table size={isMobile ? "md" : "lg"} sx={{ minHeight: "67vh" }}>
       <thead>
         <tr>
           <th style={{ width: "5%" }}>
@@ -206,7 +211,7 @@ export const EventTable = (props: {
                 </td>
                 <td>
                   <Button
-                    size={isMobile ? "sm" : "md"}
+                    size="sm"
                     startDecorator={<LocalActivity />}
                     variant="outlined"
                   >
@@ -225,9 +230,16 @@ export const EventTable = (props: {
             );
           })
         ) : (
-          <tr style={{ textAlign: "center" }}>
+          <tr>
             <td colSpan={7}>
-              <CircularProgress size="lg" />
+              <Box
+                display="flex"
+                height="60vh"
+                alignItems="center"
+                justifyContent="center"
+              >
+                <CircularProgress size="lg" />
+              </Box>
             </td>
           </tr>
         )}

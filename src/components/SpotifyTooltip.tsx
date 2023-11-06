@@ -6,7 +6,7 @@ export const SpotifyTooltip = (props: { genres: string[] | undefined }) => {
       display="flex"
       flexWrap="wrap"
       gap={1}
-      maxWidth="300px"
+      maxWidth="20rem"
       justifyContent="center"
     >
       {props.genres && props.genres.length > 0 ? (

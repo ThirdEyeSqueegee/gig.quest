@@ -33,6 +33,11 @@ export default function App() {
   const [sortDate, setSortDate] = useState<boolean | undefined>(true);
   const [sortPopularity, setSortPopularity] = useState<boolean>();
 
+  const [location, setLocation] = useState<{
+    city: string | undefined;
+    state: string | undefined;
+  }>();
+
   const { type: orientation } = useOrientation();
   const {
     loading,
@@ -43,7 +48,13 @@ export default function App() {
   useEffect(() => {
     (async () => {
       await getSpotifyToken();
+    })();
+  }, []);
 
+  useEffect(() => {
+    setEvents({});
+
+    (async () => {
       if (loading) return;
 
       const events = await getEvents(
@@ -59,6 +70,11 @@ export default function App() {
         lon,
       );
       setEvents(events);
+
+      setLocation({
+        city: events.meta?.geolocation?.city,
+        state: events.meta?.geolocation?.state,
+      });
 
       const artistMap = new Map<string, SpotifyResult>();
       for (const e of events.events!) {
@@ -89,25 +105,33 @@ export default function App() {
   return (
     <Box p={isMobile ? 1 : 2}>
       <Card sx={{ alignItems: "center", p: 1 }}>
-        <Typography level="h1" mb={orientation.includes("portrait") ? 1 : 0}>
+        <Typography level="h1">
           <TypeIt>gig.quest</TypeIt>
         </Typography>
         <Box display="flex">
           <LocationOn fontSize="small" color="error" />
           <Typography level="body-sm">
-            {meta?.geolocation ? (
-              `${meta?.geolocation.city}, ${meta?.geolocation.state} (${range})`
+            {location ? (
+              `${location.city}, ${location.state} (${range})`
             ) : (
-              <CircularProgress size="sm" color="danger" />
+              <Typography>...</Typography>
             )}
           </Typography>
         </Box>
         <CardContent sx={{ width: "100%", alignItems: "center" }}>
           {loading ? (
-            <Box display="flex" height="50vh" alignItems="center">
+            <Box
+              display="flex"
+              flexDirection="column"
+              height="67vh"
+              alignItems="center"
+              justifyContent="center"
+              gap={1}
+            >
               <CircularProgress size="lg">
-                <LocationOn />
+                <LocationOn color="error" />
               </CircularProgress>
+              <Typography level="body-sm">Waiting for location...</Typography>
             </Box>
           ) : orientation.includes("landscape") ? (
             <EventTable
@@ -137,7 +161,16 @@ export default function App() {
         </CardContent>
         <Tooltip arrow title="Source" variant="soft">
           <IconButton
-            sx={{ position: "absolute", top: "0.5rem", right: "0.25rem" }}
+            size="sm"
+            sx={{
+              position: "absolute",
+              top: "0.5rem",
+              right: "0.25rem",
+              "&:hover": {
+                transform: "scale(1.25)",
+                transition: "all 0.15s ease-out",
+              },
+            }}
           >
             <Link
               color="neutral"
@@ -146,9 +179,7 @@ export default function App() {
               target="_blank"
               rel="noopener"
             >
-              <GitHub
-                fontSize={orientation.includes("portrait") ? "medium" : "large"}
-              />
+              <GitHub />
             </Link>
           </IconButton>
         </Tooltip>

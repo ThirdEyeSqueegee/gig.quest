@@ -2,7 +2,7 @@ import { Performer } from "../Interfaces";
 
 export const tokenizePerformers = (
   performers: Performer[] | undefined,
-  eventType: string | undefined
+  eventType: string | undefined,
 ) => {
   let is1v1 = false;
   let str = "";
@@ -15,7 +15,11 @@ export const tokenizePerformers = (
     eventType?.includes("ncaa")
   ) {
     is1v1 = true;
-    str = `${performers![0].name} vs. ${performers![1].name}`;
+    if (performers?.length === 1) {
+      str = `${performers![0].name} vs. TBD`;
+    } else {
+      str = `${performers![0].name} vs. ${performers![1].name}`;
+    }
   } else {
     if (performers!.length > 1) {
       performers?.forEach((p, i) => {

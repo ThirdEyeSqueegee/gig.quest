@@ -1,5 +1,6 @@
 import {
   CloseRounded,
+  KeyboardArrowDown,
   KeyboardArrowLeft,
   KeyboardArrowRight,
   KeyboardDoubleArrowLeft,
@@ -14,6 +15,7 @@ import {
   Select,
   SelectStaticProps,
   Typography,
+  selectClasses,
 } from "@mui/joy";
 import { useOrientation } from "@uidotdev/usehooks";
 import { useRef } from "react";
@@ -37,7 +39,9 @@ export default function Footer(props: {
   const rowCountLow = 1 + (props.page - 1) * props.rowsPerPage;
   let rowCountHigh = props.rowsPerPage + (props.page - 1) * props.rowsPerPage;
   rowCountHigh =
-    rowCountHigh > props.rowsPerPage ? props.rowsPerPage : rowCountHigh;
+    props.eventCount && rowCountHigh > props.eventCount
+      ? props.eventCount
+      : rowCountHigh;
 
   const handleChangeRowsPerPage = (
     event: React.SyntheticEvent | null,
@@ -85,6 +89,18 @@ export default function Footer(props: {
             defaultValue={[""]}
             multiple
             onChange={handleChangeFilter}
+            size="sm"
+            {...(!isMobile && {
+              indicator: !isMobile && <KeyboardArrowDown fontSize="small" />,
+              sx: {
+                [`& .${selectClasses.indicator}`]: {
+                  transition: "0.2s",
+                  [`&.${selectClasses.expanded}`]: {
+                    transform: "rotate(-180deg)",
+                  },
+                },
+              },
+            })}
             {...(props.filter.length > 0 && {
               endDecorator: (
                 <IconButton
@@ -121,7 +137,22 @@ export default function Footer(props: {
         </FormControl>
         <FormControl orientation="horizontal" size="sm">
           <FormLabel>Range:</FormLabel>
-          <Select onChange={handleChangeRange} value={props.range}>
+          <Select
+            onChange={handleChangeRange}
+            size="sm"
+            value={props.range}
+            {...(!isMobile && {
+              indicator: !isMobile && <KeyboardArrowDown fontSize="small" />,
+              sx: {
+                [`& .${selectClasses.indicator}`]: {
+                  transition: "0.2s",
+                  [`&.${selectClasses.expanded}`]: {
+                    transform: "rotate(-180deg)",
+                  },
+                },
+              },
+            })}
+          >
             <Option value={"5mi"}>5 mi</Option>
             <Option value={"10mi"}>10 mi</Option>
             <Option value={"25mi"}>25 mi</Option>
@@ -130,7 +161,22 @@ export default function Footer(props: {
         </FormControl>
         <FormControl orientation="horizontal" size="sm">
           <FormLabel>Rows:</FormLabel>
-          <Select onChange={handleChangeRowsPerPage} value={props.rowsPerPage}>
+          <Select
+            size="sm"
+            onChange={handleChangeRowsPerPage}
+            value={props.rowsPerPage}
+            {...(!isMobile && {
+              indicator: !isMobile && <KeyboardArrowDown fontSize="small" />,
+              sx: {
+                [`& .${selectClasses.indicator}`]: {
+                  transition: "0.2s",
+                  [`&.${selectClasses.expanded}`]: {
+                    transform: "rotate(-180deg)",
+                  },
+                },
+              },
+            })}
+          >
             <Option value={10}>10</Option>
             <Option value={20}>20</Option>
             <Option value={30}>30</Option>
@@ -176,9 +222,7 @@ export default function Footer(props: {
       </Box>
       <Box display="flex" alignItems="center" justifyContent="center" mt={1}>
         <Typography level="body-sm">
-          {props.eventCount
-            ? `${rowCountLow}-${rowCountHigh} of ${props.eventCount}`
-            : "Fetching data..."}
+          {`${rowCountLow}-${rowCountHigh} of ${props.eventCount ?? "..."}`}
         </Typography>
       </Box>
     </Box>
