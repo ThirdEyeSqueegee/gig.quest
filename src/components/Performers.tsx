@@ -1,17 +1,17 @@
 import { Box, Link, Tooltip, Typography } from "@mui/joy";
 import { Fragment } from "react";
-import { TPerformer, TSpotifyResult } from "../Types";
+import { Performer, SpotifyResult } from "../Interfaces";
 import { tokenizePerformers } from "../utilities/TokenizePerformers";
 import { SpotifyTooltip } from "./SpotifyTooltip";
 
 export const Performers = (props: {
-  performers: TPerformer[] | undefined;
+  performers: Performer[] | undefined;
   eventType: string | undefined;
-  artistMap: Map<string, TSpotifyResult> | undefined;
+  artistMap: Map<string, SpotifyResult> | undefined;
 }) => {
   const { is1v1, tokens } = tokenizePerformers(
     props.performers,
-    props.eventType
+    props.eventType,
   );
 
   return (

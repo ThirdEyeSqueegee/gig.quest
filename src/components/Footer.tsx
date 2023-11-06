@@ -34,9 +34,14 @@ export default function Footer(props: {
 
   const orientation = useOrientation();
 
+  const rowCountLow = 1 + (props.page - 1) * props.rowsPerPage;
+  let rowCountHigh = props.rowsPerPage + (props.page - 1) * props.rowsPerPage;
+  rowCountHigh =
+    rowCountHigh > props.rowsPerPage ? props.rowsPerPage : rowCountHigh;
+
   const handleChangeRowsPerPage = (
     event: React.SyntheticEvent | null,
-    newValue: number | null
+    newValue: number | null,
   ) => {
     if (isMobile || props.rowsPerPage > 10) {
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -47,7 +52,7 @@ export default function Footer(props: {
 
   const handleChangeRange = (
     event: React.SyntheticEvent | null,
-    newValue: string | null
+    newValue: string | null,
   ) => {
     if (isMobile || props.rowsPerPage > 10) {
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -58,7 +63,7 @@ export default function Footer(props: {
 
   const handleChangeFilter = (
     event: React.SyntheticEvent | null,
-    newValue: Array<string> | null
+    newValue: Array<string> | null,
   ) => {
     props.setFilter(newValue!);
     props.setPage(1);
@@ -99,8 +104,8 @@ export default function Footer(props: {
             })}
             renderValue={(selected) => (
               <Box sx={{ display: "flex", gap: "0.25rem" }}>
-                {selected.map((selectedOption) => (
-                  <Chip size="sm" variant="soft">
+                {selected.map((selectedOption, i) => (
+                  <Chip key={i} size="sm" variant="soft">
                     {selectedOption.label}
                   </Chip>
                 ))}
@@ -172,9 +177,7 @@ export default function Footer(props: {
       <Box display="flex" alignItems="center" justifyContent="center" mt={1}>
         <Typography level="body-sm">
           {props.eventCount
-            ? `${1 + (props.page - 1) * props.rowsPerPage}-${
-                props.rowsPerPage + (props.page - 1) * props.rowsPerPage
-              } of ${props.eventCount}`
+            ? `${rowCountLow}-${rowCountHigh} of ${props.eventCount}`
             : "Fetching data..."}
         </Typography>
       </Box>

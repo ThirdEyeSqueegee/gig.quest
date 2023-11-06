@@ -1,7 +1,7 @@
-import { TPerformer } from "../Types";
+import { Performer } from "../Interfaces";
 
 export const tokenizePerformers = (
-  performers: TPerformer[] | undefined,
+  performers: Performer[] | undefined,
   eventType: string | undefined
 ) => {
   let is1v1 = false;

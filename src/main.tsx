@@ -21,5 +21,5 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <App />
       </JoyCssVarsProvider>
     </MaterialCssVarsProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

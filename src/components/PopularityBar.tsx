@@ -1,9 +1,9 @@
 import { LinearProgress, Tooltip } from "@mui/joy";
 import { useEffect } from "react";
 import { useCountUp } from "use-count-up";
-import { TEvent } from "../Types";
+import { Event } from "../Interfaces";
 
-export const PopularityBar = (props: { e: TEvent }) => {
+export const PopularityBar = (props: { e: Event }) => {
   const { value, reset } = useCountUp({
     isCounting: true,
     duration: 1,

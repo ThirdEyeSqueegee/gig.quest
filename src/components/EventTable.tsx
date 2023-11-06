@@ -7,6 +7,7 @@ import {
 import {
   Box,
   Button,
+  CircularProgress,
   IconButton,
   Link,
   Table,
@@ -14,14 +15,38 @@ import {
   Typography,
 } from "@mui/joy";
 import { isMobile } from "react-device-detect";
-import { TEvents, TSpotifyResult } from "../Types";
+import { Event, SpotifyResult } from "../Interfaces";
 import { EventTypeIcon } from "./EventTypeIcon";
 import { Performers } from "./Performers";
 import { PopularityBar } from "./PopularityBar";
 
+const SortButton = (props: {
+  handleSort(): void;
+  children: React.ReactNode;
+}) => {
+  return (
+    <IconButton
+      size="sm"
+      variant="plain"
+      onClick={props.handleSort}
+      sx={{
+        fontSize: isMobile ? "16px" : "20px",
+        "--IconButton-size": "24px",
+        alignSelf: "center",
+        paddingInline: 0,
+        "&:active": {
+          backgroundColor: "transparent",
+        },
+      }}
+    >
+      {props.children}
+    </IconButton>
+  );
+};
+
 export const EventTable = (props: {
-  events: TEvents | undefined;
-  artistMap: Map<string, TSpotifyResult> | undefined;
+  events: Event[] | undefined;
+  artistMap: Map<string, SpotifyResult> | undefined;
   sortDate: boolean | undefined;
   setSortDate: React.Dispatch<React.SetStateAction<boolean | undefined>>;
   sortPopularity: boolean | undefined;
@@ -64,19 +89,20 @@ export const EventTable = (props: {
             <Typography level={isMobile ? "title-md" : "h4"}>Venue</Typography>
           </th>
           <th style={{ width: "15%" }}>
-            <Box display="flex" justifyContent="space-between">
+            <Box display="flex" justifyContent="space-between" alignItems="end">
               <Typography level={isMobile ? "title-md" : "h4"}>Date</Typography>
-              <IconButton variant="plain" onClick={handleSortDate}>
+              <SortButton handleSort={handleSortDate}>
                 {props.sortDate === undefined ? (
                   <MoreVert
+                    fontSize="inherit"
                     sx={{ opacity: props.sortDate === undefined ? 0.25 : 1 }}
                   />
                 ) : props.sortDate === true ? (
-                  <ArrowUpward />
+                  <ArrowUpward fontSize="inherit" />
                 ) : (
-                  <ArrowDownward />
+                  <ArrowDownward fontSize="inherit" />
                 )}
-              </IconButton>
+              </SortButton>
             </Box>
           </th>
           <th style={{ width: isMobile ? "12.5%" : "7.5%" }}>
@@ -85,23 +111,24 @@ export const EventTable = (props: {
             </Typography>
           </th>
           <th style={{ width: isMobile ? "12.5%" : "10%" }}>
-            <Box display="flex" justifyContent="space-between">
+            <Box display="flex" justifyContent="space-between" alignItems="end">
               <Typography level={isMobile ? "title-md" : "h4"}>
                 Popularity
               </Typography>
-              <IconButton variant="plain" onClick={handleSortPopularity}>
+              <SortButton handleSort={handleSortPopularity}>
                 {props.sortPopularity === undefined ? (
                   <MoreVert
+                    fontSize="inherit"
                     sx={{
                       opacity: props.sortPopularity === undefined ? 0.25 : 1,
                     }}
                   />
                 ) : props.sortPopularity === true ? (
-                  <ArrowUpward />
+                  <ArrowUpward fontSize="inherit" />
                 ) : (
-                  <ArrowDownward />
+                  <ArrowDownward fontSize="inherit" />
                 )}
-              </IconButton>
+              </SortButton>
             </Box>
           </th>
           <th style={{ width: isMobile ? "15%" : "7.5%" }}>
@@ -110,94 +137,101 @@ export const EventTable = (props: {
         </tr>
       </thead>
       <tbody>
-        {props.events?.events?.map((e, i) => {
-          return (
-            <tr key={i}>
-              <td>
-                <EventTypeIcon eventType={e.type} />
-              </td>
-              <td>
-                <Performers
-                  performers={e.performers}
-                  eventType={e.type}
-                  artistMap={props.artistMap}
-                />
-              </td>
-              <td>
-                <Link
-                  href={`https://www.google.com/maps/search/${e.venue?.name
-                    ?.replaceAll(" - ", " ")
-                    .replaceAll(" ", "+")}`}
-                  rel="noopener"
-                  target="_blank"
-                >
-                  {e.venue?.name}
-                </Link>
-              </td>
-              <td>
-                {e.datetime_local
-                  ? new Date(e.datetime_local).toLocaleString("en-US", {
-                      weekday: "short",
-                      month: "short",
-                      day: "numeric",
-                      year: "numeric",
-                      hour: "numeric",
-                      minute: "numeric",
-                    })
-                  : ""}
-              </td>
-              <td>
-                <Tooltip
-                  arrow
-                  color="success"
-                  followCursor
-                  size="lg"
-                  title={
-                    e.stats?.average_price
-                      ? `Avg.: $${e.stats?.average_price}`
-                      : "¯\\_(ツ)_/¯"
-                  }
-                  variant="soft"
-                >
-                  <Typography
-                    sx={{
-                      "&:hover": {
-                        transform: "scale(1.1)",
-                        transition: "all 0.15s ease-out",
-                      },
-                    }}
-                  >
-                    {e.stats?.lowest_price
-                      ? `$${e.stats?.lowest_price} - $${e.stats?.highest_price}`
-                      : "¯\\_(ツ)_/¯"}
-                  </Typography>
-                </Tooltip>
-              </td>
-              <td>
-                <PopularityBar e={e} />
-              </td>
-              <td>
-                <Button
-                  size={isMobile ? "sm" : "md"}
-                  startDecorator={<LocalActivity />}
-                  variant="outlined"
-                >
+        {props.events ? (
+          props.events.map((e, i) => {
+            return (
+              <tr key={i}>
+                <td>
+                  <EventTypeIcon eventType={e.type} />
+                </td>
+                <td>
+                  <Performers
+                    performers={e.performers}
+                    eventType={e.type}
+                    artistMap={props.artistMap}
+                  />
+                </td>
+                <td>
                   <Link
-                    href={e.url}
-                    overlay
+                    href={`https://www.google.com/maps/search/${e.venue?.name
+                      ?.replaceAll(" - ", " ")
+                      .replaceAll(" ", "+")}`}
                     rel="noopener"
                     target="_blank"
-                    underline="none"
                   >
-                    Tickets
+                    {e.venue?.name}
                   </Link>
-                </Button>
-              </td>
-            </tr>
-          );
-        })}
+                </td>
+                <td>
+                  {e.datetime_local
+                    ? new Date(e.datetime_local).toLocaleString("en-US", {
+                        weekday: "short",
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                        hour: "numeric",
+                        minute: "numeric",
+                      })
+                    : ""}
+                </td>
+                <td>
+                  <Tooltip
+                    arrow
+                    color="success"
+                    followCursor
+                    size="lg"
+                    title={
+                      e.stats?.average_price
+                        ? `Avg.: $${e.stats?.average_price}`
+                        : "¯\\_(ツ)_/¯"
+                    }
+                    variant="soft"
+                  >
+                    <Typography
+                      sx={{
+                        "&:hover": {
+                          transform: "scale(1.1)",
+                          transition: "all 0.15s ease-out",
+                        },
+                      }}
+                    >
+                      {e.stats?.lowest_price
+                        ? `$${e.stats?.lowest_price} - $${e.stats?.highest_price}`
+                        : "¯\\_(ツ)_/¯"}
+                    </Typography>
+                  </Tooltip>
+                </td>
+                <td>
+                  <PopularityBar e={e} />
+                </td>
+                <td>
+                  <Button
+                    size={isMobile ? "sm" : "md"}
+                    startDecorator={<LocalActivity />}
+                    variant="outlined"
+                  >
+                    <Link
+                      href={e.url}
+                      overlay
+                      rel="noopener"
+                      target="_blank"
+                      underline="none"
+                    >
+                      Tickets
+                    </Link>
+                  </Button>
+                </td>
+              </tr>
+            );
+          })
+        ) : (
+          <tr style={{ textAlign: "center" }}>
+            <td colSpan={7}>
+              <CircularProgress size="lg" />
+            </td>
+          </tr>
+        )}
       </tbody>
-      <tfoot></tfoot>
     </Table>
   );
 };

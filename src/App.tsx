@@ -10,11 +10,11 @@ import {
   Tooltip,
   Typography,
 } from "@mui/joy";
-import { useOrientation } from "@uidotdev/usehooks";
+import { useGeolocation, useOrientation } from "@uidotdev/usehooks";
 import { useEffect, useState } from "react";
 import { isMobile } from "react-device-detect";
 import TypeIt from "typeit-react";
-import { TEvents, TSpotifyResult } from "./Types";
+import { Events, Performer, SpotifyResult } from "./Interfaces";
 import { getEvents } from "./api/SeatGeek";
 import { getSpotifyToken, searchArtist } from "./api/Spotify";
 import { EventStack } from "./components/EventStack";
@@ -27,77 +27,100 @@ export default function App() {
   const [range, setRange] = useState("5mi");
   const [filter, setFilter] = useState([""]);
 
-  const [events, setEvents] = useState<TEvents>();
-  const [aMap, setAMap] = useState<Map<string, TSpotifyResult>>();
+  const [{ events, meta }, setEvents] = useState<Events>({});
+  const [aMap, setAMap] = useState<Map<string, SpotifyResult>>();
 
   const [sortDate, setSortDate] = useState<boolean | undefined>(true);
   const [sortPopularity, setSortPopularity] = useState<boolean>();
 
-  const orientation = useOrientation();
+  const { type: orientation } = useOrientation();
+  const {
+    loading,
+    latitude: lat,
+    longitude: lon,
+  } = useGeolocation({ enableHighAccuracy: true });
 
   useEffect(() => {
     (async () => {
       await getSpotifyToken();
-      const events = await getEvents(page, rowsPerPage, range, filter, {
-        sortDate,
-        sortPopularity,
-      });
+
+      if (loading) return;
+
+      const events = await getEvents(
+        page,
+        rowsPerPage,
+        range,
+        filter,
+        {
+          sortDate,
+          sortPopularity,
+        },
+        lat,
+        lon,
+      );
       setEvents(events);
 
-      const artistMap = new Map<string, TSpotifyResult>();
+      const artistMap = new Map<string, SpotifyResult>();
       for (const e of events.events!) {
         if (e.type === "concert") {
           await Promise.all(
-            e.performers!.map(async (p) => {
+            e.performers!.map(async (p: Performer) => {
               const details = await searchArtist(p.name!);
               artistMap.set(p.name!, details);
-            })
+            }),
           );
         }
       }
 
       setAMap(artistMap);
     })();
-  }, [page, range, rowsPerPage, filter, sortDate, sortPopularity]);
+  }, [
+    page,
+    range,
+    rowsPerPage,
+    filter,
+    sortDate,
+    sortPopularity,
+    lat,
+    lon,
+    loading,
+  ]);
 
   return (
     <Box p={isMobile ? 1 : 2}>
       <Card sx={{ alignItems: "center", p: 1 }}>
-        <Typography
-          level="h1"
-          mb={orientation.type.includes("portrait") ? 1 : 0}
-        >
+        <Typography level="h1" mb={orientation.includes("portrait") ? 1 : 0}>
           <TypeIt>gig.quest</TypeIt>
         </Typography>
         <Box display="flex">
           <LocationOn fontSize="small" color="error" />
           <Typography level="body-sm">
-            {events?.meta?.geolocation ? (
-              `${events?.meta?.geolocation?.city}, ${events?.meta?.geolocation?.state} (${range})`
+            {meta?.geolocation ? (
+              `${meta?.geolocation.city}, ${meta?.geolocation.state} (${range})`
             ) : (
               <CircularProgress size="sm" color="danger" />
             )}
           </Typography>
         </Box>
         <CardContent sx={{ width: "100%", alignItems: "center" }}>
-          {orientation.type.includes("landscape") ? (
-            aMap ? (
-              <EventTable
-                events={events}
-                artistMap={aMap}
-                sortDate={sortDate}
-                setSortDate={setSortDate}
-                sortPopularity={sortPopularity}
-                setSortPopularity={setSortPopularity}
-                setPage={setPage}
-              />
-            ) : (
-              <CircularProgress size="lg" />
-            )
-          ) : aMap ? (
-            <EventStack events={events} artistMap={aMap} />
+          {loading ? (
+            <Box display="flex" height="50vh" alignItems="center">
+              <CircularProgress size="lg">
+                <LocationOn />
+              </CircularProgress>
+            </Box>
+          ) : orientation.includes("landscape") ? (
+            <EventTable
+              events={events}
+              artistMap={aMap}
+              sortDate={sortDate}
+              setSortDate={setSortDate}
+              sortPopularity={sortPopularity}
+              setSortPopularity={setSortPopularity}
+              setPage={setPage}
+            />
           ) : (
-            <CircularProgress size="lg" />
+            <EventStack events={events} artistMap={aMap} />
           )}
           <Divider />
           <Footer
@@ -107,7 +130,7 @@ export default function App() {
             setPage={setPage}
             setRowsPerPage={setRowsPerPage}
             setRange={setRange}
-            eventCount={events?.meta?.total}
+            eventCount={meta?.total}
             filter={filter}
             setFilter={setFilter}
           />
@@ -124,9 +147,7 @@ export default function App() {
               rel="noopener"
             >
               <GitHub
-                fontSize={
-                  orientation.type.includes("portrait") ? "medium" : "large"
-                }
+                fontSize={orientation.includes("portrait") ? "medium" : "large"}
               />
             </Link>
           </IconButton>

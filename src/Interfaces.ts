@@ -1,17 +1,17 @@
-export type TEvents = {
-  events?: TEvent[];
-  meta?: TMeta;
-};
+export interface Events {
+  events?: Event[];
+  meta?: Meta;
+}
 
-export type TMeta = {
+export interface Meta {
   total?: number;
   took?: number;
   page?: number;
   per_page?: number;
-  geolocation?: TGeolocation;
-};
+  geolocation?: Geolocation;
+}
 
-export type TGeolocation = {
+export interface Geolocation {
   lat?: number;
   lon?: number;
   city?: string;
@@ -21,9 +21,9 @@ export type TGeolocation = {
   display_name?: string;
   metro_code?: string;
   range?: string;
-};
+}
 
-export type TVenue = {
+export interface Venue {
   state?: string;
   name_v2?: string;
   postal_code?: string;
@@ -46,9 +46,9 @@ export type TVenue = {
   metro_code?: number;
   capacity?: number;
   display_location?: string;
-};
+}
 
-export type TPerformer = {
+export interface Performer {
   type?: string;
   name?: string;
   image?: string;
@@ -74,9 +74,9 @@ export type TPerformer = {
   home_team?: boolean;
   away_team?: boolean;
   genres?: object;
-};
+}
 
-export type TEventStats = {
+export interface EventStats {
   listing_count?: number;
   average_price?: number;
   lowest_price_good_deals?: number;
@@ -87,22 +87,22 @@ export type TEventStats = {
   median_price?: number;
   lowest_sg_base_price?: number;
   lowest_sg_base_price_good_deals?: number;
-};
+}
 
-export type TEvent = {
+export interface Event {
   type?: string;
   id?: number;
   datetime_utc?: string;
-  venue?: TVenue;
+  venue?: Venue;
   datetime_tbd?: boolean;
-  performers?: TPerformer[];
+  performers?: Performer[];
   is_open?: boolean;
   links?: string[];
   datetime_local?: string;
   time_tbd?: boolean;
   short_title?: string;
   visible_until_utc?: string;
-  stats?: TEventStats;
+  stats?: EventStats;
   taxonomies?: object[];
   url?: string;
   score?: number;
@@ -125,9 +125,9 @@ export type TEvent = {
   is_visible?: boolean;
   themes?: string[];
   domain_information?: string[];
-};
+}
 
-export type TSpotifyResult = {
+export interface SpotifyResult {
   external_urls: {
     spotify: string;
   };
@@ -140,4 +140,4 @@ export type TSpotifyResult = {
   popularity: number;
   type: string;
   uri: string;
-};
+}

@@ -1,18 +1,18 @@
 import { LocalActivity } from "@mui/icons-material";
 import { Button, Card, CardContent, Link, Stack, Typography } from "@mui/joy";
 import { Box } from "@mui/system";
-import { TEvents, TSpotifyResult } from "../Types";
+import { Event, SpotifyResult } from "../Interfaces";
 import { EventTypeIcon } from "./EventTypeIcon";
 import { Performers } from "./Performers";
 import { PopularityBar } from "./PopularityBar";
 
 export const EventStack = (props: {
-  events: TEvents | undefined;
-  artistMap: Map<string, TSpotifyResult> | undefined;
+  events: Event[] | undefined;
+  artistMap: Map<string, SpotifyResult> | undefined;
 }) => {
   return (
     <Stack spacing={1} width="100%">
-      {props.events?.events?.map((e, i) => {
+      {props.events?.map((e, i) => {
         return (
           <Card key={i} sx={{ width: "100%", p: 1 }}>
             <Box display="flex" justifyContent="space-between" gap={1}>
