@@ -3,6 +3,7 @@ import {
   Button,
   Card,
   CardContent,
+  Chip,
   CircularProgress,
   Link,
   Stack,
@@ -19,7 +20,7 @@ export const EventStack = (props: {
   artistMap: Map<string, SpotifyResult> | undefined;
 }) => {
   return (
-    <Stack spacing={1} width="100%">
+    <Stack spacing={1} width="100%" height="67vh" sx={{ overflow: "auto" }}>
       {props.events ? (
         props.events.map((e, i) => {
           return (
@@ -30,7 +31,12 @@ export const EventStack = (props: {
                   eventType={e.type}
                   artistMap={props.artistMap}
                 />
-                <EventTypeIcon eventType={e.type} />
+                <Box display="flex" gap={1}>
+                  <Chip size="sm" sx={{ maxHeight: "24px" }}>
+                    {e.type?.replaceAll("_", " ")}
+                  </Chip>
+                  <EventTypeIcon eventType={e.type} />
+                </Box>
               </Box>
               <CardContent sx={{ width: "70%" }}>
                 <Typography fontSize="0.85rem">

@@ -6,6 +6,7 @@ export const tokenizePerformers = (
 ) => {
   let is1v1 = false;
   let str = "";
+
   if (
     eventType === "nba" ||
     eventType === "womens_college_volleyball" ||
@@ -24,17 +25,21 @@ export const tokenizePerformers = (
     if (performers!.length > 1) {
       performers?.forEach((p, i) => {
         if (p.primary) {
-          str += p.name + " // ";
+          str += p.name + "//";
         } else {
           if (i === performers.length - 1) {
             str += p.name;
           } else {
-            str += p.name + " // ";
+            str += p.name + "//";
           }
         }
       });
     } else {
-      str += performers![0].name;
+      if (performers![0].name?.includes("&")) {
+        str += performers![0].name.split("&").toString().replace(",", "//");
+      } else {
+        str += performers![0].name;
+      }
     }
   }
 

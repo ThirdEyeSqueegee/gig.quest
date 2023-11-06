@@ -11,17 +11,23 @@ import {
   Tooltip,
   Typography,
 } from "@mui/joy";
-import { useGeolocation, useOrientation } from "@uidotdev/usehooks";
+import {
+  useDebounce,
+  useGeolocation,
+  useOrientation,
+} from "@uidotdev/usehooks";
 import { useEffect, useState } from "react";
 import { isMobile } from "react-device-detect";
 import TypeIt from "typeit-react";
-import { Events, Performer, SpotifyResult } from "./Interfaces";
+import { Events, SpotifyResult } from "./Interfaces";
 import { getEvents } from "./api/SeatGeek";
 import { getSpotifyToken, searchArtist } from "./api/Spotify";
 import { EventGrid } from "./components/EventGrid";
 import { EventStack } from "./components/EventStack";
 import { EventTable } from "./components/EventTable";
 import Footer from "./components/Footer";
+import { SearchInput } from "./components/SearchInput";
+import { tokenizePerformers } from "./utilities/TokenizePerformers";
 
 export default function App() {
   const [page, setPage] = useState(1);
@@ -51,6 +57,9 @@ export default function App() {
   const [tableView, setTableView] = useState(true);
   const [rowOptions, setRowOptions] = useState([10, 20, 30]);
 
+  const [searchTerm, setSearchTerm] = useState("");
+  const debSearchTerm = useDebounce(searchTerm, 500);
+
   useEffect(() => {
     (async () => {
       await getSpotifyToken();
@@ -74,6 +83,7 @@ export default function App() {
         },
         lat,
         lon,
+        debSearchTerm,
       );
       setEvents(events);
 
@@ -85,10 +95,11 @@ export default function App() {
       const artistMap = new Map<string, SpotifyResult>();
       for (const e of events.events!) {
         if (e.type === "concert") {
+          const { tokens } = tokenizePerformers(e.performers, e.type);
           await Promise.all(
-            e.performers!.map(async (p: Performer) => {
-              const details = await searchArtist(p.name!);
-              artistMap.set(p.name!, details);
+            tokens.map(async (t: string) => {
+              const details = await searchArtist(t);
+              artistMap.set(t, details);
             }),
           );
         }
@@ -105,6 +116,7 @@ export default function App() {
     sortPopularity,
     loading,
     tableView,
+    debSearchTerm,
   ]);
 
   const handleViewChange = () => {
@@ -134,6 +146,9 @@ export default function App() {
             )}
           </Typography>
         </Box>
+        {isMobile && !loading && (
+          <SearchInput searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        )}
         <CardContent sx={{ width: "100%", alignItems: "center" }}>
           {loading ? (
             <Box
@@ -180,25 +195,34 @@ export default function App() {
             rowOptions={rowOptions}
           />
         </CardContent>
-        {!isMobile && (
-          <Tooltip
-            title={`Switch to ${tableView ? "grid" : "table"} view`}
-            variant="soft"
+        {!isMobile && !loading && (
+          <Box
+            display="flex"
+            sx={{
+              position: "absolute",
+              top: "4rem",
+              right: "0.5rem",
+            }}
+            gap={3}
           >
-            <Switch
-              color="primary"
-              variant="soft"
-              size="lg"
-              onChange={handleViewChange}
-              sx={{
-                position: "absolute",
-                top: "4.5rem",
-                right: "0.5rem",
-              }}
-              startDecorator={<TableRows fontSize="small" />}
-              endDecorator={<GridView fontSize="small" />}
+            <SearchInput
+              searchTerm={searchTerm}
+              setSearchTerm={setSearchTerm}
             />
-          </Tooltip>
+            <Tooltip
+              title={`Switch to ${tableView ? "grid" : "table"} view`}
+              variant="soft"
+            >
+              <Switch
+                color="primary"
+                variant="soft"
+                size="lg"
+                onChange={handleViewChange}
+                startDecorator={<TableRows fontSize="small" />}
+                endDecorator={<GridView fontSize="small" />}
+              />
+            </Tooltip>
+          </Box>
         )}
         <Tooltip arrow title="Source" variant="soft">
           <IconButton

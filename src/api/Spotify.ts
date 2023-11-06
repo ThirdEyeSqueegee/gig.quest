@@ -12,7 +12,7 @@ export const getSpotifyToken = async () => {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
-    }
+    },
   );
   const token = response.data.access_token as string;
   localStorage.setItem("spotifyToken", token);

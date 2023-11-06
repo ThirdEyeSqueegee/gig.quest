@@ -12,6 +12,7 @@ export const getEvents = async (
   },
   lat: number | null,
   lon: number | null,
+  query: string | undefined,
 ) => {
   const filterString = eventTypes
     ?.map((e) => {
@@ -46,6 +47,8 @@ export const getEvents = async (
             ? "&sort=score.asc"
             : "&sort=score.desc"
           : ""
+      }&datetime_utc.gt=${new Date().toISOString().replace("Z", "")}${
+        query && `&q=${query}`
       }`,
     );
     return response.data;
@@ -65,6 +68,8 @@ export const getEvents = async (
           ? "&sort=score.asc"
           : "&sort=score.desc"
         : ""
+    }&datetime_utc.gt=${new Date().toISOString().replace("Z", "")}${
+      query && `&q=${query}`
     }`,
   );
   return response.data;

@@ -20,7 +20,7 @@ export const EventGrid = (props: {
   artistMap: Map<string, SpotifyResult> | undefined;
 }) => {
   return (
-    <Grid container spacing={1}>
+    <Grid container spacing={1} height="67vh">
       {props.events ? (
         props.events.map((e, i) => {
           return (
