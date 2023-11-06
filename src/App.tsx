@@ -1,4 +1,4 @@
-import { GitHub, LocationOn } from "@mui/icons-material";
+import { GitHub, GridView, LocationOn, TableRows } from "@mui/icons-material";
 import {
   Box,
   Card,
@@ -7,6 +7,7 @@ import {
   Divider,
   IconButton,
   Link,
+  Switch,
   Tooltip,
   Typography,
 } from "@mui/joy";
@@ -17,6 +18,7 @@ import TypeIt from "typeit-react";
 import { Events, Performer, SpotifyResult } from "./Interfaces";
 import { getEvents } from "./api/SeatGeek";
 import { getSpotifyToken, searchArtist } from "./api/Spotify";
+import { EventGrid } from "./components/EventGrid";
 import { EventStack } from "./components/EventStack";
 import { EventTable } from "./components/EventTable";
 import Footer from "./components/Footer";
@@ -39,11 +41,15 @@ export default function App() {
   }>();
 
   const { type: orientation } = useOrientation();
+
   const {
     loading,
     latitude: lat,
     longitude: lon,
   } = useGeolocation({ enableHighAccuracy: true });
+
+  const [tableView, setTableView] = useState(true);
+  const [rowOptions, setRowOptions] = useState([10, 20, 30]);
 
   useEffect(() => {
     (async () => {
@@ -97,10 +103,20 @@ export default function App() {
     filter,
     sortDate,
     sortPopularity,
-    lat,
-    lon,
     loading,
+    tableView,
   ]);
+
+  const handleViewChange = () => {
+    if (tableView) {
+      setRowsPerPage(16);
+      setRowOptions([16, 32, 64]);
+    } else {
+      setRowsPerPage(10);
+      setRowOptions([10, 20, 30]);
+    }
+    setTableView(!tableView);
+  };
 
   return (
     <Box p={isMobile ? 1 : 2}>
@@ -134,15 +150,19 @@ export default function App() {
               <Typography level="body-sm">Waiting for location...</Typography>
             </Box>
           ) : orientation.includes("landscape") ? (
-            <EventTable
-              events={events}
-              artistMap={aMap}
-              sortDate={sortDate}
-              setSortDate={setSortDate}
-              sortPopularity={sortPopularity}
-              setSortPopularity={setSortPopularity}
-              setPage={setPage}
-            />
+            tableView ? (
+              <EventTable
+                events={events}
+                artistMap={aMap}
+                sortDate={sortDate}
+                setSortDate={setSortDate}
+                sortPopularity={sortPopularity}
+                setSortPopularity={setSortPopularity}
+                setPage={setPage}
+              />
+            ) : (
+              <EventGrid events={events} artistMap={aMap} />
+            )
           ) : (
             <EventStack events={events} artistMap={aMap} />
           )}
@@ -157,8 +177,29 @@ export default function App() {
             eventCount={meta?.total}
             filter={filter}
             setFilter={setFilter}
+            rowOptions={rowOptions}
           />
         </CardContent>
+        {!isMobile && (
+          <Tooltip
+            title={`Switch to ${tableView ? "grid" : "table"} view`}
+            variant="soft"
+          >
+            <Switch
+              color="primary"
+              variant="soft"
+              size="lg"
+              onChange={handleViewChange}
+              sx={{
+                position: "absolute",
+                top: "4.5rem",
+                right: "0.5rem",
+              }}
+              startDecorator={<TableRows fontSize="small" />}
+              endDecorator={<GridView fontSize="small" />}
+            />
+          </Tooltip>
+        )}
         <Tooltip arrow title="Source" variant="soft">
           <IconButton
             size="sm"

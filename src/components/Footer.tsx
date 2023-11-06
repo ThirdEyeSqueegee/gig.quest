@@ -31,6 +31,7 @@ export default function Footer(props: {
   eventCount: number | undefined;
   filter: string[];
   setFilter: React.Dispatch<React.SetStateAction<string[]>>;
+  rowOptions: number[];
 }) {
   const action: SelectStaticProps["action"] = useRef(null);
 
@@ -177,9 +178,15 @@ export default function Footer(props: {
               },
             })}
           >
-            <Option value={10}>10</Option>
-            <Option value={20}>20</Option>
-            <Option value={30}>30</Option>
+            <Option value={props.rowOptions[0]}>
+              {props.rowOptions[0] === 10 ? "10" : "16"}
+            </Option>
+            <Option value={props.rowOptions[1]}>
+              {props.rowOptions[1] === 20 ? "20" : "32"}
+            </Option>
+            <Option value={props.rowOptions[2]}>
+              {props.rowOptions[2] === 30 ? "30" : "64"}
+            </Option>
           </Select>
         </FormControl>
         <Box display="flex" gap={1}>

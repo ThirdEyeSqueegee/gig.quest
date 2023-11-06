@@ -85,7 +85,12 @@ export const EventStack = (props: {
           );
         })
       ) : (
-        <Box display="flex" justifyContent="center">
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          height="60vh"
+        >
           <CircularProgress size="lg" />
         </Box>
       )}
