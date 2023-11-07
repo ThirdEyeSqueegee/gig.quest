@@ -1,8 +1,8 @@
+import { Adsense } from "@ctrl/react-adsense";
 import { GitHub, GridView, LocationOn, TableRows } from "@mui/icons-material";
 import {
   Box,
   Card,
-  CardContent,
   CircularProgress,
   Divider,
   IconButton,
@@ -35,11 +35,17 @@ export default function App() {
   const [range, setRange] = useState("5mi");
   const [filter, setFilter] = useState([""]);
 
+  const [sortDate, setSortDate] = useState<boolean | undefined>(true);
+  const [sortPopularity, setSortPopularity] = useState<boolean>();
+
   const [{ events, meta }, setEvents] = useState<Events>({});
   const [aMap, setAMap] = useState<Map<string, SpotifyResult>>();
 
-  const [sortDate, setSortDate] = useState<boolean | undefined>(true);
-  const [sortPopularity, setSortPopularity] = useState<boolean>();
+  const [tableView, setTableView] = useState(true);
+  const [rowOptions, setRowOptions] = useState([10, 20, 30]);
+
+  const [searchTerm, setSearchTerm] = useState("");
+  const debSearchTerm = useDebounce(searchTerm, 500);
 
   const [location, setLocation] = useState<{
     city: string | undefined;
@@ -54,12 +60,6 @@ export default function App() {
     longitude: lon,
   } = useGeolocation({ enableHighAccuracy: true });
 
-  const [tableView, setTableView] = useState(true);
-  const [rowOptions, setRowOptions] = useState([10, 20, 30]);
-
-  const [searchTerm, setSearchTerm] = useState("");
-  const debSearchTerm = useDebounce(searchTerm, 500);
-
   useEffect(() => {
     (async () => {
       await getSpotifyToken();
@@ -67,8 +67,6 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    setEvents({});
-
     (async () => {
       if (loading) return;
 
@@ -122,17 +120,25 @@ export default function App() {
   const handleViewChange = () => {
     if (tableView) {
       setRowsPerPage(16);
-      setRowOptions([16, 32, 64]);
+      setRowOptions([16, 32, 48]);
     } else {
       setRowsPerPage(10);
       setRowOptions([10, 20, 30]);
     }
     setTableView(!tableView);
+    setPage(1);
   };
 
   return (
     <Box p={isMobile ? 1 : 2}>
-      <Card sx={{ alignItems: "center", p: 1 }}>
+      <Card
+        sx={{
+          alignItems: "center",
+          p: 1,
+          height: orientation.includes("portrait") ? "auto" : "87.5vh",
+          minHeight: orientation.includes("portrait") ? "100vh" : "87.5vh",
+        }}
+      >
         <Typography level="h1">
           <TypeIt>gig.quest</TypeIt>
         </Typography>
@@ -149,52 +155,50 @@ export default function App() {
         {isMobile && !loading && (
           <SearchInput searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         )}
-        <CardContent sx={{ width: "100%", alignItems: "center" }}>
-          {loading ? (
-            <Box
-              display="flex"
-              flexDirection="column"
-              height="67vh"
-              alignItems="center"
-              justifyContent="center"
-              gap={1}
-            >
-              <CircularProgress size="lg">
-                <LocationOn color="error" />
-              </CircularProgress>
-              <Typography level="body-sm">Waiting for location...</Typography>
-            </Box>
-          ) : orientation.includes("landscape") ? (
-            tableView ? (
-              <EventTable
-                events={events}
-                artistMap={aMap}
-                sortDate={sortDate}
-                setSortDate={setSortDate}
-                sortPopularity={sortPopularity}
-                setSortPopularity={setSortPopularity}
-                setPage={setPage}
-              />
-            ) : (
-              <EventGrid events={events} artistMap={aMap} />
-            )
+        {loading ? (
+          <Box
+            display="flex"
+            flexDirection="column"
+            height="100%"
+            alignItems="center"
+            justifyContent="center"
+            gap={1}
+          >
+            <CircularProgress size="lg">
+              <LocationOn color="error" />
+            </CircularProgress>
+            <Typography level="body-sm">Waiting for location...</Typography>
+          </Box>
+        ) : orientation.includes("landscape") ? (
+          tableView ? (
+            <EventTable
+              events={events}
+              artistMap={aMap}
+              sortDate={sortDate}
+              setSortDate={setSortDate}
+              sortPopularity={sortPopularity}
+              setSortPopularity={setSortPopularity}
+              setPage={setPage}
+            />
           ) : (
-            <EventStack events={events} artistMap={aMap} />
-          )}
-          <Divider />
-          <Footer
-            page={page}
-            rowsPerPage={rowsPerPage}
-            range={range}
-            setPage={setPage}
-            setRowsPerPage={setRowsPerPage}
-            setRange={setRange}
-            eventCount={meta?.total}
-            filter={filter}
-            setFilter={setFilter}
-            rowOptions={rowOptions}
-          />
-        </CardContent>
+            <EventGrid events={events} artistMap={aMap} />
+          )
+        ) : (
+          <EventStack events={events} artistMap={aMap} />
+        )}
+        <Divider />
+        <Footer
+          page={page}
+          rowsPerPage={rowsPerPage}
+          range={range}
+          setPage={setPage}
+          setRowsPerPage={setRowsPerPage}
+          setRange={setRange}
+          eventCount={meta?.total}
+          filter={filter}
+          setFilter={setFilter}
+          rowOptions={rowOptions}
+        />
         {!isMobile && !loading && (
           <Box
             display="flex"
@@ -249,6 +253,11 @@ export default function App() {
           </IconButton>
         </Tooltip>
       </Card>
+      <Adsense
+        client="ca-pub-8710006741230025"
+        slot="6426321909"
+        format="fluid"
+      />
     </Box>
   );
 }

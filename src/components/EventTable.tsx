@@ -7,7 +7,6 @@ import {
 import {
   Box,
   Button,
-  CircularProgress,
   IconButton,
   Link,
   Sheet,
@@ -80,7 +79,7 @@ export const EventTable = (props: {
   };
 
   return (
-    <Sheet sx={{ height: "67vh", overflow: "auto" }}>
+    <Sheet sx={{ height: "100%", overflow: "auto" }}>
       <Table size={isMobile ? "md" : "lg"}>
         <thead>
           <tr>
@@ -156,107 +155,92 @@ export const EventTable = (props: {
           </tr>
         </thead>
         <tbody>
-          {props.events ? (
-            props.events.map((e, i) => {
-              return (
-                <tr key={i}>
-                  <td>
-                    <EventTypeIcon eventType={e.type} />
-                  </td>
-                  <td>
-                    <Performers
-                      performers={e.performers}
-                      eventType={e.type}
-                      artistMap={props.artistMap}
-                    />
-                  </td>
-                  <td>
+          {props.events?.map((e, i) => {
+            return (
+              <tr key={i}>
+                <td>
+                  <EventTypeIcon eventType={e.type} />
+                </td>
+                <td>
+                  <Performers
+                    performers={e.performers}
+                    eventType={e.type}
+                    artistMap={props.artistMap}
+                  />
+                </td>
+                <td>
+                  <Link
+                    href={`https://www.google.com/maps/search/${e.venue?.name
+                      ?.replaceAll(" - ", " ")
+                      .replaceAll(" ", "+")}`}
+                    rel="noopener"
+                    target="_blank"
+                  >
+                    {e.venue?.name}
+                  </Link>
+                </td>
+                <td>
+                  {e.datetime_local
+                    ? new Date(e.datetime_local).toLocaleString("en-US", {
+                        weekday: "short",
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                        hour: "numeric",
+                        minute: "numeric",
+                      })
+                    : ""}
+                </td>
+                <td>
+                  <Tooltip
+                    arrow
+                    color="success"
+                    followCursor
+                    size="lg"
+                    title={
+                      e.stats?.average_price
+                        ? `Avg.: $${e.stats?.average_price}`
+                        : "¯\\_(ツ)_/¯"
+                    }
+                    variant="soft"
+                  >
+                    <Typography
+                      sx={{
+                        "&:hover": {
+                          transform: "scale(1.1)",
+                          transition: "all 0.15s ease-out",
+                        },
+                      }}
+                    >
+                      {e.stats?.lowest_price
+                        ? `$${e.stats?.lowest_price} - $${e.stats?.highest_price}`
+                        : "¯\\_(ツ)_/¯"}
+                    </Typography>
+                  </Tooltip>
+                </td>
+                <td>
+                  <PopularityBar e={e} />
+                </td>
+                <td>
+                  <Button
+                    size="sm"
+                    startDecorator={<LocalActivity />}
+                    variant="outlined"
+                  >
                     <Link
-                      href={`https://www.google.com/maps/search/${e.venue?.name
-                        ?.replaceAll(" - ", " ")
-                        .replaceAll(" ", "+")}`}
+                      href={e.url}
+                      overlay
                       rel="noopener"
                       target="_blank"
+                      underline="none"
                     >
-                      {e.venue?.name}
+                      Tickets
                     </Link>
-                  </td>
-                  <td>
-                    {e.datetime_local
-                      ? new Date(e.datetime_local).toLocaleString("en-US", {
-                          weekday: "short",
-                          month: "short",
-                          day: "numeric",
-                          year: "numeric",
-                          hour: "numeric",
-                          minute: "numeric",
-                        })
-                      : ""}
-                  </td>
-                  <td>
-                    <Tooltip
-                      arrow
-                      color="success"
-                      followCursor
-                      size="lg"
-                      title={
-                        e.stats?.average_price
-                          ? `Avg.: $${e.stats?.average_price}`
-                          : "¯\\_(ツ)_/¯"
-                      }
-                      variant="soft"
-                    >
-                      <Typography
-                        sx={{
-                          "&:hover": {
-                            transform: "scale(1.1)",
-                            transition: "all 0.15s ease-out",
-                          },
-                        }}
-                      >
-                        {e.stats?.lowest_price
-                          ? `$${e.stats?.lowest_price} - $${e.stats?.highest_price}`
-                          : "¯\\_(ツ)_/¯"}
-                      </Typography>
-                    </Tooltip>
-                  </td>
-                  <td>
-                    <PopularityBar e={e} />
-                  </td>
-                  <td>
-                    <Button
-                      size="sm"
-                      startDecorator={<LocalActivity />}
-                      variant="outlined"
-                    >
-                      <Link
-                        href={e.url}
-                        overlay
-                        rel="noopener"
-                        target="_blank"
-                        underline="none"
-                      >
-                        Tickets
-                      </Link>
-                    </Button>
-                  </td>
-                </tr>
-              );
-            })
-          ) : (
-            <tr>
-              <td colSpan={7}>
-                <Box
-                  display="flex"
-                  height="60vh"
-                  alignItems="center"
-                  justifyContent="center"
-                >
-                  <CircularProgress size="lg" />
-                </Box>
-              </td>
-            </tr>
-          )}
+                  </Button>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </Table>
     </Sheet>

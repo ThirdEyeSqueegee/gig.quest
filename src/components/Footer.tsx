@@ -18,7 +18,7 @@ import {
   selectClasses,
 } from "@mui/joy";
 import { useOrientation } from "@uidotdev/usehooks";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { isMobile } from "react-device-detect";
 
 export default function Footer(props: {
@@ -36,6 +36,8 @@ export default function Footer(props: {
   const action: SelectStaticProps["action"] = useRef(null);
 
   const orientation = useOrientation();
+
+  useEffect(() => {}, [props.eventCount]);
 
   const rowCountLow = 1 + (props.page - 1) * props.rowsPerPage;
   let rowCountHigh = props.rowsPerPage + (props.page - 1) * props.rowsPerPage;
@@ -185,7 +187,7 @@ export default function Footer(props: {
               {props.rowOptions[1] === 20 ? "20" : "32"}
             </Option>
             <Option value={props.rowOptions[2]}>
-              {props.rowOptions[2] === 30 ? "30" : "64"}
+              {props.rowOptions[2] === 30 ? "30" : "48"}
             </Option>
           </Select>
         </FormControl>
@@ -229,7 +231,11 @@ export default function Footer(props: {
       </Box>
       <Box display="flex" alignItems="center" justifyContent="center" mt={1}>
         <Typography level="body-sm">
-          {`${rowCountLow}-${rowCountHigh} of ${props.eventCount ?? "..."}`}
+          {`${
+            props.eventCount === 0 || props.eventCount === undefined
+              ? "..."
+              : `${rowCountLow}-${rowCountHigh} of ${props.eventCount}`
+          }`}
         </Typography>
       </Box>
     </Box>

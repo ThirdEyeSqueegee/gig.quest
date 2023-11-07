@@ -3,7 +3,6 @@ import {
   Button,
   Card,
   CardContent,
-  CircularProgress,
   Grid,
   Link,
   Tooltip,
@@ -20,29 +19,32 @@ export const EventGrid = (props: {
   artistMap: Map<string, SpotifyResult> | undefined;
 }) => {
   return (
-    <Grid container spacing={1} height="67vh">
-      {props.events ? (
-        props.events.map((e, i) => {
-          return (
-            <Grid key={i} xs={3}>
-              <Card
+    <Grid container spacing={1} height="100%" overflow="auto">
+      {props.events?.map((e, i) => {
+        return (
+          <Grid key={i} xs={3}>
+            <Card
+              sx={{
+                p: 1,
+                height: "100%",
+              }}
+            >
+              <Box display="flex" justifyContent="space-between" gap={1}>
+                <Performers
+                  performers={e.performers}
+                  eventType={e.type}
+                  artistMap={props.artistMap}
+                />
+                <EventTypeIcon eventType={e.type} />
+              </Box>
+              <CardContent
                 sx={{
-                  p: 1,
-                  "&:hover": {
-                    transform: "scale(1.025)",
-                    transition: "all 0.25s ease-out",
-                  },
+                  justifyContent: "space-between",
+                  alignItems: "end",
+                  flexDirection: "row",
                 }}
               >
-                <Box display="flex" justifyContent="space-between" gap={1}>
-                  <Performers
-                    performers={e.performers}
-                    eventType={e.type}
-                    artistMap={props.artistMap}
-                  />
-                  <EventTypeIcon eventType={e.type} />
-                </Box>
-                <CardContent sx={{ width: "70%" }}>
+                <Box>
                   <Typography fontSize="0.85rem">
                     <Link
                       href={`https://www.google.com/maps/search/${e.venue?.name
@@ -84,8 +86,8 @@ export const EventGrid = (props: {
                         : "¯\\_(ツ)_/¯"}
                     </Typography>
                   </Tooltip>
-                </CardContent>
-                <Box position="absolute" bottom="0.6rem" right="0.5rem">
+                </Box>
+                <Box>
                   <PopularityBar e={e} />
                   <Button
                     size="sm"
@@ -104,20 +106,11 @@ export const EventGrid = (props: {
                     </Link>
                   </Button>
                 </Box>
-              </Card>
-            </Grid>
-          );
-        })
-      ) : (
-        <Box
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          height="60vh"
-        >
-          <CircularProgress size="lg" />
-        </Box>
-      )}
+              </CardContent>
+            </Card>
+          </Grid>
+        );
+      })}
     </Grid>
   );
 };

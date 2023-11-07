@@ -4,7 +4,6 @@ import {
   Card,
   CardContent,
   Chip,
-  CircularProgress,
   Link,
   Stack,
   Typography,
@@ -20,25 +19,36 @@ export const EventStack = (props: {
   artistMap: Map<string, SpotifyResult> | undefined;
 }) => {
   return (
-    <Stack spacing={1} width="100%" height="67vh" sx={{ overflow: "auto" }}>
-      {props.events ? (
-        props.events.map((e, i) => {
-          return (
-            <Card key={i} sx={{ width: "100%", p: 1 }}>
-              <Box display="flex" justifyContent="space-between" gap={1}>
-                <Performers
-                  performers={e.performers}
-                  eventType={e.type}
-                  artistMap={props.artistMap}
-                />
-                <Box display="flex" gap={1}>
-                  <Chip size="sm" sx={{ maxHeight: "24px" }}>
-                    {e.type?.replaceAll("_", " ")}
-                  </Chip>
-                  <EventTypeIcon eventType={e.type} />
-                </Box>
+    <Stack width="100%" spacing={1}>
+      {props.events?.map((e, i) => {
+        return (
+          <Card key={i} sx={{ p: 1 }}>
+            <Box
+              display="flex"
+              justifyContent="space-between"
+              alignItems="end"
+              gap={1}
+            >
+              <Performers
+                performers={e.performers}
+                eventType={e.type}
+                artistMap={props.artistMap}
+              />
+              <Box display="flex" gap={1}>
+                <Chip size="sm" sx={{ maxHeight: "24px" }}>
+                  {e.type?.replaceAll("_", " ")}
+                </Chip>
+                <EventTypeIcon eventType={e.type} />
               </Box>
-              <CardContent sx={{ width: "70%" }}>
+            </Box>
+            <CardContent
+              sx={{
+                justifyContent: "space-between",
+                alignItems: "end",
+                flexDirection: "row",
+              }}
+            >
+              <Box>
                 <Typography fontSize="0.85rem">
                   <Link
                     href={`https://www.google.com/maps/search/${e.venue?.name
@@ -67,8 +77,8 @@ export const EventStack = (props: {
                     ? `$${e.stats?.lowest_price} - $${e.stats?.highest_price}`
                     : "¯\\_(ツ)_/¯"}
                 </Typography>
-              </CardContent>
-              <Box position="absolute" bottom="0.6rem" right="0.5rem">
+              </Box>
+              <Box>
                 <PopularityBar e={e} />
                 <Button
                   size="sm"
@@ -87,19 +97,10 @@ export const EventStack = (props: {
                   </Link>
                 </Button>
               </Box>
-            </Card>
-          );
-        })
-      ) : (
-        <Box
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          height="60vh"
-        >
-          <CircularProgress size="lg" />
-        </Box>
-      )}
+            </CardContent>
+          </Card>
+        );
+      })}
     </Stack>
   );
 };
