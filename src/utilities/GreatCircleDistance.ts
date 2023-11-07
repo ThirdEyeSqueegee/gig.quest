@@ -33,5 +33,5 @@ export const distance = (
       Math.sin(latStart) * Math.sin(latEnd) +
         Math.cos(latStart) * Math.cos(latEnd) * Math.cos(lonDiff),
     )
-  ).toFixed(2);
+  ).toFixed(1);
 };

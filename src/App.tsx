@@ -11,15 +11,11 @@ import {
   Tooltip,
   Typography,
 } from "@mui/joy";
-import {
-  useDebounce,
-  useGeolocation,
-  useOrientation,
-} from "@uidotdev/usehooks";
+import { useDebounce, useOrientation } from "@uidotdev/usehooks";
 import { useEffect, useState } from "react";
 import { isMobile } from "react-device-detect";
 import TypeIt from "typeit-react";
-import { Events, SpotifyResult } from "./Interfaces";
+import { Events, Location, SpotifyResult } from "./Interfaces";
 import { getEvents } from "./api/SeatGeek";
 import { getSpotifyToken, searchArtist } from "./api/Spotify";
 import { EventGrid } from "./components/EventGrid";
@@ -42,25 +38,25 @@ export default function App() {
   const [aMap, setAMap] = useState<Map<string, SpotifyResult>>();
 
   const [tableView, setTableView] = useState(true);
-  const [rowOptions, setRowOptions] = useState([10, 20, 30]);
+  const [rowOptions, setRowOptions] = useState([10, 25, 50]);
 
   const [searchTerm, setSearchTerm] = useState("");
   const debSearchTerm = useDebounce(searchTerm, 500);
 
-  const [location, setLocation] = useState<{
-    city: string | undefined;
-    state: string | undefined;
-  }>();
-
   const { type: orientation } = useOrientation();
 
-  const {
-    loading,
-    latitude: lat,
-    longitude: lon,
-  } = useGeolocation({ enableHighAccuracy: true });
+  const [geo, setGeo] = useState<Location>({ lat: null, lon: null });
 
   useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      (p: GeolocationPosition) =>
+        setGeo({ lat: p.coords.latitude, lon: p.coords.longitude }),
+      null,
+      {
+        enableHighAccuracy: true,
+      },
+    );
+
     (async () => {
       await getSpotifyToken();
     })();
@@ -68,7 +64,7 @@ export default function App() {
 
   useEffect(() => {
     (async () => {
-      if (loading) return;
+      if (geo.lat === null) return;
 
       const events = await getEvents(
         page,
@@ -79,16 +75,11 @@ export default function App() {
           sortDate,
           sortPopularity,
         },
-        lat,
-        lon,
+        geo.lat,
+        geo.lon,
         debSearchTerm,
       );
       setEvents(events);
-
-      setLocation({
-        city: events.meta?.geolocation?.city,
-        state: events.meta?.geolocation?.state,
-      });
 
       const artistMap = new Map<string, SpotifyResult>();
       for (const e of events.events!) {
@@ -112,7 +103,7 @@ export default function App() {
     filter,
     sortDate,
     sortPopularity,
-    loading,
+    geo,
     tableView,
     debSearchTerm,
   ]);
@@ -123,7 +114,7 @@ export default function App() {
       setRowOptions([16, 32, 48]);
     } else {
       setRowsPerPage(10);
-      setRowOptions([10, 20, 30]);
+      setRowOptions([10, 25, 50]);
     }
     setTableView(!tableView);
     setPage(1);
@@ -145,17 +136,17 @@ export default function App() {
         <Box display="flex">
           <LocationOn fontSize="small" color="error" />
           <Typography level="body-sm">
-            {location ? (
-              `${location.city}, ${location.state} (${range})`
+            {geo.lat && meta && meta.geolocation ? (
+              `${meta.geolocation.city}, ${meta.geolocation.state} (${range})`
             ) : (
               <Typography>...</Typography>
             )}
           </Typography>
         </Box>
-        {isMobile && !loading && (
+        {isMobile && geo.lat && (
           <SearchInput searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         )}
-        {loading ? (
+        {geo.lat === null ? (
           <Box
             display="flex"
             flexDirection="column"
@@ -179,14 +170,24 @@ export default function App() {
               sortPopularity={sortPopularity}
               setSortPopularity={setSortPopularity}
               setPage={setPage}
-              lat={lat}
-              lon={lon}
+              lat={geo.lat}
+              lon={geo.lon}
             />
           ) : (
-            <EventGrid events={events} artistMap={aMap} lat={lat} lon={lon} />
+            <EventGrid
+              events={events}
+              artistMap={aMap}
+              lat={geo.lat}
+              lon={geo.lon}
+            />
           )
         ) : (
-          <EventStack events={events} artistMap={aMap} lat={lat} lon={lon} />
+          <EventStack
+            events={events}
+            artistMap={aMap}
+            lat={geo.lat}
+            lon={geo.lon}
+          />
         )}
         <Divider />
         <Footer
@@ -201,12 +202,12 @@ export default function App() {
           setFilter={setFilter}
           rowOptions={rowOptions}
         />
-        {!isMobile && !loading && (
+        {!isMobile && geo.lat && (
           <Box
             display="flex"
             sx={{
               position: "absolute",
-              top: "4rem",
+              top: "3.5rem",
               right: "0.5rem",
             }}
             gap={3}

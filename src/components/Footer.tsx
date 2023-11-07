@@ -184,10 +184,10 @@ export default function Footer(props: {
               {props.rowOptions[0] === 10 ? "10" : "16"}
             </Option>
             <Option value={props.rowOptions[1]}>
-              {props.rowOptions[1] === 20 ? "20" : "32"}
+              {props.rowOptions[1] === 25 ? "25" : "32"}
             </Option>
             <Option value={props.rowOptions[2]}>
-              {props.rowOptions[2] === 30 ? "30" : "48"}
+              {props.rowOptions[2] === 50 ? "50" : "48"}
             </Option>
           </Select>
         </FormControl>
