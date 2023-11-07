@@ -3,13 +3,15 @@ import {
   Button,
   Card,
   CardContent,
+  Chip,
   Grid,
   Link,
   Tooltip,
   Typography,
 } from "@mui/joy";
 import { Box } from "@mui/system";
-import { Event, SpotifyResult } from "../Interfaces";
+import { Event, Location, SpotifyResult } from "../Interfaces";
+import { distance } from "../utilities/GreatCircleDistance";
 import { EventTypeIcon } from "./EventTypeIcon";
 import { Performers } from "./Performers";
 import { PopularityBar } from "./PopularityBar";
@@ -17,10 +19,15 @@ import { PopularityBar } from "./PopularityBar";
 export const EventGrid = (props: {
   events: Event[] | undefined;
   artistMap: Map<string, SpotifyResult> | undefined;
+  lat: number | null;
+  lon: number | null;
 }) => {
   return (
     <Grid container spacing={1} height="100%" overflow="auto">
       {props.events?.map((e, i) => {
+        const venueLoc = e.venue?.location;
+        const myLoc: Location = { lat: props.lat, lon: props.lon };
+
         return (
           <Grid key={i} xs={3}>
             <Card
@@ -29,7 +36,12 @@ export const EventGrid = (props: {
                 height: "100%",
               }}
             >
-              <Box display="flex" justifyContent="space-between" gap={1}>
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                alignItems="start"
+                gap={1}
+              >
                 <Performers
                   performers={e.performers}
                   eventType={e.type}
@@ -45,17 +57,20 @@ export const EventGrid = (props: {
                 }}
               >
                 <Box>
-                  <Typography fontSize="0.85rem">
-                    <Link
-                      href={`https://www.google.com/maps/search/${e.venue?.name
-                        ?.replaceAll(" - ", " ")
-                        .replaceAll(" ", "+")}`}
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      {e.venue?.name}
-                    </Link>
-                  </Typography>
+                  <Box display="flex" gap={1} alignItems="start">
+                    <Typography fontSize="0.85rem">
+                      <Link
+                        href={`https://www.google.com/maps/search/${e.venue?.name
+                          ?.replaceAll(" - ", " ")
+                          .replaceAll(" ", "+")}`}
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        {e.venue?.name}
+                      </Link>
+                    </Typography>
+                    <Chip size="sm">{`${distance(myLoc, venueLoc)} mi`}</Chip>
+                  </Box>
                   <Typography fontSize="0.85rem">
                     {e.datetime_local
                       ? new Date(e.datetime_local).toLocaleString("en-US", {

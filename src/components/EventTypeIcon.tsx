@@ -14,7 +14,6 @@ import {
   TheaterComedy,
 } from "@mui/icons-material";
 import { Tooltip } from "@mui/joy";
-import { isMobile } from "react-device-detect";
 
 export const EventTypeIcon = (props: { eventType: string | undefined }) => {
   switch (props.eventType) {
@@ -24,7 +23,6 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
           <SportsBasketball
             color="warning"
             sx={{
-              mt: isMobile ? 0 : 1,
               "&:hover": {
                 transform: "scale(1.25)",
                 transition: "all 0.15s ease-out",
@@ -40,7 +38,6 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
           <SportsBasketball
             color="warning"
             sx={{
-              mt: isMobile ? 0 : 1,
               "&:hover": {
                 transform: "scale(1.25)",
                 transition: "all 0.15s ease-out",
@@ -54,7 +51,6 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
         <Tooltip arrow title="NCAA Soccer" variant="soft">
           <SportsSoccer
             sx={{
-              mt: isMobile ? 0 : 1,
               "&:hover": {
                 transform: "scale(1.25)",
                 transition: "all 0.15s ease-out",
@@ -68,7 +64,6 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
         <Tooltip arrow title="MLS" variant="soft">
           <SportsSoccer
             sx={{
-              mt: isMobile ? 0 : 1,
               "&:hover": {
                 transform: "scale(1.25)",
                 transition: "all 0.15s ease-out",
@@ -83,7 +78,6 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
           <SportsFootball
             style={{ color: "saddlebrown" }}
             sx={{
-              mt: isMobile ? 0 : 1,
               "&:hover": {
                 transform: "scale(1.25)",
                 transition: "all 0.15s ease-out",
@@ -98,7 +92,6 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
           <PlayCircle
             color="primary"
             sx={{
-              mt: isMobile ? 0 : 1,
               "&:hover": {
                 transform: "scale(1.25)",
                 transition: "all 0.15s ease-out",
@@ -112,7 +105,6 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
         <Tooltip arrow title="Music Festival" variant="soft">
           <PlayCircle
             sx={{
-              mt: isMobile ? 0 : 1,
               "&:hover": {
                 transform: "scale(1.25)",
                 transition: "all 0.15s ease-out",
@@ -127,7 +119,6 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
           <MusicNote
             color="secondary"
             sx={{
-              mt: isMobile ? 0 : 1,
               "&:hover": {
                 transform: "scale(1.25)",
                 transition: "all 0.15s ease-out",
@@ -142,7 +133,6 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
           <MusicNote
             color="secondary"
             sx={{
-              mt: isMobile ? 0 : 1,
               "&:hover": {
                 transform: "scale(1.25)",
                 transition: "all 0.15s ease-out",
@@ -157,7 +147,6 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
           <MusicNote
             color="secondary"
             sx={{
-              mt: isMobile ? 0 : 1,
               "&:hover": {
                 transform: "scale(1.25)",
                 transition: "all 0.15s ease-out",
@@ -173,7 +162,6 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
           <TheaterComedy
             color="success"
             sx={{
-              mt: isMobile ? 0 : 1,
               "&:hover": {
                 transform: "scale(1.25)",
                 transition: "all 0.15s ease-out",
@@ -187,7 +175,6 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
         <Tooltip arrow title="Esports" variant="soft">
           <SportsEsports
             sx={{
-              mt: isMobile ? 0 : 1,
               "&:hover": {
                 transform: "scale(1.25)",
                 transition: "all 0.15s ease-out",
@@ -201,7 +188,6 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
         <Tooltip arrow title="NHL" variant="soft">
           <SportsHockey
             sx={{
-              mt: isMobile ? 0 : 1,
               "&:hover": {
                 transform: "scale(1.25)",
                 transition: "all 0.15s ease-out",
@@ -215,7 +201,6 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
         <Tooltip arrow title="Hockey" variant="soft">
           <SportsHockey
             sx={{
-              mt: isMobile ? 0 : 1,
               "&:hover": {
                 transform: "scale(1.25)",
                 transition: "all 0.15s ease-out",
@@ -229,7 +214,6 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
         <Tooltip arrow title="Minor League Hockey" variant="soft">
           <SportsHockey
             sx={{
-              mt: isMobile ? 0 : 1,
               "&:hover": {
                 transform: "scale(1.25)",
                 transition: "all 0.15s ease-out",
@@ -243,7 +227,6 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
         <Tooltip arrow title="Family" variant="soft">
           <Diversity3
             sx={{
-              mt: isMobile ? 0 : 1,
               "&:hover": {
                 transform: "scale(1.25)",
                 transition: "all 0.15s ease-out",
@@ -258,7 +241,6 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
           <EmojiEmotions
             style={{ color: "gold" }}
             sx={{
-              mt: isMobile ? 0 : 1,
               "&:hover": {
                 transform: "scale(1.25)",
                 transition: "all 0.15s ease-out",
@@ -272,7 +254,6 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
         <Tooltip arrow title="Racing" variant="soft">
           <DirectionsCar
             sx={{
-              mt: isMobile ? 0 : 1,
               "&:hover": {
                 transform: "scale(1.25)",
                 transition: "all 0.15s ease-out",
@@ -286,7 +267,6 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
         <Tooltip arrow title="Women's College Volleyball" variant="soft">
           <SportsVolleyball
             sx={{
-              mt: isMobile ? 0 : 1,
               "&:hover": {
                 transform: "scale(1.25)",
                 transition: "all 0.15s ease-out",
@@ -299,7 +279,6 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
       return (
         <LocalActivity
           sx={{
-            mt: isMobile ? 0 : 1,
             "&:hover": {
               transform: "scale(1.25)",
               transition: "all 0.15s ease-out",

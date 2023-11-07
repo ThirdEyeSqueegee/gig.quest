@@ -7,6 +7,7 @@ import {
 import {
   Box,
   Button,
+  Chip,
   IconButton,
   Link,
   Sheet,
@@ -15,7 +16,8 @@ import {
   Typography,
 } from "@mui/joy";
 import { isMobile } from "react-device-detect";
-import { Event, SpotifyResult } from "../Interfaces";
+import { Event, Location, SpotifyResult } from "../Interfaces";
+import { distance } from "../utilities/GreatCircleDistance";
 import { EventTypeIcon } from "./EventTypeIcon";
 import { Performers } from "./Performers";
 import { PopularityBar } from "./PopularityBar";
@@ -57,6 +59,8 @@ export const EventTable = (props: {
   sortPopularity: boolean | undefined;
   setSortPopularity: React.Dispatch<React.SetStateAction<boolean | undefined>>;
   setPage: React.Dispatch<React.SetStateAction<number>>;
+  lat: number | null;
+  lon: number | null;
 }) => {
   const handleSortDate = () => {
     if (props.sortDate === undefined) {
@@ -156,6 +160,9 @@ export const EventTable = (props: {
         </thead>
         <tbody>
           {props.events?.map((e, i) => {
+            const venueLoc = e.venue?.location;
+            const myLoc: Location = { lat: props.lat, lon: props.lon };
+
             return (
               <tr key={i}>
                 <td>
@@ -169,15 +176,18 @@ export const EventTable = (props: {
                   />
                 </td>
                 <td>
-                  <Link
-                    href={`https://www.google.com/maps/search/${e.venue?.name
-                      ?.replaceAll(" - ", " ")
-                      .replaceAll(" ", "+")}`}
-                    rel="noopener"
-                    target="_blank"
-                  >
-                    {e.venue?.name}
-                  </Link>
+                  <Box display="flex" gap={1} alignItems="end">
+                    <Link
+                      href={`https://www.google.com/maps/search/${e.venue?.name
+                        ?.replaceAll(" - ", " ")
+                        .replaceAll(" ", "+")}`}
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      {e.venue?.name}
+                    </Link>
+                    <Chip size="sm">{`${distance(myLoc, venueLoc)} mi`}</Chip>
+                  </Box>
                 </td>
                 <td>
                   {e.datetime_local

@@ -32,7 +32,7 @@ export interface Venue {
   timezone?: string;
   url?: string;
   score?: number;
-  location?: object;
+  location?: Location;
   address?: string;
   country?: string;
   has_upcoming_events?: boolean;
@@ -140,4 +140,9 @@ export interface SpotifyResult {
   popularity: number;
   type: string;
   uri: string;
+}
+
+export interface Location {
+  lat: number | null;
+  lon: number | null;
 }

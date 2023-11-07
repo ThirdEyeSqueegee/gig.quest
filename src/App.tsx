@@ -179,12 +179,14 @@ export default function App() {
               sortPopularity={sortPopularity}
               setSortPopularity={setSortPopularity}
               setPage={setPage}
+              lat={lat}
+              lon={lon}
             />
           ) : (
-            <EventGrid events={events} artistMap={aMap} />
+            <EventGrid events={events} artistMap={aMap} lat={lat} lon={lon} />
           )
         ) : (
-          <EventStack events={events} artistMap={aMap} />
+          <EventStack events={events} artistMap={aMap} lat={lat} lon={lon} />
         )}
         <Divider />
         <Footer
