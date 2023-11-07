@@ -1,4 +1,3 @@
-import { Adsense } from "@ctrl/react-adsense";
 import { GitHub, GridView, LocationOn, TableRows } from "@mui/icons-material";
 import {
   Box,
@@ -256,11 +255,6 @@ export default function App() {
           </IconButton>
         </Tooltip>
       </Card>
-      <Adsense
-        client="ca-pub-8710006741230025"
-        slot="6426321909"
-        format="fluid"
-      />
     </Box>
   );
 }
