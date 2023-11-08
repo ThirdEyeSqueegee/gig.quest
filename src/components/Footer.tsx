@@ -79,11 +79,11 @@ export default function Footer(props: {
   };
 
   return (
-    <Box mt={1}>
+    <Box>
       <Box
         alignItems="center"
         display="flex"
-        flexWrap={orientation.type.includes("portrait") ? "wrap" : "inherit"}
+        flexWrap="wrap"
         gap={orientation.type.includes("portrait") ? 1 : 2}
         justifyContent="center"
       >

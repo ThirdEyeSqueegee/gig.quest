@@ -225,6 +225,7 @@ export const EventTable = (props: {
                     <Typography
                       component={motion.span}
                       whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
                     >
                       {e.stats?.lowest_price
                         ? `$${e.stats?.lowest_price} - $${e.stats?.highest_price}`

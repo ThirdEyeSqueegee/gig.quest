@@ -26,6 +26,7 @@ export const PopularityBar = (props: { e: Event }) => {
       <LinearProgress
         component={motion.div}
         whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
         color={
           props.e.score! > 0.75
             ? "success"

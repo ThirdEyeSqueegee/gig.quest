@@ -140,7 +140,15 @@ export default function App() {
         component={motion.div}
         animate={{ opacity: [0, 1], transition: { duration: 1 } }}
       >
-        <Typography level="h1">
+        <Typography
+          level="h1"
+          component={motion.span}
+          whileHover={{
+            scale: 1.1,
+            rotateZ: [0, -3, 3, -3, 3, 0],
+            transition: { duration: 0.5 },
+          }}
+        >
           <TypeIt>gig.quest</TypeIt>
         </Typography>
         <Box display="flex">

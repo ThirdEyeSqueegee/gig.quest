@@ -32,6 +32,7 @@ export const Performers = (props: {
                 <Link
                   component={motion.a}
                   whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
                   href={props.artistMap?.get(t)?.external_urls.spotify}
                   rel="noopener"
                   target="_blank"

@@ -97,6 +97,8 @@ export const EventStack = (props: {
               <Box>
                 <PopularityBar e={e} />
                 <Button
+                  component={motion.button}
+                  whileTap={{ scale: 0.9 }}
                   size="sm"
                   startDecorator={<LocalActivity />}
                   variant="outlined"
