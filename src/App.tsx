@@ -64,6 +64,9 @@ export default function App() {
         enableHighAccuracy: true,
       },
     );
+    if (localStorage.getItem("spotifyToken")) {
+      localStorage.removeItem("spotifyToken");
+    }
   }
 
   const {
