@@ -1,24 +1,16 @@
-import { LocalActivity } from "@mui/icons-material";
-import {
-  Button,
-  Card,
-  CardContent,
-  Chip,
-  Link,
-  Stack,
-  Typography,
-} from "@mui/joy";
+import { Card, CardContent, Chip, Link, Stack, Typography } from "@mui/joy";
 import { Box } from "@mui/system";
 import { motion } from "framer-motion";
-import { Event, Location, SpotifyResult } from "../Interfaces";
+import { EventDetails, Location } from "../Interfaces";
+import { EventTypeIcon } from "../components/EventTypeIcon";
+import { Performers } from "../components/Performers";
+import { PopularityBar } from "../components/PopularityBar";
+import { Prices } from "../components/Prices";
+import { TicketsButton } from "../components/TicketsButton";
 import { distance } from "../utilities/GreatCircleDistance";
-import { EventTypeIcon } from "./EventTypeIcon";
-import { Performers } from "./Performers";
-import { PopularityBar } from "./PopularityBar";
 
 export const EventStack = (props: {
-  events: Event[] | undefined;
-  artistMap: Map<string, SpotifyResult> | undefined;
+  eventsDetails: EventDetails[];
   lat: number | null;
   lon: number | null;
 }) => {
@@ -30,8 +22,8 @@ export const EventStack = (props: {
       layout
       transition={{ duration: 0.25 }}
     >
-      {props.events?.map((e, i) => {
-        const venueLoc = e.venue?.location;
+      {props.eventsDetails?.map((e, i) => {
+        const venueLoc = e.event.venue?.location;
         const myLoc: Location = { lat: props.lat, lon: props.lon };
 
         return (
@@ -42,17 +34,8 @@ export const EventStack = (props: {
               alignItems="start"
               gap={1}
             >
-              <Performers
-                performers={e.performers}
-                eventType={e.type}
-                artistMap={props.artistMap}
-              />
-              <Box display="flex" gap={1}>
-                <Chip size="sm" sx={{ maxHeight: "24px" }}>
-                  {e.type?.replaceAll("_", " ")}
-                </Chip>
-                <EventTypeIcon eventType={e.type} />
-              </Box>
+              <Performers eventDetails={e} />
+              <EventTypeIcon eventType={e.event.type} />
             </Box>
             <CardContent
               sx={{
@@ -65,20 +48,20 @@ export const EventStack = (props: {
                 <Box display="flex" gap={1} alignItems="start">
                   <Typography fontSize="0.85rem">
                     <Link
-                      href={`https://www.google.com/maps/search/${e.venue?.name
+                      href={`https://www.google.com/maps/search/${e.event.venue?.name
                         ?.replaceAll(" - ", " ")
                         .replaceAll(" ", "+")}`}
                       rel="noopener"
                       target="_blank"
                     >
-                      {e.venue?.name}
+                      {e.event.venue?.name}
                     </Link>
                   </Typography>
                   <Chip size="sm">{`${distance(myLoc, venueLoc)} mi`}</Chip>
                 </Box>
                 <Typography fontSize="0.85rem">
-                  {e.datetime_local
-                    ? new Date(e.datetime_local).toLocaleString("en-US", {
+                  {e.event.datetime_local
+                    ? new Date(e.event.datetime_local).toLocaleString("en-US", {
                         weekday: "short",
                         month: "short",
                         day: "numeric",
@@ -89,31 +72,12 @@ export const EventStack = (props: {
                     : ""}
                 </Typography>
                 <Typography level="body-sm">
-                  {e.stats?.lowest_price
-                    ? `$${e.stats?.lowest_price} - $${e.stats?.highest_price}`
-                    : "¯\\_(ツ)_/¯"}
+                  <Prices eventDetails={e} />
                 </Typography>
               </Box>
               <Box>
-                <PopularityBar e={e} />
-                <Button
-                  component={motion.button}
-                  whileTap={{ scale: 0.9 }}
-                  size="sm"
-                  startDecorator={<LocalActivity />}
-                  variant="outlined"
-                  sx={{ mt: 1 }}
-                >
-                  <Link
-                    href={e.url}
-                    overlay
-                    rel="noopener"
-                    target="_blank"
-                    underline="none"
-                  >
-                    Tickets
-                  </Link>
-                </Button>
+                <PopularityBar e={e.event} />
+                <TicketsButton url={e.event.url} />
               </Box>
             </CardContent>
           </Card>

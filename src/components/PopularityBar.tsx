@@ -27,6 +27,8 @@ export const PopularityBar = (props: { e: Event }) => {
         component={motion.div}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
+        drag
+        dragSnapToOrigin
         color={
           props.e.score! > 0.75
             ? "success"

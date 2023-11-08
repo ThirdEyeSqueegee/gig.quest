@@ -1,4 +1,5 @@
 import axios from "axios";
+import { SpotifyArtistResult } from "../Interfaces";
 
 export const getSpotifyToken = async () => {
   const response = await axios.post(
@@ -20,15 +21,18 @@ export const getSpotifyToken = async () => {
 };
 
 const searchArtistRequest = async (artist: string) => {
-  return await axios.get("https://api.spotify.com/v1/search", {
-    params: {
-      q: artist,
-      type: "artist",
+  return await axios.get<SpotifyArtistResult>(
+    "https://api.spotify.com/v1/search",
+    {
+      params: {
+        q: artist,
+        type: "artist",
+      },
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("spotifyToken")}`,
+      },
     },
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("spotifyToken")}`,
-    },
-  });
+  );
 };
 
 export const searchArtist = async (artist: string) => {
@@ -36,5 +40,5 @@ export const searchArtist = async (artist: string) => {
     await getSpotifyToken();
   }
   const response = await searchArtistRequest(artist);
-  return response.data.artists.items[0];
+  return response.data.artists.items![0];
 };

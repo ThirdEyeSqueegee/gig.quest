@@ -1,12 +1,6 @@
-import {
-  ArrowDownward,
-  ArrowUpward,
-  LocalActivity,
-  MoreVert,
-} from "@mui/icons-material";
+import { ArrowDownward, ArrowUpward, MoreVert } from "@mui/icons-material";
 import {
   Box,
-  Button,
   Chip,
   IconButton,
   Link,
@@ -16,12 +10,16 @@ import {
   Typography,
 } from "@mui/joy";
 import { motion } from "framer-motion";
+import { useContext } from "react";
 import { isMobile } from "react-device-detect";
-import { Event, Location, SpotifyResult } from "../Interfaces";
+import { EventDetails, Location } from "../Interfaces";
+import { EventTypeIcon } from "../components/EventTypeIcon";
+import { Performers } from "../components/Performers";
+import { PopularityBar } from "../components/PopularityBar";
+import { Prices } from "../components/Prices";
+import { TicketsButton } from "../components/TicketsButton";
+import { PagingContext } from "../contexts/PagingContext";
 import { distance } from "../utilities/GreatCircleDistance";
-import { EventTypeIcon } from "./EventTypeIcon";
-import { Performers } from "./Performers";
-import { PopularityBar } from "./PopularityBar";
 
 const SortButton = (props: {
   handleSort(): void;
@@ -53,34 +51,46 @@ const SortButton = (props: {
 };
 
 export const EventTable = (props: {
-  events: Event[] | undefined;
-  artistMap: Map<string, SpotifyResult> | undefined;
-  sortDate: boolean | undefined;
-  setSortDate: React.Dispatch<React.SetStateAction<boolean | undefined>>;
-  sortPopularity: boolean | undefined;
-  setSortPopularity: React.Dispatch<React.SetStateAction<boolean | undefined>>;
-  setPage: React.Dispatch<React.SetStateAction<number>>;
+  eventsDetails: EventDetails[];
   lat: number | null;
   lon: number | null;
 }) => {
+  const { props: paging, setter: setPaging } = useContext(PagingContext)!;
+
   const handleSortDate = () => {
-    if (props.sortDate === undefined) {
-      props.setSortDate(true);
+    if (paging.sortDate === undefined) {
+      setPaging({
+        ...paging,
+        sortDate: true,
+        sortPopularity: undefined,
+        page: 1,
+      });
     } else {
-      props.setSortDate(!props.sortDate);
+      setPaging({
+        ...paging,
+        sortDate: !paging.sortDate,
+        sortPopularity: undefined,
+        page: 1,
+      });
     }
-    props.setSortPopularity(undefined);
-    props.setPage(1);
   };
 
   const handleSortPopularity = () => {
-    if (props.sortPopularity === undefined) {
-      props.setSortPopularity(true);
+    if (paging.sortPopularity === undefined) {
+      setPaging({
+        ...paging,
+        sortPopularity: true,
+        sortDate: undefined,
+        page: 1,
+      });
     } else {
-      props.setSortPopularity(!props.sortPopularity);
+      setPaging({
+        ...paging,
+        sortPopularity: !paging.sortPopularity,
+        sortDate: undefined,
+        page: 1,
+      });
     }
-    props.setSortDate(undefined);
-    props.setPage(1);
   };
 
   return (
@@ -116,12 +126,12 @@ export const EventTable = (props: {
                   Date
                 </Typography>
                 <SortButton handleSort={handleSortDate}>
-                  {props.sortDate === undefined ? (
+                  {paging.sortDate === undefined ? (
                     <MoreVert
                       fontSize="inherit"
-                      sx={{ opacity: props.sortDate === undefined ? 0.25 : 1 }}
+                      sx={{ opacity: paging.sortDate === undefined ? 0.25 : 1 }}
                     />
-                  ) : props.sortDate === true ? (
+                  ) : paging.sortDate === true ? (
                     <ArrowUpward fontSize="inherit" />
                   ) : (
                     <ArrowDownward fontSize="inherit" />
@@ -144,14 +154,14 @@ export const EventTable = (props: {
                   Popularity
                 </Typography>
                 <SortButton handleSort={handleSortPopularity}>
-                  {props.sortPopularity === undefined ? (
+                  {paging.sortPopularity === undefined ? (
                     <MoreVert
                       fontSize="inherit"
                       sx={{
-                        opacity: props.sortPopularity === undefined ? 0.25 : 1,
+                        opacity: paging.sortPopularity === undefined ? 0.25 : 1,
                       }}
                     />
-                  ) : props.sortPopularity === true ? (
+                  ) : paging.sortPopularity === true ? (
                     <ArrowUpward fontSize="inherit" />
                   ) : (
                     <ArrowDownward fontSize="inherit" />
@@ -165,41 +175,37 @@ export const EventTable = (props: {
           </tr>
         </thead>
         <tbody>
-          {props.events?.map((e, i) => {
-            const venueLoc = e.venue?.location;
+          {props.eventsDetails?.map((e, i) => {
+            const venueLoc = e.event.venue?.location;
             const myLoc: Location = { lat: props.lat, lon: props.lon };
 
             return (
               <tr key={i}>
                 <td>
                   <Box display="flex" alignItems="center">
-                    <EventTypeIcon eventType={e.type} />
+                    <EventTypeIcon eventType={e.event.type} />
                   </Box>
                 </td>
                 <td>
-                  <Performers
-                    performers={e.performers}
-                    eventType={e.type}
-                    artistMap={props.artistMap}
-                  />
+                  <Performers eventDetails={e} />
                 </td>
                 <td>
                   <Box display="flex" gap={1} alignItems="end">
                     <Link
-                      href={`https://www.google.com/maps/search/${e.venue?.name
+                      href={`https://www.google.com/maps/search/${e.event.venue?.name
                         ?.replaceAll(" - ", " ")
                         .replaceAll(" ", "+")}`}
                       rel="noopener"
                       target="_blank"
                     >
-                      {e.venue?.name}
+                      {e.event.venue?.name}
                     </Link>
                     <Chip size="sm">{`${distance(myLoc, venueLoc)} mi`}</Chip>
                   </Box>
                 </td>
                 <td>
-                  {e.datetime_local
-                    ? new Date(e.datetime_local).toLocaleString("en-US", {
+                  {e.event.datetime_local
+                    ? new Date(e.event.datetime_local).toLocaleString("en-US", {
                         weekday: "short",
                         month: "short",
                         day: "numeric",
@@ -210,50 +216,13 @@ export const EventTable = (props: {
                     : ""}
                 </td>
                 <td>
-                  <Tooltip
-                    arrow
-                    color="success"
-                    followCursor
-                    size="lg"
-                    title={
-                      e.stats?.average_price
-                        ? `Avg.: $${e.stats?.average_price}`
-                        : "¯\\_(ツ)_/¯"
-                    }
-                    variant="soft"
-                  >
-                    <Typography
-                      component={motion.span}
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                    >
-                      {e.stats?.lowest_price
-                        ? `$${e.stats?.lowest_price} - $${e.stats?.highest_price}`
-                        : "¯\\_(ツ)_/¯"}
-                    </Typography>
-                  </Tooltip>
+                  <Prices eventDetails={e} />
                 </td>
                 <td>
-                  <PopularityBar e={e} />
+                  <PopularityBar e={e.event} />
                 </td>
                 <td>
-                  <Button
-                    component={motion.button}
-                    whileTap={{ scale: 0.9 }}
-                    size="sm"
-                    startDecorator={<LocalActivity />}
-                    variant="outlined"
-                  >
-                    <Link
-                      href={e.url}
-                      overlay
-                      rel="noopener"
-                      target="_blank"
-                      underline="none"
-                    >
-                      Tickets
-                    </Link>
-                  </Button>
+                  <TicketsButton url={e.event.url} />
                 </td>
               </tr>
             );

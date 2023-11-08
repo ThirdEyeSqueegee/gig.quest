@@ -127,22 +127,60 @@ export interface Event {
   domain_information?: string[];
 }
 
-export interface SpotifyResult {
-  external_urls: {
-    spotify: string;
-  };
-  followers: object;
-  genres: string[];
-  href: string;
-  id: string;
-  images: string[];
-  name: string;
-  popularity: number;
-  type: string;
-  uri: string;
-}
-
 export interface Location {
   lat: number | null;
   lon: number | null;
+}
+
+export interface SpotifyArtistDetails {
+  href?: string;
+  limit?: number;
+  next?: string;
+  offset?: number;
+  previous?: string;
+  total?: number;
+  items?: Item[];
+}
+
+export interface SpotifyArtistResult {
+  artists: SpotifyArtistDetails;
+}
+
+export interface Item {
+  external_urls?: ExternalUrls;
+  followers?: Followers;
+  genres?: string[];
+  href?: string;
+  id?: string;
+  images?: Image[];
+  name?: string;
+  popularity?: number;
+  type?: string;
+  uri?: string;
+}
+
+export interface ExternalUrls {
+  spotify?: string;
+}
+
+export interface Followers {
+  href?: string;
+  total?: number;
+}
+
+export interface Image {
+  url?: string;
+  height?: number;
+  width?: number;
+}
+
+export interface ArtistDetails {
+  name: string;
+  result: Item;
+}
+
+export interface EventDetails {
+  event: Event;
+  is1v1: boolean;
+  artistDetails: ArtistDetails[];
 }

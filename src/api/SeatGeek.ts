@@ -1,20 +1,14 @@
 import axios from "axios";
 import { Events } from "../Interfaces";
+import { PagingProps } from "../contexts/PagingContext";
 
 export const getEvents = async (
-  page: number,
-  rowsPerPage: number,
-  range: string,
-  eventTypes: string[] | undefined,
-  sortProps: {
-    sortDate: boolean | undefined;
-    sortPopularity: boolean | undefined;
-  },
+  pagingProps: PagingProps,
   lat: number | null,
   lon: number | null,
   query: string | undefined,
 ) => {
-  const filterString = eventTypes
+  const filterString = pagingProps.filter
     ?.map((e) => {
       if (e === "Sports") {
         return "&type.eq=nba&type.eq=ncaa_basketball&type.eq=ncaa_womens_basketball&type.eq=ncaa_soccer&type.eq=mls&type.eq=ncaa_football&type.eq=nhl&type.eq=hockey&type.eq=minor_league_hockey&type.eq=auto_racing&type.eq=womens_college_volleyball";
@@ -29,21 +23,27 @@ export const getEvents = async (
     })
     .toString()
     .replaceAll(",", "");
-  if (eventTypes && eventTypes.length > 0 && !eventTypes.includes("All")) {
+  if (
+    pagingProps.filter &&
+    pagingProps.filter.length > 0 &&
+    !pagingProps.filter.includes("All")
+  ) {
     const response = await axios.get<Events>(
-      `https://api.seatgeek.com/2/events/?lat=${lat}&lon=${lon}&range=${range}&per_page=${rowsPerPage}&page=${page}&client_id=${
-        import.meta.env.VITE_SEATGEEK_CLIENT_ID
-      }&client_secret=${
+      `https://api.seatgeek.com/2/events/?lat=${lat}&lon=${lon}&range=${
+        pagingProps.range
+      }&per_page=${pagingProps.rowsPerPage}&page=${
+        pagingProps.page
+      }&client_id=${import.meta.env.VITE_SEATGEEK_CLIENT_ID}&client_secret=${
         import.meta.env.VITE_SEATGEEK_CLIENT_SECRET
       }${filterString}${
-        sortProps.sortDate !== undefined
-          ? sortProps.sortDate === true
+        pagingProps.sortDate !== undefined
+          ? pagingProps.sortDate === true
             ? "&sort=datetime_utc.asc"
             : "&sort=datetime_utc.desc"
           : ""
       }${
-        sortProps.sortPopularity !== undefined
-          ? sortProps.sortPopularity === true
+        pagingProps.sortPopularity !== undefined
+          ? pagingProps.sortPopularity === true
             ? "&sort=score.asc"
             : "&sort=score.desc"
           : ""
@@ -54,17 +54,19 @@ export const getEvents = async (
     return response.data;
   }
   const response = await axios.get<Events>(
-    `https://api.seatgeek.com/2/events/?lat=${lat}&lon=${lon}&range=${range}&per_page=${rowsPerPage}&page=${page}&client_id=${
+    `https://api.seatgeek.com/2/events/?lat=${lat}&lon=${lon}&range=${
+      pagingProps.range
+    }&per_page=${pagingProps.rowsPerPage}&page=${pagingProps.page}&client_id=${
       import.meta.env.VITE_SEATGEEK_CLIENT_ID
     }&client_secret=${import.meta.env.VITE_SEATGEEK_CLIENT_SECRET}${
-      sortProps.sortDate !== undefined
-        ? sortProps.sortDate === true
+      pagingProps.sortDate !== undefined
+        ? pagingProps.sortDate === true
           ? "&sort=datetime_utc.asc"
           : "&sort=datetime_utc.desc"
         : ""
     }${
-      sortProps.sortPopularity !== undefined
-        ? sortProps.sortPopularity === true
+      pagingProps.sortPopularity !== undefined
+        ? pagingProps.sortPopularity === true
           ? "&sort=score.asc"
           : "&sort=score.desc"
         : ""

@@ -26,6 +26,8 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
             component={motion.svg}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.8 }}
+            drag
+            dragSnapToOrigin
           />
         </Tooltip>
       );
@@ -38,6 +40,8 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
             component={motion.svg}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.8 }}
+            drag
+            dragSnapToOrigin
           />
         </Tooltip>
       );
@@ -48,6 +52,8 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
             component={motion.svg}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.8 }}
+            drag
+            dragSnapToOrigin
           />
         </Tooltip>
       );
@@ -58,6 +64,8 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
             component={motion.svg}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.8 }}
+            drag
+            dragSnapToOrigin
           />
         </Tooltip>
       );
@@ -69,6 +77,8 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
             component={motion.svg}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.8 }}
+            drag
+            dragSnapToOrigin
           />
         </Tooltip>
       );
@@ -80,6 +90,8 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
             component={motion.svg}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.8 }}
+            drag
+            dragSnapToOrigin
           />
         </Tooltip>
       );
@@ -90,6 +102,8 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
             component={motion.svg}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.8 }}
+            drag
+            dragSnapToOrigin
           />
         </Tooltip>
       );
@@ -101,6 +115,8 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
             component={motion.svg}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.8 }}
+            drag
+            dragSnapToOrigin
           />
         </Tooltip>
       );
@@ -112,6 +128,8 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
             component={motion.svg}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.8 }}
+            drag
+            dragSnapToOrigin
           />
         </Tooltip>
       );
@@ -123,6 +141,8 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
             component={motion.svg}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.8 }}
+            drag
+            dragSnapToOrigin
           />
         </Tooltip>
       );
@@ -135,6 +155,8 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
             component={motion.svg}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.8 }}
+            drag
+            dragSnapToOrigin
           />
         </Tooltip>
       );
@@ -145,6 +167,8 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
             component={motion.svg}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.8 }}
+            drag
+            dragSnapToOrigin
           />
         </Tooltip>
       );
@@ -155,6 +179,8 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
             component={motion.svg}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.8 }}
+            drag
+            dragSnapToOrigin
           />
         </Tooltip>
       );
@@ -165,6 +191,8 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
             component={motion.svg}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.8 }}
+            drag
+            dragSnapToOrigin
           />
         </Tooltip>
       );
@@ -175,6 +203,8 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
             component={motion.svg}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.8 }}
+            drag
+            dragSnapToOrigin
           />
         </Tooltip>
       );
@@ -185,6 +215,8 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
             component={motion.svg}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.8 }}
+            drag
+            dragSnapToOrigin
           />
         </Tooltip>
       );
@@ -196,6 +228,8 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
             component={motion.svg}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.8 }}
+            drag
+            dragSnapToOrigin
           />
         </Tooltip>
       );
@@ -206,6 +240,8 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
             component={motion.svg}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.8 }}
+            drag
+            dragSnapToOrigin
           />
         </Tooltip>
       );
@@ -216,6 +252,8 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
             component={motion.svg}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.8 }}
+            drag
+            dragSnapToOrigin
           />
         </Tooltip>
       );
@@ -225,6 +263,8 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
           component={motion.svg}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.8 }}
+          drag
+          dragSnapToOrigin
         />
       );
   }

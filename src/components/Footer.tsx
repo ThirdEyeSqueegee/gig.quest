@@ -18,31 +18,24 @@ import {
   selectClasses,
 } from "@mui/joy";
 import { useOrientation } from "@uidotdev/usehooks";
-import { useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { isMobile } from "react-device-detect";
 
 import { motion } from "framer-motion";
+import { PagingContext } from "../contexts/PagingContext";
 
-export default function Footer(props: {
-  page: number;
-  setPage: React.Dispatch<React.SetStateAction<number>>;
-  rowsPerPage: number;
-  setRowsPerPage: React.Dispatch<React.SetStateAction<number>>;
-  range: string;
-  setRange: React.Dispatch<React.SetStateAction<string>>;
-  eventCount: number | undefined;
-  filter: string[];
-  setFilter: React.Dispatch<React.SetStateAction<string[]>>;
-  rowOptions: number[];
-}) {
+export default function Footer(props: { eventCount: number | undefined }) {
   const action: SelectStaticProps["action"] = useRef(null);
 
   const orientation = useOrientation();
 
+  const { props: paging, setter: setPaging } = useContext(PagingContext)!;
+
   useEffect(() => {}, [props.eventCount]);
 
-  const rowCountLow = 1 + (props.page - 1) * props.rowsPerPage;
-  let rowCountHigh = props.rowsPerPage + (props.page - 1) * props.rowsPerPage;
+  const rowCountLow = 1 + (paging.page - 1) * paging.rowsPerPage;
+  let rowCountHigh =
+    paging.rowsPerPage + (paging.page - 1) * paging.rowsPerPage;
   rowCountHigh =
     props.eventCount && rowCountHigh > props.eventCount
       ? props.eventCount
@@ -55,8 +48,7 @@ export default function Footer(props: {
     if (isMobile) {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
-    props.setRowsPerPage(newValue!);
-    props.setPage(1);
+    setPaging({ ...paging, rowsPerPage: newValue!, page: 1 });
   };
 
   const handleChangeRange = (
@@ -66,16 +58,14 @@ export default function Footer(props: {
     if (isMobile) {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
-    props.setRange(newValue!);
-    props.setPage(1);
+    setPaging({ ...paging, range: newValue!, page: 1 });
   };
 
   const handleChangeFilter = (
     event: React.SyntheticEvent | null,
     newValue: Array<string> | null,
   ) => {
-    props.setFilter(newValue!);
-    props.setPage(1);
+    setPaging({ ...paging, filter: newValue!, page: 1 });
   };
 
   return (
@@ -106,7 +96,7 @@ export default function Footer(props: {
                 },
               },
             })}
-            {...(props.filter.length > 0 && {
+            {...(paging.filter.length > 0 && {
               endDecorator: (
                 <IconButton
                   size="sm"
@@ -114,7 +104,7 @@ export default function Footer(props: {
                     event.stopPropagation();
                   }}
                   onClick={() => {
-                    props.setFilter([]);
+                    setPaging({ ...paging, filter: [] });
                     action.current?.focusVisible();
                   }}
                 >
@@ -132,7 +122,7 @@ export default function Footer(props: {
                 ))}
               </Box>
             )}
-            value={props.filter}
+            value={paging.filter}
           >
             <Option value="Concert">Concert</Option>
             <Option value="Comedy">Comedy</Option>
@@ -145,7 +135,7 @@ export default function Footer(props: {
           <Select
             onChange={handleChangeRange}
             size="sm"
-            value={props.range}
+            value={paging.range}
             {...(!isMobile && {
               indicator: !isMobile && <KeyboardArrowDown fontSize="small" />,
               sx: {
@@ -169,7 +159,7 @@ export default function Footer(props: {
           <Select
             size="sm"
             onChange={handleChangeRowsPerPage}
-            value={props.rowsPerPage}
+            value={paging.rowsPerPage}
             {...(!isMobile && {
               indicator: !isMobile && <KeyboardArrowDown fontSize="small" />,
               sx: {
@@ -182,14 +172,14 @@ export default function Footer(props: {
               },
             })}
           >
-            <Option value={props.rowOptions[0]}>
-              {props.rowOptions[0] === 10 ? "10" : "16"}
+            <Option value={paging.rowOptions[0]}>
+              {paging.rowOptions[0] === 10 ? "10" : "16"}
             </Option>
-            <Option value={props.rowOptions[1]}>
-              {props.rowOptions[1] === 25 ? "25" : "32"}
+            <Option value={paging.rowOptions[1]}>
+              {paging.rowOptions[1] === 25 ? "25" : "32"}
             </Option>
-            <Option value={props.rowOptions[2]}>
-              {props.rowOptions[2] === 50 ? "50" : "48"}
+            <Option value={paging.rowOptions[2]}>
+              {paging.rowOptions[2] === 50 ? "50" : "48"}
             </Option>
           </Select>
         </FormControl>
@@ -198,12 +188,12 @@ export default function Footer(props: {
             component={motion.button}
             whileTap={{ scale: 0.8 }}
             variant="outlined"
-            disabled={props.page === 1}
+            disabled={paging.page === 1}
             onClick={() => {
               if (isMobile) {
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }
-              props.setPage(1);
+              setPaging({ ...paging, page: 1 });
             }}
           >
             <KeyboardDoubleArrowLeft />
@@ -212,12 +202,12 @@ export default function Footer(props: {
             component={motion.button}
             whileTap={{ scale: 0.8 }}
             variant="outlined"
-            disabled={props.page === 1}
+            disabled={paging.page === 1}
             onClick={() => {
               if (isMobile) {
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }
-              props.setPage(props.page - 1);
+              setPaging({ ...paging, page: paging.page - 1 });
             }}
           >
             <KeyboardArrowLeft />
@@ -230,7 +220,7 @@ export default function Footer(props: {
               if (isMobile) {
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }
-              props.setPage(props.page + 1);
+              setPaging({ ...paging, page: paging.page + 1 });
             }}
           >
             <KeyboardArrowRight />
