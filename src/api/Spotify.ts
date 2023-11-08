@@ -1,8 +1,12 @@
 import axios from "axios";
-import { SpotifyArtistResult } from "../Interfaces";
+import {
+  SpotifyArtistResult,
+  SpotifyToken,
+  SpotifyTokenResponse,
+} from "../Interfaces";
 
 export const getSpotifyToken = async () => {
-  const response = await axios.post(
+  const response = await axios.post<SpotifyTokenResponse>(
     "https://accounts.spotify.com/api/token",
     {
       grant_type: "client_credentials",
@@ -15,12 +19,20 @@ export const getSpotifyToken = async () => {
       },
     },
   );
-  const token = response.data.access_token as string;
-  localStorage.setItem("spotifyToken", token);
-  return token;
+  localStorage.setItem(
+    "spotifyToken",
+    JSON.stringify({
+      token: response.data.access_token,
+      expires_at: new Date(Date.now() + response.data.expires_in * 1000),
+    }),
+  );
 };
 
 const searchArtistRequest = async (artist: string) => {
+  const token: SpotifyToken = JSON.parse(localStorage.getItem("spotifyToken")!);
+  if (token.expires_at > new Date()) {
+    await getSpotifyToken();
+  }
   return await axios.get<SpotifyArtistResult>(
     "https://api.spotify.com/v1/search",
     {
@@ -29,16 +41,13 @@ const searchArtistRequest = async (artist: string) => {
         type: "artist",
       },
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("spotifyToken")}`,
+        Authorization: `Bearer ${token.token}`,
       },
     },
   );
 };
 
 export const searchArtist = async (artist: string) => {
-  if (!localStorage.getItem("spotifyToken")) {
-    await getSpotifyToken();
-  }
   const response = await searchArtistRequest(artist);
   return response.data.artists.items![0];
 };

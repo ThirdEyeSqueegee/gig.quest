@@ -11,14 +11,12 @@ import { distance } from "../utilities/GreatCircleDistance";
 
 export const EventGrid = (props: {
   eventsDetails: EventDetails[];
-  lat: number | null;
-  lon: number | null;
+  location?: Location;
 }) => {
   return (
     <Grid container spacing={1} height="100%" overflow="auto">
       {props.eventsDetails.map((e, i) => {
         const venueLoc = e.event.venue?.location;
-        const myLoc: Location = { lat: props.lat, lon: props.lon };
 
         return (
           <Grid
@@ -63,7 +61,10 @@ export const EventGrid = (props: {
                         {e.event.venue?.name}
                       </Link>
                     </Typography>
-                    <Chip size="sm">{`${distance(myLoc, venueLoc)} mi`}</Chip>
+                    <Chip size="sm">{`${distance(
+                      props.location,
+                      venueLoc,
+                    )} mi`}</Chip>
                   </Box>
                   <Typography fontSize="0.85rem">
                     {e.event.datetime_local

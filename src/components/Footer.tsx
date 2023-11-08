@@ -24,7 +24,7 @@ import { isMobile } from "react-device-detect";
 import { motion } from "framer-motion";
 import { PagingContext } from "../contexts/PagingContext";
 
-export default function Footer(props: { eventCount: number | undefined }) {
+export default function Footer(props: { eventCount?: number }) {
   const action: SelectStaticProps["action"] = useRef(null);
 
   const orientation = useOrientation();

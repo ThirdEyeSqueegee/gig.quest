@@ -1,6 +1,6 @@
-import { Box, Chip, CircularProgress } from "@mui/joy";
+import { Box, Chip } from "@mui/joy";
 
-export const SpotifyTooltip = (props: { genres: string[] | undefined }) => {
+export const SpotifyTooltip = (props: { genres?: string[] }) => {
   return (
     <Box
       display="flex"
@@ -9,19 +9,15 @@ export const SpotifyTooltip = (props: { genres: string[] | undefined }) => {
       maxWidth="20rem"
       justifyContent="center"
     >
-      {props.genres && props.genres.length > 0 ? (
-        props.genres.map((genre, i) => {
-          return (
-            <Chip key={i} color="success">
-              {genre}
-            </Chip>
-          );
-        })
-      ) : props.genres && props.genres.length === 0 ? (
-        "¯\\_(ツ)_/¯"
-      ) : (
-        <CircularProgress color="success" />
-      )}
+      {props.genres && props.genres.length > 0
+        ? props.genres.map((genre, i) => {
+            return (
+              <Chip key={i} color="success">
+                {genre}
+              </Chip>
+            );
+          })
+        : "¯\\_(ツ)_/¯"}
     </Box>
   );
 };

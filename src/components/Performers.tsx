@@ -28,6 +28,20 @@ export const Performers = (props: { eventDetails: EventDetails }) => {
                   {d.name}
                 </Link>
               </Tooltip>
+            ) : props.eventDetails.event.type === "comedy" ? (
+              <Link
+                component={motion.a}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                href={`https://www.google.com/search?q=${d.name.replaceAll(
+                  " ",
+                  "+",
+                )}+comedy`}
+                rel="noopener"
+                target="_blank"
+              >
+                {d.name}
+              </Link>
             ) : (
               <Typography>{d.name}</Typography>
             )}

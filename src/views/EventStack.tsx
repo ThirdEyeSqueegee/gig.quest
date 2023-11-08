@@ -11,8 +11,7 @@ import { distance } from "../utilities/GreatCircleDistance";
 
 export const EventStack = (props: {
   eventsDetails: EventDetails[];
-  lat: number | null;
-  lon: number | null;
+  location?: Location;
 }) => {
   return (
     <Stack
@@ -24,7 +23,6 @@ export const EventStack = (props: {
     >
       {props.eventsDetails?.map((e, i) => {
         const venueLoc = e.event.venue?.location;
-        const myLoc: Location = { lat: props.lat, lon: props.lon };
 
         return (
           <Card key={i} sx={{ p: 1 }}>
@@ -57,7 +55,10 @@ export const EventStack = (props: {
                       {e.event.venue?.name}
                     </Link>
                   </Typography>
-                  <Chip size="sm">{`${distance(myLoc, venueLoc)} mi`}</Chip>
+                  <Chip size="sm">{`${distance(
+                    props.location,
+                    venueLoc,
+                  )} mi`}</Chip>
                 </Box>
                 <Typography fontSize="0.85rem">
                   {e.event.datetime_local

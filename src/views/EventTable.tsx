@@ -52,8 +52,7 @@ const SortButton = (props: {
 
 export const EventTable = (props: {
   eventsDetails: EventDetails[];
-  lat: number | null;
-  lon: number | null;
+  location?: Location;
 }) => {
   const { props: paging, setter: setPaging } = useContext(PagingContext)!;
 
@@ -177,7 +176,6 @@ export const EventTable = (props: {
         <tbody>
           {props.eventsDetails?.map((e, i) => {
             const venueLoc = e.event.venue?.location;
-            const myLoc: Location = { lat: props.lat, lon: props.lon };
 
             return (
               <tr key={i}>
@@ -200,7 +198,10 @@ export const EventTable = (props: {
                     >
                       {e.event.venue?.name}
                     </Link>
-                    <Chip size="sm">{`${distance(myLoc, venueLoc)} mi`}</Chip>
+                    <Chip size="sm">{`${distance(
+                      props.location,
+                      venueLoc,
+                    )} mi`}</Chip>
                   </Box>
                 </td>
                 <td>

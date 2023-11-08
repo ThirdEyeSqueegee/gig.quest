@@ -184,3 +184,14 @@ export interface EventDetails {
   is1v1: boolean;
   artistDetails: ArtistDetails[];
 }
+
+export interface SpotifyTokenResponse {
+  access_token: string;
+  token_type: string;
+  expires_in: number;
+}
+
+export interface SpotifyToken {
+  token: string;
+  expires_at: Date;
+}

@@ -1,8 +1,8 @@
 import { Performer } from "../Interfaces";
 
 export const tokenizePerformers = (
-  performers: Performer[] | undefined,
-  eventType: string | undefined,
+  performers?: Performer[],
+  eventType?: string,
 ) => {
   let is1v1 = false;
   let str = "";

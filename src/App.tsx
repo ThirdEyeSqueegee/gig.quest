@@ -18,6 +18,7 @@ import {
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { isMobile } from "react-device-detect";
+import useSWR from "swr";
 import TypeIt from "typeit-react";
 import { EventDetails, Location, Meta } from "./Interfaces";
 import { getEvents } from "./api/SeatGeek";
@@ -36,7 +37,7 @@ export default function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const debSearchTerm = useDebounce(searchTerm, 500);
 
-  const [geo, setGeo] = useState<Location>({ lat: null, lon: null });
+  const [geo, setGeo] = useState<Location>();
 
   const isFirstRender = useIsFirstRender();
   const { type: orientation } = useOrientation();
@@ -65,27 +66,34 @@ export default function App() {
     );
   }
 
+  const {
+    data: newEvents,
+    error,
+    isLoading,
+  } = useSWR(
+    geo ? ["events", paging, geo.lat, geo.lon, debSearchTerm] : null,
+    ([url, p, lat, lon, query]) => getEvents(p, lat, lon, query),
+  );
+
   useEffect(() => {
     if (eventsDetails && eventsDetails.length > 0 && debSearchTerm !== "") {
       setPaging({ ...paging, page: 1 });
     }
 
     (async () => {
-      if (geo.lat === null) return;
+      if (geo === undefined) return;
 
-      await getSpotifyToken();
+      if (localStorage.getItem("spotifyToken") === null) {
+        await getSpotifyToken();
+      }
 
-      const newEvents = await getEvents(
-        paging,
-        geo.lat,
-        geo.lon,
-        debSearchTerm,
-      );
-      setMeta(newEvents.meta);
+      if (isLoading) return;
+
+      setMeta(newEvents!.meta);
 
       const eventsDetailsBuffer: EventDetails[] = [];
 
-      for (const e of newEvents.events!) {
+      for (const e of newEvents!.events!) {
         const { is1v1, tokens } = tokenizePerformers(e.performers, e.type);
         const details: EventDetails = {
           event: e,
@@ -95,18 +103,25 @@ export default function App() {
         details.is1v1 = is1v1;
         await Promise.all(
           tokens.map(async (t: string) => {
-            const searchResult = await searchArtist(t);
-            details.artistDetails.push({
-              name: t,
-              result: e.type === "concert" ? searchResult : {},
-            });
+            if (e.type === "concert") {
+              const searchResult = await searchArtist(t);
+              details.artistDetails.push({
+                name: t,
+                result: searchResult,
+              });
+            } else {
+              details.artistDetails.push({
+                name: t,
+                result: {},
+              });
+            }
           }),
         );
         eventsDetailsBuffer.push(details);
       }
       setEventsDetails(eventsDetailsBuffer);
     })();
-  }, [paging, geo, tableView, debSearchTerm]);
+  }, [paging, geo, tableView, debSearchTerm, isLoading]);
 
   const handleViewChange = () => {
     if (tableView) {
@@ -160,20 +175,20 @@ export default function App() {
               whileTap={{ scale: 0.9 }}
             />
             <Typography level="body-sm">
-              {geo.lat && meta && meta.geolocation ? (
+              {meta && meta.geolocation ? (
                 `${meta.geolocation.city}, ${meta.geolocation.state} (${paging.range})`
               ) : (
                 <Typography>...</Typography>
               )}
             </Typography>
           </Box>
-          {isMobile && geo.lat && (
+          {isMobile && geo && (
             <SearchInput
               searchTerm={searchTerm}
               setSearchTerm={setSearchTerm}
             />
           )}
-          {geo.lat === null ? (
+          {geo === undefined ? (
             <Box
               display="flex"
               flexDirection="column"
@@ -199,28 +214,16 @@ export default function App() {
             </Box>
           ) : orientation.includes("landscape") ? (
             tableView ? (
-              <EventTable
-                eventsDetails={eventsDetails}
-                lat={geo.lat}
-                lon={geo.lon}
-              />
+              <EventTable eventsDetails={eventsDetails} location={geo} />
             ) : (
-              <EventGrid
-                eventsDetails={eventsDetails}
-                lat={geo.lat}
-                lon={geo.lon}
-              />
+              <EventGrid eventsDetails={eventsDetails} location={geo} />
             )
           ) : (
-            <EventStack
-              eventsDetails={eventsDetails}
-              lat={geo.lat}
-              lon={geo.lon}
-            />
+            <EventStack eventsDetails={eventsDetails} location={geo} />
           )}
           <Divider />
           <Footer eventCount={meta?.total} />
-          {!isMobile && geo.lat && (
+          {!isMobile && geo && (
             <Box
               display="flex"
               sx={{

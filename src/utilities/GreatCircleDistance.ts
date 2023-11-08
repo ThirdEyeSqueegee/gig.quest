@@ -4,10 +4,7 @@ const rad = (d: number) => {
   return d * (Math.PI / 180);
 };
 
-export const distance = (
-  start: Location | undefined,
-  end: Location | undefined,
-) => {
+export const distance = (start?: Location, end?: Location) => {
   if (start === undefined || end === undefined) {
     return 0;
   }

@@ -16,7 +16,7 @@ import {
 import { Tooltip } from "@mui/joy";
 import { motion } from "framer-motion";
 
-export const EventTypeIcon = (props: { eventType: string | undefined }) => {
+export const EventTypeIcon = (props: { eventType?: string }) => {
   switch (props.eventType) {
     case "nba":
       return (
