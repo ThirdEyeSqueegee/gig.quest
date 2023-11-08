@@ -1,4 +1,5 @@
 import { LinearProgress, Tooltip } from "@mui/joy";
+import { motion } from "framer-motion";
 import { useEffect } from "react";
 import { useCountUp } from "use-count-up";
 import { Event } from "../Interfaces";
@@ -23,6 +24,8 @@ export const PopularityBar = (props: { e: Event }) => {
       variant="soft"
     >
       <LinearProgress
+        component={motion.div}
+        whileHover={{ scale: 1.1 }}
         color={
           props.e.score! > 0.75
             ? "success"
@@ -36,12 +39,6 @@ export const PopularityBar = (props: { e: Event }) => {
         thickness={7}
         value={Number(value!)}
         variant="solid"
-        sx={{
-          "&:hover": {
-            transform: "scale(1.1)",
-            transition: "all 0.15s ease-out",
-          },
-        }}
       />
     </Tooltip>
   );

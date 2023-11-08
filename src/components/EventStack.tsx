@@ -9,6 +9,7 @@ import {
   Typography,
 } from "@mui/joy";
 import { Box } from "@mui/system";
+import { motion } from "framer-motion";
 import { Event, Location, SpotifyResult } from "../Interfaces";
 import { distance } from "../utilities/GreatCircleDistance";
 import { EventTypeIcon } from "./EventTypeIcon";
@@ -22,7 +23,13 @@ export const EventStack = (props: {
   lon: number | null;
 }) => {
   return (
-    <Stack width="100%" spacing={1}>
+    <Stack
+      width="100%"
+      spacing={1}
+      component={motion.div}
+      layout
+      transition={{ duration: 0.25 }}
+    >
       {props.events?.map((e, i) => {
         const venueLoc = e.venue?.location;
         const myLoc: Location = { lat: props.lat, lon: props.lon };

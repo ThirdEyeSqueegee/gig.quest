@@ -10,7 +10,12 @@ import {
   Tooltip,
   Typography,
 } from "@mui/joy";
-import { useDebounce, useOrientation } from "@uidotdev/usehooks";
+import {
+  useDebounce,
+  useIsFirstRender,
+  useOrientation,
+} from "@uidotdev/usehooks";
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { isMobile } from "react-device-detect";
 import TypeIt from "typeit-react";
@@ -46,26 +51,30 @@ export default function App() {
 
   const [geo, setGeo] = useState<Location>({ lat: null, lon: null });
 
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      (p: GeolocationPosition) =>
-        setGeo({ lat: p.coords.latitude, lon: p.coords.longitude }),
-      null,
-      {
-        enableHighAccuracy: true,
-      },
-    );
-
-    (async () => {
-      await getSpotifyToken();
-    })();
-  }, []);
+  const isFirstRender = useIsFirstRender();
 
   useEffect(() => {
+    if (events && debSearchTerm !== "" && events.length > 0) {
+      setPage(1);
+    }
+
+    if (isFirstRender) {
+      navigator.geolocation.getCurrentPosition(
+        (p: GeolocationPosition) =>
+          setGeo({ lat: p.coords.latitude, lon: p.coords.longitude }),
+        null,
+        {
+          enableHighAccuracy: true,
+        },
+      );
+    }
+
     (async () => {
       if (geo.lat === null) return;
 
-      const events = await getEvents(
+      await getSpotifyToken();
+
+      const newEvents = await getEvents(
         page,
         rowsPerPage,
         range,
@@ -78,10 +87,10 @@ export default function App() {
         geo.lon,
         debSearchTerm,
       );
-      setEvents(events);
+      setEvents(newEvents);
 
       const artistMap = new Map<string, SpotifyResult>();
-      for (const e of events.events!) {
+      for (const e of newEvents.events!) {
         if (e.type === "concert") {
           const { tokens } = tokenizePerformers(e.performers, e.type);
           await Promise.all(
@@ -128,6 +137,8 @@ export default function App() {
           height: orientation.includes("portrait") ? "auto" : "87.5vh",
           minHeight: orientation.includes("portrait") ? "100vh" : "87.5vh",
         }}
+        component={motion.div}
+        animate={{ opacity: [0, 1], transition: { duration: 1 } }}
       >
         <Typography level="h1">
           <TypeIt>gig.quest</TypeIt>
@@ -152,9 +163,19 @@ export default function App() {
             height="100%"
             alignItems="center"
             justifyContent="center"
-            gap={1}
+            gap={2}
           >
-            <CircularProgress size="lg">
+            <CircularProgress
+              size="lg"
+              component={motion.span}
+              initial={{ scale: 0 }}
+              animate={{ scale: [1, 1.25] }}
+              transition={{
+                repeat: Infinity,
+                duration: 1,
+                repeatType: "reverse",
+              }}
+            >
               <LocationOn color="error" />
             </CircularProgress>
             <Typography level="body-sm">Waiting for location...</Typography>
@@ -210,6 +231,8 @@ export default function App() {
               right: "0.5rem",
             }}
             gap={3}
+            component={motion.div}
+            animate={{ opacity: [0, 1], transition: { duration: 0.5 } }}
           >
             <SearchInput
               searchTerm={searchTerm}
@@ -233,14 +256,15 @@ export default function App() {
         <Tooltip arrow title="Source" variant="soft">
           <IconButton
             size="sm"
+            component={motion.button}
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.8 }}
             sx={{
               position: "absolute",
               top: "0.5rem",
               right: "0.25rem",
-              "&:hover": {
-                transform: "scale(1.25)",
-                transition: "all 0.15s ease-out",
-              },
             }}
           >
             <Link

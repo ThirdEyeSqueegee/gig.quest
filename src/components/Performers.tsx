@@ -1,4 +1,5 @@
 import { Box, Link, Tooltip, Typography } from "@mui/joy";
+import { motion } from "framer-motion";
 import { Fragment } from "react";
 import { Performer, SpotifyResult } from "../Interfaces";
 import { tokenizePerformers } from "../utilities/TokenizePerformers";
@@ -29,15 +30,11 @@ export const Performers = (props: {
                 sx={{ borderRadius: "15px" }}
               >
                 <Link
+                  component={motion.a}
+                  whileHover={{ scale: 1.1 }}
                   href={props.artistMap?.get(t)?.external_urls.spotify}
                   rel="noopener"
                   target="_blank"
-                  sx={{
-                    "&:hover": {
-                      transform: "scale(1.1)",
-                      transition: "all 0.15s ease-out",
-                    },
-                  }}
                 >
                   {t}
                 </Link>

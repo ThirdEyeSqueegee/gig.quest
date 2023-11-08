@@ -10,6 +10,7 @@ import {
   Typography,
 } from "@mui/joy";
 import { Box } from "@mui/system";
+import { motion } from "framer-motion";
 import { Event, Location, SpotifyResult } from "../Interfaces";
 import { distance } from "../utilities/GreatCircleDistance";
 import { EventTypeIcon } from "./EventTypeIcon";
@@ -29,7 +30,13 @@ export const EventGrid = (props: {
         const myLoc: Location = { lat: props.lat, lon: props.lon };
 
         return (
-          <Grid key={i} xs={3}>
+          <Grid
+            key={i}
+            xs={3}
+            component={motion.div}
+            layout
+            transition={{ duration: 0.25 }}
+          >
             <Card
               sx={{
                 p: 1,
@@ -105,6 +112,8 @@ export const EventGrid = (props: {
                 <Box>
                   <PopularityBar e={e} />
                   <Button
+                    component={motion.button}
+                    whileTap={{ scale: 0.9 }}
                     size="sm"
                     startDecorator={<LocalActivity />}
                     variant="outlined"

@@ -15,6 +15,7 @@ import {
   Tooltip,
   Typography,
 } from "@mui/joy";
+import { motion } from "framer-motion";
 import { isMobile } from "react-device-detect";
 import { Event, Location, SpotifyResult } from "../Interfaces";
 import { distance } from "../utilities/GreatCircleDistance";
@@ -84,7 +85,12 @@ export const EventTable = (props: {
 
   return (
     <Sheet sx={{ height: "100%", overflow: "auto" }}>
-      <Table size={isMobile ? "md" : "lg"}>
+      <Table
+        size={isMobile ? "md" : "lg"}
+        component={motion.table}
+        layout
+        transition={{ duration: 0.25 }}
+      >
         <thead>
           <tr>
             <th style={{ width: "5%" }}>
@@ -166,7 +172,9 @@ export const EventTable = (props: {
             return (
               <tr key={i}>
                 <td>
-                  <EventTypeIcon eventType={e.type} />
+                  <Box display="flex" alignItems="center">
+                    <EventTypeIcon eventType={e.type} />
+                  </Box>
                 </td>
                 <td>
                   <Performers
@@ -215,12 +223,8 @@ export const EventTable = (props: {
                     variant="soft"
                   >
                     <Typography
-                      sx={{
-                        "&:hover": {
-                          transform: "scale(1.1)",
-                          transition: "all 0.15s ease-out",
-                        },
-                      }}
+                      component={motion.span}
+                      whileHover={{ scale: 1.1 }}
                     >
                       {e.stats?.lowest_price
                         ? `$${e.stats?.lowest_price} - $${e.stats?.highest_price}`
@@ -233,6 +237,8 @@ export const EventTable = (props: {
                 </td>
                 <td>
                   <Button
+                    component={motion.button}
+                    whileTap={{ scale: 0.9 }}
                     size="sm"
                     startDecorator={<LocalActivity />}
                     variant="outlined"

@@ -21,6 +21,8 @@ import { useOrientation } from "@uidotdev/usehooks";
 import { useEffect, useRef } from "react";
 import { isMobile } from "react-device-detect";
 
+import { motion } from "framer-motion";
+
 export default function Footer(props: {
   page: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;
@@ -50,7 +52,7 @@ export default function Footer(props: {
     event: React.SyntheticEvent | null,
     newValue: number | null,
   ) => {
-    if (isMobile || props.rowsPerPage > 10) {
+    if (isMobile) {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
     props.setRowsPerPage(newValue!);
@@ -61,7 +63,7 @@ export default function Footer(props: {
     event: React.SyntheticEvent | null,
     newValue: string | null,
   ) => {
-    if (isMobile || props.rowsPerPage > 10) {
+    if (isMobile) {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
     props.setRange(newValue!);
@@ -193,10 +195,12 @@ export default function Footer(props: {
         </FormControl>
         <Box display="flex" gap={1}>
           <IconButton
+            component={motion.button}
+            whileTap={{ scale: 0.8 }}
             variant="outlined"
             disabled={props.page === 1}
             onClick={() => {
-              if (isMobile || props.rowsPerPage > 10) {
+              if (isMobile) {
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }
               props.setPage(1);
@@ -205,10 +209,12 @@ export default function Footer(props: {
             <KeyboardDoubleArrowLeft />
           </IconButton>
           <IconButton
+            component={motion.button}
+            whileTap={{ scale: 0.8 }}
             variant="outlined"
             disabled={props.page === 1}
             onClick={() => {
-              if (isMobile || props.rowsPerPage > 10) {
+              if (isMobile) {
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }
               props.setPage(props.page - 1);
@@ -217,9 +223,11 @@ export default function Footer(props: {
             <KeyboardArrowLeft />
           </IconButton>
           <IconButton
+            component={motion.button}
+            whileTap={{ scale: 0.8 }}
             variant="outlined"
             onClick={() => {
-              if (isMobile || props.rowsPerPage > 10) {
+              if (isMobile) {
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }
               props.setPage(props.page + 1);

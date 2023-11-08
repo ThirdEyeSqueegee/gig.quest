@@ -14,6 +14,7 @@ import {
   TheaterComedy,
 } from "@mui/icons-material";
 import { Tooltip } from "@mui/joy";
+import { motion } from "framer-motion";
 
 export const EventTypeIcon = (props: { eventType: string | undefined }) => {
   switch (props.eventType) {
@@ -22,12 +23,9 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
         <Tooltip arrow title="NBA" variant="soft">
           <SportsBasketball
             color="warning"
-            sx={{
-              "&:hover": {
-                transform: "scale(1.25)",
-                transition: "all 0.15s ease-out",
-              },
-            }}
+            component={motion.svg}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.8 }}
           />
         </Tooltip>
       );
@@ -37,12 +35,9 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
         <Tooltip arrow title="NCAA Basketball" variant="soft">
           <SportsBasketball
             color="warning"
-            sx={{
-              "&:hover": {
-                transform: "scale(1.25)",
-                transition: "all 0.15s ease-out",
-              },
-            }}
+            component={motion.svg}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.8 }}
           />
         </Tooltip>
       );
@@ -50,12 +45,9 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
       return (
         <Tooltip arrow title="NCAA Soccer" variant="soft">
           <SportsSoccer
-            sx={{
-              "&:hover": {
-                transform: "scale(1.25)",
-                transition: "all 0.15s ease-out",
-              },
-            }}
+            component={motion.svg}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.8 }}
           />
         </Tooltip>
       );
@@ -63,12 +55,9 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
       return (
         <Tooltip arrow title="MLS" variant="soft">
           <SportsSoccer
-            sx={{
-              "&:hover": {
-                transform: "scale(1.25)",
-                transition: "all 0.15s ease-out",
-              },
-            }}
+            component={motion.svg}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.8 }}
           />
         </Tooltip>
       );
@@ -77,12 +66,9 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
         <Tooltip arrow title="NCAA Football" variant="soft">
           <SportsFootball
             style={{ color: "saddlebrown" }}
-            sx={{
-              "&:hover": {
-                transform: "scale(1.25)",
-                transition: "all 0.15s ease-out",
-              },
-            }}
+            component={motion.svg}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.8 }}
           />
         </Tooltip>
       );
@@ -91,12 +77,9 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
         <Tooltip arrow title="Concert" variant="soft">
           <PlayCircle
             color="primary"
-            sx={{
-              "&:hover": {
-                transform: "scale(1.25)",
-                transition: "all 0.15s ease-out",
-              },
-            }}
+            component={motion.svg}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.8 }}
           />
         </Tooltip>
       );
@@ -104,12 +87,9 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
       return (
         <Tooltip arrow title="Music Festival" variant="soft">
           <PlayCircle
-            sx={{
-              "&:hover": {
-                transform: "scale(1.25)",
-                transition: "all 0.15s ease-out",
-              },
-            }}
+            component={motion.svg}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.8 }}
           />
         </Tooltip>
       );
@@ -118,12 +98,9 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
         <Tooltip arrow title="Classical" variant="soft">
           <MusicNote
             color="secondary"
-            sx={{
-              "&:hover": {
-                transform: "scale(1.25)",
-                transition: "all 0.15s ease-out",
-              },
-            }}
+            component={motion.svg}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.8 }}
           />
         </Tooltip>
       );
@@ -132,12 +109,9 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
         <Tooltip arrow title="Opera" variant="soft">
           <MusicNote
             color="secondary"
-            sx={{
-              "&:hover": {
-                transform: "scale(1.25)",
-                transition: "all 0.15s ease-out",
-              },
-            }}
+            component={motion.svg}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.8 }}
           />
         </Tooltip>
       );
@@ -146,12 +120,9 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
         <Tooltip arrow title="Orchestra" variant="soft">
           <MusicNote
             color="secondary"
-            sx={{
-              "&:hover": {
-                transform: "scale(1.25)",
-                transition: "all 0.15s ease-out",
-              },
-            }}
+            component={motion.svg}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.8 }}
           />
         </Tooltip>
       );
@@ -161,12 +132,9 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
         <Tooltip arrow title="Theater" variant="soft">
           <TheaterComedy
             color="success"
-            sx={{
-              "&:hover": {
-                transform: "scale(1.25)",
-                transition: "all 0.15s ease-out",
-              },
-            }}
+            component={motion.svg}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.8 }}
           />
         </Tooltip>
       );
@@ -174,12 +142,9 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
       return (
         <Tooltip arrow title="Esports" variant="soft">
           <SportsEsports
-            sx={{
-              "&:hover": {
-                transform: "scale(1.25)",
-                transition: "all 0.15s ease-out",
-              },
-            }}
+            component={motion.svg}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.8 }}
           />
         </Tooltip>
       );
@@ -187,12 +152,9 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
       return (
         <Tooltip arrow title="NHL" variant="soft">
           <SportsHockey
-            sx={{
-              "&:hover": {
-                transform: "scale(1.25)",
-                transition: "all 0.15s ease-out",
-              },
-            }}
+            component={motion.svg}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.8 }}
           />
         </Tooltip>
       );
@@ -200,12 +162,9 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
       return (
         <Tooltip arrow title="Hockey" variant="soft">
           <SportsHockey
-            sx={{
-              "&:hover": {
-                transform: "scale(1.25)",
-                transition: "all 0.15s ease-out",
-              },
-            }}
+            component={motion.svg}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.8 }}
           />
         </Tooltip>
       );
@@ -213,12 +172,9 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
       return (
         <Tooltip arrow title="Minor League Hockey" variant="soft">
           <SportsHockey
-            sx={{
-              "&:hover": {
-                transform: "scale(1.25)",
-                transition: "all 0.15s ease-out",
-              },
-            }}
+            component={motion.svg}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.8 }}
           />
         </Tooltip>
       );
@@ -226,12 +182,9 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
       return (
         <Tooltip arrow title="Family" variant="soft">
           <Diversity3
-            sx={{
-              "&:hover": {
-                transform: "scale(1.25)",
-                transition: "all 0.15s ease-out",
-              },
-            }}
+            component={motion.svg}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.8 }}
           />
         </Tooltip>
       );
@@ -240,12 +193,9 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
         <Tooltip arrow title="Comedy" variant="soft">
           <EmojiEmotions
             style={{ color: "gold" }}
-            sx={{
-              "&:hover": {
-                transform: "scale(1.25)",
-                transition: "all 0.15s ease-out",
-              },
-            }}
+            component={motion.svg}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.8 }}
           />
         </Tooltip>
       );
@@ -253,12 +203,9 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
       return (
         <Tooltip arrow title="Racing" variant="soft">
           <DirectionsCar
-            sx={{
-              "&:hover": {
-                transform: "scale(1.25)",
-                transition: "all 0.15s ease-out",
-              },
-            }}
+            component={motion.svg}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.8 }}
           />
         </Tooltip>
       );
@@ -266,24 +213,18 @@ export const EventTypeIcon = (props: { eventType: string | undefined }) => {
       return (
         <Tooltip arrow title="Women's College Volleyball" variant="soft">
           <SportsVolleyball
-            sx={{
-              "&:hover": {
-                transform: "scale(1.25)",
-                transition: "all 0.15s ease-out",
-              },
-            }}
+            component={motion.svg}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.8 }}
           />
         </Tooltip>
       );
     default:
       return (
         <LocalActivity
-          sx={{
-            "&:hover": {
-              transform: "scale(1.25)",
-              transition: "all 0.15s ease-out",
-            },
-          }}
+          component={motion.svg}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.8 }}
         />
       );
   }
