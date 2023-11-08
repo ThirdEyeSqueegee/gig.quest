@@ -29,6 +29,9 @@ export const getSpotifyToken = async () => {
 };
 
 const searchArtistRequest = async (artist: string) => {
+  if (localStorage.getItem("spotifyToken") === null) {
+    await getSpotifyToken();
+  }
   const token: SpotifyToken = JSON.parse(localStorage.getItem("spotifyToken")!);
   if (token.expires_at > new Date()) {
     await getSpotifyToken();

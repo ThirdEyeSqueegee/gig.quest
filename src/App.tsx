@@ -22,7 +22,7 @@ import useSWR from "swr";
 import TypeIt from "typeit-react";
 import { EventDetails, Location, Meta } from "./Interfaces";
 import { getEvents } from "./api/SeatGeek";
-import { getSpotifyToken, searchArtist } from "./api/Spotify";
+import { searchArtist } from "./api/Spotify";
 import Footer from "./components/Footer";
 import { SearchInput } from "./components/SearchInput";
 import { PagingContext, PagingProps } from "./contexts/PagingContext";
@@ -85,10 +85,6 @@ export default function App() {
 
     (async () => {
       if (geo === undefined) return;
-
-      if (localStorage.getItem("spotifyToken") === null) {
-        await getSpotifyToken();
-      }
 
       if (isLoading) return;
 
