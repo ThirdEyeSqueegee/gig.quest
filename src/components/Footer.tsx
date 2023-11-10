@@ -103,13 +103,13 @@ export const Footer = () => {
           }}
         >
           <Option value={pagination.rowCountOptions[0]}>
-            {pagination.rowCountOptions[0] === 10 ? 10 : 20}
+            {pagination.rowCountOptions[0] === 12 ? 12 : 20}
           </Option>
           <Option value={pagination.rowCountOptions[1]}>
-            {pagination.rowCountOptions[1] === 25 ? 25 : 36}
+            {pagination.rowCountOptions[1]}
           </Option>
           <Option value={pagination.rowCountOptions[2]}>
-            {pagination.rowCountOptions[2] === 50 ? 50 : 48}
+            {pagination.rowCountOptions[2]}
           </Option>
         </Select>
       </Box>
