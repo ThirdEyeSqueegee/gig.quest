@@ -16,8 +16,8 @@ export const SearchInput = (props: {
         slotProps={{
           input: {
             component: motion.input,
-            whileFocus: { width: "15rem" },
-            whileHover: { width: "15rem" },
+            whileFocus: { width: "17.5rem" },
+            whileHover: { width: "17.5rem" },
             transition: { type: "spring", duration: 0.5 },
           },
         }}

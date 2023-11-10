@@ -7,8 +7,6 @@ export const Venue = (props: { name?: string }) => {
         " ",
         "+",
       )}`}
-      target="_blank"
-      rel="noopener"
     >
       {props.name}
     </Link>

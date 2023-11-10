@@ -10,8 +10,11 @@ export const TicketsButton = (props: { url?: string }) => {
       whileTap={{ scale: 0.9 }}
       startDecorator={<LocalActivity />}
       variant="outlined"
+      sx={{
+        fontWeight: "normal",
+      }}
     >
-      <Link overlay href={props.url} target="_blank" rel="noopener">
+      <Link overlay href={props.url}>
         Tickets
       </Link>
     </Button>

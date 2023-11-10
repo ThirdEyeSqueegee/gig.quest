@@ -11,6 +11,13 @@ const theme = extendTheme({
     JoyTooltip: {
       defaultProps: {
         enterTouchDelay: 50,
+        leaveTouchDelay: 2500,
+      },
+    },
+    JoyLink: {
+      defaultProps: {
+        target: "_blank",
+        rel: "noopener",
       },
     },
   },

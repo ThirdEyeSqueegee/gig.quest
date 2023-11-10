@@ -27,12 +27,7 @@ export const SpotifyTooltip = (props: { artist: string }) => {
                 );
               })}
             </Box>
-            <Link
-              overlay
-              href={artistItem.external_urls?.spotify}
-              target="_blank"
-              rel="noopener"
-            />
+            <Link overlay href={artistItem.external_urls?.spotify} />
           </Box>
         ) : (
           "¯\\_(ツ)_/¯"

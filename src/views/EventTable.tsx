@@ -1,4 +1,5 @@
-import { Box, Sheet, Table, Typography } from "@mui/joy";
+import { ArrowDownward, ArrowUpward, MoreVert } from "@mui/icons-material";
+import { Box, IconButton, Sheet, Table, Typography } from "@mui/joy";
 import { motion } from "framer-motion";
 import { useContext } from "react";
 import useSWRImmutable from "swr/immutable";
@@ -15,11 +16,12 @@ import { Venue } from "../components/Venue";
 import { PaginationContext } from "../contexts/PaginationContext";
 
 export const EventTable = (props: { geo?: Location; searchTerm?: string }) => {
-  const pagination = useContext(PaginationContext);
+  const { props: pagination, setter: setPagination } =
+    useContext(PaginationContext);
 
   const { data: eventsDetailsAndMeta } = useSWRImmutable(
     props.geo
-      ? ["eventsDetails", pagination.props, props.geo, props.searchTerm]
+      ? ["eventsDetails", pagination, props.geo, props.searchTerm]
       : null,
     ([, p, g, s]) => (props.searchTerm ? getEvents(p, g, s) : getEvents(p, g)),
   );
@@ -39,13 +41,65 @@ export const EventTable = (props: { geo?: Location; searchTerm?: string }) => {
               <Typography level="body-lg">Venue</Typography>
             </th>
             <th style={{ width: "8%" }}>
-              <Typography level="body-lg">Date</Typography>
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="space-between"
+              >
+                <Typography level="body-lg">Date</Typography>
+                <IconButton
+                  size="sm"
+                  onClick={() =>
+                    setPagination({
+                      ...pagination,
+                      sortDate: !pagination.sortDate,
+                      sortPopularity: undefined,
+                    })
+                  }
+                >
+                  {pagination.sortDate !== undefined ? (
+                    pagination.sortDate ? (
+                      <ArrowUpward fontSize="small" />
+                    ) : (
+                      <ArrowDownward fontSize="small" />
+                    )
+                  ) : (
+                    <MoreVert fontSize="small" />
+                  )}
+                </IconButton>
+              </Box>
             </th>
             <th style={{ width: "5%" }}>
               <Typography level="body-lg">Prices</Typography>
             </th>
             <th style={{ width: "7.5%" }}>
-              <Typography level="body-lg">Popularity</Typography>
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="space-between"
+              >
+                <Typography level="body-lg">Popularity</Typography>
+                <IconButton
+                  size="sm"
+                  onClick={() =>
+                    setPagination({
+                      ...pagination,
+                      sortPopularity: !pagination.sortPopularity,
+                      sortDate: undefined,
+                    })
+                  }
+                >
+                  {pagination.sortPopularity !== undefined ? (
+                    pagination.sortPopularity ? (
+                      <ArrowUpward fontSize="small" />
+                    ) : (
+                      <ArrowDownward fontSize="small" />
+                    )
+                  ) : (
+                    <MoreVert fontSize="small" />
+                  )}
+                </IconButton>
+              </Box>
             </th>
             <th style={{ width: "5%" }}>
               <Typography level="body-lg">Tickets</Typography>

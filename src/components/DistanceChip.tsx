@@ -7,7 +7,7 @@ export const DistanceChip = (props: {
   geo?: Location;
 }) => {
   return (
-    <Chip size="sm">
+    <Chip size="sm" sx={{ height: "1rem" }}>
       {props.eventDetails?.event.venue?.location && props.geo
         ? convertDistance(
             getPreciseDistance(
