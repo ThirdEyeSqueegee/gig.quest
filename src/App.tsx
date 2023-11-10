@@ -77,6 +77,7 @@ export default function App() {
             height: isMobile ? "auto" : "95vh",
             minHeight: "95vh",
             px: isMobile ? 1.5 : 2,
+            pt: 0.5,
           }}
           component={motion.div}
           animate={{ scaleY: [0, 1] }}
@@ -90,7 +91,6 @@ export default function App() {
             tableView={tableView}
             handleChangeView={handleChangeView}
           />
-          <Divider />
           {geo ? (
             tableView ? (
               <EventTable
@@ -109,7 +109,7 @@ export default function App() {
             <LocationLoading />
           )}
           <Divider />
-          <Footer />
+          <Footer eventCount={eventsDetailsAndMeta?.meta.total} />
         </Card>
       </Box>
     </PaginationContext.Provider>

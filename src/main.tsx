@@ -1,4 +1,5 @@
-import "@fontsource/poppins";
+import "@fontsource/fira-code";
+import "@fontsource/inter";
 import CssBaseline from "@mui/joy/CssBaseline";
 import { CssVarsProvider, extendTheme } from "@mui/joy/styles";
 import React from "react";

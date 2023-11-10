@@ -5,6 +5,7 @@ import useSWRImmutable from "swr/immutable";
 import { Location } from "../Interfaces";
 import { getEvents } from "../api/API";
 import { DateAndTime } from "../components/DateAndTime";
+import { DistanceChip } from "../components/DistanceChip";
 import { EventTypeIcon } from "../components/EventTypeIcon";
 import { Performers } from "../components/Performers";
 import { PopularityBar } from "../components/PopularityBar";
@@ -29,25 +30,25 @@ export const EventTable = (props: { geo?: Location; searchTerm?: string }) => {
         <thead>
           <tr>
             <th style={{ width: "2.5%" }}>
-              <Typography level="title-lg">Type</Typography>
+              <Typography level="body-lg">Type</Typography>
             </th>
             <th style={{ width: "20%" }}>
-              <Typography level="title-lg">Performers</Typography>
+              <Typography level="body-lg">Performers</Typography>
             </th>
             <th style={{ width: "15%" }}>
-              <Typography level="title-lg">Venue</Typography>
+              <Typography level="body-lg">Venue</Typography>
             </th>
             <th style={{ width: "8%" }}>
-              <Typography level="title-lg">Date</Typography>
+              <Typography level="body-lg">Date</Typography>
             </th>
             <th style={{ width: "5%" }}>
-              <Typography level="title-lg">Prices</Typography>
+              <Typography level="body-lg">Prices</Typography>
             </th>
             <th style={{ width: "7.5%" }}>
-              <Typography level="title-lg">Popularity</Typography>
+              <Typography level="body-lg">Popularity</Typography>
             </th>
             <th style={{ width: "5%" }}>
-              <Typography level="title-lg">Tickets</Typography>
+              <Typography level="body-lg">Tickets</Typography>
             </th>
           </tr>
         </thead>
@@ -64,13 +65,22 @@ export const EventTable = (props: { geo?: Location; searchTerm?: string }) => {
                   <Performers eventDetails={details} />
                 </td>
                 <td>
-                  <Venue name={details.event.venue?.name} />
+                  <Box display="flex" gap={1}>
+                    <Typography fontSize="0.95rem">
+                      <Venue name={details.event.venue?.name} />
+                    </Typography>
+                    <DistanceChip eventDetails={details} geo={props.geo} />
+                  </Box>
                 </td>
                 <td>
-                  <DateAndTime datetime={details.event.datetime_local} />
+                  <Typography fontSize="0.9rem">
+                    <DateAndTime datetime={details.event.datetime_local} />
+                  </Typography>
                 </td>
                 <td>
-                  <Prices event={details.event} />
+                  <Typography fontSize="0.9rem">
+                    <Prices event={details.event} />
+                  </Typography>
                 </td>
                 <td>
                   <Box width="85%">

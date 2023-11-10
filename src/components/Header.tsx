@@ -15,14 +15,14 @@ export const Header = (props: {
   handleChangeView(): void;
 }) => {
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      gap={1}
-      width="100%"
-    >
-      <Typography level="h1">
+    <Box display="flex" flexDirection="column" alignItems="center" width="100%">
+      <Typography
+        component={motion.span}
+        whileHover={{ rotate: [0, -3, 3, -3, 3, 0] }}
+        transition={{ duration: 0.5 }}
+        fontFamily="Fira Code"
+        fontSize="3rem"
+      >
         <TypeIt>gig.quest</TypeIt>
       </Typography>
       <Box
@@ -50,8 +50,11 @@ export const Header = (props: {
             component={motion.svg}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
+            drag
+            dragSnapToOrigin
+            dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
           />
-          <Typography level="body-sm">
+          <Typography level="body-sm" fontFamily="Fira Code">
             {props.eventsDetailsAndMeta?.meta?.geolocation?.display_name}
           </Typography>
         </Box>
@@ -75,6 +78,7 @@ export const Header = (props: {
                 startDecorator={<TableRows fontSize="small" />}
                 endDecorator={<GridView fontSize="small" />}
                 checked={!props.tableView}
+                variant="outlined"
                 onChange={props.handleChangeView}
                 slotProps={{
                   thumb: {

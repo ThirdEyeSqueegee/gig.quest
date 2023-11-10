@@ -23,6 +23,7 @@ export const PopularityBar = (props: { event: SGEvent }) => {
       animate={{ opacity: [0, 1] }}
       drag
       dragSnapToOrigin
+      dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
     >
       <LinearProgress
         color={

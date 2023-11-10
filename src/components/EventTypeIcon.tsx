@@ -34,6 +34,7 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             whileTap={{ scale: 0.75 }}
             drag
             dragSnapToOrigin
+            dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
           />
         </Tooltip>
       );
@@ -54,6 +55,7 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             whileTap={{ scale: 0.75 }}
             drag
             dragSnapToOrigin
+            dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
           />
         </Tooltip>
       );
@@ -72,6 +74,7 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             whileTap={{ scale: 0.75 }}
             drag
             dragSnapToOrigin
+            dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
           />
         </Tooltip>
       );
@@ -90,6 +93,7 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             whileTap={{ scale: 0.75 }}
             drag
             dragSnapToOrigin
+            dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
           />
         </Tooltip>
       );
@@ -109,6 +113,7 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             whileTap={{ scale: 0.75 }}
             drag
             dragSnapToOrigin
+            dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
           />
         </Tooltip>
       );
@@ -128,6 +133,7 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             whileTap={{ scale: 0.75 }}
             drag
             dragSnapToOrigin
+            dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
           />
         </Tooltip>
       );
@@ -147,6 +153,7 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             whileTap={{ scale: 0.75 }}
             drag
             dragSnapToOrigin
+            dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
           />
         </Tooltip>
       );
@@ -166,6 +173,7 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             whileTap={{ scale: 0.75 }}
             drag
             dragSnapToOrigin
+            dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
           />
         </Tooltip>
       );
@@ -185,6 +193,7 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             whileTap={{ scale: 0.75 }}
             drag
             dragSnapToOrigin
+            dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
           />
         </Tooltip>
       );
@@ -204,6 +213,7 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             whileTap={{ scale: 0.75 }}
             drag
             dragSnapToOrigin
+            dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
           />
         </Tooltip>
       );
@@ -224,6 +234,7 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             whileTap={{ scale: 0.75 }}
             drag
             dragSnapToOrigin
+            dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
           />
         </Tooltip>
       );
@@ -242,6 +253,7 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             whileTap={{ scale: 0.75 }}
             drag
             dragSnapToOrigin
+            dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
           />
         </Tooltip>
       );
@@ -260,6 +272,7 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             whileTap={{ scale: 0.75 }}
             drag
             dragSnapToOrigin
+            dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
           />
         </Tooltip>
       );
@@ -278,6 +291,7 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             whileTap={{ scale: 0.75 }}
             drag
             dragSnapToOrigin
+            dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
           />
         </Tooltip>
       );
@@ -296,6 +310,7 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             whileTap={{ scale: 0.75 }}
             drag
             dragSnapToOrigin
+            dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
           />
         </Tooltip>
       );
@@ -314,6 +329,7 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             whileTap={{ scale: 0.75 }}
             drag
             dragSnapToOrigin
+            dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
           />
         </Tooltip>
       );
@@ -333,6 +349,7 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             whileTap={{ scale: 0.75 }}
             drag
             dragSnapToOrigin
+            dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
           />
         </Tooltip>
       );
@@ -351,6 +368,7 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             whileTap={{ scale: 0.75 }}
             drag
             dragSnapToOrigin
+            dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
           />
         </Tooltip>
       );
@@ -369,6 +387,7 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             whileTap={{ scale: 0.75 }}
             drag
             dragSnapToOrigin
+            dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
           />
         </Tooltip>
       );
@@ -380,6 +399,7 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
           whileTap={{ scale: 0.75 }}
           drag
           dragSnapToOrigin
+          dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
         />
       );
   }

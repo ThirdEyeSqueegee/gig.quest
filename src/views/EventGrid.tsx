@@ -5,6 +5,7 @@ import useSWRImmutable from "swr/immutable";
 import { Location } from "../Interfaces";
 import { getEvents } from "../api/API";
 import { DateAndTime } from "../components/DateAndTime";
+import { DistanceChip } from "../components/DistanceChip";
 import { EventTypeIcon } from "../components/EventTypeIcon";
 import { Performers } from "../components/Performers";
 import { PopularityBar } from "../components/PopularityBar";
@@ -55,9 +56,12 @@ export const EventGrid = (props: { geo?: Location; searchTerm?: string }) => {
                   justifyContent="end"
                   gap={0}
                 >
-                  <Typography level="body-sm">
-                    <Venue name={details.event.venue?.name} />
-                  </Typography>
+                  <Box display="flex" gap={1}>
+                    <Typography level="body-sm">
+                      <Venue name={details.event.venue?.name} />
+                    </Typography>
+                    <DistanceChip eventDetails={details} geo={props.geo} />
+                  </Box>
                   <Typography fontSize="0.75rem" color="neutral">
                     <DateAndTime datetime={details.event.datetime_local} />
                   </Typography>
