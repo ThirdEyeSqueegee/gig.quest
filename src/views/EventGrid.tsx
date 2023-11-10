@@ -1,6 +1,6 @@
 import { Box, Card, Grid, Typography } from "@mui/joy";
+import { useWindowSize } from "@uidotdev/usehooks";
 import { useContext } from "react";
-import { isMobile } from "react-device-detect";
 import useSWRImmutable from "swr/immutable";
 import { Location } from "../Interfaces";
 import { getEvents } from "../api/API";
@@ -14,6 +14,8 @@ import { Venue } from "../components/Venue";
 import { PaginationContext } from "../contexts/PaginationContext";
 
 export const EventGrid = (props: { geo?: Location }) => {
+  const { width, height } = useWindowSize();
+
   const pagination = useContext(PaginationContext);
 
   const { data: eventsDetailsAndMeta } = useSWRImmutable(
@@ -24,14 +26,14 @@ export const EventGrid = (props: { geo?: Location }) => {
   return (
     <Grid
       container
-      spacing={2}
+      spacing={1}
       height="100%"
-      {...(!isMobile && { overflow: "auto" })}
+      {...(width! > height! && { overflow: "auto" })}
     >
       {eventsDetailsAndMeta?.details.map((details, i) => {
         return (
-          <Grid key={i} lg={3} md={6} xs={12}>
-            <Card>
+          <Grid key={i} lg={3} md={6} xs={12} px={0.5}>
+            <Card sx={{ p: 1 }}>
               <Box
                 display="flex"
                 justifyContent="space-between"

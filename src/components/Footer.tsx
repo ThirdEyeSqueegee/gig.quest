@@ -39,6 +39,7 @@ export const Footer = () => {
           onChange={(e, v) => {
             setPagination({ ...pagination, page: 1, filter: v });
           }}
+          indicator={<KeyboardArrowDown />}
           {...(pagination.filter.length > 0 && {
             endDecorator: (
               <IconButton
@@ -55,7 +56,6 @@ export const Footer = () => {
             ),
             indicator: null,
           })}
-          indicator={<KeyboardArrowDown />}
           sx={{
             [`& .${selectClasses.indicator}`]: {
               transition: "0.2s",
@@ -103,7 +103,7 @@ export const Footer = () => {
           }}
         >
           <Option value={pagination.rowCountOptions[0]}>
-            {pagination.rowCountOptions[0] === 10 ? 10 : 16}
+            {pagination.rowCountOptions[0] === 10 ? 10 : 20}
           </Option>
           <Option value={pagination.rowCountOptions[1]}>
             {pagination.rowCountOptions[1] === 25 ? 25 : 36}
@@ -116,7 +116,9 @@ export const Footer = () => {
       <IconButton
         variant="outlined"
         disabled={pagination.page === 1}
-        onClick={() => setPagination({ ...pagination, page: 1 })}
+        onClick={() => {
+          setPagination({ ...pagination, page: 1 });
+        }}
         component={motion.button}
         whileTap={{ scale: 0.8 }}
       >

@@ -20,14 +20,16 @@ import { EventGrid } from "./views/EventGrid";
 import { EventTable } from "./views/EventTable";
 
 export default function App() {
+  const [tableView, setTableView] = useState(!isMobile);
+
   const [pagination, setPagination] = useState<PaginationProps>({
     page: 1,
-    rowsPerPage: isMobile ? 16 : 10,
+    rowsPerPage: !isMobile && !tableView ? 20 : 10,
     range: "5mi",
     filter: [],
     sortDate: true,
     sortPopularity: undefined,
-    rowCountOptions: isMobile ? [16, 36, 48] : [10, 25, 50],
+    rowCountOptions: !isMobile && !tableView ? [20, 36, 48] : [10, 25, 50],
   });
 
   const isFirstRender = useIsFirstRender();
@@ -45,20 +47,18 @@ export default function App() {
     );
   }
 
-  const { width, height } = useWindowSize();
-
-  const [tableView, setTableView] = useState(isMobile ? false : true);
-
   const [searchTerm, setSearchTerm] = useState("");
   const debSearchTerm = useDebounce(searchTerm, 500);
+
+  const { width, height } = useWindowSize();
 
   const handleChangeView = () => {
     setTableView(!tableView);
     setPagination({
       ...pagination,
       page: 1,
-      rowsPerPage: tableView ? 16 : 10,
-      rowCountOptions: tableView ? [16, 36, 48] : [10, 25, 50],
+      rowsPerPage: !isMobile && tableView ? 20 : 10,
+      rowCountOptions: !isMobile && tableView ? [20, 36, 48] : [10, 25, 50],
     });
   };
 
@@ -72,9 +72,14 @@ export default function App() {
     <PaginationContext.Provider
       value={{ props: pagination, setter: setPagination }}
     >
-      <Box p={2}>
+      <Box p={isMobile ? 1 : 2}>
         <Card
-          sx={{ alignItems: "center", height: isMobile ? "auto" : "90vh" }}
+          sx={{
+            alignItems: "center",
+            height: isMobile ? "auto" : "90vh",
+            minHeight: "90vh",
+            px: isMobile ? 1.5 : 2,
+          }}
           component={motion.div}
           animate={{ scaleY: [0, 1] }}
           transition={{ type: "spring", duration: 0.5 }}
