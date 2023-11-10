@@ -55,6 +55,5 @@ export const tokenizePerformers = (
       .split(is1v1 ? "vs." : "//")
       .filter((e) => e.length > 0)
       .map((e) => e.trim()),
-    str: str,
   };
 };

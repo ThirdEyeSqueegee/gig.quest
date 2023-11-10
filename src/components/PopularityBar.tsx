@@ -1,46 +1,42 @@
 import { LinearProgress, Tooltip } from "@mui/joy";
 import { motion } from "framer-motion";
-import { useEffect } from "react";
 import { useCountUp } from "use-count-up";
-import { Event } from "../Interfaces";
+import { SGEvent } from "../Interfaces";
 
-export const PopularityBar = (props: { e: Event }) => {
-  const { value, reset } = useCountUp({
+export const PopularityBar = (props: { event: SGEvent }) => {
+  const { value } = useCountUp({
     isCounting: true,
     duration: 0.5,
     start: 0,
-    end: props.e.score ? props.e.score * 100 : 0,
+    end: props.event.score ? props.event.score * 100 : 0,
   });
-
-  useEffect(() => {
-    reset();
-  }, [props.e]);
 
   return (
     <Tooltip
       arrow
       followCursor
-      title={props.e.score && (props.e.score * 100).toFixed(1)}
+      title={props.event.score && (props.event.score * 100).toFixed(1)}
       variant="soft"
+      component={motion.div}
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
+      animate={{ opacity: [0, 1] }}
+      drag
+      dragSnapToOrigin
     >
       <LinearProgress
-        component={motion.div}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        drag
-        dragSnapToOrigin
         color={
-          props.e.score! > 0.75
+          props.event.score! > 0.75
             ? "success"
-            : props.e.score! > 0.5
+            : props.event.score! > 0.5
             ? "primary"
-            : props.e.score! > 0.25
+            : props.event.score! > 0.25
             ? "warning"
             : "danger"
         }
         determinate
-        thickness={7}
-        value={Number(value!)}
+        thickness={8}
+        value={Number(value)}
         variant="solid"
       />
     </Tooltip>

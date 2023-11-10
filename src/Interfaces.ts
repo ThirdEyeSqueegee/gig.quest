@@ -1,6 +1,44 @@
-export interface Events {
-  events?: Event[];
+export interface SGEvents {
+  events?: SGEvent[];
   meta?: Meta;
+}
+
+export interface SGEvent {
+  type?: string;
+  id?: number;
+  datetime_utc?: string;
+  venue?: Venue;
+  datetime_tbd?: boolean;
+  performers?: Performer[];
+  is_open?: boolean;
+  links?: string[];
+  datetime_local?: string;
+  time_tbd?: boolean;
+  short_title?: string;
+  visible_until_utc?: string;
+  stats?: EventStats;
+  taxonomies?: object[];
+  url?: string;
+  score?: number;
+  announce_date?: string;
+  created_at?: string;
+  date_tbd?: boolean;
+  title?: string;
+  popularity?: number;
+  description?: string;
+  status?: string;
+  access_method?: object;
+  event_promotion?: null;
+  announcements?: object;
+  conditional?: boolean;
+  enddatetime_utc?: null;
+  visible_at?: string;
+  is_visible_override?: string;
+  tdc_pvo_id?: number;
+  tdc_pv_id?: number;
+  is_visible?: boolean;
+  themes?: string[];
+  domain_information?: string[];
 }
 
 export interface Meta {
@@ -89,47 +127,30 @@ export interface EventStats {
   lowest_sg_base_price_good_deals?: number;
 }
 
-export interface Event {
-  type?: string;
-  id?: number;
-  datetime_utc?: string;
-  venue?: Venue;
-  datetime_tbd?: boolean;
-  performers?: Performer[];
-  is_open?: boolean;
-  links?: string[];
-  datetime_local?: string;
-  time_tbd?: boolean;
-  short_title?: string;
-  visible_until_utc?: string;
-  stats?: EventStats;
-  taxonomies?: object[];
-  url?: string;
-  score?: number;
-  announce_date?: string;
-  created_at?: string;
-  date_tbd?: boolean;
-  title?: string;
-  popularity?: number;
-  description?: string;
-  status?: string;
-  access_method?: object;
-  event_promotion?: null;
-  announcements?: object;
-  conditional?: boolean;
-  enddatetime_utc?: null;
-  visible_at?: string;
-  is_visible_override?: string;
-  tdc_pvo_id?: number;
-  tdc_pv_id?: number;
-  is_visible?: boolean;
-  themes?: string[];
-  domain_information?: string[];
-}
-
 export interface Location {
   lat: number | null;
   lon: number | null;
+}
+
+export interface PaginationProps {
+  page: number;
+  rowsPerPage: number;
+  range: string;
+  filter: string[];
+  sortDate?: boolean;
+  sortPopularity?: boolean;
+  rowCountOptions: number[];
+}
+
+export interface SpotifyTokenResponse {
+  access_token: string;
+  token_type: string;
+  expires_in: number;
+}
+
+export interface SpotifyToken {
+  token: string;
+  expires_at: Date;
 }
 
 export interface SpotifyArtistDetails {
@@ -139,24 +160,11 @@ export interface SpotifyArtistDetails {
   offset?: number;
   previous?: string;
   total?: number;
-  items?: Item[];
+  items?: ArtistItem[];
 }
 
 export interface SpotifyArtistResult {
   artists: SpotifyArtistDetails;
-}
-
-export interface Item {
-  external_urls?: ExternalUrls;
-  followers?: Followers;
-  genres?: string[];
-  href?: string;
-  id?: string;
-  images?: Image[];
-  name?: string;
-  popularity?: number;
-  type?: string;
-  uri?: string;
 }
 
 export interface ExternalUrls {
@@ -174,24 +182,26 @@ export interface Image {
   width?: number;
 }
 
-export interface ArtistDetails {
-  name: string;
-  result: Item;
+export interface ArtistItem {
+  external_urls?: ExternalUrls;
+  followers?: Followers;
+  genres?: string[];
+  href?: string;
+  id?: string;
+  images?: Image[];
+  name?: string;
+  popularity?: number;
+  type?: string;
+  uri?: string;
 }
 
 export interface EventDetails {
-  event: Event;
+  event: SGEvent;
+  performers: string[];
   is1v1: boolean;
-  artistDetails: ArtistDetails[];
 }
 
-export interface SpotifyTokenResponse {
-  access_token: string;
-  token_type: string;
-  expires_in: number;
-}
-
-export interface SpotifyToken {
-  token: string;
-  expires_at: Date;
+export interface EventsDetailsAndMeta {
+  details: EventDetails[];
+  meta: Meta;
 }

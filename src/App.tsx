@@ -1,285 +1,161 @@
-import { GitHub, GridView, LocationOn, TableRows } from "@mui/icons-material";
-import {
-  Box,
-  Card,
-  CircularProgress,
-  Divider,
-  IconButton,
-  Link,
-  Switch,
-  Tooltip,
-  Typography,
-} from "@mui/joy";
+import { GridView, LocationOn, TableRows } from "@mui/icons-material";
+import { Box, Card, Divider, Switch, Tooltip, Typography } from "@mui/joy";
 import {
   useDebounce,
   useIsFirstRender,
-  useOrientation,
+  useWindowSize,
 } from "@uidotdev/usehooks";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { isMobile } from "react-device-detect";
-import useSWR from "swr";
+import useSWRImmutable from "swr/immutable";
 import TypeIt from "typeit-react";
-import { EventDetails, Location, Meta } from "./Interfaces";
-import { getEvents } from "./api/SeatGeek";
-import { searchArtist } from "./api/Spotify";
-import Footer from "./components/Footer";
+import { Location, PaginationProps } from "./Interfaces";
+import { getEvents } from "./api/API";
+import { Footer } from "./components/Footer";
+import { LocationLoading } from "./components/LocationLoading";
 import { SearchInput } from "./components/SearchInput";
-import { PagingContext, PagingProps } from "./contexts/PagingContext";
-import { tokenizePerformers } from "./utilities/TokenizePerformers";
+import { PaginationContext } from "./contexts/PaginationContext";
 import { EventGrid } from "./views/EventGrid";
-import { EventStack } from "./views/EventStack";
 import { EventTable } from "./views/EventTable";
 
 export default function App() {
-  const [tableView, setTableView] = useState(true);
-
-  const [searchTerm, setSearchTerm] = useState("");
-  const debSearchTerm = useDebounce(searchTerm, 500);
-
-  const [geo, setGeo] = useState<Location>();
-
-  const isFirstRender = useIsFirstRender();
-  const { type: orientation } = useOrientation();
-
-  const [paging, setPaging] = useState<PagingProps>({
+  const [pagination, setPagination] = useState<PaginationProps>({
     page: 1,
-    rowsPerPage: 10,
+    rowsPerPage: isMobile ? 16 : 10,
     range: "5mi",
-    filter: [""],
+    filter: [],
     sortDate: true,
     sortPopularity: undefined,
-    rowOptions: [10, 25, 50],
+    rowCountOptions: isMobile ? [16, 36, 48] : [10, 25, 50],
   });
 
-  const [eventsDetails, setEventsDetails] = useState<EventDetails[]>([]);
-  const [meta, setMeta] = useState<Meta>();
+  const isFirstRender = useIsFirstRender();
 
+  const [geo, setGeo] = useState<Location>();
   if (isFirstRender) {
     navigator.geolocation.getCurrentPosition(
-      (p: GeolocationPosition) =>
-        setGeo({ lat: p.coords.latitude, lon: p.coords.longitude }),
+      (p: GeolocationPosition) => {
+        setGeo({ lat: p.coords.latitude, lon: p.coords.longitude });
+      },
       null,
       {
         enableHighAccuracy: true,
       },
     );
-    if (localStorage.getItem("spotifyToken")) {
-      localStorage.removeItem("spotifyToken");
-    }
   }
 
-  const {
-    data: newEvents,
-    error,
-    isLoading,
-  } = useSWR(
-    geo ? ["events", paging, geo.lat, geo.lon, debSearchTerm] : null,
-    ([url, p, lat, lon, query]) => getEvents(p, lat, lon, query),
-  );
+  const { width, height } = useWindowSize();
 
-  useEffect(() => {
-    if (eventsDetails && eventsDetails.length > 0 && debSearchTerm !== "") {
-      setPaging({ ...paging, page: 1 });
-    }
+  const [tableView, setTableView] = useState(isMobile ? false : true);
 
-    (async () => {
-      if (geo === undefined) return;
+  const [searchTerm, setSearchTerm] = useState("");
+  const debSearchTerm = useDebounce(searchTerm, 500);
 
-      if (isLoading) return;
-
-      setMeta(newEvents!.meta);
-
-      const eventsDetailsBuffer: EventDetails[] = [];
-
-      for (const e of newEvents!.events!) {
-        const { is1v1, tokens } = tokenizePerformers(e.performers, e.type);
-        const details: EventDetails = {
-          event: e,
-          is1v1: false,
-          artistDetails: [],
-        };
-        details.is1v1 = is1v1;
-        await Promise.all(
-          tokens.map(async (t: string) => {
-            if (e.type === "concert") {
-              const searchResult = await searchArtist(t);
-              details.artistDetails.push({
-                name: t,
-                result: searchResult,
-              });
-            } else {
-              details.artistDetails.push({
-                name: t,
-                result: {},
-              });
-            }
-          }),
-        );
-        eventsDetailsBuffer.push(details);
-      }
-      setEventsDetails(eventsDetailsBuffer);
-    })();
-  }, [paging, geo, tableView, debSearchTerm, isLoading]);
-
-  const handleViewChange = () => {
-    if (tableView) {
-      setPaging({
-        ...paging,
-        rowsPerPage: 16,
-        rowOptions: [16, 32, 48],
-        page: 1,
-      });
-    } else {
-      setPaging({
-        ...paging,
-        rowsPerPage: 10,
-        rowOptions: [10, 25, 50],
-        page: 1,
-      });
-    }
+  const handleChangeView = () => {
     setTableView(!tableView);
+    setPagination({
+      ...pagination,
+      page: 1,
+      rowsPerPage: tableView ? 16 : 10,
+      rowCountOptions: tableView ? [16, 36, 48] : [10, 25, 50],
+    });
   };
 
+  const { data: eventsDetailsAndMeta } = useSWRImmutable(
+    geo ? ["eventsDetails", pagination, geo] : null,
+    ([, p, g]) => getEvents(p, g),
+    { keepPreviousData: true },
+  );
+
   return (
-    <PagingContext.Provider value={{ props: paging, setter: setPaging }}>
-      <Box p={isMobile ? 1 : 2}>
+    <PaginationContext.Provider
+      value={{ props: pagination, setter: setPagination }}
+    >
+      <Box p={2}>
         <Card
-          sx={{
-            alignItems: "center",
-            p: 1,
-            height: orientation.includes("portrait") ? "auto" : "87.5vh",
-            minHeight: orientation.includes("portrait") ? "100vh" : "87.5vh",
-          }}
+          sx={{ alignItems: "center", height: isMobile ? "auto" : "90vh" }}
           component={motion.div}
-          animate={{ opacity: [0, 1], transition: { duration: 1 } }}
+          animate={{ scaleY: [0, 1] }}
+          transition={{ type: "spring", duration: 0.5 }}
         >
-          <Typography
-            level="h1"
-            component={motion.span}
-            whileHover={{
-              scale: 1.1,
-              rotateZ: [0, -3, 3, -3, 3, 0],
-              transition: { duration: 0.5 },
-            }}
-          >
+          <Typography level="h1">
             <TypeIt>gig.quest</TypeIt>
           </Typography>
-          <Box display="flex">
-            <LocationOn
-              fontSize="small"
-              color="error"
-              component={motion.svg}
-              whileHover={{ scale: 1.25 }}
-              whileTap={{ scale: 0.9 }}
-            />
-            <Typography level="body-sm">
-              {meta && meta.geolocation ? (
-                `${meta.geolocation.city}, ${meta.geolocation.state} (${paging.range})`
-              ) : (
-                <Typography>...</Typography>
-              )}
-            </Typography>
-          </Box>
-          {isMobile && geo && (
-            <SearchInput
-              searchTerm={searchTerm}
-              setSearchTerm={setSearchTerm}
-            />
-          )}
-          {geo === undefined ? (
+          <Box
+            display="flex"
+            flexWrap="wrap"
+            justifyContent="center"
+            alignItems="center"
+            width="100%"
+            gap={2}
+          >
+            {width! > height! && <Box display="flex" flex={1} />}
             <Box
               display="flex"
-              flexDirection="column"
-              height="100%"
-              alignItems="center"
               justifyContent="center"
-              gap={2}
+              alignItems="center"
+              flex={1}
             >
-              <CircularProgress
-                size="lg"
-                component={motion.span}
-                initial={{ scale: 0 }}
-                animate={{ scale: [1, 1.25] }}
-                transition={{
-                  repeat: Infinity,
-                  duration: 1,
-                  repeatType: "reverse",
-                }}
-              >
-                <LocationOn color="error" />
-              </CircularProgress>
-              <Typography level="body-sm">Waiting for location...</Typography>
+              <LocationOn
+                htmlColor="red"
+                component={motion.svg}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              />
+              <Typography level="body-sm">
+                {eventsDetailsAndMeta?.meta?.geolocation?.display_name}
+              </Typography>
             </Box>
-          ) : orientation.includes("landscape") ? (
-            tableView ? (
-              <EventTable eventsDetails={eventsDetails} location={geo} />
-            ) : (
-              <EventGrid eventsDetails={eventsDetails} location={geo} />
-            )
-          ) : (
-            <EventStack eventsDetails={eventsDetails} location={geo} />
-          )}
-          <Divider />
-          <Footer eventCount={meta?.total} />
-          {!isMobile && geo && (
             <Box
               display="flex"
-              sx={{
-                position: "absolute",
-                top: "3.5rem",
-                right: "0.5rem",
-              }}
-              gap={3}
-              component={motion.div}
-              animate={{ opacity: [0, 1], transition: { duration: 0.5 } }}
+              justifyContent={width! > height! ? "end" : "center"}
+              alignItems="center"
+              gap={2}
+              flex={1}
             >
-              <SearchInput
-                searchTerm={searchTerm}
-                setSearchTerm={setSearchTerm}
-              />
+              <SearchInput setSearchTerm={setSearchTerm} />
               <Tooltip
                 title={`Switch to ${tableView ? "grid" : "table"} view`}
                 variant="soft"
+                component={motion.div}
+                animate={{ opacity: [0, 1] }}
               >
                 <Switch
-                  color="primary"
-                  variant="soft"
                   size="lg"
-                  onChange={handleViewChange}
                   startDecorator={<TableRows fontSize="small" />}
                   endDecorator={<GridView fontSize="small" />}
+                  checked={!tableView}
+                  onChange={handleChangeView}
+                  slotProps={{
+                    thumb: {
+                      style: {
+                        transition: "0.25s",
+                      },
+                    },
+                  }}
                 />
               </Tooltip>
             </Box>
+          </Box>
+          <Divider />
+          {geo ? (
+            tableView ? (
+              <EventTable
+                key={pagination.page}
+                geo={geo}
+                searchTerm={debSearchTerm}
+              />
+            ) : (
+              <EventGrid key={pagination.page} geo={geo} />
+            )
+          ) : (
+            <LocationLoading />
           )}
-          <Tooltip arrow title="Source" variant="soft">
-            <IconButton
-              size="sm"
-              component={motion.button}
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.8 }}
-              sx={{
-                position: "absolute",
-                top: "0.5rem",
-                right: "0.25rem",
-              }}
-            >
-              <Link
-                color="neutral"
-                href="https://github.com/ThirdEyeSqueegee/gig.quest"
-                overlay
-                target="_blank"
-                rel="noopener"
-              >
-                <GitHub />
-              </Link>
-            </IconButton>
-          </Tooltip>
+          <Divider />
+          <Footer />
         </Card>
       </Box>
-    </PagingContext.Provider>
+    </PaginationContext.Provider>
   );
 }

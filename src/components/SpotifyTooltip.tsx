@@ -1,6 +1,12 @@
-import { Box, Chip } from "@mui/joy";
+import { Box, Chip, CircularProgress, Link } from "@mui/joy";
+import useSWR from "swr";
+import { spotifySearchArtist } from "../api/API";
 
-export const SpotifyTooltip = (props: { genres?: string[] }) => {
+export const SpotifyTooltip = (props: { artist: string }) => {
+  const { data: artistItem } = useSWR(["artist", props.artist], ([, a]) =>
+    spotifySearchArtist(a),
+  );
+
   return (
     <Box
       display="flex"
@@ -9,15 +15,31 @@ export const SpotifyTooltip = (props: { genres?: string[] }) => {
       maxWidth="20rem"
       justifyContent="center"
     >
-      {props.genres && props.genres.length > 0
-        ? props.genres.map((genre, i) => {
-            return (
-              <Chip key={i} color="success">
-                {genre}
-              </Chip>
-            );
-          })
-        : "¯\\_(ツ)_/¯"}
+      {artistItem ? (
+        artistItem.genres && artistItem.genres.length > 0 ? (
+          <Box display="flex" flexDirection="column" alignItems="center">
+            <Box display="flex" justifyContent="center" flexWrap="wrap" gap={1}>
+              {artistItem.genres.map((genre, i) => {
+                return (
+                  <Chip key={i} color="success" size="sm">
+                    {genre}
+                  </Chip>
+                );
+              })}
+            </Box>
+            <Link
+              overlay
+              href={artistItem.external_urls?.spotify}
+              target="_blank"
+              rel="noopener"
+            />
+          </Box>
+        ) : (
+          "¯\\_(ツ)_/¯"
+        )
+      ) : (
+        <CircularProgress color="success" size="sm" />
+      )}
     </Box>
   );
 };

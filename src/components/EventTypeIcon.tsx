@@ -20,12 +20,18 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
   switch (props.eventType) {
     case "nba":
       return (
-        <Tooltip arrow title="NBA" variant="soft">
+        <Tooltip
+          arrow
+          title="NBA"
+          variant="soft"
+          component={motion.div}
+          animate={{ opacity: [0, 1] }}
+        >
           <SportsBasketball
-            color="warning"
+            htmlColor="coral"
             component={motion.svg}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.8 }}
+            whileHover={{ scale: 1.15 }}
+            whileTap={{ scale: 0.75 }}
             drag
             dragSnapToOrigin
           />
@@ -34,12 +40,18 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
     case "ncaa_basketball":
     case "ncaa_womens_basketball":
       return (
-        <Tooltip arrow title="NCAA Basketball" variant="soft">
+        <Tooltip
+          arrow
+          title="NCAA Basketball"
+          variant="soft"
+          component={motion.div}
+          animate={{ opacity: [0, 1] }}
+        >
           <SportsBasketball
-            color="warning"
+            htmlColor="coral"
             component={motion.svg}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.8 }}
+            whileHover={{ scale: 1.15 }}
+            whileTap={{ scale: 0.75 }}
             drag
             dragSnapToOrigin
           />
@@ -47,11 +59,17 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
       );
     case "ncaa_soccer":
       return (
-        <Tooltip arrow title="NCAA Soccer" variant="soft">
+        <Tooltip
+          arrow
+          title="NCAA Soccer"
+          variant="soft"
+          component={motion.div}
+          animate={{ opacity: [0, 1] }}
+        >
           <SportsSoccer
             component={motion.svg}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.8 }}
+            whileHover={{ scale: 1.15 }}
+            whileTap={{ scale: 0.75 }}
             drag
             dragSnapToOrigin
           />
@@ -59,11 +77,17 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
       );
     case "mls":
       return (
-        <Tooltip arrow title="MLS" variant="soft">
+        <Tooltip
+          arrow
+          title="MLS"
+          variant="soft"
+          component={motion.div}
+          animate={{ opacity: [0, 1] }}
+        >
           <SportsSoccer
             component={motion.svg}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.8 }}
+            whileHover={{ scale: 1.15 }}
+            whileTap={{ scale: 0.75 }}
             drag
             dragSnapToOrigin
           />
@@ -71,12 +95,18 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
       );
     case "ncaa_football":
       return (
-        <Tooltip arrow title="NCAA Football" variant="soft">
+        <Tooltip
+          arrow
+          title="NCAA Football"
+          variant="soft"
+          component={motion.div}
+          animate={{ opacity: [0, 1] }}
+        >
           <SportsFootball
-            style={{ color: "saddlebrown" }}
+            htmlColor="saddlebrown"
             component={motion.svg}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.8 }}
+            whileHover={{ scale: 1.15 }}
+            whileTap={{ scale: 0.75 }}
             drag
             dragSnapToOrigin
           />
@@ -84,12 +114,18 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
       );
     case "concert":
       return (
-        <Tooltip arrow title="Concert" variant="soft">
+        <Tooltip
+          arrow
+          title="Concert"
+          variant="soft"
+          component={motion.div}
+          animate={{ opacity: [0, 1] }}
+        >
           <PlayCircle
-            color="primary"
+            htmlColor="royalblue"
             component={motion.svg}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.8 }}
+            whileHover={{ scale: 1.15 }}
+            whileTap={{ scale: 0.75 }}
             drag
             dragSnapToOrigin
           />
@@ -97,11 +133,18 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
       );
     case "music_festival":
       return (
-        <Tooltip arrow title="Music Festival" variant="soft">
+        <Tooltip
+          arrow
+          title="Music Festival"
+          variant="soft"
+          component={motion.div}
+          animate={{ opacity: [0, 1] }}
+        >
           <PlayCircle
+            htmlColor="royalblue"
             component={motion.svg}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.8 }}
+            whileHover={{ scale: 1.15 }}
+            whileTap={{ scale: 0.75 }}
             drag
             dragSnapToOrigin
           />
@@ -109,12 +152,18 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
       );
     case "classical":
       return (
-        <Tooltip arrow title="Classical" variant="soft">
+        <Tooltip
+          arrow
+          title="Classical"
+          variant="soft"
+          component={motion.div}
+          animate={{ opacity: [0, 1] }}
+        >
           <MusicNote
-            color="secondary"
+            htmlColor="slateblue"
             component={motion.svg}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.8 }}
+            whileHover={{ scale: 1.15 }}
+            whileTap={{ scale: 0.75 }}
             drag
             dragSnapToOrigin
           />
@@ -122,12 +171,18 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
       );
     case "classical_opera":
       return (
-        <Tooltip arrow title="Opera" variant="soft">
+        <Tooltip
+          arrow
+          title="Opera"
+          variant="soft"
+          component={motion.div}
+          animate={{ opacity: [0, 1] }}
+        >
           <MusicNote
-            color="secondary"
+            htmlColor="slateblue"
             component={motion.svg}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.8 }}
+            whileHover={{ scale: 1.15 }}
+            whileTap={{ scale: 0.75 }}
             drag
             dragSnapToOrigin
           />
@@ -135,12 +190,18 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
       );
     case "classical_orchestral_instrumental":
       return (
-        <Tooltip arrow title="Orchestra" variant="soft">
+        <Tooltip
+          arrow
+          title="Orchestra"
+          variant="soft"
+          component={motion.div}
+          animate={{ opacity: [0, 1] }}
+        >
           <MusicNote
-            color="secondary"
+            htmlColor="slateblue"
             component={motion.svg}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.8 }}
+            whileHover={{ scale: 1.15 }}
+            whileTap={{ scale: 0.75 }}
             drag
             dragSnapToOrigin
           />
@@ -149,12 +210,18 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
     case "broadway_tickets_national":
     case "theater":
       return (
-        <Tooltip arrow title="Theater" variant="soft">
+        <Tooltip
+          arrow
+          title="Theater"
+          variant="soft"
+          component={motion.div}
+          animate={{ opacity: [0, 1] }}
+        >
           <TheaterComedy
-            color="success"
+            htmlColor="lightseagreen"
             component={motion.svg}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.8 }}
+            whileHover={{ scale: 1.15 }}
+            whileTap={{ scale: 0.75 }}
             drag
             dragSnapToOrigin
           />
@@ -162,11 +229,17 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
       );
     case "esports":
       return (
-        <Tooltip arrow title="Esports" variant="soft">
+        <Tooltip
+          arrow
+          title="Esports"
+          variant="soft"
+          component={motion.div}
+          animate={{ opacity: [0, 1] }}
+        >
           <SportsEsports
             component={motion.svg}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.8 }}
+            whileHover={{ scale: 1.15 }}
+            whileTap={{ scale: 0.75 }}
             drag
             dragSnapToOrigin
           />
@@ -174,11 +247,17 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
       );
     case "nhl":
       return (
-        <Tooltip arrow title="NHL" variant="soft">
+        <Tooltip
+          arrow
+          title="NHL"
+          variant="soft"
+          component={motion.div}
+          animate={{ opacity: [0, 1] }}
+        >
           <SportsHockey
             component={motion.svg}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.8 }}
+            whileHover={{ scale: 1.15 }}
+            whileTap={{ scale: 0.75 }}
             drag
             dragSnapToOrigin
           />
@@ -186,11 +265,17 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
       );
     case "hockey":
       return (
-        <Tooltip arrow title="Hockey" variant="soft">
+        <Tooltip
+          arrow
+          title="Hockey"
+          variant="soft"
+          component={motion.div}
+          animate={{ opacity: [0, 1] }}
+        >
           <SportsHockey
             component={motion.svg}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.8 }}
+            whileHover={{ scale: 1.15 }}
+            whileTap={{ scale: 0.75 }}
             drag
             dragSnapToOrigin
           />
@@ -198,11 +283,17 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
       );
     case "minor_league_hockey":
       return (
-        <Tooltip arrow title="Minor League Hockey" variant="soft">
+        <Tooltip
+          arrow
+          title="Minor League Hockey"
+          variant="soft"
+          component={motion.div}
+          animate={{ opacity: [0, 1] }}
+        >
           <SportsHockey
             component={motion.svg}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.8 }}
+            whileHover={{ scale: 1.15 }}
+            whileTap={{ scale: 0.75 }}
             drag
             dragSnapToOrigin
           />
@@ -210,11 +301,17 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
       );
     case "family":
       return (
-        <Tooltip arrow title="Family" variant="soft">
+        <Tooltip
+          arrow
+          title="Family"
+          variant="soft"
+          component={motion.div}
+          animate={{ opacity: [0, 1] }}
+        >
           <Diversity3
             component={motion.svg}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.8 }}
+            whileHover={{ scale: 1.15 }}
+            whileTap={{ scale: 0.75 }}
             drag
             dragSnapToOrigin
           />
@@ -222,12 +319,18 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
       );
     case "comedy":
       return (
-        <Tooltip arrow title="Comedy" variant="soft">
+        <Tooltip
+          arrow
+          title="Comedy"
+          variant="soft"
+          component={motion.div}
+          animate={{ opacity: [0, 1] }}
+        >
           <EmojiEmotions
-            style={{ color: "gold" }}
+            htmlColor="gold"
             component={motion.svg}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.8 }}
+            whileHover={{ scale: 1.15 }}
+            whileTap={{ scale: 0.75 }}
             drag
             dragSnapToOrigin
           />
@@ -235,11 +338,17 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
       );
     case "auto_racing":
       return (
-        <Tooltip arrow title="Racing" variant="soft">
+        <Tooltip
+          arrow
+          title="Racing"
+          variant="soft"
+          component={motion.div}
+          animate={{ opacity: [0, 1] }}
+        >
           <DirectionsCar
             component={motion.svg}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.8 }}
+            whileHover={{ scale: 1.15 }}
+            whileTap={{ scale: 0.75 }}
             drag
             dragSnapToOrigin
           />
@@ -247,11 +356,17 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
       );
     case "womens_college_volleyball":
       return (
-        <Tooltip arrow title="Women's College Volleyball" variant="soft">
+        <Tooltip
+          arrow
+          title="Women's College Volleyball"
+          variant="soft"
+          component={motion.div}
+          animate={{ opacity: [0, 1] }}
+        >
           <SportsVolleyball
             component={motion.svg}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.8 }}
+            whileHover={{ scale: 1.15 }}
+            whileTap={{ scale: 0.75 }}
             drag
             dragSnapToOrigin
           />
@@ -261,8 +376,8 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
       return (
         <LocalActivity
           component={motion.svg}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.8 }}
+          whileHover={{ scale: 1.15 }}
+          whileTap={{ scale: 0.75 }}
           drag
           dragSnapToOrigin
         />
