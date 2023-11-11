@@ -50,7 +50,7 @@ export const Header = (props: {
             component={motion.svg}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            {...(isMobile && {
+            {...(!isMobile && {
               drag: true,
               dragSnapToOrigin: true,
               dragTransition: { bounceStiffness: 500, bounceDamping: 10 },

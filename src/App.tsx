@@ -1,4 +1,5 @@
-import { Box, Card, Divider } from "@mui/joy";
+import { GitHub } from "@mui/icons-material";
+import { Box, Card, Divider, IconButton, Link } from "@mui/joy";
 import {
   useDebounce,
   useIsFirstRender,
@@ -91,6 +92,15 @@ export default function App() {
             tableView={tableView}
             handleChangeView={handleChangeView}
           />
+          <IconButton
+            sx={{ position: "absolute", top: "0.5rem", right: "0.5rem" }}
+          >
+            <GitHub />
+            <Link
+              href="https://github.com/ThirdEyeSqueegee/gig.quest"
+              overlay
+            />
+          </IconButton>
           {geo ? (
             tableView ? (
               <EventTable

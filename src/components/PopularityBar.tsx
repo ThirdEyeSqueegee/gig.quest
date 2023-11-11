@@ -37,7 +37,7 @@ export const PopularityBar = (props: { event: SGEvent }) => {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         animate={{ opacity: [0, 1] }}
-        {...(isMobile && {
+        {...(!isMobile && {
           drag: true,
           dragSnapToOrigin: true,
           dragTransition: { bounceStiffness: 500, bounceDamping: 10 },

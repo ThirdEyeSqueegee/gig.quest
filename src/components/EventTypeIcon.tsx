@@ -33,7 +33,7 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             component={motion.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
-            {...(isMobile && {
+            {...(!isMobile && {
               drag: true,
               dragSnapToOrigin: true,
               dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
@@ -56,7 +56,7 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             component={motion.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
-            {...(isMobile && {
+            {...(!isMobile && {
               drag: true,
               dragSnapToOrigin: true,
               dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
@@ -77,7 +77,7 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             component={motion.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
-            {...(isMobile && {
+            {...(!isMobile && {
               drag: true,
               dragSnapToOrigin: true,
               dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
@@ -98,7 +98,7 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             component={motion.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
-            {...(isMobile && {
+            {...(!isMobile && {
               drag: true,
               dragSnapToOrigin: true,
               dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
@@ -120,7 +120,7 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             component={motion.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
-            {...(isMobile && {
+            {...(!isMobile && {
               drag: true,
               dragSnapToOrigin: true,
               dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
@@ -142,7 +142,7 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             component={motion.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
-            {...(isMobile && {
+            {...(!isMobile && {
               drag: true,
               dragSnapToOrigin: true,
               dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
@@ -164,7 +164,7 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             component={motion.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
-            {...(isMobile && {
+            {...(!isMobile && {
               drag: true,
               dragSnapToOrigin: true,
               dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
@@ -186,7 +186,7 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             component={motion.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
-            {...(isMobile && {
+            {...(!isMobile && {
               drag: true,
               dragSnapToOrigin: true,
               dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
@@ -208,7 +208,7 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             component={motion.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
-            {...(isMobile && {
+            {...(!isMobile && {
               drag: true,
               dragSnapToOrigin: true,
               dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
@@ -230,7 +230,7 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             component={motion.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
-            {...(isMobile && {
+            {...(!isMobile && {
               drag: true,
               dragSnapToOrigin: true,
               dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
@@ -253,7 +253,7 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             component={motion.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
-            {...(isMobile && {
+            {...(!isMobile && {
               drag: true,
               dragSnapToOrigin: true,
               dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
@@ -274,7 +274,7 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             component={motion.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
-            {...(isMobile && {
+            {...(!isMobile && {
               drag: true,
               dragSnapToOrigin: true,
               dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
@@ -295,7 +295,7 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             component={motion.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
-            {...(isMobile && {
+            {...(!isMobile && {
               drag: true,
               dragSnapToOrigin: true,
               dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
@@ -316,7 +316,7 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             component={motion.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
-            {...(isMobile && {
+            {...(!isMobile && {
               drag: true,
               dragSnapToOrigin: true,
               dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
@@ -337,7 +337,7 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             component={motion.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
-            {...(isMobile && {
+            {...(!isMobile && {
               drag: true,
               dragSnapToOrigin: true,
               dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
@@ -358,7 +358,7 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             component={motion.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
-            {...(isMobile && {
+            {...(!isMobile && {
               drag: true,
               dragSnapToOrigin: true,
               dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
@@ -380,7 +380,7 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             component={motion.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
-            {...(isMobile && {
+            {...(!isMobile && {
               drag: true,
               dragSnapToOrigin: true,
               dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
@@ -401,7 +401,7 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             component={motion.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
-            {...(isMobile && {
+            {...(!isMobile && {
               drag: true,
               dragSnapToOrigin: true,
               dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
@@ -422,7 +422,7 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             component={motion.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
-            {...(isMobile && {
+            {...(!isMobile && {
               drag: true,
               dragSnapToOrigin: true,
               dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
@@ -436,7 +436,7 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
           component={motion.svg}
           whileHover={{ scale: 1.15 }}
           whileTap={{ scale: 0.75 }}
-          {...(isMobile && {
+          {...(!isMobile && {
             drag: true,
             dragSnapToOrigin: true,
             dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
