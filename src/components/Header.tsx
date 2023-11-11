@@ -50,9 +50,11 @@ export const Header = (props: {
             component={motion.svg}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            drag
-            dragSnapToOrigin
-            dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
+            {...(isMobile && {
+              drag: true,
+              dragSnapToOrigin: true,
+              dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
+            })}
           />
           <Typography level="body-sm" fontFamily="Fira Code">
             {props.eventsDetailsAndMeta?.meta?.geolocation?.display_name}

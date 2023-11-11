@@ -1,5 +1,6 @@
 import { LinearProgress, Tooltip } from "@mui/joy";
 import { motion } from "framer-motion";
+import { isMobile } from "react-device-detect";
 import { useCountUp } from "use-count-up";
 import { SGEvent } from "../Interfaces";
 
@@ -17,13 +18,6 @@ export const PopularityBar = (props: { event: SGEvent }) => {
       followCursor
       title={props.event.score && (props.event.score * 100).toFixed(1)}
       variant="soft"
-      component={motion.div}
-      whileHover={{ scale: 1.1 }}
-      whileTap={{ scale: 0.9 }}
-      animate={{ opacity: [0, 1] }}
-      drag
-      dragSnapToOrigin
-      dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
     >
       <LinearProgress
         color={
@@ -39,6 +33,15 @@ export const PopularityBar = (props: { event: SGEvent }) => {
         thickness={8}
         value={Number(value)}
         variant="solid"
+        component={motion.div}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        animate={{ opacity: [0, 1] }}
+        {...(isMobile && {
+          drag: true,
+          dragSnapToOrigin: true,
+          dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
+        })}
       />
     </Tooltip>
   );

@@ -15,6 +15,7 @@ import {
 } from "@mui/icons-material";
 import { Tooltip } from "@mui/joy";
 import { motion } from "framer-motion";
+import { isMobile } from "react-device-detect";
 
 export const EventTypeIcon = (props: { eventType?: string }) => {
   switch (props.eventType) {
@@ -32,9 +33,11 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             component={motion.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
-            drag
-            dragSnapToOrigin
-            dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
+            {...(isMobile && {
+              drag: true,
+              dragSnapToOrigin: true,
+              dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
+            })}
           />
         </Tooltip>
       );
@@ -53,9 +56,11 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             component={motion.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
-            drag
-            dragSnapToOrigin
-            dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
+            {...(isMobile && {
+              drag: true,
+              dragSnapToOrigin: true,
+              dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
+            })}
           />
         </Tooltip>
       );
@@ -72,9 +77,11 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             component={motion.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
-            drag
-            dragSnapToOrigin
-            dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
+            {...(isMobile && {
+              drag: true,
+              dragSnapToOrigin: true,
+              dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
+            })}
           />
         </Tooltip>
       );
@@ -91,9 +98,11 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             component={motion.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
-            drag
-            dragSnapToOrigin
-            dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
+            {...(isMobile && {
+              drag: true,
+              dragSnapToOrigin: true,
+              dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
+            })}
           />
         </Tooltip>
       );
@@ -111,9 +120,11 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             component={motion.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
-            drag
-            dragSnapToOrigin
-            dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
+            {...(isMobile && {
+              drag: true,
+              dragSnapToOrigin: true,
+              dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
+            })}
           />
         </Tooltip>
       );
@@ -131,9 +142,11 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             component={motion.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
-            drag
-            dragSnapToOrigin
-            dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
+            {...(isMobile && {
+              drag: true,
+              dragSnapToOrigin: true,
+              dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
+            })}
           />
         </Tooltip>
       );
@@ -151,9 +164,11 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             component={motion.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
-            drag
-            dragSnapToOrigin
-            dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
+            {...(isMobile && {
+              drag: true,
+              dragSnapToOrigin: true,
+              dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
+            })}
           />
         </Tooltip>
       );
@@ -171,9 +186,11 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             component={motion.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
-            drag
-            dragSnapToOrigin
-            dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
+            {...(isMobile && {
+              drag: true,
+              dragSnapToOrigin: true,
+              dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
+            })}
           />
         </Tooltip>
       );
@@ -191,9 +208,11 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             component={motion.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
-            drag
-            dragSnapToOrigin
-            dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
+            {...(isMobile && {
+              drag: true,
+              dragSnapToOrigin: true,
+              dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
+            })}
           />
         </Tooltip>
       );
@@ -211,9 +230,11 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             component={motion.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
-            drag
-            dragSnapToOrigin
-            dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
+            {...(isMobile && {
+              drag: true,
+              dragSnapToOrigin: true,
+              dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
+            })}
           />
         </Tooltip>
       );
@@ -232,9 +253,11 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             component={motion.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
-            drag
-            dragSnapToOrigin
-            dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
+            {...(isMobile && {
+              drag: true,
+              dragSnapToOrigin: true,
+              dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
+            })}
           />
         </Tooltip>
       );
@@ -251,9 +274,11 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             component={motion.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
-            drag
-            dragSnapToOrigin
-            dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
+            {...(isMobile && {
+              drag: true,
+              dragSnapToOrigin: true,
+              dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
+            })}
           />
         </Tooltip>
       );
@@ -270,9 +295,11 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             component={motion.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
-            drag
-            dragSnapToOrigin
-            dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
+            {...(isMobile && {
+              drag: true,
+              dragSnapToOrigin: true,
+              dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
+            })}
           />
         </Tooltip>
       );
@@ -289,9 +316,11 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             component={motion.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
-            drag
-            dragSnapToOrigin
-            dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
+            {...(isMobile && {
+              drag: true,
+              dragSnapToOrigin: true,
+              dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
+            })}
           />
         </Tooltip>
       );
@@ -308,9 +337,11 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             component={motion.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
-            drag
-            dragSnapToOrigin
-            dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
+            {...(isMobile && {
+              drag: true,
+              dragSnapToOrigin: true,
+              dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
+            })}
           />
         </Tooltip>
       );
@@ -327,9 +358,11 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             component={motion.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
-            drag
-            dragSnapToOrigin
-            dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
+            {...(isMobile && {
+              drag: true,
+              dragSnapToOrigin: true,
+              dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
+            })}
           />
         </Tooltip>
       );
@@ -347,9 +380,11 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             component={motion.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
-            drag
-            dragSnapToOrigin
-            dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
+            {...(isMobile && {
+              drag: true,
+              dragSnapToOrigin: true,
+              dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
+            })}
           />
         </Tooltip>
       );
@@ -366,9 +401,11 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             component={motion.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
-            drag
-            dragSnapToOrigin
-            dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
+            {...(isMobile && {
+              drag: true,
+              dragSnapToOrigin: true,
+              dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
+            })}
           />
         </Tooltip>
       );
@@ -385,9 +422,11 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
             component={motion.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
-            drag
-            dragSnapToOrigin
-            dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
+            {...(isMobile && {
+              drag: true,
+              dragSnapToOrigin: true,
+              dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
+            })}
           />
         </Tooltip>
       );
@@ -397,9 +436,11 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
           component={motion.svg}
           whileHover={{ scale: 1.15 }}
           whileTap={{ scale: 0.75 }}
-          drag
-          dragSnapToOrigin
-          dragTransition={{ bounceStiffness: 500, bounceDamping: 10 }}
+          {...(isMobile && {
+            drag: true,
+            dragSnapToOrigin: true,
+            dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
+          })}
         />
       );
   }
