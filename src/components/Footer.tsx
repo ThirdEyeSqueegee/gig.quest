@@ -40,7 +40,7 @@ export const Footer = (props: { eventCount?: number }) => {
               size="sm"
               multiple
               renderValue={(selected) => (
-                <Box sx={{ display: "flex", gap: "0.25rem" }}>
+                <Box display="flex" gap="0.25rem">
                   {selected.map((selectedOption, i) => (
                     <EventTypeIcon key={i} eventType={selectedOption.value} />
                   ))}

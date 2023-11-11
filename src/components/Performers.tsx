@@ -1,6 +1,7 @@
 import { Box, Tooltip, Typography } from "@mui/joy";
 import { motion } from "framer-motion";
 import { Fragment } from "react";
+import { isMobile } from "react-device-detect";
 import { EventDetails } from "../Interfaces";
 import { SpotifyTooltip } from "./SpotifyTooltip";
 
@@ -20,10 +21,14 @@ export const Performers = (props: { eventDetails?: EventDetails }) => {
                   component={motion.div}
                   animate={{ opacity: [0, 1] }}
                 >
-                  <Typography>{p}</Typography>
+                  <Typography fontSize={isMobile ? "0.9rem" : "1rem"}>
+                    {p}
+                  </Typography>
                 </Tooltip>
               ) : (
-                <Typography>{p}</Typography>
+                <Typography fontSize={isMobile ? "0.9rem" : "1rem"}>
+                  {p}
+                </Typography>
               )}
               {props.eventDetails &&
               i !== props.eventDetails.performers.length - 1 ? (

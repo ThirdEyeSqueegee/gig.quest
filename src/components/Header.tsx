@@ -1,9 +1,11 @@
 import { GridView, LocationOn, TableRows } from "@mui/icons-material";
 import { Box, Switch, Tooltip, Typography } from "@mui/joy";
 import { motion } from "framer-motion";
+import { useContext } from "react";
 import { isMobile } from "react-device-detect";
 import TypeIt from "typeit-react";
 import { EventsDetailsAndMeta } from "../Interfaces";
+import { PaginationContext } from "../contexts/PaginationContext";
 import { SearchInput } from "./SearchInput";
 
 export const Header = (props: {
@@ -14,6 +16,8 @@ export const Header = (props: {
   tableView: boolean;
   handleChangeView(): void;
 }) => {
+  const { props: pagination } = useContext(PaginationContext);
+
   return (
     <Box display="flex" flexDirection="column" alignItems="center" width="100%">
       <Typography
@@ -57,7 +61,8 @@ export const Header = (props: {
             })}
           />
           <Typography level="body-sm" fontFamily="Fira Code">
-            {props.eventsDetailsAndMeta?.meta?.geolocation?.display_name}
+            {props.eventsDetailsAndMeta?.meta?.geolocation?.display_name} (
+            {pagination.range})
           </Typography>
         </Box>
         <Box
