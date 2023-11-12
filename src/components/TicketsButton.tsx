@@ -1,13 +1,13 @@
 import { LocalActivity } from "@mui/icons-material";
 import { Button, Link } from "@mui/joy";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { isMobile } from "react-device-detect";
 
 export const TicketsButton = (props: { url?: string }) => {
   return (
     <Button
       size="sm"
-      component={motion.button}
+      component={m.button}
       whileTap={{ scale: 0.9 }}
       startDecorator={<LocalActivity />}
       variant="outlined"

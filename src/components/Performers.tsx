@@ -1,5 +1,5 @@
 import { Box, Tooltip, Typography } from "@mui/joy";
-import { motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { Fragment } from "react";
 import { isMobile } from "react-device-detect";
 import { EventDetails } from "../Interfaces";
@@ -13,18 +13,21 @@ export const Performers = (props: { eventDetails?: EventDetails }) => {
           return (
             <Fragment key={i}>
               {props.eventDetails?.event.type === "concert" ? (
-                <Tooltip
-                  arrow
-                  title={<SpotifyTooltip artist={p} />}
-                  variant="plain"
-                  sx={{ borderRadius: "15px" }}
-                  component={motion.div}
-                  animate={{ opacity: [0, 1] }}
-                >
-                  <Typography fontSize={isMobile ? "0.9rem" : "1rem"}>
-                    {p}
-                  </Typography>
-                </Tooltip>
+                <AnimatePresence>
+                  <Tooltip
+                    arrow
+                    title={<SpotifyTooltip artist={p} />}
+                    variant="plain"
+                    sx={{ borderRadius: "15px" }}
+                    component={m.div}
+                    animate={{ opacity: [0, 1] }}
+                    exit={{ opacity: [1, 0] }}
+                  >
+                    <Typography fontSize={isMobile ? "0.9rem" : "1rem"}>
+                      {p}
+                    </Typography>
+                  </Tooltip>
+                </AnimatePresence>
               ) : (
                 <Typography fontSize={isMobile ? "0.9rem" : "1rem"}>
                   {p}

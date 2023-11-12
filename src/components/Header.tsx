@@ -1,6 +1,6 @@
 import { GridView, LocationOn, TableRows } from "@mui/icons-material";
 import { Box, Switch, Tooltip, Typography } from "@mui/joy";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { useContext } from "react";
 import { isMobile } from "react-device-detect";
 import TypeIt from "typeit-react";
@@ -20,7 +20,7 @@ export const Header = (props: {
   return (
     <Box display="flex" flexDirection="column" alignItems="center" width="100%">
       <Typography
-        component={motion.span}
+        component={m.span}
         whileHover={{ rotate: [0, -3, 3, -3, 3, 0] }}
         transition={{ duration: 0.5 }}
         fontFamily="Fira Code"
@@ -50,7 +50,7 @@ export const Header = (props: {
         >
           <LocationOn
             htmlColor="red"
-            component={motion.svg}
+            component={m.svg}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             {...(!isMobile && {
@@ -78,7 +78,7 @@ export const Header = (props: {
                 pagination.tableView ? "grid" : "table"
               } view`}
               variant="soft"
-              component={motion.div}
+              component={m.div}
               animate={{ opacity: [0, 1] }}
             >
               <Switch

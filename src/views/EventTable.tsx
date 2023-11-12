@@ -1,6 +1,6 @@
 import { ArrowDownward, ArrowUpward, MoreVert } from "@mui/icons-material";
 import { Box, IconButton, Sheet, Table, Typography } from "@mui/joy";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { useContext } from "react";
 import useSWRImmutable from "swr/immutable";
 import { Location } from "../Interfaces";
@@ -222,7 +222,7 @@ export const EventTable = (props: { geo?: Location; searchTerm?: string }) => {
         <tbody>
           {eventsDetailsAndMeta?.details.map((details, i) => {
             return (
-              <motion.tr key={i} animate={{ opacity: [0, 1] }}>
+              <m.tr key={i} animate={{ opacity: [0, 1] }}>
                 <td>
                   <Box display="flex" alignItems="center">
                     <EventTypeIcon eventType={details.event.type} />
@@ -260,7 +260,7 @@ export const EventTable = (props: { geo?: Location; searchTerm?: string }) => {
                 <td>
                   <TicketsButton url={details.event.url} />
                 </td>
-              </motion.tr>
+              </m.tr>
             );
           })}
         </tbody>

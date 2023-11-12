@@ -1,6 +1,6 @@
 import { CloseRounded, Search } from "@mui/icons-material";
 import { Box, IconButton, Input } from "@mui/joy";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { useState } from "react";
 
 export const SearchInput = (props: {
@@ -15,7 +15,7 @@ export const SearchInput = (props: {
         startDecorator={<Search fontSize="small" />}
         slotProps={{
           input: {
-            component: motion.input,
+            component: m.input,
             whileFocus: { width: "17.5rem" },
             whileHover: { width: "17.5rem" },
             transition: { type: "spring", duration: 0.5 },

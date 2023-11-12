@@ -1,6 +1,6 @@
 import { LocationOn } from "@mui/icons-material";
 import { Box, CircularProgress, Typography } from "@mui/joy";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 export const LocationLoading = () => {
   return (
@@ -14,7 +14,7 @@ export const LocationLoading = () => {
     >
       <CircularProgress
         size="lg"
-        component={motion.span}
+        component={m.span}
         animate={{ scale: 1.25 }}
         transition={{
           repeat: Infinity,

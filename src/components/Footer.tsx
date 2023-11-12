@@ -15,7 +15,7 @@ import {
   Typography,
   selectClasses,
 } from "@mui/joy";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { useContext } from "react";
 import { isMobile } from "react-device-detect";
 import { PaginationContext } from "../contexts/PaginationContext";
@@ -62,7 +62,7 @@ export const Footer = (props: { eventCount?: number }) => {
                     onClick={() => {
                       setPagination({ ...pagination, page: 1, filter: [] });
                     }}
-                    sx={{ height: "0.5rem", width: "0.5rem" }}
+                    sx={{ "--IconButton-size": "20px" }}
                   >
                     <CloseRounded fontSize="small" />
                   </IconButton>
@@ -164,7 +164,7 @@ export const Footer = (props: { eventCount?: number }) => {
             onClick={() => {
               setPagination({ ...pagination, page: 1 });
             }}
-            component={motion.button}
+            component={m.button}
             whileTap={{ scale: 0.8 }}
           >
             <KeyboardDoubleArrowLeft />
@@ -175,7 +175,7 @@ export const Footer = (props: { eventCount?: number }) => {
             onClick={() =>
               setPagination({ ...pagination, page: pagination.page - 1 })
             }
-            component={motion.button}
+            component={m.button}
             whileTap={{ scale: 0.8 }}
           >
             <KeyboardArrowLeft />
@@ -185,7 +185,7 @@ export const Footer = (props: { eventCount?: number }) => {
             onClick={() =>
               setPagination({ ...pagination, page: pagination.page + 1 })
             }
-            component={motion.button}
+            component={m.button}
             whileTap={{ scale: 0.8 }}
           >
             <KeyboardArrowRight />

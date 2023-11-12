@@ -14,7 +14,7 @@ import {
   TheaterComedy,
 } from "@mui/icons-material";
 import { Tooltip } from "@mui/joy";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { isMobile } from "react-device-detect";
 
 export const EventTypeIcon = (props: { eventType?: string }) => {
@@ -25,12 +25,12 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
           arrow
           title="NBA"
           variant="soft"
-          component={motion.div}
+          component={m.div}
           animate={{ opacity: [0, 1] }}
         >
           <SportsBasketball
             htmlColor="coral"
-            component={motion.svg}
+            component={m.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
             {...(!isMobile && {
@@ -48,12 +48,12 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
           arrow
           title="NCAA Basketball"
           variant="soft"
-          component={motion.div}
+          component={m.div}
           animate={{ opacity: [0, 1] }}
         >
           <SportsBasketball
             htmlColor="coral"
-            component={motion.svg}
+            component={m.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
             {...(!isMobile && {
@@ -70,11 +70,11 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
           arrow
           title="NCAA Soccer"
           variant="soft"
-          component={motion.div}
+          component={m.div}
           animate={{ opacity: [0, 1] }}
         >
           <SportsSoccer
-            component={motion.svg}
+            component={m.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
             {...(!isMobile && {
@@ -91,11 +91,11 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
           arrow
           title="MLS"
           variant="soft"
-          component={motion.div}
+          component={m.div}
           animate={{ opacity: [0, 1] }}
         >
           <SportsSoccer
-            component={motion.svg}
+            component={m.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
             {...(!isMobile && {
@@ -112,12 +112,12 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
           arrow
           title="NCAA Football"
           variant="soft"
-          component={motion.div}
+          component={m.div}
           animate={{ opacity: [0, 1] }}
         >
           <SportsFootball
             htmlColor="saddlebrown"
-            component={motion.svg}
+            component={m.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
             {...(!isMobile && {
@@ -134,12 +134,12 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
           arrow
           title="Concert"
           variant="soft"
-          component={motion.div}
+          component={m.div}
           animate={{ opacity: [0, 1] }}
         >
           <PlayCircle
             htmlColor="royalblue"
-            component={motion.svg}
+            component={m.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
             {...(!isMobile && {
@@ -156,12 +156,12 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
           arrow
           title="Music Festival"
           variant="soft"
-          component={motion.div}
+          component={m.div}
           animate={{ opacity: [0, 1] }}
         >
           <PlayCircle
             htmlColor="royalblue"
-            component={motion.svg}
+            component={m.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
             {...(!isMobile && {
@@ -178,12 +178,12 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
           arrow
           title="Classical"
           variant="soft"
-          component={motion.div}
+          component={m.div}
           animate={{ opacity: [0, 1] }}
         >
           <MusicNote
             htmlColor="slateblue"
-            component={motion.svg}
+            component={m.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
             {...(!isMobile && {
@@ -200,12 +200,12 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
           arrow
           title="Opera"
           variant="soft"
-          component={motion.div}
+          component={m.div}
           animate={{ opacity: [0, 1] }}
         >
           <MusicNote
             htmlColor="slateblue"
-            component={motion.svg}
+            component={m.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
             {...(!isMobile && {
@@ -222,12 +222,12 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
           arrow
           title="Orchestra"
           variant="soft"
-          component={motion.div}
+          component={m.div}
           animate={{ opacity: [0, 1] }}
         >
           <MusicNote
             htmlColor="slateblue"
-            component={motion.svg}
+            component={m.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
             {...(!isMobile && {
@@ -245,12 +245,12 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
           arrow
           title="Theater"
           variant="soft"
-          component={motion.div}
+          component={m.div}
           animate={{ opacity: [0, 1] }}
         >
           <TheaterComedy
             htmlColor="lightseagreen"
-            component={motion.svg}
+            component={m.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
             {...(!isMobile && {
@@ -267,11 +267,11 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
           arrow
           title="Esports"
           variant="soft"
-          component={motion.div}
+          component={m.div}
           animate={{ opacity: [0, 1] }}
         >
           <SportsEsports
-            component={motion.svg}
+            component={m.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
             {...(!isMobile && {
@@ -288,11 +288,11 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
           arrow
           title="NHL"
           variant="soft"
-          component={motion.div}
+          component={m.div}
           animate={{ opacity: [0, 1] }}
         >
           <SportsHockey
-            component={motion.svg}
+            component={m.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
             {...(!isMobile && {
@@ -309,11 +309,11 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
           arrow
           title="Hockey"
           variant="soft"
-          component={motion.div}
+          component={m.div}
           animate={{ opacity: [0, 1] }}
         >
           <SportsHockey
-            component={motion.svg}
+            component={m.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
             {...(!isMobile && {
@@ -330,11 +330,11 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
           arrow
           title="Minor League Hockey"
           variant="soft"
-          component={motion.div}
+          component={m.div}
           animate={{ opacity: [0, 1] }}
         >
           <SportsHockey
-            component={motion.svg}
+            component={m.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
             {...(!isMobile && {
@@ -351,11 +351,11 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
           arrow
           title="Family"
           variant="soft"
-          component={motion.div}
+          component={m.div}
           animate={{ opacity: [0, 1] }}
         >
           <Diversity3
-            component={motion.svg}
+            component={m.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
             {...(!isMobile && {
@@ -372,12 +372,12 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
           arrow
           title="Comedy"
           variant="soft"
-          component={motion.div}
+          component={m.div}
           animate={{ opacity: [0, 1] }}
         >
           <EmojiEmotions
             htmlColor="gold"
-            component={motion.svg}
+            component={m.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
             {...(!isMobile && {
@@ -394,11 +394,11 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
           arrow
           title="Racing"
           variant="soft"
-          component={motion.div}
+          component={m.div}
           animate={{ opacity: [0, 1] }}
         >
           <DirectionsCar
-            component={motion.svg}
+            component={m.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
             {...(!isMobile && {
@@ -415,11 +415,11 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
           arrow
           title="Women's College Volleyball"
           variant="soft"
-          component={motion.div}
+          component={m.div}
           animate={{ opacity: [0, 1] }}
         >
           <SportsVolleyball
-            component={motion.svg}
+            component={m.svg}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.75 }}
             {...(!isMobile && {
@@ -433,7 +433,7 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
     default:
       return (
         <LocalActivity
-          component={motion.svg}
+          component={m.svg}
           whileHover={{ scale: 1.15 }}
           whileTap={{ scale: 0.75 }}
           {...(!isMobile && {

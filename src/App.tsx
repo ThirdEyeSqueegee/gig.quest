@@ -5,7 +5,7 @@ import {
   useIsFirstRender,
   useWindowSize,
 } from "@uidotdev/usehooks";
-import { motion } from "framer-motion";
+import { LazyMotion, domMax, m } from "framer-motion";
 import { useState } from "react";
 import { isMobile } from "react-device-detect";
 import useSWRImmutable from "swr/immutable";
@@ -36,6 +36,7 @@ export default function App() {
   const isFirstRender = useIsFirstRender();
 
   const [geo, setGeo] = useState<Location>();
+
   if (isFirstRender) {
     navigator.geolocation.getCurrentPosition(
       (p: GeolocationPosition) => {
@@ -63,55 +64,57 @@ export default function App() {
     <PaginationContext.Provider
       value={{ props: pagination, setter: setPagination }}
     >
-      <Box p={isMobile ? 1 : 2}>
-        <Card
-          sx={{
-            alignItems: "center",
-            height: isMobile ? "auto" : "95vh",
-            minHeight: "95vh",
-            px: isMobile ? 1.5 : 2,
-            pt: 0.5,
-          }}
-          component={motion.div}
-          animate={{ scaleY: [0, 1] }}
-          transition={{ type: "spring", duration: 0.5 }}
-        >
-          <Header
-            width={width}
-            height={height}
-            eventsDetailsAndMeta={eventsDetailsAndMeta}
-            setSearchTerm={setSearchTerm}
-          />
-          <IconButton
-            sx={{ position: "absolute", top: "0.5rem", right: "0.5rem" }}
+      <LazyMotion strict features={domMax}>
+        <Box p={isMobile ? 1 : 2}>
+          <Card
+            sx={{
+              alignItems: "center",
+              height: isMobile ? "auto" : "95vh",
+              minHeight: "95vh",
+              px: isMobile ? 1.5 : 2,
+              pt: 0.5,
+            }}
+            component={m.div}
+            animate={{ scaleY: [0, 1] }}
+            transition={{ type: "spring", duration: 0.5 }}
           >
-            <GitHub />
-            <Link
-              href="https://github.com/ThirdEyeSqueegee/gig.quest"
-              overlay
+            <Header
+              width={width}
+              height={height}
+              eventsDetailsAndMeta={eventsDetailsAndMeta}
+              setSearchTerm={setSearchTerm}
             />
-          </IconButton>
-          {geo ? (
-            pagination.tableView ? (
-              <EventTable
-                key={pagination.page}
-                geo={geo}
-                searchTerm={debSearchTerm}
+            <IconButton
+              sx={{ position: "absolute", top: "0.5rem", right: "0.5rem" }}
+            >
+              <GitHub />
+              <Link
+                href="https://github.com/ThirdEyeSqueegee/gig.quest"
+                overlay
               />
+            </IconButton>
+            {geo ? (
+              pagination.tableView ? (
+                <EventTable
+                  key={pagination.page}
+                  geo={geo}
+                  searchTerm={debSearchTerm}
+                />
+              ) : (
+                <EventGrid
+                  key={pagination.page}
+                  geo={geo}
+                  searchTerm={debSearchTerm}
+                />
+              )
             ) : (
-              <EventGrid
-                key={pagination.page}
-                geo={geo}
-                searchTerm={debSearchTerm}
-              />
-            )
-          ) : (
-            <LocationLoading />
-          )}
-          <Divider />
-          <Footer eventCount={eventsDetailsAndMeta?.meta.total} />
-        </Card>
-      </Box>
+              <LocationLoading />
+            )}
+            <Divider />
+            <Footer eventCount={eventsDetailsAndMeta?.meta.total} />
+          </Card>
+        </Box>
+      </LazyMotion>
     </PaginationContext.Provider>
   );
 }

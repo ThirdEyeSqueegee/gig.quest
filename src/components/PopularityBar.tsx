@@ -1,5 +1,5 @@
 import { LinearProgress, Tooltip } from "@mui/joy";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { isMobile } from "react-device-detect";
 import { useCountUp } from "use-count-up";
 import { SGEvent } from "../Interfaces";
@@ -33,7 +33,7 @@ export const PopularityBar = (props: { event: SGEvent }) => {
         thickness={8}
         value={Number(value)}
         variant="solid"
-        component={motion.div}
+        component={m.div}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         animate={{ opacity: [0, 1] }}
