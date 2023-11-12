@@ -39,7 +39,7 @@ export const EventTable = (props: { geo?: Location; searchTerm?: string }) => {
             <th style={{ width: "15%" }}>
               <Typography level="body-lg">Venue</Typography>
             </th>
-            <th style={{ width: "8%" }}>
+            <th style={{ width: "8.5%" }}>
               <Box
                 display="flex"
                 alignItems="center"
@@ -53,8 +53,14 @@ export const EventTable = (props: { geo?: Location; searchTerm?: string }) => {
                       ...pagination,
                       sortDate: !pagination.sortDate,
                       sortPopularity: undefined,
+                      sortLowestPrice: undefined,
+                      sortHighestPrice: undefined,
+                      sortAvgPrice: undefined,
                     })
                   }
+                  sx={{
+                    "--IconButton-size": "24px",
+                  }}
                 >
                   {pagination.sortDate !== undefined ? (
                     pagination.sortDate ? (
@@ -68,8 +74,110 @@ export const EventTable = (props: { geo?: Location; searchTerm?: string }) => {
                 </IconButton>
               </Box>
             </th>
-            <th style={{ width: "5%" }}>
-              <Typography level="body-lg">Prices</Typography>
+            <th style={{ width: "3.5%" }}>
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="space-between"
+              >
+                <Typography level="body-md">$ (lo)</Typography>
+                <IconButton
+                  size="sm"
+                  onClick={() =>
+                    setPagination({
+                      ...pagination,
+                      sortDate: undefined,
+                      sortPopularity: undefined,
+                      sortLowestPrice: !pagination.sortLowestPrice,
+                      sortHighestPrice: undefined,
+                      sortAvgPrice: undefined,
+                    })
+                  }
+                  sx={{
+                    "--IconButton-size": "24px",
+                  }}
+                >
+                  {pagination.sortLowestPrice !== undefined ? (
+                    pagination.sortLowestPrice ? (
+                      <ArrowUpward fontSize="small" />
+                    ) : (
+                      <ArrowDownward fontSize="small" />
+                    )
+                  ) : (
+                    <MoreVert fontSize="small" />
+                  )}
+                </IconButton>
+              </Box>
+            </th>
+            <th style={{ width: "3.5%" }}>
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="space-between"
+              >
+                <Typography level="body-md">$ (hi)</Typography>
+                <IconButton
+                  size="sm"
+                  onClick={() =>
+                    setPagination({
+                      ...pagination,
+                      sortDate: undefined,
+                      sortPopularity: undefined,
+                      sortLowestPrice: undefined,
+                      sortHighestPrice: !pagination.sortHighestPrice,
+                      sortAvgPrice: undefined,
+                    })
+                  }
+                  sx={{
+                    "--IconButton-size": "24px",
+                  }}
+                >
+                  {pagination.sortHighestPrice !== undefined ? (
+                    pagination.sortHighestPrice ? (
+                      <ArrowUpward fontSize="small" />
+                    ) : (
+                      <ArrowDownward fontSize="small" />
+                    )
+                  ) : (
+                    <MoreVert fontSize="small" />
+                  )}
+                </IconButton>
+              </Box>
+            </th>
+            <th style={{ width: "3.5%" }}>
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="space-between"
+              >
+                <Typography level="body-md">$ (avg)</Typography>
+                <IconButton
+                  size="sm"
+                  onClick={() =>
+                    setPagination({
+                      ...pagination,
+                      sortDate: undefined,
+                      sortPopularity: undefined,
+                      sortLowestPrice: undefined,
+                      sortHighestPrice: undefined,
+                      sortAvgPrice: !pagination.sortAvgPrice,
+                    })
+                  }
+                  sx={{
+                    "--IconButton-size": "24px",
+                  }}
+                >
+                  {pagination.sortAvgPrice !== undefined ? (
+                    pagination.sortAvgPrice ? (
+                      <ArrowUpward fontSize="small" />
+                    ) : (
+                      <ArrowDownward fontSize="small" />
+                    )
+                  ) : (
+                    <MoreVert fontSize="small" />
+                  )}
+                </IconButton>
+              </Box>
             </th>
             <th style={{ width: "7.5%" }}>
               <Box
@@ -85,8 +193,14 @@ export const EventTable = (props: { geo?: Location; searchTerm?: string }) => {
                       ...pagination,
                       sortPopularity: !pagination.sortPopularity,
                       sortDate: undefined,
+                      sortLowestPrice: undefined,
+                      sortHighestPrice: undefined,
+                      sortAvgPrice: undefined,
                     })
                   }
+                  sx={{
+                    "--IconButton-size": "24px",
+                  }}
                 >
                   {pagination.sortPopularity !== undefined ? (
                     pagination.sortPopularity ? (
@@ -130,7 +244,13 @@ export const EventTable = (props: { geo?: Location; searchTerm?: string }) => {
                   </Typography>
                 </td>
                 <td>
-                  <Prices event={details.event} />
+                  <Prices event={details.event} type="lo" />
+                </td>
+                <td>
+                  <Prices event={details.event} type="hi" />
+                </td>
+                <td>
+                  <Prices event={details.event} type="avg" />
                 </td>
                 <td>
                   <Box width="85%">

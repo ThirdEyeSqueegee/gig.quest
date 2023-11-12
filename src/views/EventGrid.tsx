@@ -65,7 +65,20 @@ export const EventGrid = (props: { geo?: Location; searchTerm?: string }) => {
                   <Typography fontSize="0.75rem" color="neutral">
                     <DateAndTime datetime={details.event.datetime_local} />
                   </Typography>
-                  <Prices event={details.event} />
+                  <Box display="flex" gap={1} alignItems="center">
+                    <Box display="flex" gap={0.5} alignItems="center">
+                      <Typography fontSize="0.725rem">$ (lo):</Typography>
+                      <Prices event={details.event} type="lo" />
+                    </Box>
+                    <Box display="flex" gap={0.5} alignItems="center">
+                      <Typography fontSize="0.725rem">$ (hi):</Typography>
+                      <Prices event={details.event} type="hi" />
+                    </Box>
+                    <Box display="flex" gap={0.5} alignItems="center">
+                      <Typography fontSize="0.725rem">$ (avg):</Typography>
+                      <Prices event={details.event} type="avg" />
+                    </Box>
+                  </Box>
                 </Box>
                 <Box
                   display="flex"

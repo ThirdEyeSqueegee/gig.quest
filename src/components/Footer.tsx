@@ -118,13 +118,16 @@ export const Footer = (props: { eventCount?: number }) => {
               }}
             >
               <Option value={pagination.rowCountOptions[0]}>
-                {pagination.rowCountOptions[0] === 12 ? 12 : 20}
+                {pagination.rowCountOptions[0]}
               </Option>
               <Option value={pagination.rowCountOptions[1]}>
                 {pagination.rowCountOptions[1]}
               </Option>
               <Option value={pagination.rowCountOptions[2]}>
                 {pagination.rowCountOptions[2]}
+              </Option>
+              <Option value={pagination.rowCountOptions[3]}>
+                {pagination.rowCountOptions[3]}
               </Option>
             </Select>
           </Box>
@@ -201,6 +204,9 @@ export const Footer = (props: { eventCount?: number }) => {
                         ...pagination,
                         sortDate: true,
                         sortPopularity: undefined,
+                        sortLowestPrice: undefined,
+                        sortHighestPrice: undefined,
+                        sortAvgPrice: undefined,
                       });
                       break;
                     case "Date (desc.)":
@@ -208,6 +214,9 @@ export const Footer = (props: { eventCount?: number }) => {
                         ...pagination,
                         sortDate: false,
                         sortPopularity: undefined,
+                        sortLowestPrice: undefined,
+                        sortHighestPrice: undefined,
+                        sortAvgPrice: undefined,
                       });
                       break;
                     case "Popularity (asc.)":
@@ -215,6 +224,9 @@ export const Footer = (props: { eventCount?: number }) => {
                         ...pagination,
                         sortDate: undefined,
                         sortPopularity: true,
+                        sortLowestPrice: undefined,
+                        sortHighestPrice: undefined,
+                        sortAvgPrice: undefined,
                       });
                       break;
                     case "Popularity (desc.)":
@@ -222,25 +234,87 @@ export const Footer = (props: { eventCount?: number }) => {
                         ...pagination,
                         sortDate: undefined,
                         sortPopularity: false,
+                        sortLowestPrice: undefined,
+                        sortHighestPrice: undefined,
+                        sortAvgPrice: undefined,
+                      });
+                      break;
+                    case "$ lo (asc.)":
+                      setPagination({
+                        ...pagination,
+                        sortDate: undefined,
+                        sortPopularity: undefined,
+                        sortLowestPrice: true,
+                        sortHighestPrice: undefined,
+                        sortAvgPrice: undefined,
+                      });
+                      break;
+                    case "$ lo (desc.)":
+                      setPagination({
+                        ...pagination,
+                        sortDate: undefined,
+                        sortPopularity: undefined,
+                        sortLowestPrice: false,
+                        sortHighestPrice: undefined,
+                        sortAvgPrice: undefined,
+                      });
+                      break;
+                    case "$ hi (asc.)":
+                      setPagination({
+                        ...pagination,
+                        sortDate: undefined,
+                        sortPopularity: undefined,
+                        sortLowestPrice: undefined,
+                        sortHighestPrice: true,
+                        sortAvgPrice: undefined,
+                      });
+                      break;
+                    case "$ hi (desc.)":
+                      setPagination({
+                        ...pagination,
+                        sortDate: undefined,
+                        sortPopularity: undefined,
+                        sortLowestPrice: undefined,
+                        sortHighestPrice: false,
+                        sortAvgPrice: undefined,
+                      });
+                      break;
+                    case "$ avg (asc.)":
+                      setPagination({
+                        ...pagination,
+                        sortDate: undefined,
+                        sortPopularity: undefined,
+                        sortLowestPrice: undefined,
+                        sortHighestPrice: undefined,
+                        sortAvgPrice: true,
+                      });
+                      break;
+                    case "$ avg (desc.)":
+                      setPagination({
+                        ...pagination,
+                        sortDate: undefined,
+                        sortPopularity: undefined,
+                        sortLowestPrice: undefined,
+                        sortHighestPrice: undefined,
+                        sortAvgPrice: false,
                       });
                       break;
                   }
                 }}
-                value={
-                  pagination.sortPopularity === undefined
-                    ? pagination.sortDate
-                      ? "Date (asc.)"
-                      : "Date (desc.)"
-                    : pagination.sortPopularity
-                    ? "Popularity (asc.)"
-                    : "Popularity (desc.)"
-                }
+                defaultValue="Date (asc.)"
                 indicator={<KeyboardArrowDown />}
                 sx={{
                   [`& .${selectClasses.indicator}`]: {
                     transition: "0.2s",
                     [`&.${selectClasses.expanded}`]: {
                       transform: "rotate(-180deg)",
+                    },
+                  },
+                }}
+                slotProps={{
+                  listbox: {
+                    sx: {
+                      fontSize: "0.75rem",
                     },
                   },
                 }}
@@ -256,6 +330,24 @@ export const Footer = (props: { eventCount?: number }) => {
                 </Option>
                 <Option value="Popularity (desc.)">
                   Popularity <ArrowDownward fontSize="small" />
+                </Option>
+                <Option value="$ lo (asc.)">
+                  $ lo <ArrowUpward fontSize="small" />
+                </Option>
+                <Option value="$ lo (desc.)">
+                  $ lo <ArrowDownward fontSize="small" />
+                </Option>
+                <Option value="$ hi (asc.)">
+                  $ hi <ArrowUpward fontSize="small" />
+                </Option>
+                <Option value="$ hi (desc.)">
+                  $ hi <ArrowDownward fontSize="small" />
+                </Option>
+                <Option value="$ avg (asc.)">
+                  $ avg <ArrowUpward fontSize="small" />
+                </Option>
+                <Option value="$ avg (desc.)">
+                  $ avg <ArrowDownward fontSize="small" />
                 </Option>
               </Select>
             </Box>

@@ -139,6 +139,9 @@ export interface PaginationProps {
   filter: string[];
   sortDate?: boolean;
   sortPopularity?: boolean;
+  sortLowestPrice?: boolean;
+  sortHighestPrice?: boolean;
+  sortAvgPrice?: boolean;
   rowCountOptions: number[];
   tableView: boolean;
 }

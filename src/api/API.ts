@@ -56,6 +56,24 @@ export const getEvents = async (
           ? "&sort=score.asc"
           : "&sort=score.desc"
         : ""
+    }${
+      pagination.sortLowestPrice !== undefined
+        ? pagination.sortLowestPrice === true
+          ? "&sort=lowest_price.asc&lowest_price.gt=1"
+          : "&sort=lowest_price.desc&lowest_price.gt=1"
+        : ""
+    }${
+      pagination.sortHighestPrice !== undefined
+        ? pagination.sortHighestPrice === true
+          ? "&sort=highest_price.asc&highest_price.gt=1"
+          : "&sort=highest_price.desc&highest_price.gt=1"
+        : ""
+    }${
+      pagination.sortAvgPrice !== undefined
+        ? pagination.sortAvgPrice === true
+          ? "&sort=average_price.asc&average_price.gt=1"
+          : "&sort=average_price.desc&average_price.gt=1"
+        : ""
     }&datetime_utc.gt=${new Date().toISOString().replace("Z", "")}${
       searchQuery ? `&q=${searchQuery}` : ""
     }`,

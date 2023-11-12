@@ -19,17 +19,18 @@ import { EventGrid } from "./views/EventGrid";
 import { EventTable } from "./views/EventTable";
 
 export default function App() {
-  const [tableView, setTableView] = useState(!isMobile);
-
   const [pagination, setPagination] = useState<PaginationProps>({
     page: 1,
-    rowsPerPage: !isMobile && !tableView ? 20 : 12,
+    rowsPerPage: 12,
     range: "5mi",
     filter: [],
     sortDate: true,
     sortPopularity: undefined,
-    rowCountOptions: !isMobile && !tableView ? [20, 24, 48] : [12, 24, 48],
-    tableView: tableView,
+    sortLowestPrice: undefined,
+    sortHighestPrice: undefined,
+    sortAvgPrice: undefined,
+    rowCountOptions: [12, 24, 36, 48],
+    tableView: !isMobile,
   });
 
   const isFirstRender = useIsFirstRender();
@@ -51,16 +52,6 @@ export default function App() {
   const debSearchTerm = useDebounce(searchTerm, 500);
 
   const { width, height } = useWindowSize();
-
-  const handleChangeView = () => {
-    setTableView(!tableView);
-    setPagination({
-      ...pagination,
-      page: 1,
-      rowsPerPage: !isMobile && tableView ? 20 : 12,
-      rowCountOptions: !isMobile && tableView ? [20, 24, 48] : [12, 24, 48],
-    });
-  };
 
   const { data: eventsDetailsAndMeta } = useSWRImmutable(
     geo ? ["eventsDetails", pagination, geo] : null,
@@ -90,8 +81,6 @@ export default function App() {
             height={height}
             eventsDetailsAndMeta={eventsDetailsAndMeta}
             setSearchTerm={setSearchTerm}
-            tableView={tableView}
-            handleChangeView={handleChangeView}
           />
           <IconButton
             sx={{ position: "absolute", top: "0.5rem", right: "0.5rem" }}
@@ -103,7 +92,7 @@ export default function App() {
             />
           </IconButton>
           {geo ? (
-            tableView ? (
+            pagination.tableView ? (
               <EventTable
                 key={pagination.page}
                 geo={geo}

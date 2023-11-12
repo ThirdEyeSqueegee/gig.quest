@@ -13,10 +13,9 @@ export const Header = (props: {
   height: number | null;
   eventsDetailsAndMeta?: EventsDetailsAndMeta;
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
-  tableView: boolean;
-  handleChangeView(): void;
 }) => {
-  const { props: pagination } = useContext(PaginationContext);
+  const { props: pagination, setter: setPagination } =
+    useContext(PaginationContext);
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center" width="100%">
@@ -75,7 +74,9 @@ export const Header = (props: {
           <SearchInput setSearchTerm={props.setSearchTerm} />
           {!isMobile && (
             <Tooltip
-              title={`Switch to ${props.tableView ? "grid" : "table"} view`}
+              title={`Switch to ${
+                pagination.tableView ? "grid" : "table"
+              } view`}
               variant="soft"
               component={motion.div}
               animate={{ opacity: [0, 1] }}
@@ -84,9 +85,16 @@ export const Header = (props: {
                 size="lg"
                 startDecorator={<TableRows fontSize="small" />}
                 endDecorator={<GridView fontSize="small" />}
-                checked={!props.tableView}
+                checked={!pagination.tableView}
                 variant="outlined"
-                onChange={props.handleChangeView}
+                onChange={() =>
+                  setPagination({
+                    ...pagination,
+                    page: 1,
+                    tableView: !pagination.tableView,
+                    rowsPerPage: !pagination.tableView ? 12 : 24,
+                  })
+                }
                 slotProps={{
                   thumb: {
                     style: {
