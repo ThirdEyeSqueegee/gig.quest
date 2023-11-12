@@ -41,7 +41,7 @@ export const EventGrid = (props: { geo?: Location; searchTerm?: string }) => {
               <Box
                 display="flex"
                 justifyContent="space-between"
-                alignItems="center"
+                alignItems="start"
               >
                 <Performers eventDetails={details} />
                 <EventTypeIcon eventType={details.event.type} />
@@ -57,19 +57,15 @@ export const EventGrid = (props: { geo?: Location; searchTerm?: string }) => {
                   justifyContent="end"
                   gap={0}
                 >
-                  <Typography fontSize="0.75rem">
-                    <Venue
-                      name={details.event.venue?.name}
-                      eventDetails={details}
-                      geo={props.geo}
-                    />
-                  </Typography>
+                  <Venue
+                    name={details.event.venue?.name}
+                    eventDetails={details}
+                    geo={props.geo}
+                  />
                   <Typography fontSize="0.75rem" color="neutral">
                     <DateAndTime datetime={details.event.datetime_local} />
                   </Typography>
-                  <Typography fontSize="0.725rem">
-                    <Prices event={details.event} />
-                  </Typography>
+                  <Prices event={details.event} />
                 </Box>
                 <Box
                   display="flex"

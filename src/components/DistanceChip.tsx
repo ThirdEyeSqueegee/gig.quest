@@ -9,7 +9,7 @@ export const DistanceChip = (props: {
 }) => {
   return (
     <Chip size="sm" sx={{ height: "1rem" }}>
-      <Typography fontSize={isMobile ? "0.65rem" : "0.75rem"}>
+      <Typography fontSize={isMobile ? "0.65rem" : "0.7rem"}>
         {props.eventDetails?.event.venue?.location && props.geo
           ? convertDistance(
               getPreciseDistance(

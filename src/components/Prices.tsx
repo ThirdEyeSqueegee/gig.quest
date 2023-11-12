@@ -1,8 +1,12 @@
 import { Tooltip, Typography } from "@mui/joy";
 import { motion } from "framer-motion";
+import { useContext } from "react";
 import { SGEvent } from "../Interfaces";
+import { PaginationContext } from "../contexts/PaginationContext";
 
 export const Prices = (props: { event: SGEvent }) => {
+  const { props: pagination } = useContext(PaginationContext);
+
   return (
     <Tooltip
       arrow
@@ -17,7 +21,7 @@ export const Prices = (props: { event: SGEvent }) => {
       component={motion.div}
       animate={{ opacity: [0, 1] }}
     >
-      <Typography>
+      <Typography fontSize={pagination.tableView ? "0.9rem" : "0.725rem"}>
         {props.event.stats?.lowest_price
           ? `$${props.event.stats?.lowest_price} - $${props.event.stats?.highest_price}`
           : "¯\\_(ツ)_/¯"}

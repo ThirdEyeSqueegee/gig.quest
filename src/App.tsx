@@ -29,6 +29,7 @@ export default function App() {
     sortDate: true,
     sortPopularity: undefined,
     rowCountOptions: !isMobile && !tableView ? [20, 24, 48] : [12, 24, 48],
+    tableView: tableView,
   });
 
   const isFirstRender = useIsFirstRender();

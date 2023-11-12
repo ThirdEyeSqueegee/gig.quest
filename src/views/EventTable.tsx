@@ -118,13 +118,11 @@ export const EventTable = (props: { geo?: Location; searchTerm?: string }) => {
                   <Performers eventDetails={details} />
                 </td>
                 <td>
-                  <Typography fontSize="0.95rem">
-                    <Venue
-                      name={details.event.venue?.name}
-                      eventDetails={details}
-                      geo={props.geo}
-                    />
-                  </Typography>
+                  <Venue
+                    name={details.event.venue?.name}
+                    eventDetails={details}
+                    geo={props.geo}
+                  />
                 </td>
                 <td>
                   <Typography fontSize="0.9rem">
@@ -132,9 +130,7 @@ export const EventTable = (props: { geo?: Location; searchTerm?: string }) => {
                   </Typography>
                 </td>
                 <td>
-                  <Typography fontSize="0.9rem">
-                    <Prices event={details.event} />
-                  </Typography>
+                  <Prices event={details.event} />
                 </td>
                 <td>
                   <Box width="85%">

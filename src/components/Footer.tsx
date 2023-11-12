@@ -1,4 +1,6 @@
 import {
+  ArrowDownward,
+  ArrowUpward,
   CloseRounded,
   KeyboardArrowDown,
   KeyboardArrowLeft,
@@ -15,6 +17,7 @@ import {
 } from "@mui/joy";
 import { motion } from "framer-motion";
 import { useContext } from "react";
+import { isMobile } from "react-device-detect";
 import { PaginationContext } from "../contexts/PaginationContext";
 import { EventTypeIcon } from "./EventTypeIcon";
 
@@ -145,9 +148,9 @@ export const Footer = (props: { eventCount?: number }) => {
                 },
               }}
             >
-              <Option value={"5mi"}>5 mi</Option>
-              <Option value={"25mi"}>25 mi</Option>
-              <Option value={"50mi"}>50 mi</Option>
+              <Option value="5mi">5 mi</Option>
+              <Option value="25mi">25 mi</Option>
+              <Option value="50mi">50 mi</Option>
             </Select>
           </Box>
         </Box>
@@ -184,16 +187,87 @@ export const Footer = (props: { eventCount?: number }) => {
           >
             <KeyboardArrowRight />
           </IconButton>
+          {isMobile && (
+            <Box display="flex" alignItems="center" gap={1}>
+              <Typography level="body-sm" fontSize="0.75rem">
+                Sort:
+              </Typography>
+              <Select
+                size="sm"
+                onChange={(e, v: string | null) => {
+                  switch (v!) {
+                    case "Date (asc.)":
+                      setPagination({
+                        ...pagination,
+                        sortDate: true,
+                        sortPopularity: undefined,
+                      });
+                      break;
+                    case "Date (desc.)":
+                      setPagination({
+                        ...pagination,
+                        sortDate: false,
+                        sortPopularity: undefined,
+                      });
+                      break;
+                    case "Popularity (asc.)":
+                      setPagination({
+                        ...pagination,
+                        sortDate: undefined,
+                        sortPopularity: true,
+                      });
+                      break;
+                    case "Popularity (desc.)":
+                      setPagination({
+                        ...pagination,
+                        sortDate: undefined,
+                        sortPopularity: false,
+                      });
+                      break;
+                  }
+                }}
+                value={
+                  pagination.sortPopularity === undefined
+                    ? pagination.sortDate
+                      ? "Date (asc.)"
+                      : "Date (desc.)"
+                    : pagination.sortPopularity
+                    ? "Popularity (asc.)"
+                    : "Popularity (desc.)"
+                }
+                indicator={<KeyboardArrowDown />}
+                sx={{
+                  [`& .${selectClasses.indicator}`]: {
+                    transition: "0.2s",
+                    [`&.${selectClasses.expanded}`]: {
+                      transform: "rotate(-180deg)",
+                    },
+                  },
+                }}
+              >
+                <Option value="Date (asc.)">
+                  Date <ArrowUpward fontSize="small" />
+                </Option>
+                <Option value="Date (desc.)">
+                  Date <ArrowDownward fontSize="small" />
+                </Option>
+                <Option value="Popularity (asc.)">
+                  Popularity <ArrowUpward fontSize="small" />
+                </Option>
+                <Option value="Popularity (desc.)">
+                  Popularity <ArrowDownward fontSize="small" />
+                </Option>
+              </Select>
+            </Box>
+          )}
         </Box>
       </Box>
-      <Box display="flex">
-        <Typography level="body-sm">
-          Page {pagination.page} of{" "}
-          {props.eventCount
-            ? Math.ceil(props.eventCount / pagination.rowsPerPage)
-            : "..."}
-        </Typography>
-      </Box>
+      <Typography level="body-sm">
+        Page {pagination.page} of{" "}
+        {props.eventCount
+          ? Math.ceil(props.eventCount / pagination.rowsPerPage)
+          : "..."}
+      </Typography>
     </>
   );
 };

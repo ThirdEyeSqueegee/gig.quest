@@ -140,6 +140,7 @@ export interface PaginationProps {
   sortDate?: boolean;
   sortPopularity?: boolean;
   rowCountOptions: number[];
+  tableView: boolean;
 }
 
 export interface SpotifyTokenResponse {
