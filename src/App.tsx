@@ -90,7 +90,7 @@ export default function App() {
                 </>
               ) : (
                 <>
-                  <EventTable key={page} geo={geo} searchTerm={debSearchTerm} page={page} />
+                  <EventGrid key={page} geo={geo} searchTerm={debSearchTerm} page={page} />
                   <Box display="none">
                     <EventGrid geo={geo} searchTerm={debSearchTerm} page={page + 1} />
                   </Box>
