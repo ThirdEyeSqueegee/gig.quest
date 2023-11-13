@@ -3,9 +3,7 @@ import { Box, IconButton, Input } from "@mui/joy";
 import { m } from "framer-motion";
 import { useState } from "react";
 
-export const SearchInput = (props: {
-  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
-}) => {
+export const SearchInput = (props: { setSearchTerm: React.Dispatch<React.SetStateAction<string>> }) => {
   const [term, setTerm] = useState("");
 
   return (
@@ -21,7 +19,7 @@ export const SearchInput = (props: {
             transition: { type: "spring", duration: 0.5 },
           },
         }}
-        onChange={(e) => {
+        onChange={e => {
           props.setSearchTerm(e.target.value);
           setTerm(e.target.value);
         }}

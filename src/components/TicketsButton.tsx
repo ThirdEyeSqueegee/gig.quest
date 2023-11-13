@@ -15,12 +15,7 @@ export const TicketsButton = (props: { url?: string }) => {
         fontWeight: "normal",
       }}
     >
-      <Link
-        overlay
-        href={props.url}
-        fontSize={isMobile ? "0.8rem" : "0.9rem"}
-        underline="none"
-      >
+      <Link overlay href={props.url} fontSize={isMobile ? "0.8rem" : "0.9rem"} underline="none">
         Tickets
       </Link>
     </Button>

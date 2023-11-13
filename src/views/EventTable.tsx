@@ -15,13 +15,10 @@ import { Venue } from "../components/Venue";
 import { PaginationContext } from "../contexts/PaginationContext";
 
 export const EventTable = (props: { geo?: Location; searchTerm?: string }) => {
-  const { props: pagination, setter: setPagination } =
-    useContext(PaginationContext);
+  const { props: pagination, setter: setPagination } = useContext(PaginationContext);
 
   const { data: eventsDetailsAndMeta } = useSWRImmutable(
-    props.geo
-      ? ["eventsDetails", pagination, props.geo, props.searchTerm]
-      : null,
+    props.geo ? ["eventsDetails", pagination, props.geo, props.searchTerm] : null,
     ([, p, g, s]) => (props.searchTerm ? getEvents(p, g, s) : getEvents(p, g)),
   );
 
@@ -40,11 +37,7 @@ export const EventTable = (props: { geo?: Location; searchTerm?: string }) => {
               <Typography level="body-lg">Venue</Typography>
             </th>
             <th style={{ width: "8.5%" }}>
-              <Box
-                display="flex"
-                alignItems="center"
-                justifyContent="space-between"
-              >
+              <Box display="flex" alignItems="center" justifyContent="space-between">
                 <Typography level="body-lg">Date</Typography>
                 <IconButton
                   size="sm"
@@ -75,11 +68,7 @@ export const EventTable = (props: { geo?: Location; searchTerm?: string }) => {
               </Box>
             </th>
             <th style={{ width: "3.5%" }}>
-              <Box
-                display="flex"
-                alignItems="center"
-                justifyContent="space-between"
-              >
+              <Box display="flex" alignItems="center" justifyContent="space-between">
                 <Typography level="body-md">$ (lo)</Typography>
                 <IconButton
                   size="sm"
@@ -110,11 +99,7 @@ export const EventTable = (props: { geo?: Location; searchTerm?: string }) => {
               </Box>
             </th>
             <th style={{ width: "3.5%" }}>
-              <Box
-                display="flex"
-                alignItems="center"
-                justifyContent="space-between"
-              >
+              <Box display="flex" alignItems="center" justifyContent="space-between">
                 <Typography level="body-md">$ (hi)</Typography>
                 <IconButton
                   size="sm"
@@ -145,11 +130,7 @@ export const EventTable = (props: { geo?: Location; searchTerm?: string }) => {
               </Box>
             </th>
             <th style={{ width: "3.5%" }}>
-              <Box
-                display="flex"
-                alignItems="center"
-                justifyContent="space-between"
-              >
+              <Box display="flex" alignItems="center" justifyContent="space-between">
                 <Typography level="body-md">$ (avg)</Typography>
                 <IconButton
                   size="sm"
@@ -180,11 +161,7 @@ export const EventTable = (props: { geo?: Location; searchTerm?: string }) => {
               </Box>
             </th>
             <th style={{ width: "7.5%" }}>
-              <Box
-                display="flex"
-                alignItems="center"
-                justifyContent="space-between"
-              >
+              <Box display="flex" alignItems="center" justifyContent="space-between">
                 <Typography level="body-lg">Popularity</Typography>
                 <IconButton
                   size="sm"
@@ -232,11 +209,7 @@ export const EventTable = (props: { geo?: Location; searchTerm?: string }) => {
                   <Performers eventDetails={details} />
                 </td>
                 <td>
-                  <Venue
-                    name={details.event.venue?.name}
-                    eventDetails={details}
-                    geo={props.geo}
-                  />
+                  <Venue name={details.event.venue?.name} eventDetails={details} geo={props.geo} />
                 </td>
                 <td>
                   <Typography fontSize="0.9rem">

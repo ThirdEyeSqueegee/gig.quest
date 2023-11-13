@@ -4,14 +4,7 @@ import { m } from "framer-motion";
 
 export const LocationLoading = () => {
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      height="100%"
-      justifyContent="center"
-      alignItems="center"
-      gap={2}
-    >
+    <Box display="flex" flexDirection="column" height="100%" justifyContent="center" alignItems="center" gap={2}>
       <CircularProgress
         size="lg"
         component={m.span}

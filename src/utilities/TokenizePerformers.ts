@@ -1,9 +1,6 @@
 import { Performer } from "../Interfaces";
 
-export const tokenizePerformers = (
-  performers?: Performer[],
-  eventType?: string,
-) => {
+export const tokenizePerformers = (performers?: Performer[], eventType?: string) => {
   let is1v1 = false;
   let str = "";
 
@@ -53,7 +50,7 @@ export const tokenizePerformers = (
     is1v1,
     tokens: str
       .split(is1v1 ? "vs." : "//")
-      .filter((e) => e.length > 0)
-      .map((e) => e.trim()),
+      .filter(e => e.length > 0)
+      .map(e => e.trim()),
   };
 };

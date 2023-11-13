@@ -23,18 +23,13 @@ export const Performers = (props: { eventDetails?: EventDetails }) => {
                     animate={{ opacity: [0, 1] }}
                     exit={{ opacity: [1, 0] }}
                   >
-                    <Typography fontSize={isMobile ? "0.9rem" : "1rem"}>
-                      {p}
-                    </Typography>
+                    <Typography fontSize={isMobile ? "0.9rem" : "1rem"}>{p}</Typography>
                   </Tooltip>
                 </AnimatePresence>
               ) : (
-                <Typography fontSize={isMobile ? "0.9rem" : "1rem"}>
-                  {p}
-                </Typography>
+                <Typography fontSize={isMobile ? "0.9rem" : "1rem"}>{p}</Typography>
               )}
-              {props.eventDetails &&
-              i !== props.eventDetails.performers.length - 1 ? (
+              {props.eventDetails && i !== props.eventDetails.performers.length - 1 ? (
                 <Typography level="body-sm" mx={1} my="auto">
                   {props.eventDetails.is1v1 ? "vs." : "//"}
                 </Typography>

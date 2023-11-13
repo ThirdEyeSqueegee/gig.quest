@@ -19,49 +19,23 @@ export const EventGrid = (props: { geo?: Location; searchTerm?: string }) => {
   const pagination = useContext(PaginationContext);
 
   const { data: eventsDetailsAndMeta } = useSWRImmutable(
-    props.geo
-      ? ["eventsDetails", pagination.props, props.geo, props.searchTerm]
-      : null,
+    props.geo ? ["eventsDetails", pagination.props, props.geo, props.searchTerm] : null,
     ([, p, g, s]) => (props.searchTerm ? getEvents(p, g, s) : getEvents(p, g)),
   );
 
   return (
-    <Grid
-      container
-      spacing={1}
-      height="100%"
-      {...(width! > height! && { overflow: "auto" })}
-    >
+    <Grid container spacing={1} height="100%" {...(width! > height! && { overflow: "auto" })}>
       {eventsDetailsAndMeta?.details.map((details, i) => {
         return (
           <Grid key={i} lg={3} md={6} xs={12} px={0.5}>
-            <Card
-              sx={{ p: 1, height: "100%", justifyContent: "space-between" }}
-            >
-              <Box
-                display="flex"
-                justifyContent="space-between"
-                alignItems="start"
-              >
+            <Card sx={{ p: 1, height: "100%", justifyContent: "space-between" }}>
+              <Box display="flex" justifyContent="space-between" alignItems="start">
                 <Performers eventDetails={details} />
                 <EventTypeIcon eventType={details.event.type} />
               </Box>
-              <Box
-                display="flex"
-                justifyContent="space-between"
-                alignItems="end"
-              >
-                <Box
-                  display="flex"
-                  flexDirection="column"
-                  justifyContent="end"
-                  gap={0}
-                >
-                  <Venue
-                    name={details.event.venue?.name}
-                    eventDetails={details}
-                    geo={props.geo}
-                  />
+              <Box display="flex" justifyContent="space-between" alignItems="end">
+                <Box display="flex" flexDirection="column" justifyContent="end" gap={0}>
+                  <Venue name={details.event.venue?.name} eventDetails={details} geo={props.geo} />
                   <Typography fontSize="0.75rem" color="neutral">
                     <DateAndTime datetime={details.event.datetime_local} />
                   </Typography>
@@ -80,12 +54,7 @@ export const EventGrid = (props: { geo?: Location; searchTerm?: string }) => {
                     </Box>
                   </Box>
                 </Box>
-                <Box
-                  display="flex"
-                  flexDirection="column"
-                  justifyContent="end"
-                  gap={1}
-                >
+                <Box display="flex" flexDirection="column" justifyContent="end" gap={1}>
                   <PopularityBar event={details.event} />
                   <TicketsButton url={details.event.url} />
                 </Box>

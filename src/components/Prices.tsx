@@ -4,10 +4,7 @@ import { isMobile } from "react-device-detect";
 import { SGEvent } from "../Interfaces";
 import { PaginationContext } from "../contexts/PaginationContext";
 
-export const Prices = (props: {
-  event: SGEvent;
-  type: "lo" | "hi" | "avg";
-}) => {
+export const Prices = (props: { event: SGEvent; type: "lo" | "hi" | "avg" }) => {
   const { props: pagination } = useContext(PaginationContext);
 
   let price: number | undefined;
@@ -23,9 +20,5 @@ export const Prices = (props: {
       break;
   }
 
-  return (
-    <Typography fontSize={pagination.tableView ? "0.9rem" : "0.725rem"}>
-      {price ? `$${price}` : isMobile ? "?" : "¯\\_(ツ)_/¯"}
-    </Typography>
-  );
+  return <Typography fontSize={pagination.tableView ? "0.9rem" : "0.725rem"}>{price ? `$${price}` : isMobile ? "?" : "¯\\_(ツ)_/¯"}</Typography>;
 };

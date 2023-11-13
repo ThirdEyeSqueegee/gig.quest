@@ -3,10 +3,7 @@ import { convertDistance, getPreciseDistance } from "geolib";
 import { isMobile } from "react-device-detect";
 import { EventDetails, Location } from "../Interfaces";
 
-export const DistanceChip = (props: {
-  eventDetails?: EventDetails;
-  geo?: Location;
-}) => {
+export const DistanceChip = (props: { eventDetails?: EventDetails; geo?: Location }) => {
   return (
     <Chip size="sm" sx={{ height: "1rem" }}>
       <Typography fontSize={isMobile ? "0.65rem" : "0.7rem"}>

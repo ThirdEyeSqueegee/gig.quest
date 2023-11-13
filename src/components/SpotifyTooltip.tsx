@@ -3,18 +3,10 @@ import useSWR from "swr";
 import { spotifySearchArtist } from "../api/API";
 
 export const SpotifyTooltip = (props: { artist: string }) => {
-  const { data: artistItem } = useSWR(["artist", props.artist], ([, a]) =>
-    spotifySearchArtist(a),
-  );
+  const { data: artistItem } = useSWR(["artist", props.artist], ([, a]) => spotifySearchArtist(a));
 
   return (
-    <Box
-      display="flex"
-      flexWrap="wrap"
-      gap={1}
-      maxWidth="20rem"
-      justifyContent="center"
-    >
+    <Box display="flex" flexWrap="wrap" gap={1} maxWidth="20rem" justifyContent="center">
       {artistItem ? (
         artistItem.genres && artistItem.genres.length > 0 ? (
           <Box display="flex" flexDirection="column" alignItems="center">

@@ -1,10 +1,6 @@
 import { GitHub } from "@mui/icons-material";
 import { Box, Card, Divider, IconButton, Link } from "@mui/joy";
-import {
-  useDebounce,
-  useIsFirstRender,
-  useWindowSize,
-} from "@uidotdev/usehooks";
+import { useDebounce, useIsFirstRender, useWindowSize } from "@uidotdev/usehooks";
 import { LazyMotion, domMax, m } from "framer-motion";
 import { useState } from "react";
 import { isMobile } from "react-device-detect";
@@ -54,16 +50,12 @@ export default function App() {
 
   const { width, height } = useWindowSize();
 
-  const { data: eventsDetailsAndMeta } = useSWRImmutable(
-    geo ? ["eventsDetails", pagination, geo] : null,
-    ([, p, g]) => getEvents(p, g),
-    { keepPreviousData: true },
-  );
+  const { data: eventsDetailsAndMeta } = useSWRImmutable(geo ? ["eventsDetails", pagination, geo] : null, ([, p, g]) => getEvents(p, g), {
+    keepPreviousData: true,
+  });
 
   return (
-    <PaginationContext.Provider
-      value={{ props: pagination, setter: setPagination }}
-    >
+    <PaginationContext.Provider value={{ props: pagination, setter: setPagination }}>
       <LazyMotion strict features={domMax}>
         <Box p={isMobile ? 1 : 2}>
           <Card
@@ -78,34 +70,16 @@ export default function App() {
             animate={{ scaleY: [0, 1] }}
             transition={{ type: "spring", duration: 0.5 }}
           >
-            <Header
-              width={width}
-              height={height}
-              eventsDetailsAndMeta={eventsDetailsAndMeta}
-              setSearchTerm={setSearchTerm}
-            />
-            <IconButton
-              sx={{ position: "absolute", top: "0.5rem", right: "0.5rem" }}
-            >
+            <Header width={width} height={height} eventsDetailsAndMeta={eventsDetailsAndMeta} setSearchTerm={setSearchTerm} />
+            <IconButton sx={{ position: "absolute", top: "0.5rem", right: "0.5rem" }}>
               <GitHub />
-              <Link
-                href="https://github.com/ThirdEyeSqueegee/gig.quest"
-                overlay
-              />
+              <Link href="https://github.com/ThirdEyeSqueegee/gig.quest" overlay />
             </IconButton>
             {geo ? (
               pagination.tableView ? (
-                <EventTable
-                  key={pagination.page}
-                  geo={geo}
-                  searchTerm={debSearchTerm}
-                />
+                <EventTable key={pagination.page} geo={geo} searchTerm={debSearchTerm} />
               ) : (
-                <EventGrid
-                  key={pagination.page}
-                  geo={geo}
-                  searchTerm={debSearchTerm}
-                />
+                <EventGrid key={pagination.page} geo={geo} searchTerm={debSearchTerm} />
               )
             ) : (
               <LocationLoading />

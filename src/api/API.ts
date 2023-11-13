@@ -13,13 +13,9 @@ import {
 } from "../Interfaces";
 import { tokenizePerformers } from "../utilities/TokenizePerformers";
 
-export const getEvents = async (
-  pagination: PaginationProps,
-  location: Location,
-  searchQuery?: string,
-) => {
+export const getEvents = async (pagination: PaginationProps, location: Location, searchQuery?: string) => {
   const filterString = pagination.filter
-    ?.map((e) => {
+    ?.map(e => {
       switch (e) {
         case "sports": {
           return "&type.eq=nba&type.eq=ncaa_basketball&type.eq=ncaa_womens_basketball&type.eq=ncaa_soccer&type.eq=mls&type.eq=ncaa_football&type.eq=nhl&type.eq=hockey&type.eq=minor_league_hockey&type.eq=auto_racing&type.eq=womens_college_volleyball";
@@ -38,24 +34,12 @@ export const getEvents = async (
     .replaceAll(",", "");
 
   const response = await axios.get<SGEvents>(
-    `https://api.seatgeek.com/2/events/?lat=${location.lat}&lon=${
-      location.lon
-    }&range=${pagination.range}&per_page=${pagination.rowsPerPage}&page=${
+    `https://api.seatgeek.com/2/events/?lat=${location.lat}&lon=${location.lon}&range=${pagination.range}&per_page=${pagination.rowsPerPage}&page=${
       pagination.page
-    }&client_id=${import.meta.env.VITE_SEATGEEK_CLIENT_ID}&client_secret=${
-      import.meta.env.VITE_SEATGEEK_CLIENT_SECRET
-    }${pagination.filter && pagination.filter.length > 0 ? filterString : ""}${
-      pagination.sortDate !== undefined
-        ? pagination.sortDate === true
-          ? "&sort=datetime_utc.asc"
-          : "&sort=datetime_utc.desc"
-        : ""
-    }${
-      pagination.sortPopularity !== undefined
-        ? pagination.sortPopularity === true
-          ? "&sort=score.asc"
-          : "&sort=score.desc"
-        : ""
+    }&client_id=${import.meta.env.VITE_SEATGEEK_CLIENT_ID}&client_secret=${import.meta.env.VITE_SEATGEEK_CLIENT_SECRET}${
+      pagination.filter && pagination.filter.length > 0 ? filterString : ""
+    }${pagination.sortDate !== undefined ? (pagination.sortDate === true ? "&sort=datetime_utc.asc" : "&sort=datetime_utc.desc") : ""}${
+      pagination.sortPopularity !== undefined ? (pagination.sortPopularity === true ? "&sort=score.asc" : "&sort=score.desc") : ""
     }${
       pagination.sortLowestPrice !== undefined
         ? pagination.sortLowestPrice === true
@@ -74,9 +58,7 @@ export const getEvents = async (
           ? "&sort=average_price.asc&average_price.gt=1"
           : "&sort=average_price.desc&average_price.gt=1"
         : ""
-    }&datetime_utc.gt=${new Date().toISOString().replace("Z", "")}${
-      searchQuery ? `&q=${searchQuery}` : ""
-    }`,
+    }&datetime_utc.gt=${new Date().toISOString().replace("Z", "")}${searchQuery ? `&q=${searchQuery}` : ""}`,
   );
 
   const eventsDetails: EventDetails[] = [];
@@ -113,18 +95,15 @@ export const getSpotifyToken = async () => {
 
 export const spotifySearchArtist = async (artist: string) => {
   const token = await getSpotifyToken();
-  const response = await axios.get<SpotifyArtistResult>(
-    "https://api.spotify.com/v1/search",
-    {
-      params: {
-        q: artist,
-        type: "artist",
-      },
-      headers: {
-        Authorization: `Bearer ${token.token}`,
-      },
+  const response = await axios.get<SpotifyArtistResult>("https://api.spotify.com/v1/search", {
+    params: {
+      q: artist,
+      type: "artist",
     },
-  );
+    headers: {
+      Authorization: `Bearer ${token.token}`,
+    },
+  });
   const item = response.data.artists.items![0];
   const dice = stringComparison.diceCoefficient.similarity(artist, item.name!);
 

@@ -7,14 +7,7 @@ import {
   KeyboardArrowRight,
   KeyboardDoubleArrowLeft,
 } from "@mui/icons-material";
-import {
-  Box,
-  IconButton,
-  Option,
-  Select,
-  Typography,
-  selectClasses,
-} from "@mui/joy";
+import { Box, IconButton, Option, Select, Typography, selectClasses } from "@mui/joy";
 import { m } from "framer-motion";
 import { useContext } from "react";
 import { isMobile } from "react-device-detect";
@@ -22,18 +15,11 @@ import { PaginationContext } from "../contexts/PaginationContext";
 import { EventTypeIcon } from "./EventTypeIcon";
 
 export const Footer = (props: { eventCount?: number }) => {
-  const { props: pagination, setter: setPagination } =
-    useContext(PaginationContext);
+  const { props: pagination, setter: setPagination } = useContext(PaginationContext);
 
   return (
     <>
-      <Box
-        display="flex"
-        flexWrap="wrap"
-        alignItems="center"
-        justifyContent="center"
-        gap={2}
-      >
+      <Box display="flex" flexWrap="wrap" alignItems="center" justifyContent="center" gap={2}>
         <Box display="flex" alignItems="center" gap={1}>
           <Box display="flex" alignItems="center" gap={1}>
             <Typography level="body-sm" fontSize="0.75rem">
@@ -42,7 +28,7 @@ export const Footer = (props: { eventCount?: number }) => {
             <Select
               size="sm"
               multiple
-              renderValue={(selected) => (
+              renderValue={selected => (
                 <Box display="flex" gap="0.25rem">
                   {selected.map((selectedOption, i) => (
                     <EventTypeIcon key={i} eventType={selectedOption.value} />
@@ -56,7 +42,7 @@ export const Footer = (props: { eventCount?: number }) => {
               {...(pagination.filter.length > 0 && {
                 endDecorator: (
                   <IconButton
-                    onMouseDown={(event) => {
+                    onMouseDown={event => {
                       event.stopPropagation();
                     }}
                     onClick={() => {
@@ -117,18 +103,10 @@ export const Footer = (props: { eventCount?: number }) => {
                 },
               }}
             >
-              <Option value={pagination.rowCountOptions[0]}>
-                {pagination.rowCountOptions[0]}
-              </Option>
-              <Option value={pagination.rowCountOptions[1]}>
-                {pagination.rowCountOptions[1]}
-              </Option>
-              <Option value={pagination.rowCountOptions[2]}>
-                {pagination.rowCountOptions[2]}
-              </Option>
-              <Option value={pagination.rowCountOptions[3]}>
-                {pagination.rowCountOptions[3]}
-              </Option>
+              <Option value={pagination.rowCountOptions[0]}>{pagination.rowCountOptions[0]}</Option>
+              <Option value={pagination.rowCountOptions[1]}>{pagination.rowCountOptions[1]}</Option>
+              <Option value={pagination.rowCountOptions[2]}>{pagination.rowCountOptions[2]}</Option>
+              <Option value={pagination.rowCountOptions[3]}>{pagination.rowCountOptions[3]}</Option>
             </Select>
           </Box>
           <Box display="flex" alignItems="center" gap={1}>
@@ -172,9 +150,7 @@ export const Footer = (props: { eventCount?: number }) => {
           <IconButton
             variant="outlined"
             disabled={pagination.page === 1}
-            onClick={() =>
-              setPagination({ ...pagination, page: pagination.page - 1 })
-            }
+            onClick={() => setPagination({ ...pagination, page: pagination.page - 1 })}
             component={m.button}
             whileTap={{ scale: 0.8 }}
           >
@@ -182,9 +158,7 @@ export const Footer = (props: { eventCount?: number }) => {
           </IconButton>
           <IconButton
             variant="outlined"
-            onClick={() =>
-              setPagination({ ...pagination, page: pagination.page + 1 })
-            }
+            onClick={() => setPagination({ ...pagination, page: pagination.page + 1 })}
             component={m.button}
             whileTap={{ scale: 0.8 }}
           >
@@ -355,10 +329,7 @@ export const Footer = (props: { eventCount?: number }) => {
         </Box>
       </Box>
       <Typography level="body-sm">
-        Page {pagination.page} of{" "}
-        {props.eventCount
-          ? Math.ceil(props.eventCount / pagination.rowsPerPage)
-          : "..."}
+        Page {pagination.page} of {props.eventCount ? Math.ceil(props.eventCount / pagination.rowsPerPage) : "..."}
       </Typography>
     </>
   );
