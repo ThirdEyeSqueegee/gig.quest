@@ -75,7 +75,7 @@ export default function App() {
             animate={{ scaleY: [0, 1] }}
             transition={{ type: "spring", duration: 0.5 }}
           >
-            <Header width={width} height={height} eventsDetailsAndMeta={eventsDetailsAndMeta} setSearchTerm={setSearchTerm} />
+            <Header width={width} height={height} eventsDetailsAndMeta={eventsDetailsAndMeta} setSearchTerm={setSearchTerm} setPage={setPage} />
             <IconButton sx={{ position: "absolute", top: "0.5rem", right: "0.5rem" }}>
               <GitHub />
               <Link href="https://github.com/ThirdEyeSqueegee/gig.quest" overlay />

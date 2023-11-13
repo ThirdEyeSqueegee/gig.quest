@@ -13,6 +13,7 @@ export const Header = (props: {
   height: number | null;
   eventsDetailsAndMeta?: EventsDetailsAndMeta;
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
 }) => {
   const { props: pagination, setter: setPagination } = useContext(PaginationContext);
 
@@ -70,14 +71,14 @@ export const Header = (props: {
                 endDecorator={<GridView fontSize="small" />}
                 checked={!pagination.tableView}
                 variant="outlined"
-                onChange={() =>
+                onChange={() => {
                   setPagination({
                     ...pagination,
-                    page: 1,
                     tableView: !pagination.tableView,
                     rowsPerPage: !pagination.tableView ? 12 : 24,
-                  })
-                }
+                  });
+                  props.setPage(1);
+                }}
                 slotProps={{
                   thumb: {
                     style: {
