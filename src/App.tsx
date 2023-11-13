@@ -16,7 +16,6 @@ import { EventTable } from "./views/EventTable";
 
 export default function App() {
   const [pagination, setPagination] = useState<PaginationProps>({
-    page: 1,
     rowsPerPage: 12,
     range: "5mi",
     filter: [],
@@ -28,6 +27,8 @@ export default function App() {
     rowCountOptions: [12, 24, 36, 48],
     tableView: !isMobile,
   });
+
+  const [page, setPage] = useState(1);
 
   const isFirstRender = useIsFirstRender();
 
@@ -50,9 +51,13 @@ export default function App() {
 
   const { width, height } = useWindowSize();
 
-  const { data: eventsDetailsAndMeta } = useSWRImmutable(geo ? ["eventsDetails", pagination, geo] : null, ([, p, g]) => getEvents(p, g), {
-    keepPreviousData: true,
-  });
+  const { data: eventsDetailsAndMeta } = useSWRImmutable(
+    geo ? ["eventsDetails", pagination, geo, page] : null,
+    ([, p, g, pg]) => getEvents(p, g, pg),
+    {
+      keepPreviousData: true,
+    },
+  );
 
   return (
     <PaginationContext.Provider value={{ props: pagination, setter: setPagination }}>
@@ -77,15 +82,25 @@ export default function App() {
             </IconButton>
             {geo ? (
               pagination.tableView ? (
-                <EventTable key={pagination.page} geo={geo} searchTerm={debSearchTerm} />
+                <>
+                  <EventTable key={page} geo={geo} searchTerm={debSearchTerm} page={page} />
+                  <Box display="none">
+                    <EventTable geo={geo} searchTerm={debSearchTerm} page={page + 1} />
+                  </Box>
+                </>
               ) : (
-                <EventGrid key={pagination.page} geo={geo} searchTerm={debSearchTerm} />
+                <>
+                  <EventTable key={page} geo={geo} searchTerm={debSearchTerm} page={page} />
+                  <Box display="none">
+                    <EventGrid geo={geo} searchTerm={debSearchTerm} page={page + 1} />
+                  </Box>
+                </>
               )
             ) : (
               <LocationLoading />
             )}
             <Divider />
-            <Footer eventCount={eventsDetailsAndMeta?.meta.total} />
+            <Footer eventCount={eventsDetailsAndMeta?.meta.total} page={page} setPage={setPage} />
           </Card>
         </Box>
       </LazyMotion>

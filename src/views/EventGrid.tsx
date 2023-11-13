@@ -13,14 +13,14 @@ import { TicketsButton } from "../components/TicketsButton";
 import { Venue } from "../components/Venue";
 import { PaginationContext } from "../contexts/PaginationContext";
 
-export const EventGrid = (props: { geo?: Location; searchTerm?: string }) => {
+export const EventGrid = (props: { geo?: Location; searchTerm?: string; page: number }) => {
   const { width, height } = useWindowSize();
 
   const pagination = useContext(PaginationContext);
 
   const { data: eventsDetailsAndMeta } = useSWRImmutable(
-    props.geo ? ["eventsDetails", pagination.props, props.geo, props.searchTerm] : null,
-    ([, p, g, s]) => (props.searchTerm ? getEvents(p, g, s) : getEvents(p, g)),
+    props.geo ? ["eventsDetails", pagination.props, props.geo, props.page, props.searchTerm] : null,
+    ([, p, g, pg, s]) => (props.searchTerm ? getEvents(p, g, pg, s) : getEvents(p, g, pg)),
   );
 
   return (

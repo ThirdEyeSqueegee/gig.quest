@@ -14,7 +14,7 @@ import { isMobile } from "react-device-detect";
 import { PaginationContext } from "../contexts/PaginationContext";
 import { EventTypeIcon } from "./EventTypeIcon";
 
-export const Footer = (props: { eventCount?: number }) => {
+export const Footer = (props: { eventCount?: number; page: number; setPage: React.Dispatch<React.SetStateAction<number>> }) => {
   const { props: pagination, setter: setPagination } = useContext(PaginationContext);
 
   return (
@@ -36,7 +36,8 @@ export const Footer = (props: { eventCount?: number }) => {
                 </Box>
               )}
               onChange={(e, v) => {
-                setPagination({ ...pagination, page: 1, filter: v });
+                setPagination({ ...pagination, filter: v });
+                props.setPage(1);
               }}
               indicator={<KeyboardArrowDown />}
               {...(pagination.filter.length > 0 && {
@@ -46,7 +47,8 @@ export const Footer = (props: { eventCount?: number }) => {
                       event.stopPropagation();
                     }}
                     onClick={() => {
-                      setPagination({ ...pagination, page: 1, filter: [] });
+                      setPagination({ ...pagination, filter: [] });
+                      props.setPage(1);
                     }}
                     sx={{ "--IconButton-size": "20px" }}
                   >
@@ -90,7 +92,8 @@ export const Footer = (props: { eventCount?: number }) => {
             <Select
               size="sm"
               onChange={(e, v: number | null) => {
-                setPagination({ ...pagination, page: 1, rowsPerPage: v! });
+                setPagination({ ...pagination, rowsPerPage: v! });
+                props.setPage(1);
               }}
               value={pagination.rowsPerPage}
               indicator={<KeyboardArrowDown />}
@@ -116,7 +119,8 @@ export const Footer = (props: { eventCount?: number }) => {
             <Select
               size="sm"
               onChange={(e, v: string | null) => {
-                setPagination({ ...pagination, page: 1, range: v! });
+                setPagination({ ...pagination, range: v! });
+                props.setPage(1);
               }}
               value={pagination.range}
               indicator={<KeyboardArrowDown />}
@@ -138,9 +142,9 @@ export const Footer = (props: { eventCount?: number }) => {
         <Box display="flex" alignItems="center" gap={1}>
           <IconButton
             variant="outlined"
-            disabled={pagination.page === 1}
+            disabled={props.page === 1}
             onClick={() => {
-              setPagination({ ...pagination, page: 1 });
+              props.setPage(1);
             }}
             component={m.button}
             whileTap={{ scale: 0.8 }}
@@ -149,19 +153,14 @@ export const Footer = (props: { eventCount?: number }) => {
           </IconButton>
           <IconButton
             variant="outlined"
-            disabled={pagination.page === 1}
-            onClick={() => setPagination({ ...pagination, page: pagination.page - 1 })}
+            disabled={props.page === 1}
+            onClick={() => props.setPage(props.page - 1)}
             component={m.button}
             whileTap={{ scale: 0.8 }}
           >
             <KeyboardArrowLeft />
           </IconButton>
-          <IconButton
-            variant="outlined"
-            onClick={() => setPagination({ ...pagination, page: pagination.page + 1 })}
-            component={m.button}
-            whileTap={{ scale: 0.8 }}
-          >
+          <IconButton variant="outlined" onClick={() => props.setPage(props.page + 1)} component={m.button} whileTap={{ scale: 0.8 }}>
             <KeyboardArrowRight />
           </IconButton>
           {isMobile && (
@@ -329,7 +328,7 @@ export const Footer = (props: { eventCount?: number }) => {
         </Box>
       </Box>
       <Typography level="body-sm">
-        Page {pagination.page} of {props.eventCount ? Math.ceil(props.eventCount / pagination.rowsPerPage) : "..."}
+        Page {props.page} of {props.eventCount ? Math.ceil(props.eventCount / pagination.rowsPerPage) : "..."}
       </Typography>
     </>
   );

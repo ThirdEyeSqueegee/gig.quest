@@ -133,7 +133,6 @@ export interface Location {
 }
 
 export interface PaginationProps {
-  page: number;
   rowsPerPage: number;
   range: string;
   filter: string[];

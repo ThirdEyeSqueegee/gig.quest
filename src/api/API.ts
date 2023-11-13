@@ -13,7 +13,7 @@ import {
 } from "../Interfaces";
 import { tokenizePerformers } from "../utilities/TokenizePerformers";
 
-export const getEvents = async (pagination: PaginationProps, location: Location, searchQuery?: string) => {
+export const getEvents = async (pagination: PaginationProps, location: Location, page: number, searchQuery?: string) => {
   const filterString = pagination.filter
     ?.map(e => {
       switch (e) {
@@ -34,9 +34,9 @@ export const getEvents = async (pagination: PaginationProps, location: Location,
     .replaceAll(",", "");
 
   const response = await axios.get<SGEvents>(
-    `https://api.seatgeek.com/2/events/?lat=${location.lat}&lon=${location.lon}&range=${pagination.range}&per_page=${pagination.rowsPerPage}&page=${
-      pagination.page
-    }&client_id=${import.meta.env.VITE_SEATGEEK_CLIENT_ID}&client_secret=${import.meta.env.VITE_SEATGEEK_CLIENT_SECRET}${
+    `https://api.seatgeek.com/2/events/?lat=${location.lat}&lon=${location.lon}&range=${pagination.range}&per_page=${
+      pagination.rowsPerPage
+    }&page=${page}&client_id=${import.meta.env.VITE_SEATGEEK_CLIENT_ID}&client_secret=${import.meta.env.VITE_SEATGEEK_CLIENT_SECRET}${
       pagination.filter && pagination.filter.length > 0 ? filterString : ""
     }${pagination.sortDate !== undefined ? (pagination.sortDate === true ? "&sort=datetime_utc.asc" : "&sort=datetime_utc.desc") : ""}${
       pagination.sortPopularity !== undefined ? (pagination.sortPopularity === true ? "&sort=score.asc" : "&sort=score.desc") : ""
