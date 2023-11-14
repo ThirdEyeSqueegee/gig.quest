@@ -1,4 +1,5 @@
 import { Box, Button, Chip, CircularProgress, Link } from "@mui/joy";
+import { m } from "framer-motion";
 import useSWR from "swr";
 import { spotifySearchArtist } from "../api/API";
 import SpotifyIcon from "../assets/spotify_icon.svg";
@@ -30,8 +31,12 @@ export const SpotifyTooltip = (props: { artist: string }) => {
                 </Link>
               }
               sx={{
+                fontSize: "0.8rem",
                 fontWeight: "normal",
+                borderRadius: "15px",
               }}
+              component={m.button}
+              whileTap={{ scale: 0.9 }}
             >
               Open Spotify
             </Button>

@@ -13,7 +13,14 @@ export const PopularityBar = (props: { event: SGEvent }) => {
   });
 
   return (
-    <Tooltip arrow followCursor title={props.event.score && (props.event.score * 100).toFixed(1)} variant="soft">
+    <Tooltip
+      arrow
+      followCursor
+      title={props.event.score && (props.event.score * 100).toFixed(1)}
+      variant="soft"
+      component={m.div}
+      animate={{ opacity: [0, 1] }}
+    >
       <LinearProgress
         color={props.event.score! > 0.75 ? "success" : props.event.score! > 0.5 ? "primary" : props.event.score! > 0.25 ? "warning" : "danger"}
         determinate
