@@ -25,7 +25,7 @@ export const SpotifyTooltip = (props: { artist: string }) => {
               variant="plain"
               color="success"
               startDecorator={
-                <Link overlay href={artistItem.external_urls?.spotify?.replace("https://open.spotify.com/", "spotify:").replaceAll("/", ":")}>
+                <Link overlay href={artistItem.external_urls?.spotify}>
                   <img src={SpotifyIcon} width="20px" height="20px" />
                 </Link>
               }
