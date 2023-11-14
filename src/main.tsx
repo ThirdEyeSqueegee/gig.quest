@@ -10,8 +10,8 @@ const theme = extendTheme({
   components: {
     JoyTooltip: {
       defaultProps: {
-        enterTouchDelay: 50,
-        leaveTouchDelay: 2500,
+        enterTouchDelay: 25,
+        leaveTouchDelay: 3000,
       },
     },
     JoyLink: {

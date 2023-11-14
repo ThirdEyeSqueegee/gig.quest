@@ -24,7 +24,7 @@ export const EventTable = (props: { geo?: Location; searchTerm?: string; page: n
 
   return (
     <Sheet sx={{ overflow: "auto", height: "100%" }}>
-      <Table size="lg">
+      <Table size="lg" id="eventTable">
         <thead>
           <tr>
             <th style={{ width: "2.5%" }}>

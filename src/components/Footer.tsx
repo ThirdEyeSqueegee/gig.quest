@@ -145,6 +145,9 @@ export const Footer = (props: { eventCount?: number; page: number; setPage: Reac
             disabled={props.page === 1}
             onClick={() => {
               props.setPage(1);
+              if (isMobile) {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }
             }}
             component={m.button}
             whileTap={{ scale: 0.8 }}
@@ -154,13 +157,28 @@ export const Footer = (props: { eventCount?: number; page: number; setPage: Reac
           <IconButton
             variant="outlined"
             disabled={props.page === 1}
-            onClick={() => props.setPage(props.page - 1)}
+            onClick={() => {
+              props.setPage(props.page - 1);
+              if (isMobile) {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }
+            }}
             component={m.button}
             whileTap={{ scale: 0.8 }}
           >
             <KeyboardArrowLeft />
           </IconButton>
-          <IconButton variant="outlined" onClick={() => props.setPage(props.page + 1)} component={m.button} whileTap={{ scale: 0.8 }}>
+          <IconButton
+            variant="outlined"
+            onClick={() => {
+              props.setPage(props.page + 1);
+              if (isMobile) {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }
+            }}
+            component={m.button}
+            whileTap={{ scale: 0.8 }}
+          >
             <KeyboardArrowRight />
           </IconButton>
           {isMobile && (
