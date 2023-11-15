@@ -1,5 +1,6 @@
 import { Box, Card, Grid, Typography } from "@mui/joy";
 import { useWindowSize } from "@uidotdev/usehooks";
+import { m } from "framer-motion";
 import { useContext } from "react";
 import useSWRImmutable from "swr/immutable";
 import { Location } from "../Interfaces";
@@ -28,7 +29,12 @@ export const EventGrid = (props: { geo?: Location; searchTerm?: string; page: nu
       {eventsDetailsAndMeta?.details.map((details, i) => {
         return (
           <Grid key={i} lg={3} md={6} xs={12} px={0.5}>
-            <Card sx={{ p: 1, height: "100%", justifyContent: "space-between" }}>
+            <Card
+              sx={{ p: 1, height: "100%", justifyContent: "space-between" }}
+              component={m.div}
+              whileHover={{ boxShadow: "gray 0 0 5px" }}
+              transition={{ duration: 0.1 }}
+            >
               <Box display="flex" justifyContent="space-between" alignItems="start">
                 <Performers eventDetails={details} />
                 <EventTypeIcon eventType={details.event.type} />

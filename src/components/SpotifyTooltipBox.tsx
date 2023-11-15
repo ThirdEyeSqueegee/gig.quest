@@ -1,10 +1,10 @@
-import { Box, Button, Chip, CircularProgress, Link } from "@mui/joy";
+import { Box, Button, Chip, CircularProgress } from "@mui/joy";
 import { m } from "framer-motion";
 import useSWR from "swr";
 import { spotifySearchArtist } from "../api/API";
 import SpotifyIcon from "../assets/spotify_icon.svg";
 
-export const SpotifyTooltip = (props: { artist: string }) => {
+export const SpotifyTooltipBox = (props: { artist: string }) => {
   const { data: artistItem } = useSWR(["artist", props.artist], ([, a]) => spotifySearchArtist(a));
 
   return (
@@ -25,17 +25,16 @@ export const SpotifyTooltip = (props: { artist: string }) => {
               size="sm"
               variant="plain"
               color="success"
-              startDecorator={
-                <Link overlay href={artistItem.external_urls?.spotify}>
-                  <img src={SpotifyIcon} width="20px" height="20px" />
-                </Link>
-              }
+              startDecorator={<img src={SpotifyIcon} width="20px" height="20px" />}
               sx={{
                 fontSize: "0.8rem",
                 fontWeight: "normal",
                 borderRadius: "15px",
               }}
-              component={m.button}
+              component={m.a}
+              href={artistItem.external_urls?.spotify}
+              target="_blank"
+              rel="noopener"
               whileTap={{ scale: 0.9 }}
             >
               Open Spotify

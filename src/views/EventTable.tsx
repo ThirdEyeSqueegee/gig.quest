@@ -24,7 +24,7 @@ export const EventTable = (props: { geo?: Location; searchTerm?: string; page: n
 
   return (
     <Sheet sx={{ overflow: "auto", height: "100%" }}>
-      <Table size="lg" id="eventTable">
+      <Table size="lg">
         <thead>
           <tr>
             <th style={{ width: "2.5%" }}>
@@ -199,7 +199,7 @@ export const EventTable = (props: { geo?: Location; searchTerm?: string; page: n
         <tbody>
           {eventsDetailsAndMeta?.details.map((details, i) => {
             return (
-              <m.tr key={i} animate={{ opacity: [0, 1] }}>
+              <m.tr key={i} animate={{ opacity: [0, 1] }} whileHover={{ backgroundColor: "#000007", transition: { duration: 0.5 } }}>
                 <td>
                   <Box display="flex" alignItems="center">
                     <EventTypeIcon eventType={details.event.type} />

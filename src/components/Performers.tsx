@@ -2,7 +2,7 @@ import { Box, Tooltip, Typography } from "@mui/joy";
 import { Fragment } from "react";
 import { isMobile } from "react-device-detect";
 import { EventDetails } from "../Interfaces";
-import { SpotifyTooltip } from "./SpotifyTooltip";
+import { SpotifyTooltipBox } from "./SpotifyTooltipBox";
 
 export const Performers = (props: { eventDetails?: EventDetails }) => {
   return (
@@ -12,7 +12,7 @@ export const Performers = (props: { eventDetails?: EventDetails }) => {
           return (
             <Fragment key={i}>
               {props.eventDetails?.event.type === "concert" ? (
-                <Tooltip arrow title={<SpotifyTooltip artist={p} />} variant="plain" sx={{ borderRadius: "15px" }} keepMounted>
+                <Tooltip arrow title={<SpotifyTooltipBox artist={p} />} variant="plain" sx={{ borderRadius: "15px" }} keepMounted>
                   <Typography fontSize={isMobile ? "0.9rem" : "1rem"}>{p}</Typography>
                 </Tooltip>
               ) : (
