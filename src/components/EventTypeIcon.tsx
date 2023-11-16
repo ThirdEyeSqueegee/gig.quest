@@ -2,6 +2,7 @@ import {
   DirectionsCar,
   Diversity3,
   EmojiEmotions,
+  Festival,
   LocalActivity,
   MusicNote,
   PlayCircle,
@@ -117,7 +118,7 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
     case "music_festival":
       return (
         <Tooltip arrow title="Music Festival" variant="soft" component={m.div} animate={{ opacity: [0, 1] }}>
-          <PlayCircle
+          <Festival
             htmlColor="royalblue"
             component={m.svg}
             whileHover={{ scale: 1.15 }}

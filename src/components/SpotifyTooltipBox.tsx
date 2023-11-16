@@ -31,6 +31,7 @@ export const SpotifyTooltipBox = (props: { artist: string }) => {
                 fontWeight: "normal",
                 borderRadius: "15px",
               }}
+              onClick={e => e.stopPropagation()}
               component={m.a}
               href={artistItem.external_urls?.spotify}
               target="_blank"

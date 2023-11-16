@@ -2,6 +2,7 @@ import { Box, Card, Grid, Typography } from "@mui/joy";
 import { useWindowSize } from "@uidotdev/usehooks";
 import { m } from "framer-motion";
 import { useContext } from "react";
+import { isMobile } from "react-device-detect";
 import useSWRImmutable from "swr/immutable";
 import { Location } from "../Interfaces";
 import { getEvents } from "../api/API";
@@ -31,9 +32,11 @@ export const EventGrid = (props: { geo?: Location; searchTerm?: string; page: nu
           <Grid key={i} lg={3} md={6} xs={12} px={0.5}>
             <Card
               sx={{ p: 1, height: "100%", justifyContent: "space-between" }}
-              component={m.div}
-              whileHover={{ boxShadow: "gray 0 0 5px" }}
-              transition={{ duration: 0.1 }}
+              {...(!isMobile && {
+                component: m.div,
+                whileHover: { boxShadow: "gray 0 0 5px" },
+                transition: { duration: 0.1 },
+              })}
             >
               <Box display="flex" justifyContent="space-between" alignItems="start">
                 <Performers eventDetails={details} />

@@ -14,6 +14,7 @@ import {
 import { tokenizePerformers } from "../utilities/TokenizePerformers";
 
 export const getEvents = async (pagination: PaginationProps, location: Location, page: number, searchQuery?: string) => {
+  let festivalSearch = false;
   const filterString = pagination.filter
     ?.map(e => {
       switch (e) {
@@ -26,6 +27,10 @@ export const getEvents = async (pagination: PaginationProps, location: Location,
         case "concert": {
           return "&type=concert&type=classical&type=classical_opera&type=classical_orchestral_instrumental";
         }
+        case "music_festival": {
+          festivalSearch = true;
+          return `&type.eq=${e}`;
+        }
         default:
           return `&type.eq=${e}`;
       }
@@ -33,33 +38,32 @@ export const getEvents = async (pagination: PaginationProps, location: Location,
     .toString()
     .replaceAll(",", "");
 
-  const response = await axios.get<SGEvents>(
-    `https://api.seatgeek.com/2/events/?lat=${location.lat}&lon=${location.lon}&range=${pagination.range}&per_page=${
-      pagination.rowsPerPage
-    }&page=${page}&client_id=${import.meta.env.VITE_SEATGEEK_CLIENT_ID}&client_secret=${import.meta.env.VITE_SEATGEEK_CLIENT_SECRET}${
-      pagination.filter && pagination.filter.length > 0 ? filterString : ""
-    }${pagination.sortDate !== undefined ? (pagination.sortDate === true ? "&sort=datetime_utc.asc" : "&sort=datetime_utc.desc") : ""}${
-      pagination.sortPopularity !== undefined ? (pagination.sortPopularity === true ? "&sort=score.asc" : "&sort=score.desc") : ""
-    }${
-      pagination.sortLowestPrice !== undefined
-        ? pagination.sortLowestPrice === true
-          ? "&sort=lowest_price.asc&lowest_price.gt=1"
-          : "&sort=lowest_price.desc&lowest_price.gt=1"
-        : ""
-    }${
-      pagination.sortHighestPrice !== undefined
-        ? pagination.sortHighestPrice === true
-          ? "&sort=highest_price.asc&highest_price.gt=1"
-          : "&sort=highest_price.desc&highest_price.gt=1"
-        : ""
-    }${
-      pagination.sortAvgPrice !== undefined
-        ? pagination.sortAvgPrice === true
-          ? "&sort=average_price.asc&average_price.gt=1"
-          : "&sort=average_price.desc&average_price.gt=1"
-        : ""
-    }&datetime_utc.gt=${new Date().toISOString().replace("Z", "")}${searchQuery ? `&q=${searchQuery}` : ""}`,
-  );
+  const response = await axios.get<SGEvents>(`https://api.seatgeek.com/2/events/?per_page=${pagination.rowsPerPage}&page=${page}&client_id=${
+    import.meta.env.VITE_SEATGEEK_CLIENT_ID
+  }&client_secret=${import.meta.env.VITE_SEATGEEK_CLIENT_SECRET}${!festivalSearch ? `&lat=${location.lat}` : ""}${
+    !festivalSearch ? `&lon=${location.lon}` : ""
+  }${!festivalSearch ? `&range=${pagination.range}` : ""}${pagination.filter && pagination.filter.length > 0 ? filterString : ""}${
+    pagination.sortDate !== undefined ? (pagination.sortDate === true ? "&sort=datetime_utc.asc" : "&sort=datetime_utc.desc") : ""
+  }${pagination.sortPopularity !== undefined ? (pagination.sortPopularity === true ? "&sort=score.asc" : "&sort=score.desc") : ""}${
+    pagination.sortLowestPrice !== undefined
+      ? pagination.sortLowestPrice === true
+        ? "&sort=lowest_price.asc&lowest_price.gt=1"
+        : "&sort=lowest_price.desc&lowest_price.gt=1"
+      : ""
+  }${
+    pagination.sortHighestPrice !== undefined
+      ? pagination.sortHighestPrice === true
+        ? "&sort=highest_price.asc&highest_price.gt=1"
+        : "&sort=highest_price.desc&highest_price.gt=1"
+      : ""
+  }${
+    pagination.sortAvgPrice !== undefined
+      ? pagination.sortAvgPrice === true
+        ? "&sort=average_price.asc&average_price.gt=1"
+        : "&sort=average_price.desc&average_price.gt=1"
+      : ""
+  }&datetime_utc.gt=${new Date().toISOString().replace("Z", "")}${searchQuery ? `&q=${searchQuery}` : ""}
+    `);
 
   const eventsDetails: EventDetails[] = [];
   for (const e of response.data.events!) {

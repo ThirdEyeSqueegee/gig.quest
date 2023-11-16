@@ -53,7 +53,11 @@ export const Header = (props: {
             })}
           />
           <Typography level="body-sm" fontFamily="Fira Code">
-            {props.eventsDetailsAndMeta?.meta?.geolocation?.display_name} ({pagination.range})
+            {!pagination.filter.includes("music_festival")
+              ? `${props.eventsDetailsAndMeta?.meta.geolocation ? props.eventsDetailsAndMeta.meta.geolocation.display_name : "..."} (${
+                  pagination.range
+                })`
+              : "Everywhere"}
           </Typography>
         </Box>
         <Box display="flex" justifyContent={props.width! > props.height! ? "end" : "center"} alignItems="center" gap={2} flex={1}>
