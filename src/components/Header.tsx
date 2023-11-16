@@ -12,6 +12,7 @@ export const Header = (props: {
   width: number | null;
   height: number | null;
   eventsDetailsAndMeta?: EventsDetailsAndMeta;
+  searchTerm: string;
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
   setPage: React.Dispatch<React.SetStateAction<number>>;
 }) => {
@@ -61,7 +62,7 @@ export const Header = (props: {
           </Typography>
         </Box>
         <Box display="flex" justifyContent={props.width! > props.height! ? "end" : "center"} alignItems="center" gap={2} flex={1}>
-          <SearchInput setSearchTerm={props.setSearchTerm} />
+          <SearchInput searchTerm={props.searchTerm} setSearchTerm={props.setSearchTerm} />
           {!isMobile && (
             <Tooltip
               title={`Switch to ${pagination.tableView ? "grid" : "table"} view`}

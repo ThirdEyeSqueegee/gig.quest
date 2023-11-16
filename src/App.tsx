@@ -2,7 +2,7 @@ import { GitHub } from "@mui/icons-material";
 import { Box, Card, Divider, IconButton, Link } from "@mui/joy";
 import { useDebounce, useIsFirstRender, useWindowSize } from "@uidotdev/usehooks";
 import { LazyMotion, domMax, m } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { isMobile } from "react-device-detect";
 import useSWRImmutable from "swr/immutable";
 import { Location, PaginationProps } from "./Interfaces";
@@ -59,6 +59,10 @@ export default function App() {
     },
   );
 
+  useEffect(() => {
+    setPage(1);
+  }, [debSearchTerm]);
+
   return (
     <PaginationContext.Provider value={{ props: pagination, setter: setPagination }}>
       <LazyMotion strict features={domMax}>
@@ -75,7 +79,14 @@ export default function App() {
             animate={{ scaleY: [0, 1] }}
             transition={{ type: "spring", duration: 0.5 }}
           >
-            <Header width={width} height={height} eventsDetailsAndMeta={eventsDetailsAndMeta} setSearchTerm={setSearchTerm} setPage={setPage} />
+            <Header
+              width={width}
+              height={height}
+              eventsDetailsAndMeta={eventsDetailsAndMeta}
+              searchTerm={searchTerm}
+              setSearchTerm={setSearchTerm}
+              setPage={setPage}
+            />
             <IconButton sx={{ position: "absolute", top: "0.5rem", right: "0.5rem" }}>
               <GitHub />
               <Link href="https://github.com/ThirdEyeSqueegee/gig.quest" overlay />

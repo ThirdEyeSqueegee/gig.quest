@@ -1,4 +1,4 @@
-import { Box, Button, Chip, CircularProgress } from "@mui/joy";
+import { Box, Button, Chip, CircularProgress, Divider, Link } from "@mui/joy";
 import { m } from "framer-motion";
 import useSWR from "swr";
 import { spotifySearchArtist } from "../api/API";
@@ -21,6 +21,7 @@ export const SpotifyTooltipBox = (props: { artist: string }) => {
                 );
               })}
             </Box>
+            <Divider />
             <Button
               size="sm"
               variant="plain"
@@ -31,14 +32,12 @@ export const SpotifyTooltipBox = (props: { artist: string }) => {
                 fontWeight: "normal",
                 borderRadius: "15px",
               }}
-              onClick={e => e.stopPropagation()}
-              component={m.a}
-              href={artistItem.external_urls?.spotify}
-              target="_blank"
-              rel="noopener"
+              component={m.button}
               whileTap={{ scale: 0.9 }}
             >
-              Open Spotify
+              <Link href={artistItem.external_urls?.spotify} overlay underline="none" color="success" fontSize="0.8rem">
+                Open Spotify
+              </Link>
             </Button>
           </Box>
         ) : (

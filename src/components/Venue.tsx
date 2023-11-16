@@ -9,9 +9,9 @@ export const Venue = (props: { name?: string; eventDetails?: EventDetails; geo?:
 
   return (
     <Box display="flex" alignItems="center" gap={1}>
-      <Typography fontSize={pagination.tableView ? "0.95rem" : "0.75rem"}>
-        <Link href={`https://www.google.com/maps/search/${props.name?.replaceAll(" ", "+")}`}>{props.name}</Link>
-      </Typography>
+      <Link href={`https://www.google.com/maps/search/${props.name?.replaceAll(" ", "+")}`}>
+        <Typography fontSize={pagination.tableView ? "0.95rem" : "0.75rem"}>{props.name}</Typography>
+      </Link>
       <DistanceChip eventDetails={props.eventDetails} geo={props.geo} />
     </Box>
   );

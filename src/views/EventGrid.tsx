@@ -29,12 +29,12 @@ export const EventGrid = (props: { geo?: Location; searchTerm?: string; page: nu
     <Grid container spacing={1} height="100%" {...(width! > height! && { overflow: "auto" })}>
       {eventsDetailsAndMeta?.details.map((details, i) => {
         return (
-          <Grid key={i} lg={3} md={6} xs={12} px={0.5}>
+          <Grid key={i} lg={3} md={6} xs={12} px={0.5} display="flex" flexDirection="column" minWidth="29rem">
             <Card
-              sx={{ p: 1, height: "100%", justifyContent: "space-between" }}
+              sx={{ p: 1, justifyContent: "space-between", flexGrow: 1, maxHeight: "8rem" }}
               {...(!isMobile && {
                 component: m.div,
-                whileHover: { boxShadow: "gray 0 0 5px" },
+                whileHover: { boxShadow: "#555577 0 0 7px" },
                 transition: { duration: 0.1 },
               })}
             >
@@ -45,20 +45,26 @@ export const EventGrid = (props: { geo?: Location; searchTerm?: string; page: nu
               <Box display="flex" justifyContent="space-between" alignItems="end">
                 <Box display="flex" flexDirection="column" justifyContent="end" gap={0}>
                   <Venue name={details.event.venue?.name} eventDetails={details} geo={props.geo} />
-                  <Typography fontSize="0.75rem" color="neutral">
+                  <Typography fontSize="0.75rem">
                     <DateAndTime datetime={details.event.datetime_local} />
                   </Typography>
                   <Box display="flex" gap={1} alignItems="center">
                     <Box display="flex" gap={0.5} alignItems="center">
-                      <Typography fontSize="0.725rem">$ (lo):</Typography>
+                      <Typography fontSize="0.725rem" color="neutral">
+                        $ (lo):
+                      </Typography>
                       <Prices event={details.event} type="lo" />
                     </Box>
                     <Box display="flex" gap={0.5} alignItems="center">
-                      <Typography fontSize="0.725rem">$ (hi):</Typography>
+                      <Typography fontSize="0.725rem" color="neutral">
+                        $ (hi):
+                      </Typography>
                       <Prices event={details.event} type="hi" />
                     </Box>
                     <Box display="flex" gap={0.5} alignItems="center">
-                      <Typography fontSize="0.725rem">$ (avg):</Typography>
+                      <Typography fontSize="0.725rem" color="neutral">
+                        $ (avg):
+                      </Typography>
                       <Prices event={details.event} type="avg" />
                     </Box>
                   </Box>

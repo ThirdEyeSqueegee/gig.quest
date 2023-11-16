@@ -1,11 +1,8 @@
 import { CloseRounded, Search } from "@mui/icons-material";
 import { Box, IconButton, Input } from "@mui/joy";
 import { m } from "framer-motion";
-import { useState } from "react";
 
-export const SearchInput = (props: { setSearchTerm: React.Dispatch<React.SetStateAction<string>> }) => {
-  const [term, setTerm] = useState("");
-
+export const SearchInput = (props: { searchTerm: string; setSearchTerm: React.Dispatch<React.SetStateAction<string>> }) => {
   return (
     <Box display="flex" gap={1}>
       <Input
@@ -19,19 +16,11 @@ export const SearchInput = (props: { setSearchTerm: React.Dispatch<React.SetStat
             transition: { type: "spring", duration: 0.5 },
           },
         }}
-        onChange={e => {
-          props.setSearchTerm(e.target.value);
-          setTerm(e.target.value);
-        }}
-        value={term}
-        {...(term && {
+        onChange={e => props.setSearchTerm(e.target.value)}
+        value={props.searchTerm}
+        {...(props.searchTerm && {
           endDecorator: (
-            <IconButton
-              onClick={() => {
-                props.setSearchTerm("");
-                setTerm("");
-              }}
-            >
+            <IconButton onClick={() => props.setSearchTerm("")}>
               <CloseRounded />
             </IconButton>
           ),
