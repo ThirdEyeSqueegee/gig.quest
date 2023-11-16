@@ -7,13 +7,14 @@ import {
   Location,
   PaginationProps,
   SGEvents,
+  SortingProps,
   SpotifyArtistResult,
   SpotifyToken,
   SpotifyTokenResponse,
 } from "../Interfaces";
 import { tokenizePerformers } from "../utilities/TokenizePerformers";
 
-export const getEvents = async (pagination: PaginationProps, location: Location, page: number, searchQuery?: string) => {
+export const getEvents = async (pagination: PaginationProps, sorting: SortingProps, location: Location, page: number, searchQuery?: string) => {
   let festivalSearch = false;
   const filterString = pagination.filter
     ?.map(e => {
@@ -43,22 +44,22 @@ export const getEvents = async (pagination: PaginationProps, location: Location,
   }&client_secret=${import.meta.env.VITE_SEATGEEK_CLIENT_SECRET}${!festivalSearch ? `&lat=${location.lat}` : ""}${
     !festivalSearch ? `&lon=${location.lon}` : ""
   }${!festivalSearch ? `&range=${pagination.range}` : ""}${pagination.filter && pagination.filter.length > 0 ? filterString : ""}${
-    pagination.sortDate !== undefined ? (pagination.sortDate === true ? "&sort=datetime_utc.asc" : "&sort=datetime_utc.desc") : ""
-  }${pagination.sortPopularity !== undefined ? (pagination.sortPopularity === true ? "&sort=score.asc" : "&sort=score.desc") : ""}${
-    pagination.sortLowestPrice !== undefined
-      ? pagination.sortLowestPrice === true
+    sorting.sortDate !== undefined ? (sorting.sortDate === true ? "&sort=datetime_utc.asc" : "&sort=datetime_utc.desc") : ""
+  }${sorting.sortPopularity !== undefined ? (sorting.sortPopularity === true ? "&sort=score.asc" : "&sort=score.desc") : ""}${
+    sorting.sortLowestPrice !== undefined
+      ? sorting.sortLowestPrice === true
         ? "&sort=lowest_price.asc&lowest_price.gt=1"
         : "&sort=lowest_price.desc&lowest_price.gt=1"
       : ""
   }${
-    pagination.sortHighestPrice !== undefined
-      ? pagination.sortHighestPrice === true
+    sorting.sortHighestPrice !== undefined
+      ? sorting.sortHighestPrice === true
         ? "&sort=highest_price.asc&highest_price.gt=1"
         : "&sort=highest_price.desc&highest_price.gt=1"
       : ""
   }${
-    pagination.sortAvgPrice !== undefined
-      ? pagination.sortAvgPrice === true
+    sorting.sortAvgPrice !== undefined
+      ? sorting.sortAvgPrice === true
         ? "&sort=average_price.asc&average_price.gt=1"
         : "&sort=average_price.desc&average_price.gt=1"
       : ""
@@ -97,15 +98,14 @@ export const getSpotifyToken = async () => {
   } as SpotifyToken;
 };
 
-export const spotifySearchArtist = async (artist: string) => {
-  const token = await getSpotifyToken();
+export const spotifySearchArtist = async (artist: string, token: string) => {
   const response = await axios.get<SpotifyArtistResult>("https://api.spotify.com/v1/search", {
     params: {
       q: artist,
       type: "artist",
     },
     headers: {
-      Authorization: `Bearer ${token.token}`,
+      Authorization: `Bearer ${token}`,
     },
   });
   const item = response.data.artists.items![0];

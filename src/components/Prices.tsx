@@ -2,10 +2,10 @@ import { Typography } from "@mui/joy";
 import { useContext } from "react";
 import { isMobile } from "react-device-detect";
 import { SGEvent } from "../Interfaces";
-import { PaginationContext } from "../contexts/PaginationContext";
+import { ViewContext } from "../contexts/ViewContext";
 
 export const Prices = (props: { event: SGEvent; type: "lo" | "hi" | "avg" }) => {
-  const { props: pagination } = useContext(PaginationContext);
+  const { state: tableView } = useContext(ViewContext);
 
   let price: number | undefined;
   switch (props.type) {
@@ -20,5 +20,5 @@ export const Prices = (props: { event: SGEvent; type: "lo" | "hi" | "avg" }) => 
       break;
   }
 
-  return <Typography fontSize={pagination.tableView ? "0.9rem" : "0.725rem"}>{price ? `$${price}` : isMobile ? "?" : "¯\\_(ツ)_/¯"}</Typography>;
+  return <Typography fontSize={tableView ? "0.9rem" : "0.725rem"}>{price ? `$${price}` : isMobile ? "?" : "¯\\_(ツ)_/¯"}</Typography>;
 };

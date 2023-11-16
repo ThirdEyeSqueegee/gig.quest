@@ -7,20 +7,27 @@ import { Location } from "../Interfaces";
 import { getEvents } from "../api/API";
 import { DateAndTime } from "../components/DateAndTime";
 import { EventTypeIcon } from "../components/EventTypeIcon";
+import { LoadingTable } from "../components/LoadingTable";
 import { Performers } from "../components/Performers";
 import { PopularityBar } from "../components/PopularityBar";
 import { Prices } from "../components/Prices";
 import { TicketsButton } from "../components/TicketsButton";
 import { Venue } from "../components/Venue";
 import { PaginationContext } from "../contexts/PaginationContext";
+import { SortingContext } from "../contexts/SortingContext";
 
-export const EventTable = (props: { geo?: Location; searchTerm?: string; page: number }) => {
-  const { props: pagination, setter: setPagination } = useContext(PaginationContext);
+export const EventTable = (props: { geo?: Location; searchTerm?: string }) => {
+  const { props: pagination } = useContext(PaginationContext);
+  const { props: sorting, setter: setSorting } = useContext(SortingContext);
 
-  const { data: eventsDetailsAndMeta } = useSWRImmutable(
-    props.geo && props.page ? ["eventsDetails", pagination, props.geo, props.page, props.searchTerm] : null,
-    ([, p, g, pg, s]) => (props.searchTerm ? getEvents(p, g, pg, s) : getEvents(p, g, pg)),
+  const { data: eventsDetailsAndMeta, isLoading } = useSWRImmutable(
+    props.geo ? ["eventsDetails", pagination, sorting, props.geo, pagination.page, props.searchTerm] : null,
+    ([, pag, sor, geo, page, term]) => (props.searchTerm ? getEvents(pag, sor, geo, page, term) : getEvents(pag, sor, geo, page)),
   );
+
+  if (isLoading) {
+    return <LoadingTable />;
+  }
 
   return (
     <Sheet sx={{ overflow: "auto", height: "100%" }}>
@@ -42,9 +49,9 @@ export const EventTable = (props: { geo?: Location; searchTerm?: string; page: n
                 <IconButton
                   size="sm"
                   onClick={() =>
-                    setPagination({
-                      ...pagination,
-                      sortDate: !pagination.sortDate,
+                    setSorting({
+                      ...sorting,
+                      sortDate: !sorting.sortDate,
                       sortPopularity: undefined,
                       sortLowestPrice: undefined,
                       sortHighestPrice: undefined,
@@ -55,8 +62,8 @@ export const EventTable = (props: { geo?: Location; searchTerm?: string; page: n
                     "--IconButton-size": "24px",
                   }}
                 >
-                  {pagination.sortDate !== undefined ? (
-                    pagination.sortDate ? (
+                  {sorting.sortDate !== undefined ? (
+                    sorting.sortDate ? (
                       <ArrowUpward fontSize="small" />
                     ) : (
                       <ArrowDownward fontSize="small" />
@@ -73,11 +80,11 @@ export const EventTable = (props: { geo?: Location; searchTerm?: string; page: n
                 <IconButton
                   size="sm"
                   onClick={() =>
-                    setPagination({
-                      ...pagination,
+                    setSorting({
+                      ...sorting,
                       sortDate: undefined,
                       sortPopularity: undefined,
-                      sortLowestPrice: !pagination.sortLowestPrice,
+                      sortLowestPrice: !sorting.sortLowestPrice,
                       sortHighestPrice: undefined,
                       sortAvgPrice: undefined,
                     })
@@ -86,8 +93,8 @@ export const EventTable = (props: { geo?: Location; searchTerm?: string; page: n
                     "--IconButton-size": "24px",
                   }}
                 >
-                  {pagination.sortLowestPrice !== undefined ? (
-                    pagination.sortLowestPrice ? (
+                  {sorting.sortLowestPrice !== undefined ? (
+                    sorting.sortLowestPrice ? (
                       <ArrowUpward fontSize="small" />
                     ) : (
                       <ArrowDownward fontSize="small" />
@@ -104,12 +111,12 @@ export const EventTable = (props: { geo?: Location; searchTerm?: string; page: n
                 <IconButton
                   size="sm"
                   onClick={() =>
-                    setPagination({
-                      ...pagination,
+                    setSorting({
+                      ...sorting,
                       sortDate: undefined,
                       sortPopularity: undefined,
                       sortLowestPrice: undefined,
-                      sortHighestPrice: !pagination.sortHighestPrice,
+                      sortHighestPrice: !sorting.sortHighestPrice,
                       sortAvgPrice: undefined,
                     })
                   }
@@ -117,8 +124,8 @@ export const EventTable = (props: { geo?: Location; searchTerm?: string; page: n
                     "--IconButton-size": "24px",
                   }}
                 >
-                  {pagination.sortHighestPrice !== undefined ? (
-                    pagination.sortHighestPrice ? (
+                  {sorting.sortHighestPrice !== undefined ? (
+                    sorting.sortHighestPrice ? (
                       <ArrowUpward fontSize="small" />
                     ) : (
                       <ArrowDownward fontSize="small" />
@@ -135,21 +142,21 @@ export const EventTable = (props: { geo?: Location; searchTerm?: string; page: n
                 <IconButton
                   size="sm"
                   onClick={() =>
-                    setPagination({
-                      ...pagination,
+                    setSorting({
+                      ...sorting,
                       sortDate: undefined,
                       sortPopularity: undefined,
                       sortLowestPrice: undefined,
                       sortHighestPrice: undefined,
-                      sortAvgPrice: !pagination.sortAvgPrice,
+                      sortAvgPrice: !sorting.sortAvgPrice,
                     })
                   }
                   sx={{
                     "--IconButton-size": "24px",
                   }}
                 >
-                  {pagination.sortAvgPrice !== undefined ? (
-                    pagination.sortAvgPrice ? (
+                  {sorting.sortAvgPrice !== undefined ? (
+                    sorting.sortAvgPrice ? (
                       <ArrowUpward fontSize="small" />
                     ) : (
                       <ArrowDownward fontSize="small" />
@@ -166,9 +173,9 @@ export const EventTable = (props: { geo?: Location; searchTerm?: string; page: n
                 <IconButton
                   size="sm"
                   onClick={() =>
-                    setPagination({
-                      ...pagination,
-                      sortPopularity: !pagination.sortPopularity,
+                    setSorting({
+                      ...sorting,
+                      sortPopularity: !sorting.sortPopularity,
                       sortDate: undefined,
                       sortLowestPrice: undefined,
                       sortHighestPrice: undefined,
@@ -179,8 +186,8 @@ export const EventTable = (props: { geo?: Location; searchTerm?: string; page: n
                     "--IconButton-size": "24px",
                   }}
                 >
-                  {pagination.sortPopularity !== undefined ? (
-                    pagination.sortPopularity ? (
+                  {sorting.sortPopularity !== undefined ? (
+                    sorting.sortPopularity ? (
                       <ArrowUpward fontSize="small" />
                     ) : (
                       <ArrowDownward fontSize="small" />

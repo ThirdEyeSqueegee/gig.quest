@@ -12,10 +12,14 @@ import { m } from "framer-motion";
 import { useContext } from "react";
 import { isMobile } from "react-device-detect";
 import { PaginationContext } from "../contexts/PaginationContext";
+import { SortingContext } from "../contexts/SortingContext";
+import { ViewContext } from "../contexts/ViewContext";
 import { EventTypeIcon } from "./EventTypeIcon";
 
-export const Footer = (props: { eventCount?: number; page: number; setPage: React.Dispatch<React.SetStateAction<number>> }) => {
+export const Footer = (props: { eventCount?: number }) => {
   const { props: pagination, setter: setPagination } = useContext(PaginationContext);
+  const { props: sorting, setter: setSorting } = useContext(SortingContext);
+  const { state: tableView } = useContext(ViewContext);
 
   return (
     <>
@@ -37,11 +41,10 @@ export const Footer = (props: { eventCount?: number; page: number; setPage: Reac
               )}
               onChange={(e, v) => {
                 if (v.includes("music_festival")) {
-                  setPagination({ ...pagination, filter: ["music_festival"] });
+                  setPagination({ ...pagination, filter: ["music_festival"], page: 1 });
                 } else {
-                  setPagination({ ...pagination, filter: v });
+                  setPagination({ ...pagination, filter: v, page: 1 });
                 }
-                props.setPage(1);
               }}
               indicator={<KeyboardArrowDown />}
               {...(pagination.filter.length > 0 && {
@@ -51,8 +54,7 @@ export const Footer = (props: { eventCount?: number; page: number; setPage: Reac
                       event.stopPropagation();
                     }}
                     onClick={() => {
-                      setPagination({ ...pagination, filter: [] });
-                      props.setPage(1);
+                      setPagination({ ...pagination, filter: [], page: 1 });
                     }}
                     sx={{ "--IconButton-size": "20px" }}
                   >
@@ -100,8 +102,7 @@ export const Footer = (props: { eventCount?: number; page: number; setPage: Reac
             <Select
               size="sm"
               onChange={(e, v: number | null) => {
-                setPagination({ ...pagination, rowsPerPage: v! });
-                props.setPage(1);
+                setPagination({ ...pagination, rowsPerPage: v!, page: 1 });
               }}
               value={pagination.rowsPerPage}
               indicator={<KeyboardArrowDown />}
@@ -127,8 +128,7 @@ export const Footer = (props: { eventCount?: number; page: number; setPage: Reac
             <Select
               size="sm"
               onChange={(e, v: string | null) => {
-                setPagination({ ...pagination, range: v! });
-                props.setPage(1);
+                setPagination({ ...pagination, range: v!, page: 1 });
               }}
               value={pagination.range}
               indicator={<KeyboardArrowDown />}
@@ -147,7 +147,7 @@ export const Footer = (props: { eventCount?: number; page: number; setPage: Reac
             </Select>
           </Box>
         </Box>
-        {!pagination.tableView && (
+        {!tableView && (
           <Box display="flex" alignItems="center" gap={1}>
             <Typography level="body-sm" fontSize="0.75rem">
               Sort:
@@ -157,8 +157,8 @@ export const Footer = (props: { eventCount?: number; page: number; setPage: Reac
               onChange={(e, v: string | null) => {
                 switch (v!) {
                   case "Date (asc.)":
-                    setPagination({
-                      ...pagination,
+                    setSorting({
+                      ...sorting,
                       sortDate: true,
                       sortPopularity: undefined,
                       sortLowestPrice: undefined,
@@ -167,8 +167,8 @@ export const Footer = (props: { eventCount?: number; page: number; setPage: Reac
                     });
                     break;
                   case "Date (desc.)":
-                    setPagination({
-                      ...pagination,
+                    setSorting({
+                      ...sorting,
                       sortDate: false,
                       sortPopularity: undefined,
                       sortLowestPrice: undefined,
@@ -177,8 +177,8 @@ export const Footer = (props: { eventCount?: number; page: number; setPage: Reac
                     });
                     break;
                   case "Popularity (asc.)":
-                    setPagination({
-                      ...pagination,
+                    setSorting({
+                      ...sorting,
                       sortDate: undefined,
                       sortPopularity: true,
                       sortLowestPrice: undefined,
@@ -187,8 +187,8 @@ export const Footer = (props: { eventCount?: number; page: number; setPage: Reac
                     });
                     break;
                   case "Popularity (desc.)":
-                    setPagination({
-                      ...pagination,
+                    setSorting({
+                      ...sorting,
                       sortDate: undefined,
                       sortPopularity: false,
                       sortLowestPrice: undefined,
@@ -197,8 +197,8 @@ export const Footer = (props: { eventCount?: number; page: number; setPage: Reac
                     });
                     break;
                   case "$ lo (asc.)":
-                    setPagination({
-                      ...pagination,
+                    setSorting({
+                      ...sorting,
                       sortDate: undefined,
                       sortPopularity: undefined,
                       sortLowestPrice: true,
@@ -207,8 +207,8 @@ export const Footer = (props: { eventCount?: number; page: number; setPage: Reac
                     });
                     break;
                   case "$ lo (desc.)":
-                    setPagination({
-                      ...pagination,
+                    setSorting({
+                      ...sorting,
                       sortDate: undefined,
                       sortPopularity: undefined,
                       sortLowestPrice: false,
@@ -217,8 +217,8 @@ export const Footer = (props: { eventCount?: number; page: number; setPage: Reac
                     });
                     break;
                   case "$ hi (asc.)":
-                    setPagination({
-                      ...pagination,
+                    setSorting({
+                      ...sorting,
                       sortDate: undefined,
                       sortPopularity: undefined,
                       sortLowestPrice: undefined,
@@ -227,8 +227,8 @@ export const Footer = (props: { eventCount?: number; page: number; setPage: Reac
                     });
                     break;
                   case "$ hi (desc.)":
-                    setPagination({
-                      ...pagination,
+                    setSorting({
+                      ...sorting,
                       sortDate: undefined,
                       sortPopularity: undefined,
                       sortLowestPrice: undefined,
@@ -237,8 +237,8 @@ export const Footer = (props: { eventCount?: number; page: number; setPage: Reac
                     });
                     break;
                   case "$ avg (asc.)":
-                    setPagination({
-                      ...pagination,
+                    setSorting({
+                      ...sorting,
                       sortDate: undefined,
                       sortPopularity: undefined,
                       sortLowestPrice: undefined,
@@ -247,8 +247,8 @@ export const Footer = (props: { eventCount?: number; page: number; setPage: Reac
                     });
                     break;
                   case "$ avg (desc.)":
-                    setPagination({
-                      ...pagination,
+                    setSorting({
+                      ...sorting,
                       sortDate: undefined,
                       sortPopularity: undefined,
                       sortLowestPrice: undefined,
@@ -312,9 +312,9 @@ export const Footer = (props: { eventCount?: number; page: number; setPage: Reac
         <Box display="flex" alignItems="center" gap={1}>
           <IconButton
             variant="outlined"
-            disabled={props.page === 1}
+            disabled={pagination.page === 1}
             onClick={() => {
-              props.setPage(1);
+              setPagination({ ...pagination, page: 1 });
               if (isMobile) {
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }
@@ -326,9 +326,9 @@ export const Footer = (props: { eventCount?: number; page: number; setPage: Reac
           </IconButton>
           <IconButton
             variant="outlined"
-            disabled={props.page === 1}
+            disabled={pagination.page === 1}
             onClick={() => {
-              props.setPage(props.page - 1);
+              setPagination({ ...pagination, page: pagination.page - 1 });
               if (isMobile) {
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }
@@ -341,7 +341,7 @@ export const Footer = (props: { eventCount?: number; page: number; setPage: Reac
           <IconButton
             variant="outlined"
             onClick={() => {
-              props.setPage(props.page + 1);
+              setPagination({ ...pagination, page: pagination.page + 1 });
               if (isMobile) {
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }
@@ -354,7 +354,7 @@ export const Footer = (props: { eventCount?: number; page: number; setPage: Reac
         </Box>
       </Box>
       <Typography level="body-sm">
-        Page {props.page} of {props.eventCount ? Math.ceil(props.eventCount / pagination.rowsPerPage) : "..."}
+        Page {pagination.page} of {props.eventCount ? Math.ceil(props.eventCount / pagination.rowsPerPage) : "..."}
       </Typography>
     </>
   );

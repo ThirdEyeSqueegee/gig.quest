@@ -1,4 +1,5 @@
-import { Box, Card, Grid, Typography } from "@mui/joy";
+import { HourglassTop } from "@mui/icons-material";
+import { Box, Card, CircularProgress, Grid, Typography } from "@mui/joy";
 import { useWindowSize } from "@uidotdev/usehooks";
 import { m } from "framer-motion";
 import { useContext } from "react";
@@ -14,16 +15,28 @@ import { Prices } from "../components/Prices";
 import { TicketsButton } from "../components/TicketsButton";
 import { Venue } from "../components/Venue";
 import { PaginationContext } from "../contexts/PaginationContext";
+import { SortingContext } from "../contexts/SortingContext";
 
-export const EventGrid = (props: { geo?: Location; searchTerm?: string; page: number }) => {
+export const EventGrid = (props: { geo?: Location; searchTerm?: string }) => {
+  const { props: pagination } = useContext(PaginationContext);
+  const { props: sorting } = useContext(SortingContext);
+
   const { width, height } = useWindowSize();
 
-  const pagination = useContext(PaginationContext);
-
-  const { data: eventsDetailsAndMeta } = useSWRImmutable(
-    props.geo ? ["eventsDetails", pagination.props, props.geo, props.page, props.searchTerm] : null,
-    ([, p, g, pg, s]) => (props.searchTerm ? getEvents(p, g, pg, s) : getEvents(p, g, pg)),
+  const { data: eventsDetailsAndMeta, isLoading } = useSWRImmutable(
+    props.geo ? ["eventsDetails", pagination, sorting, props.geo, pagination.page, props.searchTerm] : null,
+    ([, pag, sor, geo, page, term]) => (props.searchTerm ? getEvents(pag, sor, geo, page, term) : getEvents(pag, sor, geo, page)),
   );
+
+  if (isLoading) {
+    return (
+      <Grid container spacing={1} height="100%" {...(width! > height! && { overflow: "auto" })} alignItems="center">
+        <CircularProgress size="lg">
+          <HourglassTop />
+        </CircularProgress>
+      </Grid>
+    );
+  }
 
   return (
     <Grid container spacing={1} height="100%" {...(width! > height! && { overflow: "auto" })}>
@@ -31,9 +44,11 @@ export const EventGrid = (props: { geo?: Location; searchTerm?: string; page: nu
         return (
           <Grid key={i} lg={3} md={6} xs={12} px={0.5} display="flex" flexDirection="column" minWidth={isMobile ? "auto" : "29rem"}>
             <Card
+              key={i}
               sx={{ p: 1, justifyContent: "space-between", flexGrow: 1, maxHeight: "8rem" }}
+              component={m.div}
+              animate={{ opacity: [0, 1], transition: { duration: 0.25 } }}
               {...(!isMobile && {
-                component: m.div,
                 whileHover: { boxShadow: "#555577 0 0 7px" },
                 transition: { duration: 0.1 },
               })}

@@ -6,6 +6,7 @@ import { isMobile } from "react-device-detect";
 import TypeIt from "typeit-react";
 import { EventsDetailsAndMeta } from "../Interfaces";
 import { PaginationContext } from "../contexts/PaginationContext";
+import { ViewContext } from "../contexts/ViewContext";
 import { SearchInput } from "./SearchInput";
 
 export const Header = (props: {
@@ -14,9 +15,9 @@ export const Header = (props: {
   eventsDetailsAndMeta?: EventsDetailsAndMeta;
   searchTerm: string;
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
-  setPage: React.Dispatch<React.SetStateAction<number>>;
 }) => {
   const { props: pagination, setter: setPagination } = useContext(PaginationContext);
+  const { state: tableView, setter: setTableView } = useContext(ViewContext);
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center" width="100%">
@@ -64,25 +65,21 @@ export const Header = (props: {
         <Box display="flex" justifyContent={props.width! > props.height! ? "end" : "center"} alignItems="center" gap={2} flex={1}>
           <SearchInput searchTerm={props.searchTerm} setSearchTerm={props.setSearchTerm} />
           {!isMobile && (
-            <Tooltip
-              title={`Switch to ${pagination.tableView ? "grid" : "table"} view`}
-              variant="soft"
-              component={m.div}
-              animate={{ opacity: [0, 1] }}
-            >
+            <Tooltip title={`Switch to ${tableView ? "grid" : "table"} view`} variant="soft" component={m.div} animate={{ opacity: [0, 1] }}>
               <Switch
                 size="lg"
                 startDecorator={<TableRows fontSize="small" />}
                 endDecorator={<GridView fontSize="small" />}
-                checked={!pagination.tableView}
+                checked={!tableView}
                 variant="outlined"
                 onChange={() => {
+                  setTableView(!tableView);
                   setPagination({
                     ...pagination,
-                    tableView: !pagination.tableView,
-                    rowsPerPage: !pagination.tableView ? 12 : 24,
+                    page: 1,
+                    rowCountOptions: !tableView ? [12, 24, 36, 48] : [20, 28, 36, 48],
+                    rowsPerPage: !tableView ? 12 : 20,
                   });
-                  props.setPage(1);
                 }}
                 slotProps={{
                   thumb: {

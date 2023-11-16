@@ -133,16 +133,19 @@ export interface Location {
 }
 
 export interface PaginationProps {
+  page: number;
   rowsPerPage: number;
   range: string;
   filter: string[];
+  rowCountOptions: number[];
+}
+
+export interface SortingProps {
   sortDate?: boolean;
   sortPopularity?: boolean;
   sortLowestPrice?: boolean;
   sortHighestPrice?: boolean;
   sortAvgPrice?: boolean;
-  rowCountOptions: number[];
-  tableView: boolean;
 }
 
 export interface SpotifyTokenResponse {
