@@ -29,7 +29,7 @@ export const EventGrid = (props: { geo?: Location; searchTerm?: string; page: nu
     <Grid container spacing={1} height="100%" {...(width! > height! && { overflow: "auto" })}>
       {eventsDetailsAndMeta?.details.map((details, i) => {
         return (
-          <Grid key={i} lg={3} md={6} xs={12} px={0.5} display="flex" flexDirection="column" minWidth="29rem">
+          <Grid key={i} lg={3} md={6} xs={12} px={0.5} display="flex" flexDirection="column" minWidth={isMobile ? "auto" : "29rem"}>
             <Card
               sx={{ p: 1, justifyContent: "space-between", flexGrow: 1, maxHeight: "8rem" }}
               {...(!isMobile && {
