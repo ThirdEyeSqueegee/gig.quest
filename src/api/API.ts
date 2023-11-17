@@ -111,5 +111,5 @@ export const spotifySearchArtist = async (artist: string, token: string) => {
   const item = response.data.artists.items![0];
   const dice = stringComparison.diceCoefficient.similarity(artist, item.name!);
 
-  return dice > 0.9 ? item : ({} as ArtistItem);
+  return dice > 0.8 ? item : ({ id: "-1" } as ArtistItem);
 };
