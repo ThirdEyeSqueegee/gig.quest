@@ -33,7 +33,7 @@ export default function App() {
     sortAvgPrice: undefined,
   });
 
-  const [tableView, setTableView] = useState(true);
+  const [tableView, setTableView] = useState(!isMobile);
 
   const [geo, setGeo] = useState<Location>();
 
