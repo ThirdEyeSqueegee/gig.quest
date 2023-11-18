@@ -1,5 +1,5 @@
-import "@fontsource/fira-code";
-import "@fontsource/inter";
+import "@fontsource-variable/fira-code";
+import "@fontsource-variable/inter";
 import CssBaseline from "@mui/joy/CssBaseline";
 import { CssVarsProvider, extendTheme } from "@mui/joy/styles";
 import React from "react";
@@ -12,6 +12,8 @@ const theme = extendTheme({
       defaultProps: {
         enterTouchDelay: 25,
         leaveTouchDelay: 3000,
+        arrow: true,
+        variant: "soft",
       },
     },
     JoyLink: {

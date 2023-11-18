@@ -13,29 +13,30 @@ export const PopularityBar = (props: { event: SGEvent }) => {
   });
 
   return (
-    <Tooltip
-      arrow
-      followCursor
-      title={props.event.score && (props.event.score * 100).toFixed(1)}
-      variant="soft"
-      component={m.div}
-      animate={{ opacity: [0, 1] }}
-    >
+    <Tooltip followCursor title={props.event.score && (props.event.score * 100).toFixed(1)} {...styles.tooltip}>
       <LinearProgress
         color={props.event.score! > 0.75 ? "success" : props.event.score! > 0.5 ? "primary" : props.event.score! > 0.25 ? "warning" : "danger"}
-        determinate
-        thickness={8}
         value={Number(value)}
         variant="solid"
-        component={m.div}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        {...(!isMobile && {
-          drag: true,
-          dragSnapToOrigin: true,
-          dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
-        })}
+        {...styles.progressBar}
       />
     </Tooltip>
   );
+};
+
+const styles = {
+  tooltip: {
+    component: m.div,
+    animate: { opacity: [0, 1] },
+  },
+  progressBar: {
+    determinate: true,
+    thickness: 8,
+    component: m.div,
+    whileHover: { scale: 1.1 },
+    whileTap: { scale: 0.9 },
+    drag: !isMobile,
+    dragSnapToOrigin: !isMobile,
+    dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
+  },
 };

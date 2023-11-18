@@ -18,8 +18,8 @@ export const DistanceChip = (props: { eventDetails?: EventDetails; geo?: Locatio
               ),
               "mi",
             ).toFixed(2)
-          : "..."}{" "}
-        mi
+          : "..."}
+        {" mi"}
       </Typography>
     </Chip>
   );

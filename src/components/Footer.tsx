@@ -6,10 +6,11 @@ import {
   KeyboardArrowLeft,
   KeyboardArrowRight,
   KeyboardDoubleArrowLeft,
+  RestartAlt,
 } from "@mui/icons-material";
-import { Box, IconButton, Option, Select, Typography, selectClasses } from "@mui/joy";
+import { Box, IconButton, Option, Select, Slider, Typography, selectClasses } from "@mui/joy";
 import { m } from "framer-motion";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { isMobile } from "react-device-detect";
 import { PaginationContext } from "../contexts/PaginationContext";
 import { SortingContext } from "../contexts/SortingContext";
@@ -21,132 +22,137 @@ export const Footer = (props: { eventCount?: number }) => {
   const { props: sorting, setter: setSorting } = useContext(SortingContext);
   const { state: tableView } = useContext(ViewContext);
 
+  const [sliderValue, setSliderValue] = useState(5);
+
   return (
-    <>
+    <Box display="flex" flexDirection="column" alignItems="center" gap={0}>
       <Box display="flex" flexWrap="wrap" alignItems="center" justifyContent="center" gap={2}>
+        {/* --------------- Filter --------------- */}
         <Box display="flex" alignItems="center" gap={1}>
-          <Box display="flex" alignItems="center" gap={1}>
-            <Typography level="body-sm" fontSize="0.75rem">
-              Filter:
-            </Typography>
-            <Select
-              size="sm"
-              multiple
-              renderValue={selected => (
-                <Box display="flex" gap="0.25rem">
-                  {selected.map((selectedOption, i) => (
-                    <EventTypeIcon key={i} eventType={selectedOption.value} />
-                  ))}
-                </Box>
-              )}
-              onChange={(e, v) => {
-                if (v.includes("music_festival")) {
-                  setPagination({ ...pagination, filter: ["music_festival"], page: 1 });
-                } else {
-                  setPagination({ ...pagination, filter: v, page: 1 });
-                }
-              }}
-              indicator={<KeyboardArrowDown />}
-              {...(pagination.filter.length > 0 && {
-                endDecorator: (
-                  <IconButton
-                    onMouseDown={event => {
-                      event.stopPropagation();
-                    }}
-                    onClick={() => {
-                      setPagination({ ...pagination, filter: [], page: 1 });
-                    }}
-                    sx={{ "--IconButton-size": "20px" }}
-                  >
-                    <CloseRounded fontSize="small" />
-                  </IconButton>
-                ),
-                indicator: null,
-              })}
-              sx={{
-                [`& .${selectClasses.indicator}`]: {
-                  transition: "0.2s",
-                  [`&.${selectClasses.expanded}`]: {
-                    transform: "rotate(-180deg)",
-                  },
+          <Typography level="body-sm" fontSize="0.75rem">
+            Filter:
+          </Typography>
+          <Select
+            size="sm"
+            multiple
+            renderValue={selected => (
+              <Box display="flex" gap="0.25rem">
+                {selected.map((selectedOption, i) => (
+                  <EventTypeIcon key={i} eventType={selectedOption.value} />
+                ))}
+              </Box>
+            )}
+            onChange={(e, v) => {
+              if (v.includes("music_festival")) {
+                setPagination({ ...pagination, filter: ["music_festival"], page: 1 });
+              } else {
+                setPagination({ ...pagination, filter: v, page: 1 });
+              }
+            }}
+            indicator={<KeyboardArrowDown />}
+            sx={{
+              [`& .${selectClasses.indicator}`]: {
+                transition: "0.2s",
+                [`&.${selectClasses.expanded}`]: {
+                  transform: "rotate(-180deg)",
                 },
-              }}
-              value={pagination.filter}
-            >
-              <Option value="concert">
-                <EventTypeIcon eventType="concert" />
-                Concert
-              </Option>
-              <Option value="comedy">
-                <EventTypeIcon eventType="comedy" />
-                Comedy
-              </Option>
-              <Option value="sports">
-                <EventTypeIcon />
-                Sports
-              </Option>
-              <Option value="theater">
-                <EventTypeIcon eventType="theater" />
-                Theater
-              </Option>
-              <Option value="music_festival">
-                <EventTypeIcon eventType="music_festival" />
-                Festival
-              </Option>
-            </Select>
-          </Box>
-          <Box display="flex" alignItems="center" gap={1}>
-            <Typography level="body-sm" fontSize="0.75rem">
-              Rows:
-            </Typography>
-            <Select
-              size="sm"
-              onChange={(e, v: number | null) => {
-                setPagination({ ...pagination, rowsPerPage: v!, page: 1 });
-              }}
-              value={pagination.rowsPerPage}
-              indicator={<KeyboardArrowDown />}
-              sx={{
-                [`& .${selectClasses.indicator}`]: {
-                  transition: "0.2s",
-                  [`&.${selectClasses.expanded}`]: {
-                    transform: "rotate(-180deg)",
-                  },
+              },
+            }}
+            {...(pagination.filter.length > 0 && {
+              endDecorator: (
+                <IconButton
+                  onMouseDown={event => {
+                    event.stopPropagation();
+                  }}
+                  onClick={() => {
+                    setPagination({ ...pagination, filter: [], page: 1 });
+                  }}
+                  sx={{ "--IconButton-size": "20px", "&:hover": { backgroundColor: "transparent" } }}
+                >
+                  <CloseRounded fontSize="small" />
+                </IconButton>
+              ),
+              indicator: null,
+            })}
+            value={pagination.filter}
+          >
+            <Option value="concert">
+              <EventTypeIcon eventType="concert" />
+              Concert
+            </Option>
+            <Option value="comedy">
+              <EventTypeIcon eventType="comedy" />
+              Comedy
+            </Option>
+            <Option value="sports">
+              <EventTypeIcon />
+              Sports
+            </Option>
+            <Option value="theater">
+              <EventTypeIcon eventType="theater" />
+              Theater
+            </Option>
+            <Option value="music_festival">
+              <EventTypeIcon eventType="music_festival" />
+              Festival
+            </Option>
+          </Select>
+        </Box>
+        {/* --------------- Rows --------------- */}
+        <Box display="flex" alignItems="center" gap={1}>
+          <Typography level="body-sm" fontSize="0.75rem">
+            Rows:
+          </Typography>
+          <Select
+            size="sm"
+            onChange={(e, v: number | null) => {
+              setPagination({ ...pagination, rowsPerPage: v!, page: 1 });
+            }}
+            value={pagination.rowsPerPage}
+            indicator={<KeyboardArrowDown />}
+            sx={{
+              [`& .${selectClasses.indicator}`]: {
+                transition: "0.25s",
+                [`&.${selectClasses.expanded}`]: {
+                  transform: "rotate(-180deg)",
                 },
-              }}
-            >
-              <Option value={pagination.rowCountOptions[0]}>{pagination.rowCountOptions[0]}</Option>
-              <Option value={pagination.rowCountOptions[1]}>{pagination.rowCountOptions[1]}</Option>
-              <Option value={pagination.rowCountOptions[2]}>{pagination.rowCountOptions[2]}</Option>
-              <Option value={pagination.rowCountOptions[3]}>{pagination.rowCountOptions[3]}</Option>
-            </Select>
-          </Box>
-          <Box display="flex" alignItems="center" gap={1}>
-            <Typography level="body-sm" fontSize="0.75rem">
-              Range:
-            </Typography>
-            <Select
+              },
+            }}
+          >
+            <Option value={pagination.rowCountOptions[0]}>{pagination.rowCountOptions[0]}</Option>
+            <Option value={pagination.rowCountOptions[1]}>{pagination.rowCountOptions[1]}</Option>
+            <Option value={pagination.rowCountOptions[2]}>{pagination.rowCountOptions[2]}</Option>
+            <Option value={pagination.rowCountOptions[3]}>{pagination.rowCountOptions[3]}</Option>
+          </Select>
+        </Box>
+        {/* --------------- Range --------------- */}
+        <Box display="flex" alignItems="center" gap={1.5}>
+          <Typography level="body-sm" fontSize="0.75rem">
+            Range:
+          </Typography>
+          <Box display="flex" alignItems="center" gap={0.5}>
+            <Slider
               size="sm"
-              onChange={(e, v: string | null) => {
-                setPagination({ ...pagination, range: v!, page: 1 });
+              color="neutral"
+              valueLabelDisplay="auto"
+              {...styles.rangeSlider}
+              value={sliderValue}
+              onChange={(e, v) => setSliderValue(+v)}
+              onChangeCommitted={(e, v) => setPagination({ ...pagination, range: `${+v}mi`, page: 1 })}
+            />
+            <IconButton
+              size="sm"
+              onClick={() => {
+                setSliderValue(5);
+                setPagination({ ...pagination, range: "5mi", page: 1 });
               }}
-              value={pagination.range}
-              indicator={<KeyboardArrowDown />}
-              sx={{
-                [`& .${selectClasses.indicator}`]: {
-                  transition: "0.2s",
-                  [`&.${selectClasses.expanded}`]: {
-                    transform: "rotate(-180deg)",
-                  },
-                },
-              }}
+              sx={{ "--IconButton-size": "24px", "&:hover": { backgroundColor: "transparent" } }}
             >
-              <Option value="5mi">5 mi</Option>
-              <Option value="25mi">25 mi</Option>
-              <Option value="50mi">50 mi</Option>
-            </Select>
+              <RestartAlt fontSize="small" />
+            </IconButton>
           </Box>
         </Box>
+        {/* --------------- Sort --------------- */}
         {!tableView && (
           <Box display="flex" alignItems="center" gap={1}>
             <Typography level="body-sm" fontSize="0.75rem">
@@ -262,7 +268,7 @@ export const Footer = (props: { eventCount?: number }) => {
               indicator={<KeyboardArrowDown />}
               sx={{
                 [`& .${selectClasses.indicator}`]: {
-                  transition: "0.2s",
+                  transition: "0.25s",
                   [`&.${selectClasses.expanded}`]: {
                     transform: "rotate(-180deg)",
                   },
@@ -309,6 +315,7 @@ export const Footer = (props: { eventCount?: number }) => {
             </Select>
           </Box>
         )}
+        {/* --------------- Pagination --------------- */}
         <Box display="flex" alignItems="center" gap={1}>
           <IconButton
             variant="outlined"
@@ -333,8 +340,7 @@ export const Footer = (props: { eventCount?: number }) => {
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }
             }}
-            component={m.button}
-            whileTap={{ scale: 0.8 }}
+            {...styles.pageButton}
           >
             <KeyboardArrowLeft />
           </IconButton>
@@ -346,8 +352,7 @@ export const Footer = (props: { eventCount?: number }) => {
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }
             }}
-            component={m.button}
-            whileTap={{ scale: 0.8 }}
+            {...styles.pageButton}
           >
             <KeyboardArrowRight />
           </IconButton>
@@ -356,6 +361,18 @@ export const Footer = (props: { eventCount?: number }) => {
       <Typography level="body-sm">
         Page {pagination.page} of {props.eventCount ? Math.ceil(props.eventCount / pagination.rowsPerPage) : "..."}
       </Typography>
-    </>
+    </Box>
   );
+};
+
+const styles = {
+  pageButton: {
+    component: m.button,
+    whileTap: { scale: 0.8 },
+  },
+  rangeSlider: {
+    defaultValue: 5,
+    max: 50,
+    sx: { minWidth: "8rem" },
+  },
 };

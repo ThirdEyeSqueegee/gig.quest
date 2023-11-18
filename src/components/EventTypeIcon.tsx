@@ -10,6 +10,7 @@ import {
   SportsEsports,
   SportsFootball,
   SportsHockey,
+  SportsKabaddi,
   SportsSoccer,
   SportsVolleyball,
   TheaterComedy,
@@ -22,313 +23,154 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
   switch (props.eventType) {
     case "nba":
       return (
-        <Tooltip arrow title="NBA" variant="soft" component={m.div} animate={{ opacity: [0, 1] }}>
-          <SportsBasketball
-            htmlColor="coral"
-            component={m.svg}
-            whileHover={{ scale: 1.15 }}
-            whileTap={{ scale: 0.75 }}
-            {...(!isMobile && {
-              drag: true,
-              dragSnapToOrigin: true,
-              dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
-            })}
-          />
+        <Tooltip title="NBA" {...styles.tooltip}>
+          <SportsBasketball htmlColor="coral" {...styles.eventIcon} />
         </Tooltip>
       );
     case "ncaa_basketball":
     case "ncaa_womens_basketball":
       return (
-        <Tooltip arrow title="NCAA Basketball" variant="soft" component={m.div} animate={{ opacity: [0, 1] }}>
-          <SportsBasketball
-            htmlColor="coral"
-            component={m.svg}
-            whileHover={{ scale: 1.15 }}
-            whileTap={{ scale: 0.75 }}
-            {...(!isMobile && {
-              drag: true,
-              dragSnapToOrigin: true,
-              dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
-            })}
-          />
+        <Tooltip title="NCAA Basketball" {...styles.tooltip}>
+          <SportsBasketball htmlColor="coral" {...styles.eventIcon} />
         </Tooltip>
       );
     case "ncaa_soccer":
       return (
-        <Tooltip arrow title="NCAA Soccer" variant="soft" component={m.div} animate={{ opacity: [0, 1] }}>
-          <SportsSoccer
-            component={m.svg}
-            whileHover={{ scale: 1.15 }}
-            whileTap={{ scale: 0.75 }}
-            {...(!isMobile && {
-              drag: true,
-              dragSnapToOrigin: true,
-              dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
-            })}
-          />
+        <Tooltip title="NCAA Soccer" {...styles.tooltip}>
+          <SportsSoccer {...styles.eventIcon} />
         </Tooltip>
       );
     case "mls":
       return (
-        <Tooltip arrow title="MLS" variant="soft" component={m.div} animate={{ opacity: [0, 1] }}>
-          <SportsSoccer
-            component={m.svg}
-            whileHover={{ scale: 1.15 }}
-            whileTap={{ scale: 0.75 }}
-            {...(!isMobile && {
-              drag: true,
-              dragSnapToOrigin: true,
-              dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
-            })}
-          />
+        <Tooltip title="MLS" {...styles.tooltip}>
+          <SportsSoccer {...styles.eventIcon} />
         </Tooltip>
       );
     case "ncaa_football":
       return (
-        <Tooltip arrow title="NCAA Football" variant="soft" component={m.div} animate={{ opacity: [0, 1] }}>
-          <SportsFootball
-            htmlColor="saddlebrown"
-            component={m.svg}
-            whileHover={{ scale: 1.15 }}
-            whileTap={{ scale: 0.75 }}
-            {...(!isMobile && {
-              drag: true,
-              dragSnapToOrigin: true,
-              dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
-            })}
-          />
+        <Tooltip title="NCAA Football" {...styles.tooltip}>
+          <SportsFootball htmlColor="saddlebrown" {...styles.eventIcon} />
         </Tooltip>
       );
     case "concert":
       return (
-        <Tooltip arrow title="Concert" variant="soft" component={m.div} animate={{ opacity: [0, 1] }}>
-          <PlayCircle
-            htmlColor="royalblue"
-            component={m.svg}
-            whileHover={{ scale: 1.15 }}
-            whileTap={{ scale: 0.75 }}
-            {...(!isMobile && {
-              drag: true,
-              dragSnapToOrigin: true,
-              dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
-            })}
-          />
+        <Tooltip title="Concert" {...styles.tooltip}>
+          <PlayCircle htmlColor="royalblue" {...styles.eventIcon} />
         </Tooltip>
       );
     case "music_festival":
       return (
-        <Tooltip arrow title="Music Festival" variant="soft" component={m.div} animate={{ opacity: [0, 1] }}>
-          <Festival
-            htmlColor="royalblue"
-            component={m.svg}
-            whileHover={{ scale: 1.15 }}
-            whileTap={{ scale: 0.75 }}
-            {...(!isMobile && {
-              drag: true,
-              dragSnapToOrigin: true,
-              dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
-            })}
-          />
+        <Tooltip title="Music Festival" {...styles.tooltip}>
+          <Festival htmlColor="royalblue" {...styles.eventIcon} />
         </Tooltip>
       );
     case "classical":
       return (
-        <Tooltip arrow title="Classical" variant="soft" component={m.div} animate={{ opacity: [0, 1] }}>
-          <MusicNote
-            htmlColor="slateblue"
-            component={m.svg}
-            whileHover={{ scale: 1.15 }}
-            whileTap={{ scale: 0.75 }}
-            {...(!isMobile && {
-              drag: true,
-              dragSnapToOrigin: true,
-              dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
-            })}
-          />
+        <Tooltip title="Classical" {...styles.tooltip}>
+          <MusicNote htmlColor="slateblue" {...styles.eventIcon} />
         </Tooltip>
       );
     case "classical_opera":
       return (
-        <Tooltip arrow title="Opera" variant="soft" component={m.div} animate={{ opacity: [0, 1] }}>
-          <MusicNote
-            htmlColor="slateblue"
-            component={m.svg}
-            whileHover={{ scale: 1.15 }}
-            whileTap={{ scale: 0.75 }}
-            {...(!isMobile && {
-              drag: true,
-              dragSnapToOrigin: true,
-              dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
-            })}
-          />
+        <Tooltip title="Opera" {...styles.tooltip}>
+          <MusicNote htmlColor="slateblue" {...styles.eventIcon} />
         </Tooltip>
       );
     case "classical_orchestral_instrumental":
       return (
-        <Tooltip arrow title="Orchestra" variant="soft" component={m.div} animate={{ opacity: [0, 1] }}>
-          <MusicNote
-            htmlColor="slateblue"
-            component={m.svg}
-            whileHover={{ scale: 1.15 }}
-            whileTap={{ scale: 0.75 }}
-            {...(!isMobile && {
-              drag: true,
-              dragSnapToOrigin: true,
-              dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
-            })}
-          />
+        <Tooltip title="Orchestra" {...styles.tooltip}>
+          <MusicNote htmlColor="slateblue" {...styles.eventIcon} />
         </Tooltip>
       );
     case "broadway_tickets_national":
     case "theater":
       return (
-        <Tooltip arrow title="Theater" variant="soft" component={m.div} animate={{ opacity: [0, 1] }}>
-          <TheaterComedy
-            htmlColor="lightseagreen"
-            component={m.svg}
-            whileHover={{ scale: 1.15 }}
-            whileTap={{ scale: 0.75 }}
-            {...(!isMobile && {
-              drag: true,
-              dragSnapToOrigin: true,
-              dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
-            })}
-          />
+        <Tooltip title="Theater" {...styles.tooltip}>
+          <TheaterComedy htmlColor="lightseagreen" {...styles.eventIcon} />
         </Tooltip>
       );
     case "esports":
       return (
-        <Tooltip arrow title="Esports" variant="soft" component={m.div} animate={{ opacity: [0, 1] }}>
-          <SportsEsports
-            component={m.svg}
-            whileHover={{ scale: 1.15 }}
-            whileTap={{ scale: 0.75 }}
-            {...(!isMobile && {
-              drag: true,
-              dragSnapToOrigin: true,
-              dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
-            })}
-          />
+        <Tooltip title="Esports" {...styles.tooltip}>
+          <SportsEsports {...styles.eventIcon} />
         </Tooltip>
       );
     case "nhl":
       return (
-        <Tooltip arrow title="NHL" variant="soft" component={m.div} animate={{ opacity: [0, 1] }}>
-          <SportsHockey
-            component={m.svg}
-            whileHover={{ scale: 1.15 }}
-            whileTap={{ scale: 0.75 }}
-            {...(!isMobile && {
-              drag: true,
-              dragSnapToOrigin: true,
-              dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
-            })}
-          />
+        <Tooltip title="NHL" {...styles.tooltip}>
+          <SportsHockey {...styles.eventIcon} />
         </Tooltip>
       );
     case "hockey":
       return (
-        <Tooltip arrow title="Hockey" variant="soft" component={m.div} animate={{ opacity: [0, 1] }}>
-          <SportsHockey
-            component={m.svg}
-            whileHover={{ scale: 1.15 }}
-            whileTap={{ scale: 0.75 }}
-            {...(!isMobile && {
-              drag: true,
-              dragSnapToOrigin: true,
-              dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
-            })}
-          />
+        <Tooltip title="Hockey" {...styles.tooltip}>
+          <SportsHockey {...styles.eventIcon} />
         </Tooltip>
       );
     case "minor_league_hockey":
       return (
-        <Tooltip arrow title="Minor League Hockey" variant="soft" component={m.div} animate={{ opacity: [0, 1] }}>
-          <SportsHockey
-            component={m.svg}
-            whileHover={{ scale: 1.15 }}
-            whileTap={{ scale: 0.75 }}
-            {...(!isMobile && {
-              drag: true,
-              dragSnapToOrigin: true,
-              dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
-            })}
-          />
+        <Tooltip title="Minor League Hockey" {...styles.tooltip}>
+          <SportsHockey {...styles.eventIcon} />
         </Tooltip>
       );
     case "family":
       return (
-        <Tooltip arrow title="Family" variant="soft" component={m.div} animate={{ opacity: [0, 1] }}>
-          <Diversity3
-            component={m.svg}
-            whileHover={{ scale: 1.15 }}
-            whileTap={{ scale: 0.75 }}
-            {...(!isMobile && {
-              drag: true,
-              dragSnapToOrigin: true,
-              dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
-            })}
-          />
+        <Tooltip title="Family" {...styles.tooltip}>
+          <Diversity3 {...styles.eventIcon} />
         </Tooltip>
       );
     case "comedy":
       return (
-        <Tooltip arrow title="Comedy" variant="soft" component={m.div} animate={{ opacity: [0, 1] }}>
-          <EmojiEmotions
-            htmlColor="gold"
-            component={m.svg}
-            whileHover={{ scale: 1.15 }}
-            whileTap={{ scale: 0.75 }}
-            {...(!isMobile && {
-              drag: true,
-              dragSnapToOrigin: true,
-              dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
-            })}
-          />
+        <Tooltip title="Comedy" {...styles.tooltip}>
+          <EmojiEmotions htmlColor="gold" {...styles.eventIcon} />
         </Tooltip>
       );
     case "auto_racing":
       return (
-        <Tooltip arrow title="Racing" variant="soft" component={m.div} animate={{ opacity: [0, 1] }}>
-          <DirectionsCar
-            component={m.svg}
-            whileHover={{ scale: 1.15 }}
-            whileTap={{ scale: 0.75 }}
-            {...(!isMobile && {
-              drag: true,
-              dragSnapToOrigin: true,
-              dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
-            })}
-          />
+        <Tooltip title="Racing" {...styles.tooltip}>
+          <DirectionsCar {...styles.eventIcon} />
         </Tooltip>
       );
     case "womens_college_volleyball":
       return (
-        <Tooltip arrow title="Women's College Volleyball" variant="soft" component={m.div} animate={{ opacity: [0, 1] }}>
-          <SportsVolleyball
-            component={m.svg}
-            whileHover={{ scale: 1.15 }}
-            whileTap={{ scale: 0.75 }}
-            {...(!isMobile && {
-              drag: true,
-              dragSnapToOrigin: true,
-              dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
-            })}
-          />
+        <Tooltip title="Women's College Volleyball" {...styles.tooltip}>
+          <SportsVolleyball {...styles.eventIcon} />
+        </Tooltip>
+      );
+    case "wrestling":
+      return (
+        <Tooltip title="Wrestling" {...styles.tooltip}>
+          <SportsKabaddi {...styles.eventIcon} />
+        </Tooltip>
+      );
+    case "nfl":
+      return (
+        <Tooltip title="NFL" {...styles.tooltip}>
+          <SportsFootball htmlColor="saddlebrown" {...styles.eventIcon} />
+        </Tooltip>
+      );
+    case "nba_dleague":
+      return (
+        <Tooltip title="NBA D-League" {...styles.tooltip}>
+          <SportsBasketball htmlColor="coral" {...styles.eventIcon} />
         </Tooltip>
       );
     default:
-      return (
-        <LocalActivity
-          component={m.svg}
-          whileHover={{ scale: 1.15 }}
-          whileTap={{ scale: 0.75 }}
-          {...(!isMobile && {
-            drag: true,
-            dragSnapToOrigin: true,
-            dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
-          })}
-        />
-      );
+      return <LocalActivity {...styles.eventIcon} />;
   }
+};
+
+const styles = {
+  eventIcon: {
+    component: m.svg,
+    whileHover: { scale: 1.15 },
+    whileTap: { scale: 0.75 },
+    drag: !isMobile,
+    dragSnapToOrigin: !isMobile,
+    dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
+  },
+  tooltip: {
+    component: m.div,
+    animate: { opacity: [0, 1] },
+  },
 };

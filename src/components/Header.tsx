@@ -10,8 +10,7 @@ import { ViewContext } from "../contexts/ViewContext";
 import { SearchInput } from "./SearchInput";
 
 export const Header = (props: {
-  width: number | null;
-  height: number | null;
+  isWidescreen: boolean;
   eventsDetailsAndMeta?: EventsDetailsAndMeta;
   searchTerm: string;
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
@@ -21,13 +20,7 @@ export const Header = (props: {
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center" width="100%">
-      <Typography
-        component={m.span}
-        whileHover={{ rotate: [0, -3, 3, -3, 3, 0] }}
-        transition={{ duration: 0.5 }}
-        fontFamily="Fira Code"
-        fontSize="3rem"
-      >
+      <Typography {...styles.headerText}>
         <TypeIt>gig.quest</TypeIt>
       </Typography>
       <Box
@@ -37,24 +30,14 @@ export const Header = (props: {
         alignItems="center"
         gap={2}
         width="100%"
-        {...(props.width! / props.height! < 4 / 3 && {
+        {...(!props.isWidescreen && {
           flexDirection: "column",
         })}
       >
-        {props.width! / props.height! > 4 / 3 && <Box display="flex" flex={1} />}
+        {props.isWidescreen && <Box display="flex" flex={1} />}
         <Box display="flex" justifyContent="center" alignItems="center" flex={1}>
-          <LocationOn
-            htmlColor="red"
-            component={m.svg}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            {...(!isMobile && {
-              drag: true,
-              dragSnapToOrigin: true,
-              dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
-            })}
-          />
-          <Typography level="body-sm" fontFamily="Fira Code">
+          <LocationOn {...styles.locationIcon} />
+          <Typography level="body-sm" fontFamily="Fira Code Variable">
             {!pagination.filter.includes("music_festival")
               ? `${props.eventsDetailsAndMeta?.meta.geolocation ? props.eventsDetailsAndMeta.meta.geolocation.display_name : "..."} (${
                   pagination.range
@@ -62,7 +45,7 @@ export const Header = (props: {
               : "Everywhere"}
           </Typography>
         </Box>
-        <Box display="flex" justifyContent={props.width! > props.height! ? "end" : "center"} alignItems="center" gap={2} flex={1}>
+        <Box display="flex" justifyContent={props.isWidescreen ? "end" : "center"} alignItems="center" gap={2} flex={1}>
           <SearchInput searchTerm={props.searchTerm} setSearchTerm={props.setSearchTerm} />
           {!isMobile && (
             <Tooltip title={`Switch to ${tableView ? "grid" : "table"} view`} variant="soft" component={m.div} animate={{ opacity: [0, 1] }}>
@@ -95,4 +78,23 @@ export const Header = (props: {
       </Box>
     </Box>
   );
+};
+
+const styles = {
+  headerText: {
+    component: m.span,
+    whileHover: { rotate: [0, -3, 3, -3, 3, 0] },
+    transition: { duration: 0.5 },
+    fontFamily: "Fira Code Variable",
+    fontSize: "3rem",
+  },
+  locationIcon: {
+    htmlColor: "red",
+    component: m.svg,
+    whileHover: { scale: 1.1 },
+    whileTap: { scale: 0.9 },
+    drag: !isMobile,
+    dragSnapToOrigin: !isMobile,
+    dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
+  },
 };

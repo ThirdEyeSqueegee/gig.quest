@@ -5,19 +5,21 @@ import { isMobile } from "react-device-detect";
 
 export const TicketsButton = (props: { url?: string }) => {
   return (
-    <Button
-      size="sm"
-      component={m.button}
-      whileTap={{ scale: 0.9 }}
-      startDecorator={<LocalActivity />}
-      variant="outlined"
-      sx={{
-        fontWeight: "normal",
-      }}
-    >
+    <Button size="sm" variant="outlined" {...styles.ticketButton}>
       <Link overlay href={props.url} fontSize={isMobile ? "0.8rem" : "0.9rem"} underline="none">
         Tickets
       </Link>
     </Button>
   );
+};
+
+const styles = {
+  ticketButton: {
+    component: m.button,
+    whileTap: { scale: 0.9 },
+    startDecorator: <LocalActivity />,
+    sx: {
+      fontWeight: "normal",
+    },
+  },
 };

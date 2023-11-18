@@ -16,7 +16,7 @@ export const Performers = (props: { eventDetails?: EventDetails }) => {
           return (
             <Fragment key={i}>
               {props.eventDetails?.event.type === "concert" ? (
-                <Tooltip arrow title={<SpotifyTooltipBox artist={p} />} variant="outlined" sx={{ borderRadius: "15px" }}>
+                <Tooltip title={<SpotifyTooltipBox artist={p} />} variant="outlined" sx={{ borderRadius: "15px" }}>
                   <Typography fontSize={isMobile ? "0.9rem" : "1rem"}>{p}</Typography>
                 </Tooltip>
               ) : (

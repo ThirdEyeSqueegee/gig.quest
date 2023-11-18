@@ -5,11 +5,12 @@ export const tokenizePerformers = (performers?: Performer[], eventType?: string)
   let str = "";
 
   if (
-    eventType === "nba" ||
     eventType === "womens_college_volleyball" ||
-    eventType === "hockey" ||
     eventType === "nhl" ||
     eventType === "mls" ||
+    eventType === "nfl" ||
+    eventType?.includes("nba") ||
+    eventType?.includes("hockey") ||
     eventType?.includes("ncaa")
   ) {
     is1v1 = true;

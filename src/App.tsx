@@ -37,6 +37,12 @@ export default function App() {
 
   const [geo, setGeo] = useState<Location>();
 
+  const [searchTerm, setSearchTerm] = useState("");
+  const debSearchTerm = useDebounce(searchTerm, 500);
+
+  const { width, height } = useWindowSize();
+  const isWidescreen = width! / height! > 4 / 3;
+
   if (useIsFirstRender()) {
     navigator.geolocation.getCurrentPosition(
       (p: GeolocationPosition) => {
@@ -48,11 +54,6 @@ export default function App() {
       },
     );
   }
-
-  const [searchTerm, setSearchTerm] = useState("");
-  const debSearchTerm = useDebounce(searchTerm, 500);
-
-  const { width, height } = useWindowSize();
 
   const { data: eventsDetailsAndMeta } = useSWRImmutable(
     geo ? ["eventsDetails", pagination, sorting, geo, pagination.page] : null,
@@ -72,26 +73,14 @@ export default function App() {
         <ViewContext.Provider value={{ state: tableView, setter: setTableView }}>
           <LazyMotion strict features={domMax}>
             <Box p={isMobile ? 1 : 2}>
-              <Card
-                sx={{
-                  alignItems: "center",
-                  height: isMobile ? "auto" : "95vh",
-                  minHeight: "95vh",
-                  px: isMobile ? 1.5 : 2,
-                  pt: 0.5,
-                }}
-                component={m.div}
-                animate={{ scaleY: [0, 1] }}
-                transition={{ type: "spring", duration: 0.5 }}
-              >
+              <Card {...styles.mainCard}>
                 <Header
-                  width={width}
-                  height={height}
+                  isWidescreen={isWidescreen}
                   eventsDetailsAndMeta={eventsDetailsAndMeta}
                   searchTerm={searchTerm}
                   setSearchTerm={setSearchTerm}
                 />
-                <IconButton sx={{ position: "absolute", top: "0.5rem", right: "0.5rem" }}>
+                <IconButton sx={{ position: "absolute", top: "0.5rem", right: "0.5rem", "&:hover": { backgroundColor: "transparent" } }}>
                   <GitHub />
                   <Link href="https://github.com/ThirdEyeSqueegee/gig.quest" overlay />
                 </IconButton>
@@ -114,3 +103,18 @@ export default function App() {
     </PaginationContext.Provider>
   );
 }
+
+const styles = {
+  mainCard: {
+    sx: {
+      alignItems: "center",
+      height: isMobile ? "auto" : "95vh",
+      minHeight: "95vh",
+      px: isMobile ? 1.5 : 2,
+      pt: 0.5,
+    },
+    component: m.div,
+    animate: { scaleY: [0, 1] },
+    transition: { type: "spring", duration: 0.5 },
+  },
+};

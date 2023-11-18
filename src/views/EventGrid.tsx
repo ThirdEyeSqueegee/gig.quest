@@ -43,16 +43,7 @@ export const EventGrid = (props: { geo?: Location; searchTerm?: string }) => {
       {eventsDetailsAndMeta?.details.map((details, i) => {
         return (
           <Grid key={i} lg={3} md={6} xs={12} px={0.5} display="flex" flexDirection="column" minWidth={isMobile ? "auto" : "29rem"}>
-            <Card
-              key={i}
-              sx={{ p: 1, justifyContent: "space-between", flexGrow: 1, maxHeight: "8rem" }}
-              component={m.div}
-              animate={{ opacity: [0, 1], transition: { duration: 0.25 } }}
-              {...(!isMobile && {
-                whileHover: { boxShadow: "#555577 0 0 7px" },
-                transition: { duration: 0.1 },
-              })}
-            >
+            <Card key={i} {...styles.gridCard}>
               <Box display="flex" justifyContent="space-between" alignItems="start">
                 <Performers eventDetails={details} />
                 <EventTypeIcon eventType={details.event.type} />
@@ -95,4 +86,21 @@ export const EventGrid = (props: { geo?: Location; searchTerm?: string }) => {
       })}
     </Grid>
   );
+};
+
+const styles = {
+  gridCard: {
+    sx: {
+      p: 1,
+      justifyContent: "space-between",
+      flexGrow: 1,
+      maxHeight: "8rem",
+    },
+    component: m.div,
+    animate: {
+      opacity: [0, 1],
+      transition: { duration: 0.25 },
+    },
+    whileHover: isMobile ? { boxShadow: "#555577 0 0 7px", transition: { duration: 0.1 } } : null,
+  },
 };
