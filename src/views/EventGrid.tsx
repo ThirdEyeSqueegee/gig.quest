@@ -101,6 +101,6 @@ const styles = {
       opacity: [0, 1],
       transition: { duration: 0.25 },
     },
-    whileHover: isMobile ? { boxShadow: "#555577 0 0 7px", transition: { duration: 0.1 } } : null,
+    whileHover: isMobile ? null : { boxShadow: "#555577 0 0 7px", transition: { duration: 0.1 } },
   },
 };

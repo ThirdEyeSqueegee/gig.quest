@@ -25,7 +25,7 @@ export const Footer = (props: { eventCount?: number }) => {
   const [sliderValue, setSliderValue] = useState(5);
 
   return (
-    <Box display="flex" flexDirection="column" alignItems="center" gap={0}>
+    <Box display="flex" flexDirection="column" alignItems="center" gap={isMobile ? 1 : 0}>
       <Box display="flex" flexWrap="wrap" alignItems="center" justifyContent="center" gap={2}>
         {/* --------------- Filter --------------- */}
         <Box display="flex" alignItems="center" gap={1}>
