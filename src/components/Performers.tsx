@@ -1,4 +1,4 @@
-import { Box, Tooltip, Typography } from "@mui/joy";
+import { Box, Typography } from "@mui/joy";
 import { Fragment } from "react";
 import { isMobile } from "react-device-detect";
 import { EventDetails } from "../Interfaces";
@@ -16,9 +16,7 @@ export const Performers = (props: { eventDetails?: EventDetails }) => {
           return (
             <Fragment key={i}>
               {props.eventDetails?.event.type === "concert" ? (
-                <Tooltip title={<SpotifyTooltipBox artist={p} />} variant="outlined" sx={{ borderRadius: "15px" }}>
-                  <Typography fontSize={isMobile ? "0.9rem" : "1rem"}>{p}</Typography>
-                </Tooltip>
+                <SpotifyTooltipBox artist={p} />
               ) : (
                 <Typography fontSize={isMobile ? "0.9rem" : "1rem"}>{p}</Typography>
               )}
