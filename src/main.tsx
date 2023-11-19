@@ -22,6 +22,18 @@ const theme = extendTheme({
         rel: "noopener",
       },
     },
+    JoySelect: {
+      defaultProps: {
+        slotProps: {
+          listbox: {
+            sx: {
+              backgroundColor: "transparent",
+              backdropFilter: "blur(15px)",
+            },
+          },
+        },
+      },
+    },
   },
 });
 

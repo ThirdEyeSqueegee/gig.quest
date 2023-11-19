@@ -25,8 +25,27 @@ export const Footer = (props: { eventCount?: number }) => {
   const [sliderValue, setSliderValue] = useState(5);
 
   return (
-    <Box display="flex" flexDirection="column" alignItems="center" gap={isMobile ? 1 : 0}>
-      <Box display="flex" flexWrap="wrap" alignItems="center" justifyContent="center" gap={2}>
+    <Box
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      gap={isMobile ? 1 : 0}
+      width={isMobile ? "90%" : "auto"}
+      mb={1}
+      component={m.div}
+      layout
+      {...(!isMobile && {
+        position: "sticky",
+        bottom: 25,
+        px: 3,
+        py: 0.5,
+        sx: { backdropFilter: "blur(15px)", zIndex: 5, borderRadius: 25, border: "1px solid var(--joy-palette-neutral-outlinedBorder)" },
+        drag: true,
+        dragSnapToOrigin: true,
+        dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
+      })}
+    >
+      <Box display="flex" flexWrap="wrap" alignItems="center" justifyContent="center" gap={isMobile ? 1 : 2}>
         {/* --------------- Filter --------------- */}
         <Box display="flex" alignItems="center" gap={1}>
           <Typography level="body-sm" fontSize="0.75rem">
@@ -57,6 +76,7 @@ export const Footer = (props: { eventCount?: number }) => {
                   transform: "rotate(-180deg)",
                 },
               },
+              backgroundColor: "transparent",
             }}
             {...(pagination.filter.length > 0 && {
               endDecorator: (
@@ -117,12 +137,12 @@ export const Footer = (props: { eventCount?: number }) => {
                   transform: "rotate(-180deg)",
                 },
               },
+              backgroundColor: "transparent",
             }}
           >
             <Option value={pagination.rowCountOptions[0]}>{pagination.rowCountOptions[0]}</Option>
             <Option value={pagination.rowCountOptions[1]}>{pagination.rowCountOptions[1]}</Option>
             <Option value={pagination.rowCountOptions[2]}>{pagination.rowCountOptions[2]}</Option>
-            <Option value={pagination.rowCountOptions[3]}>{pagination.rowCountOptions[3]}</Option>
           </Select>
         </Box>
         {/* --------------- Range --------------- */}
@@ -273,6 +293,7 @@ export const Footer = (props: { eventCount?: number }) => {
                     transform: "rotate(-180deg)",
                   },
                 },
+                backgroundColor: "transparent",
               }}
               slotProps={{
                 listbox: {

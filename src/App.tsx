@@ -1,6 +1,6 @@
 import { GitHub } from "@mui/icons-material";
 import { Box, Card, Divider, IconButton, Link } from "@mui/joy";
-import { useDebounce, useIsFirstRender, useWindowSize } from "@uidotdev/usehooks";
+import { useDebounce, useIsFirstRender } from "@uidotdev/usehooks";
 import { LazyMotion, domMax, m } from "framer-motion";
 import { useEffect, useState } from "react";
 import { isMobile } from "react-device-detect";
@@ -19,10 +19,10 @@ import { EventTable } from "./views/EventTable";
 export default function App() {
   const [pagination, setPagination] = useState<PaginationProps>({
     page: 1,
-    rowsPerPage: 12,
+    rowsPerPage: 24,
     range: "5mi",
     filter: [],
-    rowCountOptions: [12, 24, 36, 48],
+    rowCountOptions: [24, 36, 48],
   });
 
   const [sorting, setSorting] = useState<SortingProps>({
@@ -39,9 +39,6 @@ export default function App() {
 
   const [searchTerm, setSearchTerm] = useState("");
   const debSearchTerm = useDebounce(searchTerm, 500);
-
-  const { width, height } = useWindowSize();
-  const isWidescreen = width! / height! > 4 / 3;
 
   if (useIsFirstRender()) {
     navigator.geolocation.getCurrentPosition(
@@ -74,16 +71,13 @@ export default function App() {
           <LazyMotion strict features={domMax}>
             <Box p={isMobile ? 1 : 2}>
               <Card {...styles.mainCard}>
-                <Header
-                  isWidescreen={isWidescreen}
-                  eventsDetailsAndMeta={eventsDetailsAndMeta}
-                  searchTerm={searchTerm}
-                  setSearchTerm={setSearchTerm}
-                />
-                <IconButton sx={{ position: "absolute", top: "0.5rem", right: "0.5rem", "&:hover": { backgroundColor: "transparent" } }}>
-                  <GitHub />
-                  <Link href="https://github.com/ThirdEyeSqueegee/gig.quest" overlay />
-                </IconButton>
+                <Box {...(!isMobile && { position: "sticky", top: 0, width: "100%", sx: { backdropFilter: "blur(15px)", zIndex: 5 } })}>
+                  <Header eventsDetailsAndMeta={eventsDetailsAndMeta} searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+                  <IconButton sx={{ position: "absolute", top: "0.5rem", right: "0.5rem", "&:hover": { backgroundColor: "transparent" } }}>
+                    <GitHub />
+                    <Link href="https://github.com/ThirdEyeSqueegee/gig.quest" overlay />
+                  </IconButton>
+                </Box>
                 {geo ? (
                   tableView ? (
                     <EventTable key={pagination.page} geo={geo} searchTerm={debSearchTerm} />
@@ -108,10 +102,7 @@ const styles = {
   mainCard: {
     sx: {
       alignItems: "center",
-      height: isMobile ? "auto" : "95vh",
-      minHeight: "95vh",
-      px: isMobile ? 1.5 : 2,
-      pt: 0.5,
+      p: 0,
     },
     component: m.div,
     animate: { scaleY: [0, 1] },

@@ -16,6 +16,7 @@ export const SearchInput = (props: { searchTerm: string; setSearchTerm: React.Di
             transition: { type: "spring", duration: 0.5 },
           },
         }}
+        sx={{ backgroundColor: "transparent", backdropFilter: "blur(15px)" }}
         onChange={e => props.setSearchTerm(e.target.value)}
         value={props.searchTerm}
         {...(props.searchTerm && {

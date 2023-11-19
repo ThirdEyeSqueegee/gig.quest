@@ -22,6 +22,7 @@ export const EventGrid = (props: { geo?: Location; searchTerm?: string }) => {
   const { props: sorting } = useContext(SortingContext);
 
   const { width, height } = useWindowSize();
+  const isWidescreen = width! / height! > 4 / 3;
 
   const { data: eventsDetailsAndMeta, isLoading } = useSWRImmutable(
     props.geo ? ["eventsDetails", pagination, sorting, props.geo, pagination.page, props.searchTerm] : null,
@@ -30,19 +31,19 @@ export const EventGrid = (props: { geo?: Location; searchTerm?: string }) => {
 
   if (isLoading) {
     return (
-      <Grid container spacing={1} height="100%" {...(width! > height! && { overflow: "auto" })} alignItems="center">
+      <Box display="flex" justifyContent="center" alignItems="center" width="100%" height="72.5vh">
         <CircularProgress size="lg">
           <HourglassTop />
         </CircularProgress>
-      </Grid>
+      </Box>
     );
   }
 
   return (
-    <Grid container spacing={1} height="100%" {...(width! > height! && { overflow: "auto" })}>
+    <Grid container spacing={1} width="100%" {...(isWidescreen && { overflow: "auto" })}>
       {eventsDetailsAndMeta?.details.map((details, i) => {
         return (
-          <Grid key={i} lg={3} md={6} xs={12} px={0.5} display="flex" flexDirection="column" minWidth={isMobile ? "auto" : "29rem"}>
+          <Grid key={i} lg={3} md={6} xs={12} px={0.5} display="flex" flexDirection="column">
             <Card key={i} {...styles.gridCard}>
               <Box display="flex" justifyContent="space-between" alignItems="start">
                 <Performers eventDetails={details} />
@@ -93,8 +94,7 @@ const styles = {
     sx: {
       p: 1,
       justifyContent: "space-between",
-      flexGrow: 1,
-      maxHeight: "8rem",
+      flex: 1,
     },
     component: m.div,
     animate: {
