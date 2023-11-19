@@ -1,8 +1,8 @@
 import { Box, Typography } from "@mui/joy";
 import { Fragment, memo } from "react";
 import { isMobile } from "react-device-detect";
-import { EventDetails } from "../Interfaces";
-import { SpotifyTooltipBox } from "./SpotifyTooltipBox";
+import { EventDetails } from "../Interfaces.ts";
+import { SpotifyTooltipBox } from "./SpotifyTooltipBox.tsx";
 
 const regex1 = /\(.*\)/g;
 const regex2 = /(with).*(&|and) ([Mm]ore)/g;

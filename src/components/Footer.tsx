@@ -12,10 +12,10 @@ import { Box, IconButton, Option, Select, Slider, Typography, selectClasses } fr
 import { m } from "framer-motion";
 import { memo, useContext, useState } from "react";
 import { isMobile } from "react-device-detect";
-import { PaginationContext } from "../contexts/PaginationContext";
-import { SortingContext } from "../contexts/SortingContext";
-import { ViewContext } from "../contexts/ViewContext";
-import { EventTypeIcon } from "./EventTypeIcon";
+import { PaginationContext } from "../contexts/PaginationContext.ts";
+import { SortingContext } from "../contexts/SortingContext.ts";
+import { ViewContext } from "../contexts/ViewContext.ts";
+import { EventTypeIcon } from "./EventTypeIcon.tsx";
 
 export const Footer = memo(function Footer(props: { eventCount?: number }) {
   const { props: pagination, setter: setPagination } = useContext(PaginationContext);

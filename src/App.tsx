@@ -5,16 +5,16 @@ import { LazyMotion, domMax, m } from "framer-motion";
 import { useEffect, useState } from "react";
 import { isMobile } from "react-device-detect";
 import useSWRImmutable from "swr/immutable";
-import { Location, PaginationProps, SortingProps } from "./Interfaces";
-import { getEvents } from "./api/API";
-import { Footer } from "./components/Footer";
-import { Header } from "./components/Header";
-import { LocationLoading } from "./components/LocationLoading";
-import { PaginationContext } from "./contexts/PaginationContext";
-import { SortingContext } from "./contexts/SortingContext";
-import { ViewContext } from "./contexts/ViewContext";
-import { EventGrid } from "./views/EventGrid";
-import { EventTable } from "./views/EventTable";
+import { Location, PaginationProps, SortingProps } from "./Interfaces.ts";
+import { getEvents } from "./api/API.ts";
+import { Footer } from "./components/Footer.tsx";
+import { Header } from "./components/Header.tsx";
+import { LocationLoading } from "./components/LocationLoading.tsx";
+import { PaginationContext } from "./contexts/PaginationContext.ts";
+import { SortingContext } from "./contexts/SortingContext.ts";
+import { ViewContext } from "./contexts/ViewContext.ts";
+import { EventGrid } from "./views/EventGrid.tsx";
+import { EventTable } from "./views/EventTable.tsx";
 
 export default function App() {
   const [pagination, setPagination] = useState<PaginationProps>({

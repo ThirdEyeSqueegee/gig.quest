@@ -1,8 +1,8 @@
 import { Box, Link, Typography } from "@mui/joy";
 import { memo, useContext } from "react";
-import { EventDetails, Location } from "../Interfaces";
-import { ViewContext } from "../contexts/ViewContext";
-import { DistanceChip } from "./DistanceChip";
+import { EventDetails, Location } from "../Interfaces.ts";
+import { ViewContext } from "../contexts/ViewContext.ts";
+import { DistanceChip } from "./DistanceChip.tsx";
 
 export const Venue = memo(function Venue(props: { name?: string; eventDetails?: EventDetails; geo?: Location }) {
   const { state: tableView } = useContext(ViewContext);

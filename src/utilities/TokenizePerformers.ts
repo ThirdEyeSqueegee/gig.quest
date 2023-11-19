@@ -1,4 +1,4 @@
-import { Performer } from "../Interfaces";
+import { Performer } from "../Interfaces.ts";
 
 export const tokenizePerformers = (performers?: Performer[], eventType?: string) => {
   let is1v1 = false;

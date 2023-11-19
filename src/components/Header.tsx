@@ -5,10 +5,10 @@ import { m } from "framer-motion";
 import { memo, useContext } from "react";
 import { isMobile } from "react-device-detect";
 import TypeIt from "typeit-react";
-import { EventsDetailsAndMeta } from "../Interfaces";
-import { PaginationContext } from "../contexts/PaginationContext";
-import { ViewContext } from "../contexts/ViewContext";
-import { SearchInput } from "./SearchInput";
+import { EventsDetailsAndMeta } from "../Interfaces.ts";
+import { PaginationContext } from "../contexts/PaginationContext.ts";
+import { ViewContext } from "../contexts/ViewContext.ts";
+import { SearchInput } from "./SearchInput.tsx";
 
 export const Header = memo(function Header(props: {
   eventsDetailsAndMeta?: EventsDetailsAndMeta;

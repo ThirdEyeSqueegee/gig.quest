@@ -2,7 +2,7 @@ import { Chip, Typography } from "@mui/joy";
 import { convertDistance, getPreciseDistance } from "geolib";
 import { memo } from "react";
 import { isMobile } from "react-device-detect";
-import { EventDetails, Location } from "../Interfaces";
+import { EventDetails, Location } from "../Interfaces.ts";
 
 export const DistanceChip = memo(function DistanceChip(props: { eventDetails?: EventDetails; geo?: Location }) {
   return (

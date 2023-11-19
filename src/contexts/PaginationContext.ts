@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { PaginationProps } from "../Interfaces";
+import { PaginationProps } from "../Interfaces.ts";
 
 export interface Pagination {
   props: PaginationProps;

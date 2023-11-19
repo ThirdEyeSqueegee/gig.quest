@@ -3,7 +3,7 @@ import { m } from "framer-motion";
 import { memo } from "react";
 import { isMobile } from "react-device-detect";
 import { useCountUp } from "use-count-up";
-import { SGEvent } from "../Interfaces";
+import { SGEvent } from "../Interfaces.ts";
 
 export const PopularityBar = memo(function PopularityBar(props: { event: SGEvent }) {
   const { value } = useCountUp({

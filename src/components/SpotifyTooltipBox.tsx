@@ -3,7 +3,7 @@ import { m } from "framer-motion";
 import { memo, useState } from "react";
 import { isMobile } from "react-device-detect";
 import useSWR from "swr";
-import { getSpotifyToken, spotifySearchArtist } from "../api/API";
+import { getSpotifyToken, spotifySearchArtist } from "../api/API.ts";
 import SpotifyIcon from "../assets/spotify_icon.svg";
 
 export const SpotifyTooltipBox = memo(function SpotifyTooltip(props: { artist: string }) {

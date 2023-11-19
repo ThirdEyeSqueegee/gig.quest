@@ -3,17 +3,17 @@ import { Box, CircularProgress, IconButton, Table, Typography } from "@mui/joy";
 import { m } from "framer-motion";
 import { memo, useContext } from "react";
 import useSWRImmutable from "swr/immutable";
-import { Location } from "../Interfaces";
-import { getEvents } from "../api/API";
-import { DateAndTime } from "../components/DateAndTime";
-import { EventTypeIcon } from "../components/EventTypeIcon";
-import { Performers } from "../components/Performers";
-import { PopularityBar } from "../components/PopularityBar";
-import { Prices } from "../components/Prices";
-import { TicketsButton } from "../components/TicketsButton";
-import { Venue } from "../components/Venue";
-import { PaginationContext } from "../contexts/PaginationContext";
-import { SortingContext } from "../contexts/SortingContext";
+import { Location } from "../Interfaces.ts";
+import { getEvents } from "../api/API.ts";
+import { DateAndTime } from "../components/DateAndTime.tsx";
+import { EventTypeIcon } from "../components/EventTypeIcon.tsx";
+import { Performers } from "../components/Performers.tsx";
+import { PopularityBar } from "../components/PopularityBar.tsx";
+import { Prices } from "../components/Prices.tsx";
+import { TicketsButton } from "../components/TicketsButton.tsx";
+import { Venue } from "../components/Venue.tsx";
+import { PaginationContext } from "../contexts/PaginationContext.ts";
+import { SortingContext } from "../contexts/SortingContext.ts";
 
 export const EventTable = memo(function EventTable(props: { geo?: Location; searchTerm?: string }) {
   const { props: pagination } = useContext(PaginationContext);

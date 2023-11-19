@@ -1,8 +1,8 @@
 import { Typography } from "@mui/joy";
 import { memo, useContext } from "react";
 import { isMobile } from "react-device-detect";
-import { SGEvent } from "../Interfaces";
-import { ViewContext } from "../contexts/ViewContext";
+import { SGEvent } from "../Interfaces.ts";
+import { ViewContext } from "../contexts/ViewContext.ts";
 
 export const Prices = memo(function Prices(props: { event: SGEvent; type: "lo" | "hi" | "avg" }) {
   const { state: tableView } = useContext(ViewContext);
