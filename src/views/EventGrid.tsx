@@ -1,6 +1,5 @@
 import { HourglassTop } from "@mui/icons-material";
 import { Box, Card, CircularProgress, Grid, Typography } from "@mui/joy";
-import { useWindowSize } from "@uidotdev/usehooks";
 import { m } from "framer-motion";
 import { memo, useContext } from "react";
 import { isMobile } from "react-device-detect";
@@ -21,9 +20,6 @@ export const EventGrid = memo(function EventGrid(props: { geo?: Location; search
   const { props: pagination } = useContext(PaginationContext);
   const { props: sorting } = useContext(SortingContext);
 
-  const { width, height } = useWindowSize();
-  const isWidescreen = width! / height! > 4 / 3;
-
   const { data: eventsDetailsAndMeta, isLoading } = useSWRImmutable(
     props.geo ? ["eventsDetails", pagination, sorting, props.geo, pagination.page, props.searchTerm] : null,
     ([, pag, sor, geo, page, term]) => (props.searchTerm ? getEvents(pag, sor, geo, page, term) : getEvents(pag, sor, geo, page)),
@@ -31,7 +27,7 @@ export const EventGrid = memo(function EventGrid(props: { geo?: Location; search
 
   if (isLoading) {
     return (
-      <Box display="flex" justifyContent="center" alignItems="center" width="100%" height="72.5vh">
+      <Box display="flex" justifyContent="center" alignItems="center" width={1} height="75vh">
         <CircularProgress size="lg">
           <HourglassTop />
         </CircularProgress>
@@ -40,7 +36,7 @@ export const EventGrid = memo(function EventGrid(props: { geo?: Location; search
   }
 
   return (
-    <Grid container spacing={1} width="100%" {...(isWidescreen && { overflow: "auto" })}>
+    <Grid container spacing={1} width={1}>
       {eventsDetailsAndMeta?.details.map((details, i) => {
         return (
           <Grid key={i} lg={3} md={6} xs={12} px={0.5} display="flex" flexDirection="column">
@@ -52,9 +48,7 @@ export const EventGrid = memo(function EventGrid(props: { geo?: Location; search
               <Box display="flex" justifyContent="space-between" alignItems="end">
                 <Box display="flex" flexDirection="column" justifyContent="end" gap={0}>
                   <Venue name={details.event.venue?.name} eventDetails={details} geo={props.geo} />
-                  <Typography fontSize="0.75rem">
-                    <DateAndTime datetime={details.event.datetime_local} />
-                  </Typography>
+                  <DateAndTime datetime={details.event.datetime_local} size="0.75rem" />
                   <Box display="flex" gap={1} alignItems="center">
                     <Box display="flex" gap={0.5} alignItems="center">
                       <Typography fontSize="0.725rem" color="neutral">

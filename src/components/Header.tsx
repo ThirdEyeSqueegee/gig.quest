@@ -22,7 +22,7 @@ export const Header = memo(function Header(props: {
   const isWidescreen = width! / height! > 4 / 3;
 
   return (
-    <Box display="flex" flexDirection="column" alignItems="center" width="100%">
+    <Box display="flex" flexDirection="column" alignItems="center" width={1}>
       <Typography {...styles.headerText}>
         <TypeIt>gig.quest</TypeIt>
       </Typography>
@@ -84,10 +84,9 @@ export const Header = memo(function Header(props: {
 const styles = {
   headerText: {
     component: m.span,
-    whileHover: { rotate: [0, -3, 3, -3, 3, 0] },
-    transition: { duration: 0.5 },
+    whileHover: { rotate: [0, -3, 3, -3, 3, 0], transition: { duration: 0.5 } },
     fontFamily: "Fira Code Variable",
-    fontSize: "3rem",
+    fontSize: "2.5rem",
   },
   locationIcon: {
     htmlColor: "red",

@@ -7,7 +7,6 @@ export default defineConfig({
   build: {
     cssMinify: "lightningcss",
     target: "esnext",
-    sourcemap: true,
     rollupOptions: {
       output: {
         generatedCode: {

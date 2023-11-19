@@ -26,10 +26,12 @@ export const EventTable = memo(function EventTable(props: { geo?: Location; sear
 
   if (isLoading) {
     return (
-      <Box display="flex" justifyContent="center" alignItems="center" width="100%" height="72.5vh">
-        <CircularProgress size="lg">
-          <HourglassTop />
-        </CircularProgress>
+      <Box display="flex" justifyContent="center" alignItems="start" width={1} height={1200}>
+        <Box display="flex" justifyContent="center" alignItems="center" width={1} height="75vh">
+          <CircularProgress size="lg">
+            <HourglassTop />
+          </CircularProgress>
+        </Box>
       </Box>
     );
   }
@@ -223,9 +225,7 @@ export const EventTable = memo(function EventTable(props: { geo?: Location; sear
                 <Venue name={details.event.venue?.name} eventDetails={details} geo={props.geo} />
               </td>
               <td>
-                <Typography fontSize="0.9rem">
-                  <DateAndTime datetime={details.event.datetime_local} />
-                </Typography>
+                <DateAndTime datetime={details.event.datetime_local} size="0.9rem" />
               </td>
               <td>
                 <Prices event={details.event} type="lo" />

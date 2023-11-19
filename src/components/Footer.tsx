@@ -34,12 +34,13 @@ export const Footer = memo(function Footer(props: { eventCount?: number }) {
       mb={1}
       component={m.div}
       layout
+      transition={{ duration: 0.25 }}
       {...(!isMobile && {
         position: "sticky",
         bottom: 25,
         px: 3,
         py: 0.5,
-        sx: { backdropFilter: "blur(15px)", zIndex: 5, borderRadius: 25, border: "1px solid var(--joy-palette-neutral-outlinedBorder)" },
+        sx: { backdropFilter: "blur(15px)", zIndex: "badge", borderRadius: 25, border: 1, borderColor: "neutral.outlinedBorder" },
       })}
     >
       <Box display="flex" flexWrap="wrap" alignItems="center" justifyContent="center" gap={isMobile ? 1 : 2}>
