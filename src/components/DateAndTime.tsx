@@ -1,4 +1,6 @@
-export const DateAndTime = (props: { datetime?: string }) => {
+import { memo } from "react";
+
+export const DateAndTime = memo(function DateAndTime(props: { datetime?: string }) {
   return (
     <>
       {new Date(props.datetime!).toLocaleString("en", {
@@ -11,4 +13,4 @@ export const DateAndTime = (props: { datetime?: string }) => {
       })}
     </>
   );
-};
+});

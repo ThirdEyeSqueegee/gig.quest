@@ -1,8 +1,9 @@
 import { LocationOn } from "@mui/icons-material";
 import { Box, CircularProgress, Typography } from "@mui/joy";
 import { m } from "framer-motion";
+import { memo } from "react";
 
-export const LocationLoading = () => {
+export const LocationLoading = memo(function LocationLoading() {
   return (
     <Box display="flex" flexDirection="column" height="85vh" justifyContent="center" alignItems="center" gap={2}>
       <CircularProgress size="lg" {...styles.loading}>
@@ -11,7 +12,7 @@ export const LocationLoading = () => {
       <Typography level="body-sm">Waiting for location...</Typography>
     </Box>
   );
-};
+});
 
 const styles = {
   loading: {

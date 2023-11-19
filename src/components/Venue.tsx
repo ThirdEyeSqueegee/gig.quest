@@ -1,10 +1,10 @@
 import { Box, Link, Typography } from "@mui/joy";
-import { useContext } from "react";
+import { memo, useContext } from "react";
 import { EventDetails, Location } from "../Interfaces";
 import { ViewContext } from "../contexts/ViewContext";
 import { DistanceChip } from "./DistanceChip";
 
-export const Venue = (props: { name?: string; eventDetails?: EventDetails; geo?: Location }) => {
+export const Venue = memo(function Venue(props: { name?: string; eventDetails?: EventDetails; geo?: Location }) {
   const { state: tableView } = useContext(ViewContext);
 
   return (
@@ -15,4 +15,4 @@ export const Venue = (props: { name?: string; eventDetails?: EventDetails; geo?:
       <DistanceChip eventDetails={props.eventDetails} geo={props.geo} />
     </Box>
   );
-};
+});

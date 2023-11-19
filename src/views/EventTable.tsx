@@ -1,7 +1,7 @@
 import { ArrowDownward, ArrowUpward, HourglassTop, MoreVert } from "@mui/icons-material";
 import { Box, CircularProgress, IconButton, Table, Typography } from "@mui/joy";
 import { m } from "framer-motion";
-import { useContext } from "react";
+import { memo, useContext } from "react";
 import useSWRImmutable from "swr/immutable";
 import { Location } from "../Interfaces";
 import { getEvents } from "../api/API";
@@ -15,7 +15,7 @@ import { Venue } from "../components/Venue";
 import { PaginationContext } from "../contexts/PaginationContext";
 import { SortingContext } from "../contexts/SortingContext";
 
-export const EventTable = (props: { geo?: Location; searchTerm?: string }) => {
+export const EventTable = memo(function EventTable(props: { geo?: Location; searchTerm?: string }) {
   const { props: pagination } = useContext(PaginationContext);
   const { props: sorting, setter: setSorting } = useContext(SortingContext);
 
@@ -250,4 +250,4 @@ export const EventTable = (props: { geo?: Location; searchTerm?: string }) => {
       </tbody>
     </Table>
   );
-};
+});

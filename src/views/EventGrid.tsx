@@ -2,7 +2,7 @@ import { HourglassTop } from "@mui/icons-material";
 import { Box, Card, CircularProgress, Grid, Typography } from "@mui/joy";
 import { useWindowSize } from "@uidotdev/usehooks";
 import { m } from "framer-motion";
-import { useContext } from "react";
+import { memo, useContext } from "react";
 import { isMobile } from "react-device-detect";
 import useSWRImmutable from "swr/immutable";
 import { Location } from "../Interfaces";
@@ -17,7 +17,7 @@ import { Venue } from "../components/Venue";
 import { PaginationContext } from "../contexts/PaginationContext";
 import { SortingContext } from "../contexts/SortingContext";
 
-export const EventGrid = (props: { geo?: Location; searchTerm?: string }) => {
+export const EventGrid = memo(function EventGrid(props: { geo?: Location; searchTerm?: string }) {
   const { props: pagination } = useContext(PaginationContext);
   const { props: sorting } = useContext(SortingContext);
 
@@ -87,7 +87,7 @@ export const EventGrid = (props: { geo?: Location; searchTerm?: string }) => {
       })}
     </Grid>
   );
-};
+});
 
 const styles = {
   gridCard: {

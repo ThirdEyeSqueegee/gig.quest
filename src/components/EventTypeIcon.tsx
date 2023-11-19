@@ -17,9 +17,10 @@ import {
 } from "@mui/icons-material";
 import { Tooltip } from "@mui/joy";
 import { m } from "framer-motion";
+import { memo } from "react";
 import { isMobile } from "react-device-detect";
 
-export const EventTypeIcon = (props: { eventType?: string }) => {
+export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: string }) {
   switch (props.eventType) {
     case "nba":
       return (
@@ -158,7 +159,7 @@ export const EventTypeIcon = (props: { eventType?: string }) => {
     default:
       return <LocalActivity {...styles.eventIcon} />;
   }
-};
+});
 
 const styles = {
   eventIcon: {

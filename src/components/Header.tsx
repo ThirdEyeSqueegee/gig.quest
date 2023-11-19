@@ -2,7 +2,7 @@ import { GridView, LocationOn, TableRows } from "@mui/icons-material";
 import { Box, Switch, Tooltip, Typography } from "@mui/joy";
 import { useWindowSize } from "@uidotdev/usehooks";
 import { m } from "framer-motion";
-import { useContext } from "react";
+import { memo, useContext } from "react";
 import { isMobile } from "react-device-detect";
 import TypeIt from "typeit-react";
 import { EventsDetailsAndMeta } from "../Interfaces";
@@ -10,11 +10,11 @@ import { PaginationContext } from "../contexts/PaginationContext";
 import { ViewContext } from "../contexts/ViewContext";
 import { SearchInput } from "./SearchInput";
 
-export const Header = (props: {
+export const Header = memo(function Header(props: {
   eventsDetailsAndMeta?: EventsDetailsAndMeta;
   searchTerm: string;
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
-}) => {
+}) {
   const { props: pagination, setter: setPagination } = useContext(PaginationContext);
   const { state: tableView, setter: setTableView } = useContext(ViewContext);
 
@@ -79,7 +79,7 @@ export const Header = (props: {
       </Box>
     </Box>
   );
-};
+});
 
 const styles = {
   headerText: {

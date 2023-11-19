@@ -10,14 +10,14 @@ import {
 } from "@mui/icons-material";
 import { Box, IconButton, Option, Select, Slider, Typography, selectClasses } from "@mui/joy";
 import { m } from "framer-motion";
-import { useContext, useState } from "react";
+import { memo, useContext, useState } from "react";
 import { isMobile } from "react-device-detect";
 import { PaginationContext } from "../contexts/PaginationContext";
 import { SortingContext } from "../contexts/SortingContext";
 import { ViewContext } from "../contexts/ViewContext";
 import { EventTypeIcon } from "./EventTypeIcon";
 
-export const Footer = (props: { eventCount?: number }) => {
+export const Footer = memo(function Footer(props: { eventCount?: number }) {
   const { props: pagination, setter: setPagination } = useContext(PaginationContext);
   const { props: sorting, setter: setSorting } = useContext(SortingContext);
   const { state: tableView } = useContext(ViewContext);
@@ -157,16 +157,18 @@ export const Footer = (props: { eventCount?: number }) => {
               onChange={(e, v) => setSliderValue(+v)}
               onChangeCommitted={(e, v) => setPagination({ ...pagination, range: `${+v}mi`, page: 1 })}
             />
-            <IconButton
-              size="sm"
-              onClick={() => {
-                setSliderValue(5);
-                setPagination({ ...pagination, range: "5mi", page: 1 });
-              }}
-              sx={{ "--IconButton-size": "24px", "&:hover": { backgroundColor: "transparent" } }}
-            >
-              <RestartAlt fontSize="small" />
-            </IconButton>
+            {pagination.range !== "5mi" && (
+              <IconButton
+                size="sm"
+                onClick={() => {
+                  setSliderValue(5);
+                  setPagination({ ...pagination, range: "5mi", page: 1 });
+                }}
+                sx={{ "--IconButton-size": "24px", "&:hover": { backgroundColor: "transparent" } }}
+              >
+                <RestartAlt fontSize="small" />
+              </IconButton>
+            )}
           </Box>
         </Box>
         {/* --------------- Sort --------------- */}
@@ -381,7 +383,7 @@ export const Footer = (props: { eventCount?: number }) => {
       </Typography>
     </Box>
   );
-};
+});
 
 const styles = {
   pageButton: {

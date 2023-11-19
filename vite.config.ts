@@ -5,7 +5,11 @@ import { defineConfig } from "vite";
 export default defineConfig({
   plugins: [react({ devTarget: "esnext" })],
   build: {
+    cssMinify: "lightningcss",
     target: "esnext",
     sourcemap: true,
+  },
+  css: {
+    transformer: "lightningcss",
   },
 });

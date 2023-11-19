@@ -1,8 +1,9 @@
 import { CloseRounded, Search } from "@mui/icons-material";
 import { Box, IconButton, Input } from "@mui/joy";
 import { m } from "framer-motion";
+import { memo } from "react";
 
-export const SearchInput = (props: { searchTerm: string; setSearchTerm: React.Dispatch<React.SetStateAction<string>> }) => {
+export const SearchInput = memo(function SearchInput(props: { searchTerm: string; setSearchTerm: React.Dispatch<React.SetStateAction<string>> }) {
   return (
     <Box display="flex" gap={1}>
       <Input
@@ -29,4 +30,4 @@ export const SearchInput = (props: { searchTerm: string; setSearchTerm: React.Di
       />
     </Box>
   );
-};
+});

@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/joy";
-import { Fragment } from "react";
+import { Fragment, memo } from "react";
 import { isMobile } from "react-device-detect";
 import { EventDetails } from "../Interfaces";
 import { SpotifyTooltipBox } from "./SpotifyTooltipBox";
@@ -8,7 +8,7 @@ const regex1 = /\(.*\)/g;
 const regex2 = /(with).*(&|and) ([Mm]ore)/g;
 const regex3 = / - [0-9] ([Dd]ay) ([Pp]ass)/g;
 
-export const Performers = (props: { eventDetails?: EventDetails }) => {
+export const Performers = memo(function Performers(props: { eventDetails?: EventDetails }) {
   return (
     <Box display="flex" flexWrap="wrap">
       {props.eventDetails?.event.type !== "music_festival" ? (
@@ -40,4 +40,4 @@ export const Performers = (props: { eventDetails?: EventDetails }) => {
       )}
     </Box>
   );
-};
+});

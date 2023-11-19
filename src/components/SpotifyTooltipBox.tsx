@@ -1,12 +1,12 @@
 import { Box, Chip, CircularProgress, Link, Tooltip, Typography } from "@mui/joy";
 import { m } from "framer-motion";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { isMobile } from "react-device-detect";
 import useSWR from "swr";
 import { getSpotifyToken, spotifySearchArtist } from "../api/API";
 import SpotifyIcon from "../assets/spotify_icon.svg";
 
-export const SpotifyTooltipBox = (props: { artist: string }) => {
+export const SpotifyTooltipBox = memo(function SpotifyTooltip(props: { artist: string }) {
   const [tooltipOpen, setTooltipOpen] = useState(false);
 
   const { data: token, error, isLoading } = useSWR("spotifyToken", () => getSpotifyToken());
@@ -89,7 +89,7 @@ export const SpotifyTooltipBox = (props: { artist: string }) => {
       </Typography>
     </Tooltip>
   );
-};
+});
 
 const styles = {
   tooltip: {

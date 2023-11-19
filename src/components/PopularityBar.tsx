@@ -1,10 +1,11 @@
 import { LinearProgress, Tooltip } from "@mui/joy";
 import { m } from "framer-motion";
+import { memo } from "react";
 import { isMobile } from "react-device-detect";
 import { useCountUp } from "use-count-up";
 import { SGEvent } from "../Interfaces";
 
-export const PopularityBar = (props: { event: SGEvent }) => {
+export const PopularityBar = memo(function PopularityBar(props: { event: SGEvent }) {
   const { value } = useCountUp({
     isCounting: true,
     duration: 0.5,
@@ -13,7 +14,7 @@ export const PopularityBar = (props: { event: SGEvent }) => {
   });
 
   return (
-    <Tooltip followCursor title={props.event.score && (props.event.score * 100).toFixed(1)} {...styles.tooltip}>
+    <Tooltip followCursor placement="top" title={props.event.score && (props.event.score * 100).toFixed(1)} {...styles.tooltip}>
       <LinearProgress
         color={props.event.score! > 0.75 ? "success" : props.event.score! > 0.5 ? "primary" : props.event.score! > 0.25 ? "warning" : "danger"}
         value={Number(value)}
@@ -22,7 +23,7 @@ export const PopularityBar = (props: { event: SGEvent }) => {
       />
     </Tooltip>
   );
-};
+});
 
 const styles = {
   tooltip: {
