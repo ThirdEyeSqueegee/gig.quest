@@ -40,9 +40,6 @@ export const Footer = (props: { eventCount?: number }) => {
         px: 3,
         py: 0.5,
         sx: { backdropFilter: "blur(15px)", zIndex: 5, borderRadius: 25, border: "1px solid var(--joy-palette-neutral-outlinedBorder)" },
-        drag: true,
-        dragSnapToOrigin: true,
-        dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
       })}
     >
       <Box display="flex" flexWrap="wrap" alignItems="center" justifyContent="center" gap={isMobile ? 1 : 2}>

@@ -29,7 +29,7 @@ export const Performers = (props: { eventDetails?: EventDetails }) => {
           );
         })
       ) : (
-        <Typography>
+        <Typography fontSize={isMobile ? "0.9rem" : "1rem"}>
           {props.eventDetails.event.short_title
             ?.replaceAll("Music Festival", "")
             .replaceAll("Festival", "")

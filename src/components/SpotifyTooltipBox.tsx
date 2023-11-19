@@ -25,7 +25,7 @@ export const SpotifyTooltipBox = (props: { artist: string }) => {
           </Box>
         }
         variant="outlined"
-        sx={{ borderRadius: "15px" }}
+        sx={{ borderRadius: "15px", backgroundColor: "transparent", backdropFilter: "blur(15px)" }}
         {...styles.tooltip}
       >
         <Typography fontSize={isMobile ? "0.9rem" : "1rem"} onClick={() => setTooltipOpen(!tooltipOpen)}>
@@ -45,7 +45,7 @@ export const SpotifyTooltipBox = (props: { artist: string }) => {
           </Box>
         }
         variant="outlined"
-        sx={{ borderRadius: "15px" }}
+        sx={{ borderRadius: "15px", backgroundColor: "transparent", backdropFilter: "blur(15px)" }}
         {...styles.tooltip}
       >
         <Typography fontSize={isMobile ? "0.9rem" : "1rem"} onClick={() => setTooltipOpen(!tooltipOpen)}>
@@ -81,7 +81,7 @@ export const SpotifyTooltipBox = (props: { artist: string }) => {
         </Link>
       }
       variant="outlined"
-      sx={{ borderRadius: "15px" }}
+      sx={{ borderRadius: "15px", backgroundColor: "transparent", backdropFilter: "blur(15px)" }}
       {...styles.tooltip}
     >
       <Typography fontSize={isMobile ? "0.9rem" : "1rem"} onClick={() => setTooltipOpen(!tooltipOpen)}>

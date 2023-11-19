@@ -172,5 +172,6 @@ const styles = {
   tooltip: {
     component: m.div,
     animate: { opacity: [0, 1] },
+    sx: { backgroundColor: "transparent", backdropFilter: "blur(15px)" },
   },
 };
