@@ -6,6 +6,7 @@ import {
   KeyboardArrowLeft,
   KeyboardArrowRight,
   KeyboardDoubleArrowLeft,
+  KeyboardDoubleArrowRight,
   RestartAlt,
 } from "@mui/icons-material";
 import { Box, IconButton, Option, Select, Slider, Typography, selectClasses } from "@mui/joy";
@@ -34,6 +35,7 @@ export const Footer = memo(function Footer(props: { eventCount?: number }) {
       gap={isMobile ? 1 : 0}
       layout
       mb={1}
+      mt={1}
       transition={{ duration: 0.25 }}
       width={isMobile ? "90%" : "auto"}
       {...(!isMobile && {
@@ -356,8 +358,21 @@ export const Footer = memo(function Footer(props: { eventCount?: number }) {
           >
             <KeyboardArrowLeft />
           </IconButton>
-          <IconButton onClick={() => setPagination({ ...pagination, page: pagination.page + 1 })} variant="outlined" {...styles.pageButton}>
+          <IconButton
+            disabled={pagination.page === Math.ceil(props.eventCount! / pagination.rowsPerPage)}
+            onClick={() => setPagination({ ...pagination, page: pagination.page + 1 })}
+            variant="outlined"
+            {...styles.pageButton}
+          >
             <KeyboardArrowRight />
+          </IconButton>
+          <IconButton
+            disabled={pagination.page === Math.ceil(props.eventCount! / pagination.rowsPerPage)}
+            onClick={() => setPagination({ ...pagination, page: Math.ceil(props.eventCount! / pagination.rowsPerPage) })}
+            variant="outlined"
+            {...styles.pageButton}
+          >
+            <KeyboardDoubleArrowRight />
           </IconButton>
         </Box>
       </Box>

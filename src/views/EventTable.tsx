@@ -38,7 +38,7 @@ export const EventTable = memo(function EventTable(props: { geo?: Location; sear
   }
 
   return (
-    <Table size="lg" sx={{ minHeight: "125vh" }}>
+    <Table size="lg" sx={{ minHeight: eventsDetailsAndMeta && eventsDetailsAndMeta.details.length < pagination.rowsPerPage ? "auto" : "125vh" }}>
       <thead>
         <tr>
           <th style={{ width: "2.5%" }}>
