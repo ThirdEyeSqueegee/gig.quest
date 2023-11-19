@@ -30,9 +30,9 @@ export const Header = memo(function Header(props: {
   });
 
   return (
-    <Box display="flex" flexDirection="column" alignItems="center" width={1} height={lerp(100, 60, scroll)}>
+    <Box display="flex" flexDirection="column" alignItems="center" width={1} {...(!isMobile && { height: lerp(100, 60, scroll) })}>
       <Box display="flex" flexDirection="column" alignItems="center" gap={1}>
-        <Typography {...styles.headerText} fontSize={`${lerp(2.5, 1.5, scroll)}rem`}>
+        <Typography {...styles.headerText} fontSize={isMobile ? "2.5rem" : `${lerp(2.5, 1.5, scroll)}rem`}>
           <TypeIt>gig.quest</TypeIt>
         </Typography>
         <Box display="flex" justifyContent="center" alignItems="center" sx={{ opacity: lerp(1, 0, 3 * scroll) }}>
@@ -52,9 +52,12 @@ export const Header = memo(function Header(props: {
         alignItems="center"
         alignSelf="end"
         gap={2}
-        mr={lerp(2.5, 7, scroll)}
-        position="absolute"
-        top={lerp(55, 16, scroll)}
+        mt={isMobile ? 1 : 0}
+        {...(!isMobile && {
+          mr: lerp(2.5, 7, scroll),
+          position: "absolute",
+          top: lerp(55, 16, scroll),
+        })}
       >
         <SearchInput searchTerm={props.searchTerm} setSearchTerm={props.setSearchTerm} />
         {!isMobile && (
