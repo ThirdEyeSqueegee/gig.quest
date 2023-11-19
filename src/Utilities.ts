@@ -1,4 +1,4 @@
-import { Performer } from "../Interfaces.ts";
+import { Performer } from "./Interfaces.ts";
 
 export const tokenizePerformers = (performers?: Performer[], eventType?: string) => {
   let is1v1 = false;
@@ -54,4 +54,8 @@ export const tokenizePerformers = (performers?: Performer[], eventType?: string)
       .filter(e => e.length > 0)
       .map(e => e.trim()),
   };
+};
+
+export const lerp = (start: number, end: number, amount: number) => {
+  return start + (end - start) * amount;
 };

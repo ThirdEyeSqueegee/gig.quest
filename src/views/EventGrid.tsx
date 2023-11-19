@@ -27,10 +27,12 @@ export const EventGrid = memo(function EventGrid(props: { geo?: Location; search
 
   if (isLoading) {
     return (
-      <Box display="flex" justifyContent="center" alignItems="center" width={1} height="75vh">
-        <CircularProgress size="lg">
-          <HourglassTop />
-        </CircularProgress>
+      <Box display="flex" justifyContent="center" alignItems="start" width={1} height={1200}>
+        <Box display="flex" justifyContent="center" alignItems="center" width={1} height="75vh">
+          <CircularProgress size="lg">
+            <HourglassTop />
+          </CircularProgress>
+        </Box>
       </Box>
     );
   }

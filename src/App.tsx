@@ -104,6 +104,7 @@ const styles = {
     sx: {
       alignItems: "center",
       p: 0,
+      gap: 0,
     },
     component: m.div,
     animate: { scaleY: [0, 1] },

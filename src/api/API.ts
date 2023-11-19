@@ -12,7 +12,7 @@ import {
   SpotifyToken,
   SpotifyTokenResponse,
 } from "../Interfaces.ts";
-import { tokenizePerformers } from "../utilities/TokenizePerformers.ts";
+import { tokenizePerformers } from "../Utilities.ts";
 
 export const getEvents = async (pagination: PaginationProps, sorting: SortingProps, location: Location, page: number, searchQuery?: string) => {
   let festivalSearch = false;

@@ -341,12 +341,7 @@ export const Footer = memo(function Footer(props: { eventCount?: number }) {
           <IconButton
             variant="outlined"
             disabled={pagination.page === 1}
-            onClick={() => {
-              setPagination({ ...pagination, page: 1 });
-              if (isMobile) {
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }
-            }}
+            onClick={() => setPagination({ ...pagination, page: 1 })}
             component={m.button}
             whileTap={{ scale: 0.8 }}
           >
@@ -355,26 +350,12 @@ export const Footer = memo(function Footer(props: { eventCount?: number }) {
           <IconButton
             variant="outlined"
             disabled={pagination.page === 1}
-            onClick={() => {
-              setPagination({ ...pagination, page: pagination.page - 1 });
-              if (isMobile) {
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }
-            }}
+            onClick={() => setPagination({ ...pagination, page: pagination.page - 1 })}
             {...styles.pageButton}
           >
             <KeyboardArrowLeft />
           </IconButton>
-          <IconButton
-            variant="outlined"
-            onClick={() => {
-              setPagination({ ...pagination, page: pagination.page + 1 });
-              if (isMobile) {
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }
-            }}
-            {...styles.pageButton}
-          >
+          <IconButton variant="outlined" onClick={() => setPagination({ ...pagination, page: pagination.page + 1 })} {...styles.pageButton}>
             <KeyboardArrowRight />
           </IconButton>
         </Box>
