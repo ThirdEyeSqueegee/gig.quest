@@ -4,169 +4,169 @@ export interface SGEvents {
 }
 
 export interface SGEvent {
-  type?: string;
-  id?: number;
-  datetime_utc?: string;
-  venue?: Venue;
-  datetime_tbd?: boolean;
-  performers?: Performer[];
-  is_open?: boolean;
-  links?: string[];
-  datetime_local?: string;
-  time_tbd?: boolean;
-  short_title?: string;
-  visible_until_utc?: string;
-  stats?: EventStats;
-  taxonomies?: object[];
-  url?: string;
-  score?: number;
-  announce_date?: string;
-  created_at?: string;
-  date_tbd?: boolean;
-  title?: string;
-  popularity?: number;
-  description?: string;
-  status?: string;
   access_method?: object;
-  event_promotion?: null;
+  announce_date?: string;
   announcements?: object;
   conditional?: boolean;
-  enddatetime_utc?: null;
-  visible_at?: string;
-  is_visible_override?: string;
-  tdc_pvo_id?: number;
-  tdc_pv_id?: number;
-  is_visible?: boolean;
-  themes?: string[];
+  created_at?: string;
+  date_tbd?: boolean;
+  datetime_local?: string;
+  datetime_tbd?: boolean;
+  datetime_utc?: string;
+  description?: string;
   domain_information?: string[];
+  enddatetime_utc?: null;
+  event_promotion?: null;
+  id?: number;
+  is_open?: boolean;
+  is_visible?: boolean;
+  is_visible_override?: string;
+  links?: string[];
+  performers?: Performer[];
+  popularity?: number;
+  score?: number;
+  short_title?: string;
+  stats?: EventStats;
+  status?: string;
+  taxonomies?: object[];
+  tdc_pv_id?: number;
+  tdc_pvo_id?: number;
+  themes?: string[];
+  time_tbd?: boolean;
+  title?: string;
+  type?: string;
+  url?: string;
+  venue?: Venue;
+  visible_at?: string;
+  visible_until_utc?: string;
 }
 
 export interface Meta {
-  total?: number;
-  took?: number;
+  geolocation?: Geolocation;
   page?: number;
   per_page?: number;
-  geolocation?: Geolocation;
+  took?: number;
+  total?: number;
 }
 
 export interface Geolocation {
+  city?: string;
+  country?: string;
+  display_name?: string;
   lat?: number;
   lon?: number;
-  city?: string;
-  state?: string;
-  country?: string;
-  postal_code?: string;
-  display_name?: string;
   metro_code?: string;
+  postal_code?: string;
   range?: string;
+  state?: string;
 }
 
 export interface Venue {
-  state?: string;
-  name_v2?: string;
-  postal_code?: string;
-  name?: string;
+  access_method?: object;
+  address?: string;
+  capacity?: number;
+  city?: string;
+  country?: string;
+  display_location?: string;
+  extended_address?: string;
+  has_upcoming_events?: boolean;
+  id?: number;
   links?: string[];
+  location?: Location;
+  metro_code?: number;
+  name?: string;
+  name_v2?: string;
+  num_upcoming_events?: number;
+  popularity?: number;
+  postal_code?: string;
+  score?: number;
+  slug?: string;
+  state?: string;
   timezone?: string;
   url?: string;
-  score?: number;
-  location?: Location;
-  address?: string;
-  country?: string;
-  has_upcoming_events?: boolean;
-  num_upcoming_events?: number;
-  city?: string;
-  slug?: string;
-  extended_address?: string;
-  id?: number;
-  popularity?: number;
-  access_method?: object;
-  metro_code?: number;
-  capacity?: number;
-  display_location?: string;
 }
 
 export interface Performer {
-  type?: string;
-  name?: string;
-  image?: string;
-  id?: number;
-  images?: object;
+  away_team?: boolean;
+  colors?: object;
   divisions?: object[];
+  genres?: object;
   has_upcoming_events?: boolean;
+  home_team?: boolean;
+  home_venue_id?: number;
+  id?: number;
+  image?: string;
+  image_attribution?: string;
+  image_license?: string;
+  image_rights_message?: string;
+  images?: object;
+  location?: object;
+  name?: string;
+  num_upcoming_events?: number;
+  popularity?: number;
   primary?: boolean;
+  score?: number;
+  short_name?: string;
+  slug?: string;
   stats?: object;
   taxonomies?: object;
-  image_attribution?: string;
+  type?: string;
   url?: string;
-  score?: number;
-  slug?: string;
-  home_venue_id?: number;
-  short_name?: string;
-  num_upcoming_events?: number;
-  colors?: object;
-  image_license?: string;
-  popularity?: number;
-  location?: object;
-  image_rights_message?: string;
-  home_team?: boolean;
-  away_team?: boolean;
-  genres?: object;
 }
 
 export interface EventStats {
-  listing_count?: number;
   average_price?: number;
-  lowest_price_good_deals?: number;
-  lowest_price?: number;
-  highest_price?: number;
-  visible_listing_count?: number;
   dq_bucket_counts?: number[];
-  median_price?: number;
+  highest_price?: number;
+  listing_count?: number;
+  lowest_price?: number;
+  lowest_price_good_deals?: number;
   lowest_sg_base_price?: number;
   lowest_sg_base_price_good_deals?: number;
+  median_price?: number;
+  visible_listing_count?: number;
 }
 
 export interface Location {
-  lat: number | null;
-  lon: number | null;
+  lat: null | number;
+  lon: null | number;
 }
 
 export interface PaginationProps {
-  page: number;
-  rowsPerPage: number;
-  range: string;
   filter: string[];
+  page: number;
+  range: string;
   rowCountOptions: number[];
+  rowsPerPage: number;
 }
 
 export interface SortingProps {
-  sortDate?: boolean;
-  sortPopularity?: boolean;
-  sortLowestPrice?: boolean;
-  sortHighestPrice?: boolean;
   sortAvgPrice?: boolean;
+  sortDate?: boolean;
+  sortHighestPrice?: boolean;
+  sortLowestPrice?: boolean;
+  sortPopularity?: boolean;
 }
 
 export interface SpotifyTokenResponse {
   access_token: string;
-  token_type: string;
   expires_in: number;
+  token_type: string;
 }
 
 export interface SpotifyToken {
-  token: string;
   expires_at: Date;
+  token: string;
 }
 
 export interface SpotifyArtistDetails {
   href?: string;
+  items?: ArtistItem[];
   limit?: number;
   next?: string;
   offset?: number;
   previous?: string;
   total?: number;
-  items?: ArtistItem[];
 }
 
 export interface SpotifyArtistResult {
@@ -183,8 +183,8 @@ export interface Followers {
 }
 
 export interface Image {
-  url?: string;
   height?: number;
+  url?: string;
   width?: number;
 }
 
@@ -203,8 +203,8 @@ export interface ArtistItem {
 
 export interface EventDetails {
   event: SGEvent;
-  performers: string[];
   is1v1: boolean;
+  performers: string[];
 }
 
 export interface EventsDetailsAndMeta {

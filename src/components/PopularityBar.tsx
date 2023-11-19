@@ -3,14 +3,15 @@ import { m } from "framer-motion";
 import { memo } from "react";
 import { isMobile } from "react-device-detect";
 import { useCountUp } from "use-count-up";
+
 import { SGEvent } from "../Interfaces.ts";
 
 export const PopularityBar = memo(function PopularityBar(props: { event: SGEvent }) {
   const { value } = useCountUp({
-    isCounting: true,
     duration: 0.5,
-    start: 0,
     end: props.event.score ? props.event.score * 100 : 0,
+    isCounting: true,
+    start: 0,
   });
 
   return (
@@ -26,18 +27,18 @@ export const PopularityBar = memo(function PopularityBar(props: { event: SGEvent
 });
 
 const styles = {
-  tooltip: {
-    component: m.div,
-    animate: { opacity: [0, 1] },
-  },
   progressBar: {
-    determinate: true,
-    thickness: 8,
     component: m.div,
-    whileHover: { scale: 1.1 },
-    whileTap: { scale: 0.9 },
+    determinate: true,
     drag: !isMobile,
     dragSnapToOrigin: !isMobile,
-    dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
+    dragTransition: { bounceDamping: 10, bounceStiffness: 500 },
+    thickness: 8,
+    whileHover: { scale: 1.1 },
+    whileTap: { scale: 0.9 },
+  },
+  tooltip: {
+    animate: { opacity: [0, 1] },
+    component: m.div,
   },
 };

@@ -5,7 +5,7 @@ import { memo } from "react";
 
 export const LocationLoading = memo(function LocationLoading() {
   return (
-    <Box display="flex" flexDirection="column" height="85vh" justifyContent="center" alignItems="center" gap={2}>
+    <Box alignItems="center" display="flex" flexDirection="column" gap={2} height="85vh" justifyContent="center">
       <CircularProgress size="lg" {...styles.loading}>
         <LocationOn htmlColor="red" />
       </CircularProgress>
@@ -16,11 +16,11 @@ export const LocationLoading = memo(function LocationLoading() {
 
 const styles = {
   loading: {
-    component: m.span,
     animate: { scale: 1.25 },
+    component: m.span,
     transition: {
-      repeat: Infinity,
       duration: 1,
+      repeat: Infinity,
       repeatType: "mirror",
     },
   },

@@ -164,15 +164,15 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: st
 const styles = {
   eventIcon: {
     component: m.svg,
-    whileHover: { scale: 1.15 },
-    whileTap: { scale: 0.75 },
     drag: !isMobile,
     dragSnapToOrigin: !isMobile,
-    dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
+    dragTransition: { bounceDamping: 10, bounceStiffness: 500 },
+    whileHover: { scale: 1.15 },
+    whileTap: { scale: 0.75 },
   },
   tooltip: {
-    component: m.div,
     animate: { opacity: [0, 1] },
-    sx: { backgroundColor: "transparent", backdropFilter: "blur(15px)" },
+    component: m.div,
+    sx: { backdropFilter: "blur(15px)", backgroundColor: "transparent" },
   },
 };

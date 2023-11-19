@@ -5,6 +5,7 @@ import { m, useMotionValueEvent, useScroll } from "framer-motion";
 import { memo, useContext, useState } from "react";
 import { isMobile } from "react-device-detect";
 import TypeIt from "typeit-react";
+
 import { EventsDetailsAndMeta } from "../Interfaces.ts";
 import { lerp } from "../Utilities.ts";
 import { PaginationContext } from "../contexts/PaginationContext.ts";
@@ -17,9 +18,9 @@ export const Header = memo(function Header(props: {
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
 }) {
   const { props: pagination, setter: setPagination } = useContext(PaginationContext);
-  const { state: tableView, setter: setTableView } = useContext(ViewContext);
+  const { setter: setTableView, state: tableView } = useContext(ViewContext);
 
-  const { width, height } = useWindowSize();
+  const { height, width } = useWindowSize();
   const isWidescreen = width! / height! > 4 / 3;
 
   const { scrollYProgress } = useScroll();
@@ -30,14 +31,14 @@ export const Header = memo(function Header(props: {
   });
 
   return (
-    <Box display="flex" flexDirection="column" alignItems="center" width={1} {...(!isMobile && { height: lerp(100, 60, scroll) })}>
-      <Box display="flex" flexDirection="column" alignItems="center" gap={1}>
+    <Box alignItems="center" display="flex" flexDirection="column" width={1} {...(!isMobile && { height: lerp(100, 60, scroll) })}>
+      <Box alignItems="center" display="flex" flexDirection="column" gap={1}>
         <Typography {...styles.headerText} fontSize={isMobile ? "2.5rem" : `${lerp(2.5, 1.5, scroll)}rem`}>
           <TypeIt>gig.quest</TypeIt>
         </Typography>
-        <Box display="flex" justifyContent="center" alignItems="center" sx={{ opacity: lerp(1, 0, 3 * scroll) }}>
+        <Box alignItems="center" display="flex" justifyContent="center" sx={{ opacity: lerp(1, 0, 3 * scroll) }}>
           <LocationOn {...styles.locationIcon} />
-          <Typography level="body-sm" fontFamily="Fira Code Variable">
+          <Typography fontFamily="Fira Code Variable" level="body-sm">
             {!pagination.filter.includes("music_festival")
               ? `${props.eventsDetailsAndMeta?.meta.geolocation ? props.eventsDetailsAndMeta.meta.geolocation.display_name : "..."} (${
                   pagination.range
@@ -47,11 +48,11 @@ export const Header = memo(function Header(props: {
         </Box>
       </Box>
       <Box
-        display="flex"
-        justifyContent={isWidescreen ? "end" : "center"}
         alignItems="center"
         alignSelf="end"
+        display="flex"
         gap={2}
+        justifyContent={isWidescreen ? "end" : "center"}
         mt={isMobile ? 1 : 0}
         {...(!isMobile && {
           mr: lerp(2.5, 7, scroll),
@@ -61,21 +62,19 @@ export const Header = memo(function Header(props: {
       >
         <SearchInput searchTerm={props.searchTerm} setSearchTerm={props.setSearchTerm} />
         {!isMobile && (
-          <Tooltip title={`Switch to ${tableView ? "grid" : "table"} view`} variant="soft" component={m.div} animate={{ opacity: [0, 1] }}>
+          <Tooltip animate={{ opacity: [0, 1] }} component={m.div} title={`Switch to ${tableView ? "grid" : "table"} view`} variant="soft">
             <Switch
-              size="lg"
-              startDecorator={<TableRows fontSize="small" />}
-              endDecorator={<GridView fontSize="small" />}
               checked={!tableView}
-              variant="outlined"
+              endDecorator={<GridView fontSize="small" />}
               onChange={() => {
                 setTableView(!tableView);
                 setPagination({
                   ...pagination,
-                  rowsPerPage: tableView ? 36 : 24,
                   page: 1,
+                  rowsPerPage: tableView ? 36 : 24,
                 });
               }}
+              size="lg"
               slotProps={{
                 thumb: {
                   style: {
@@ -83,6 +82,8 @@ export const Header = memo(function Header(props: {
                   },
                 },
               }}
+              startDecorator={<TableRows fontSize="small" />}
+              variant="outlined"
             />
           </Tooltip>
         )}
@@ -94,16 +95,16 @@ export const Header = memo(function Header(props: {
 const styles = {
   headerText: {
     component: m.span,
-    whileHover: { rotate: [0, -3, 3, -3, 3, 0], transition: { duration: 0.5 } },
     fontFamily: "Fira Code Variable",
+    whileHover: { rotate: [0, -3, 3, -3, 3, 0], transition: { duration: 0.5 } },
   },
   locationIcon: {
-    htmlColor: "red",
     component: m.svg,
-    whileHover: { scale: 1.1 },
-    whileTap: { scale: 0.9 },
     drag: !isMobile,
     dragSnapToOrigin: !isMobile,
-    dragTransition: { bounceStiffness: 500, bounceDamping: 10 },
+    dragTransition: { bounceDamping: 10, bounceStiffness: 500 },
+    htmlColor: "red",
+    whileHover: { scale: 1.1 },
+    whileTap: { scale: 0.9 },
   },
 };

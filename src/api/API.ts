@@ -1,5 +1,6 @@
 import axios from "axios";
 import stringComparison from "string-comparison";
+
 import {
   ArtistItem,
   EventDetails,
@@ -69,7 +70,7 @@ export const getEvents = async (pagination: PaginationProps, sorting: SortingPro
   const eventsDetails: EventDetails[] = [];
   for (const e of response.data.events!) {
     const { is1v1, tokens } = tokenizePerformers(e.performers, e.type);
-    eventsDetails.push({ event: e, performers: tokens, is1v1: is1v1 });
+    eventsDetails.push({ event: e, is1v1: is1v1, performers: tokens });
   }
 
   return {
@@ -83,6 +84,7 @@ export const getSpotifyToken = async () => {
     "https://accounts.spotify.com/api/token",
     {
       grant_type: "client_credentials",
+      // eslint-disable-next-line perfectionist/sort-objects
       client_id: import.meta.env.VITE_SPOTIFY_CLIENT_ID,
       client_secret: import.meta.env.VITE_SPOTIFY_CLIENT_SECRET,
     },
@@ -93,8 +95,8 @@ export const getSpotifyToken = async () => {
     },
   );
   return {
-    token: response.data.access_token,
     expires_at: new Date(Date.now() + response.data.expires_in * 1000),
+    token: response.data.access_token,
   } as SpotifyToken;
 };
 
@@ -104,6 +106,7 @@ export const spotifySearchArtist = async (artist: string, token: string) => {
       q: artist,
       type: "artist",
     },
+    // eslint-disable-next-line perfectionist/sort-objects
     headers: {
       Authorization: `Bearer ${token}`,
     },

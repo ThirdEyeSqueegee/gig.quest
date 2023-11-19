@@ -3,6 +3,7 @@ import { m } from "framer-motion";
 import { memo, useState } from "react";
 import { isMobile } from "react-device-detect";
 import useSWR from "swr";
+
 import { getSpotifyToken, spotifySearchArtist } from "../api/API.ts";
 import SpotifyIcon from "../assets/spotify_icon.svg";
 
@@ -19,13 +20,13 @@ export const SpotifyTooltipBox = memo(function SpotifyTooltip(props: { artist: s
     return (
       <Tooltip
         open={tooltipOpen}
+        sx={{ backdropFilter: "blur(15px)", backgroundColor: "transparent", borderRadius: "15px" }}
         title={
-          <Box display="flex" maxWidth="20rem" justifyContent="center" p={1}>
-            <CircularProgress size="sm" color="success" />
+          <Box display="flex" justifyContent="center" maxWidth="20rem" p={1}>
+            <CircularProgress color="success" size="sm" />
           </Box>
         }
         variant="outlined"
-        sx={{ borderRadius: "15px", backgroundColor: "transparent", backdropFilter: "blur(15px)" }}
         {...styles.tooltip}
       >
         <Typography fontSize={isMobile ? "0.9rem" : "1rem"} onClick={() => setTooltipOpen(!tooltipOpen)}>
@@ -39,13 +40,13 @@ export const SpotifyTooltipBox = memo(function SpotifyTooltip(props: { artist: s
     return (
       <Tooltip
         open={tooltipOpen}
+        sx={{ backdropFilter: "blur(15px)", backgroundColor: "transparent", borderRadius: "15px" }}
         title={
-          <Box display="flex" maxWidth="20rem" justifyContent="center" p={1}>
+          <Box display="flex" justifyContent="center" maxWidth="20rem" p={1}>
             ¯\_(ツ)_/¯
           </Box>
         }
         variant="outlined"
-        sx={{ borderRadius: "15px", backgroundColor: "transparent", backdropFilter: "blur(15px)" }}
         {...styles.tooltip}
       >
         <Typography fontSize={isMobile ? "0.9rem" : "1rem"} onClick={() => setTooltipOpen(!tooltipOpen)}>
@@ -58,18 +59,19 @@ export const SpotifyTooltipBox = memo(function SpotifyTooltip(props: { artist: s
   return (
     <Tooltip
       open={tooltipOpen}
+      sx={{ backdropFilter: "blur(15px)", backgroundColor: "transparent", borderRadius: "15px" }}
       title={
-        <Link href={artistItem?.external_urls?.spotify} overlay underline="none" color="success" fontSize="0.8rem">
-          <Box display="flex" maxWidth="20rem" justifyContent="center" p={1}>
+        <Link color="success" fontSize="0.8rem" href={artistItem?.external_urls?.spotify} overlay underline="none">
+          <Box display="flex" justifyContent="center" maxWidth="20rem" p={1}>
             {artistItem && (
-              <Box display="flex" flexDirection="column" alignItems="center" gap={1}>
-                <Typography level="body-sm" startDecorator={<img src={SpotifyIcon} width="20px" height="20px" />}>
+              <Box alignItems="center" display="flex" flexDirection="column" gap={1}>
+                <Typography level="body-sm" startDecorator={<img height="20px" src={SpotifyIcon} width="20px" />}>
                   {artistItem.followers?.total?.toLocaleString()} followers
                 </Typography>
-                <Box display="flex" flexWrap="wrap" justifyContent="center" gap={1}>
+                <Box display="flex" flexWrap="wrap" gap={1} justifyContent="center">
                   {artistItem.genres?.map((genre, i) => {
                     return (
-                      <Chip key={i} color="success" size="sm">
+                      <Chip color="success" key={i} size="sm">
                         {genre}
                       </Chip>
                     );
@@ -81,7 +83,6 @@ export const SpotifyTooltipBox = memo(function SpotifyTooltip(props: { artist: s
         </Link>
       }
       variant="outlined"
-      sx={{ borderRadius: "15px", backgroundColor: "transparent", backdropFilter: "blur(15px)" }}
       {...styles.tooltip}
     >
       <Typography fontSize={isMobile ? "0.9rem" : "1rem"} onClick={() => setTooltipOpen(!tooltipOpen)}>
@@ -93,7 +94,7 @@ export const SpotifyTooltipBox = memo(function SpotifyTooltip(props: { artist: s
 
 const styles = {
   tooltip: {
-    component: m.div,
     animate: { opacity: [0, 1] },
+    component: m.div,
   },
 };

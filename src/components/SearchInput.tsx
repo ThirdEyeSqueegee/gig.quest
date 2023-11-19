@@ -7,18 +7,18 @@ export const SearchInput = memo(function SearchInput(props: { searchTerm: string
   return (
     <Box display="flex" gap={1}>
       <Input
+        onChange={e => props.setSearchTerm(e.target.value)}
         placeholder="Search..."
-        startDecorator={<Search fontSize="small" />}
         slotProps={{
           input: {
             component: m.input,
+            transition: { duration: 0.5, type: "spring" },
             whileFocus: { width: "17.5rem" },
             whileHover: { width: "17.5rem" },
-            transition: { type: "spring", duration: 0.5 },
           },
         }}
-        sx={{ backgroundColor: "transparent", backdropFilter: "blur(15px)" }}
-        onChange={e => props.setSearchTerm(e.target.value)}
+        startDecorator={<Search fontSize="small" />}
+        sx={{ backdropFilter: "blur(15px)", backgroundColor: "transparent" }}
         value={props.searchTerm}
         {...(props.searchTerm && {
           endDecorator: (

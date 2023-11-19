@@ -7,7 +7,7 @@ import { isMobile } from "react-device-detect";
 export const TicketsButton = memo(function TicketsButton(props: { url?: string }) {
   return (
     <Button size="sm" variant="outlined" {...styles.ticketButton}>
-      <Link overlay href={props.url} fontSize={isMobile ? "0.8rem" : "0.9rem"} underline="none">
+      <Link fontSize={isMobile ? "0.8rem" : "0.9rem"} href={props.url} overlay underline="none">
         Tickets
       </Link>
     </Button>
@@ -17,10 +17,10 @@ export const TicketsButton = memo(function TicketsButton(props: { url?: string }
 const styles = {
   ticketButton: {
     component: m.button,
-    whileTap: { scale: 0.9 },
     startDecorator: <LocalActivity />,
     sx: {
       fontWeight: "normal",
     },
+    whileTap: { scale: 0.9 },
   },
 };

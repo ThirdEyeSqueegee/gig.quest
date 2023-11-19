@@ -4,6 +4,7 @@ import { m } from "framer-motion";
 import { memo, useContext } from "react";
 import { isMobile } from "react-device-detect";
 import useSWRImmutable from "swr/immutable";
+
 import { Location } from "../Interfaces.ts";
 import { getEvents } from "../api/API.ts";
 import { DateAndTime } from "../components/DateAndTime.tsx";
@@ -27,8 +28,8 @@ export const EventGrid = memo(function EventGrid(props: { geo?: Location; search
 
   if (isLoading) {
     return (
-      <Box display="flex" justifyContent="center" alignItems="start" width={1} height={1200}>
-        <Box display="flex" justifyContent="center" alignItems="center" width={1} height="75vh">
+      <Box alignItems="start" display="flex" height={1200} justifyContent="center" width={1}>
+        <Box alignItems="center" display="flex" height="75vh" justifyContent="center" width={1}>
           <CircularProgress size="lg">
             <HourglassTop />
           </CircularProgress>
@@ -41,38 +42,38 @@ export const EventGrid = memo(function EventGrid(props: { geo?: Location; search
     <Grid container spacing={1} width={1}>
       {eventsDetailsAndMeta?.details.map((details, i) => {
         return (
-          <Grid key={i} lg={3} md={6} xs={12} px={0.5} display="flex" flexDirection="column">
+          <Grid display="flex" flexDirection="column" key={i} lg={3} md={6} px={0.5} xs={12}>
             <Card key={i} {...styles.gridCard}>
-              <Box display="flex" justifyContent="space-between" alignItems="start">
+              <Box alignItems="start" display="flex" justifyContent="space-between">
                 <Performers eventDetails={details} />
                 <EventTypeIcon eventType={details.event.type} />
               </Box>
-              <Box display="flex" justifyContent="space-between" alignItems="end">
-                <Box display="flex" flexDirection="column" justifyContent="end" gap={0}>
-                  <Venue name={details.event.venue?.name} eventDetails={details} geo={props.geo} />
+              <Box alignItems="end" display="flex" justifyContent="space-between">
+                <Box display="flex" flexDirection="column" gap={0} justifyContent="end">
+                  <Venue eventDetails={details} geo={props.geo} name={details.event.venue?.name} />
                   <DateAndTime datetime={details.event.datetime_local} size="0.75rem" />
-                  <Box display="flex" gap={1} alignItems="center">
-                    <Box display="flex" gap={0.5} alignItems="center">
-                      <Typography fontSize="0.725rem" color="neutral">
+                  <Box alignItems="center" display="flex" gap={1}>
+                    <Box alignItems="center" display="flex" gap={0.5}>
+                      <Typography color="neutral" fontSize="0.725rem">
                         $ (lo):
                       </Typography>
                       <Prices event={details.event} type="lo" />
                     </Box>
-                    <Box display="flex" gap={0.5} alignItems="center">
-                      <Typography fontSize="0.725rem" color="neutral">
+                    <Box alignItems="center" display="flex" gap={0.5}>
+                      <Typography color="neutral" fontSize="0.725rem">
                         $ (hi):
                       </Typography>
                       <Prices event={details.event} type="hi" />
                     </Box>
-                    <Box display="flex" gap={0.5} alignItems="center">
-                      <Typography fontSize="0.725rem" color="neutral">
+                    <Box alignItems="center" display="flex" gap={0.5}>
+                      <Typography color="neutral" fontSize="0.725rem">
                         $ (avg):
                       </Typography>
                       <Prices event={details.event} type="avg" />
                     </Box>
                   </Box>
                 </Box>
-                <Box display="flex" flexDirection="column" justifyContent="end" gap={1}>
+                <Box display="flex" flexDirection="column" gap={1} justifyContent="end">
                   <PopularityBar event={details.event} />
                   <TicketsButton url={details.event.url} />
                 </Box>
@@ -87,15 +88,15 @@ export const EventGrid = memo(function EventGrid(props: { geo?: Location; search
 
 const styles = {
   gridCard: {
-    sx: {
-      p: 1,
-      justifyContent: "space-between",
-      flex: 1,
-    },
-    component: m.div,
     animate: {
       opacity: [0, 1],
       transition: { duration: 0.25 },
+    },
+    component: m.div,
+    sx: {
+      flex: 1,
+      justifyContent: "space-between",
+      p: 1,
     },
     whileHover: isMobile ? null : { boxShadow: "#555577 0 0 7px", transition: { duration: 0.1 } },
   },

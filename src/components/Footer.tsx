@@ -12,6 +12,7 @@ import { Box, IconButton, Option, Select, Slider, Typography, selectClasses } fr
 import { m } from "framer-motion";
 import { memo, useContext, useState } from "react";
 import { isMobile } from "react-device-detect";
+
 import { PaginationContext } from "../contexts/PaginationContext.ts";
 import { SortingContext } from "../contexts/SortingContext.ts";
 import { ViewContext } from "../contexts/ViewContext.ts";
@@ -26,39 +27,32 @@ export const Footer = memo(function Footer(props: { eventCount?: number }) {
 
   return (
     <Box
+      alignItems="center"
+      component={m.div}
       display="flex"
       flexDirection="column"
-      alignItems="center"
       gap={isMobile ? 1 : 0}
-      width={isMobile ? "90%" : "auto"}
-      mb={1}
-      component={m.div}
       layout
+      mb={1}
       transition={{ duration: 0.25 }}
+      width={isMobile ? "90%" : "auto"}
       {...(!isMobile && {
-        position: "sticky",
         bottom: 25,
+        position: "sticky",
         px: 3,
         py: 0.5,
-        sx: { backdropFilter: "blur(15px)", zIndex: "badge", borderRadius: 25, border: 1, borderColor: "neutral.outlinedBorder" },
+        sx: { backdropFilter: "blur(15px)", border: 1, borderColor: "neutral.outlinedBorder", borderRadius: 25, zIndex: "badge" },
       })}
     >
-      <Box display="flex" flexWrap="wrap" alignItems="center" justifyContent="center" gap={isMobile ? 1 : 2}>
+      <Box alignItems="center" display="flex" flexWrap="wrap" gap={isMobile ? 1 : 2} justifyContent="center">
         {/* --------------- Filter --------------- */}
-        <Box display="flex" alignItems="center" gap={1}>
-          <Typography level="body-sm" fontSize="0.75rem">
+        <Box alignItems="center" display="flex" gap={1}>
+          <Typography fontSize="0.75rem" level="body-sm">
             Filter:
           </Typography>
           <Select
-            size="sm"
+            indicator={<KeyboardArrowDown />}
             multiple
-            renderValue={selected => (
-              <Box display="flex" gap="0.25rem">
-                {selected.map((selectedOption, i) => (
-                  <EventTypeIcon key={i} eventType={selectedOption.value} />
-                ))}
-              </Box>
-            )}
             onChange={(e, v) => {
               if (v.includes("music_festival")) {
                 setPagination({ ...pagination, filter: ["music_festival"], page: 1 });
@@ -66,26 +60,33 @@ export const Footer = memo(function Footer(props: { eventCount?: number }) {
                 setPagination({ ...pagination, filter: v, page: 1 });
               }
             }}
-            indicator={<KeyboardArrowDown />}
+            renderValue={selected => (
+              <Box display="flex" gap="0.25rem">
+                {selected.map((selectedOption, i) => (
+                  <EventTypeIcon eventType={selectedOption.value} key={i} />
+                ))}
+              </Box>
+            )}
+            size="sm"
             sx={{
               [`& .${selectClasses.indicator}`]: {
-                transition: "0.2s",
                 [`&.${selectClasses.expanded}`]: {
                   transform: "rotate(-180deg)",
                 },
+                transition: "0.2s",
               },
               backgroundColor: "transparent",
             }}
             {...(pagination.filter.length > 0 && {
               endDecorator: (
                 <IconButton
-                  onMouseDown={event => {
-                    event.stopPropagation();
-                  }}
                   onClick={() => {
                     setPagination({ ...pagination, filter: [], page: 1 });
                   }}
-                  sx={{ "--IconButton-size": "20px", "&:hover": { backgroundColor: "transparent" } }}
+                  onMouseDown={event => {
+                    event.stopPropagation();
+                  }}
+                  sx={{ "&:hover": { backgroundColor: "transparent" }, "--IconButton-size": "20px" }}
                 >
                   <CloseRounded fontSize="small" />
                 </IconButton>
@@ -117,26 +118,26 @@ export const Footer = memo(function Footer(props: { eventCount?: number }) {
           </Select>
         </Box>
         {/* --------------- Rows --------------- */}
-        <Box display="flex" alignItems="center" gap={1}>
-          <Typography level="body-sm" fontSize="0.75rem">
+        <Box alignItems="center" display="flex" gap={1}>
+          <Typography fontSize="0.75rem" level="body-sm">
             Rows:
           </Typography>
           <Select
-            size="sm"
-            onChange={(e, v: number | null) => {
-              setPagination({ ...pagination, rowsPerPage: v!, page: 1 });
-            }}
-            value={pagination.rowsPerPage}
             indicator={<KeyboardArrowDown />}
+            onChange={(e, v: null | number) => {
+              setPagination({ ...pagination, page: 1, rowsPerPage: v! });
+            }}
+            size="sm"
             sx={{
               [`& .${selectClasses.indicator}`]: {
-                transition: "0.25s",
                 [`&.${selectClasses.expanded}`]: {
                   transform: "rotate(-180deg)",
                 },
+                transition: "0.25s",
               },
               backgroundColor: "transparent",
             }}
+            value={pagination.rowsPerPage}
           >
             <Option value={pagination.rowCountOptions[0]}>{pagination.rowCountOptions[0]}</Option>
             <Option value={pagination.rowCountOptions[1]}>{pagination.rowCountOptions[1]}</Option>
@@ -144,28 +145,28 @@ export const Footer = memo(function Footer(props: { eventCount?: number }) {
           </Select>
         </Box>
         {/* --------------- Range --------------- */}
-        <Box display="flex" alignItems="center" gap={1.5}>
-          <Typography level="body-sm" fontSize="0.75rem">
+        <Box alignItems="center" display="flex" gap={1.5}>
+          <Typography fontSize="0.75rem" level="body-sm">
             Range:
           </Typography>
-          <Box display="flex" alignItems="center" gap={0.5}>
+          <Box alignItems="center" display="flex" gap={0.5}>
             <Slider
-              size="sm"
               color="neutral"
+              size="sm"
               valueLabelDisplay="auto"
               {...styles.rangeSlider}
-              value={sliderValue}
               onChange={(e, v) => setSliderValue(+v)}
-              onChangeCommitted={(e, v) => setPagination({ ...pagination, range: `${+v}mi`, page: 1 })}
+              onChangeCommitted={(e, v) => setPagination({ ...pagination, page: 1, range: `${+v}mi` })}
+              value={sliderValue}
             />
             {pagination.range !== "5mi" && (
               <IconButton
-                size="sm"
                 onClick={() => {
                   setSliderValue(5);
-                  setPagination({ ...pagination, range: "5mi", page: 1 });
+                  setPagination({ ...pagination, page: 1, range: "5mi" });
                 }}
-                sx={{ "--IconButton-size": "24px", "&:hover": { backgroundColor: "transparent" } }}
+                size="sm"
+                sx={{ "&:hover": { backgroundColor: "transparent" }, "--IconButton-size": "24px" }}
               >
                 <RestartAlt fontSize="small" />
               </IconButton>
@@ -174,133 +175,133 @@ export const Footer = memo(function Footer(props: { eventCount?: number }) {
         </Box>
         {/* --------------- Sort --------------- */}
         {!tableView && (
-          <Box display="flex" alignItems="center" gap={1}>
-            <Typography level="body-sm" fontSize="0.75rem">
+          <Box alignItems="center" display="flex" gap={1}>
+            <Typography fontSize="0.75rem" level="body-sm">
               Sort:
             </Typography>
             <Select
-              size="sm"
-              onChange={(e, v: string | null) => {
+              defaultValue="Date (asc.)"
+              indicator={<KeyboardArrowDown />}
+              onChange={(e, v: null | string) => {
                 switch (v!) {
                   case "Date (asc.)":
                     setSorting({
                       ...sorting,
-                      sortDate: true,
-                      sortPopularity: undefined,
-                      sortLowestPrice: undefined,
-                      sortHighestPrice: undefined,
                       sortAvgPrice: undefined,
+                      sortDate: true,
+                      sortHighestPrice: undefined,
+                      sortLowestPrice: undefined,
+                      sortPopularity: undefined,
                     });
                     break;
                   case "Date (desc.)":
                     setSorting({
                       ...sorting,
-                      sortDate: false,
-                      sortPopularity: undefined,
-                      sortLowestPrice: undefined,
-                      sortHighestPrice: undefined,
                       sortAvgPrice: undefined,
+                      sortDate: false,
+                      sortHighestPrice: undefined,
+                      sortLowestPrice: undefined,
+                      sortPopularity: undefined,
                     });
                     break;
                   case "Popularity (asc.)":
                     setSorting({
                       ...sorting,
-                      sortDate: undefined,
-                      sortPopularity: true,
-                      sortLowestPrice: undefined,
-                      sortHighestPrice: undefined,
                       sortAvgPrice: undefined,
+                      sortDate: undefined,
+                      sortHighestPrice: undefined,
+                      sortLowestPrice: undefined,
+                      sortPopularity: true,
                     });
                     break;
                   case "Popularity (desc.)":
                     setSorting({
                       ...sorting,
-                      sortDate: undefined,
-                      sortPopularity: false,
-                      sortLowestPrice: undefined,
-                      sortHighestPrice: undefined,
                       sortAvgPrice: undefined,
+                      sortDate: undefined,
+                      sortHighestPrice: undefined,
+                      sortLowestPrice: undefined,
+                      sortPopularity: false,
                     });
                     break;
                   case "$ lo (asc.)":
                     setSorting({
                       ...sorting,
-                      sortDate: undefined,
-                      sortPopularity: undefined,
-                      sortLowestPrice: true,
-                      sortHighestPrice: undefined,
                       sortAvgPrice: undefined,
+                      sortDate: undefined,
+                      sortHighestPrice: undefined,
+                      sortLowestPrice: true,
+                      sortPopularity: undefined,
                     });
                     break;
                   case "$ lo (desc.)":
                     setSorting({
                       ...sorting,
-                      sortDate: undefined,
-                      sortPopularity: undefined,
-                      sortLowestPrice: false,
-                      sortHighestPrice: undefined,
                       sortAvgPrice: undefined,
+                      sortDate: undefined,
+                      sortHighestPrice: undefined,
+                      sortLowestPrice: false,
+                      sortPopularity: undefined,
                     });
                     break;
                   case "$ hi (asc.)":
                     setSorting({
                       ...sorting,
-                      sortDate: undefined,
-                      sortPopularity: undefined,
-                      sortLowestPrice: undefined,
-                      sortHighestPrice: true,
                       sortAvgPrice: undefined,
+                      sortDate: undefined,
+                      sortHighestPrice: true,
+                      sortLowestPrice: undefined,
+                      sortPopularity: undefined,
                     });
                     break;
                   case "$ hi (desc.)":
                     setSorting({
                       ...sorting,
-                      sortDate: undefined,
-                      sortPopularity: undefined,
-                      sortLowestPrice: undefined,
-                      sortHighestPrice: false,
                       sortAvgPrice: undefined,
+                      sortDate: undefined,
+                      sortHighestPrice: false,
+                      sortLowestPrice: undefined,
+                      sortPopularity: undefined,
                     });
                     break;
                   case "$ avg (asc.)":
                     setSorting({
                       ...sorting,
-                      sortDate: undefined,
-                      sortPopularity: undefined,
-                      sortLowestPrice: undefined,
-                      sortHighestPrice: undefined,
                       sortAvgPrice: true,
+                      sortDate: undefined,
+                      sortHighestPrice: undefined,
+                      sortLowestPrice: undefined,
+                      sortPopularity: undefined,
                     });
                     break;
                   case "$ avg (desc.)":
                     setSorting({
                       ...sorting,
-                      sortDate: undefined,
-                      sortPopularity: undefined,
-                      sortLowestPrice: undefined,
-                      sortHighestPrice: undefined,
                       sortAvgPrice: false,
+                      sortDate: undefined,
+                      sortHighestPrice: undefined,
+                      sortLowestPrice: undefined,
+                      sortPopularity: undefined,
                     });
                     break;
                 }
               }}
-              defaultValue="Date (asc.)"
-              indicator={<KeyboardArrowDown />}
-              sx={{
-                [`& .${selectClasses.indicator}`]: {
-                  transition: "0.25s",
-                  [`&.${selectClasses.expanded}`]: {
-                    transform: "rotate(-180deg)",
-                  },
-                },
-                backgroundColor: "transparent",
-              }}
+              size="sm"
               slotProps={{
                 listbox: {
                   sx: {
                     fontSize: "0.75rem",
                   },
                 },
+              }}
+              sx={{
+                [`& .${selectClasses.indicator}`]: {
+                  [`&.${selectClasses.expanded}`]: {
+                    transform: "rotate(-180deg)",
+                  },
+                  transition: "0.25s",
+                },
+                backgroundColor: "transparent",
               }}
             >
               <Option value="Date (asc.)">
@@ -337,25 +338,25 @@ export const Footer = memo(function Footer(props: { eventCount?: number }) {
           </Box>
         )}
         {/* --------------- Pagination --------------- */}
-        <Box display="flex" alignItems="center" gap={1}>
+        <Box alignItems="center" display="flex" gap={1}>
           <IconButton
-            variant="outlined"
+            component={m.button}
             disabled={pagination.page === 1}
             onClick={() => setPagination({ ...pagination, page: 1 })}
-            component={m.button}
+            variant="outlined"
             whileTap={{ scale: 0.8 }}
           >
             <KeyboardDoubleArrowLeft />
           </IconButton>
           <IconButton
-            variant="outlined"
             disabled={pagination.page === 1}
             onClick={() => setPagination({ ...pagination, page: pagination.page - 1 })}
+            variant="outlined"
             {...styles.pageButton}
           >
             <KeyboardArrowLeft />
           </IconButton>
-          <IconButton variant="outlined" onClick={() => setPagination({ ...pagination, page: pagination.page + 1 })} {...styles.pageButton}>
+          <IconButton onClick={() => setPagination({ ...pagination, page: pagination.page + 1 })} variant="outlined" {...styles.pageButton}>
             <KeyboardArrowRight />
           </IconButton>
         </Box>

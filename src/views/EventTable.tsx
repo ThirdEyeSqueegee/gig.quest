@@ -3,6 +3,7 @@ import { Box, CircularProgress, IconButton, Table, Typography } from "@mui/joy";
 import { m } from "framer-motion";
 import { memo, useContext } from "react";
 import useSWRImmutable from "swr/immutable";
+
 import { Location } from "../Interfaces.ts";
 import { getEvents } from "../api/API.ts";
 import { DateAndTime } from "../components/DateAndTime.tsx";
@@ -26,8 +27,8 @@ export const EventTable = memo(function EventTable(props: { geo?: Location; sear
 
   if (isLoading) {
     return (
-      <Box display="flex" justifyContent="center" alignItems="start" width={1} height={1200}>
-        <Box display="flex" justifyContent="center" alignItems="center" width={1} height="75vh">
+      <Box alignItems="start" display="flex" height={1200} justifyContent="center" width={1}>
+        <Box alignItems="center" display="flex" height="75vh" justifyContent="center" width={1}>
           <CircularProgress size="lg">
             <HourglassTop />
           </CircularProgress>
@@ -50,20 +51,20 @@ export const EventTable = memo(function EventTable(props: { geo?: Location; sear
             <Typography level="body-lg">Venue</Typography>
           </th>
           <th style={{ width: "8.5%" }}>
-            <Box display="flex" alignItems="center" justifyContent="space-between">
+            <Box alignItems="center" display="flex" justifyContent="space-between">
               <Typography level="body-lg">Date</Typography>
               <IconButton
-                size="sm"
                 onClick={() =>
                   setSorting({
                     ...sorting,
-                    sortDate: !sorting.sortDate,
-                    sortPopularity: undefined,
-                    sortLowestPrice: undefined,
-                    sortHighestPrice: undefined,
                     sortAvgPrice: undefined,
+                    sortDate: !sorting.sortDate,
+                    sortHighestPrice: undefined,
+                    sortLowestPrice: undefined,
+                    sortPopularity: undefined,
                   })
                 }
+                size="sm"
                 sx={{
                   "--IconButton-size": "24px",
                 }}
@@ -81,20 +82,20 @@ export const EventTable = memo(function EventTable(props: { geo?: Location; sear
             </Box>
           </th>
           <th style={{ width: "3.5%" }}>
-            <Box display="flex" alignItems="center" justifyContent="space-between">
+            <Box alignItems="center" display="flex" justifyContent="space-between">
               <Typography level="body-md">$ (lo)</Typography>
               <IconButton
-                size="sm"
                 onClick={() =>
                   setSorting({
                     ...sorting,
-                    sortDate: undefined,
-                    sortPopularity: undefined,
-                    sortLowestPrice: !sorting.sortLowestPrice,
-                    sortHighestPrice: undefined,
                     sortAvgPrice: undefined,
+                    sortDate: undefined,
+                    sortHighestPrice: undefined,
+                    sortLowestPrice: !sorting.sortLowestPrice,
+                    sortPopularity: undefined,
                   })
                 }
+                size="sm"
                 sx={{
                   "--IconButton-size": "24px",
                 }}
@@ -112,20 +113,20 @@ export const EventTable = memo(function EventTable(props: { geo?: Location; sear
             </Box>
           </th>
           <th style={{ width: "3.5%" }}>
-            <Box display="flex" alignItems="center" justifyContent="space-between">
+            <Box alignItems="center" display="flex" justifyContent="space-between">
               <Typography level="body-md">$ (hi)</Typography>
               <IconButton
-                size="sm"
                 onClick={() =>
                   setSorting({
                     ...sorting,
-                    sortDate: undefined,
-                    sortPopularity: undefined,
-                    sortLowestPrice: undefined,
-                    sortHighestPrice: !sorting.sortHighestPrice,
                     sortAvgPrice: undefined,
+                    sortDate: undefined,
+                    sortHighestPrice: !sorting.sortHighestPrice,
+                    sortLowestPrice: undefined,
+                    sortPopularity: undefined,
                   })
                 }
+                size="sm"
                 sx={{
                   "--IconButton-size": "24px",
                 }}
@@ -143,20 +144,20 @@ export const EventTable = memo(function EventTable(props: { geo?: Location; sear
             </Box>
           </th>
           <th style={{ width: "3.5%" }}>
-            <Box display="flex" alignItems="center" justifyContent="space-between">
+            <Box alignItems="center" display="flex" justifyContent="space-between">
               <Typography level="body-md">$ (avg)</Typography>
               <IconButton
-                size="sm"
                 onClick={() =>
                   setSorting({
                     ...sorting,
-                    sortDate: undefined,
-                    sortPopularity: undefined,
-                    sortLowestPrice: undefined,
-                    sortHighestPrice: undefined,
                     sortAvgPrice: !sorting.sortAvgPrice,
+                    sortDate: undefined,
+                    sortHighestPrice: undefined,
+                    sortLowestPrice: undefined,
+                    sortPopularity: undefined,
                   })
                 }
+                size="sm"
                 sx={{
                   "--IconButton-size": "24px",
                 }}
@@ -174,20 +175,20 @@ export const EventTable = memo(function EventTable(props: { geo?: Location; sear
             </Box>
           </th>
           <th style={{ width: "7.5%" }}>
-            <Box display="flex" alignItems="center" justifyContent="space-between">
+            <Box alignItems="center" display="flex" justifyContent="space-between">
               <Typography level="body-lg">Popularity</Typography>
               <IconButton
-                size="sm"
                 onClick={() =>
                   setSorting({
                     ...sorting,
-                    sortPopularity: !sorting.sortPopularity,
-                    sortDate: undefined,
-                    sortLowestPrice: undefined,
-                    sortHighestPrice: undefined,
                     sortAvgPrice: undefined,
+                    sortDate: undefined,
+                    sortHighestPrice: undefined,
+                    sortLowestPrice: undefined,
+                    sortPopularity: !sorting.sortPopularity,
                   })
                 }
+                size="sm"
                 sx={{
                   "--IconButton-size": "24px",
                 }}
@@ -212,9 +213,9 @@ export const EventTable = memo(function EventTable(props: { geo?: Location; sear
       <tbody>
         {eventsDetailsAndMeta?.details.map((details, i) => {
           return (
-            <m.tr key={i} animate={{ opacity: [0, 1] }} whileHover={{ backgroundColor: "#000007", transition: { duration: 0.5 } }}>
+            <m.tr animate={{ opacity: [0, 1] }} key={i} whileHover={{ backgroundColor: "#000007", transition: { duration: 0.5 } }}>
               <td>
-                <Box display="flex" alignItems="center">
+                <Box alignItems="center" display="flex">
                   <EventTypeIcon eventType={details.event.type} />
                 </Box>
               </td>
@@ -222,7 +223,7 @@ export const EventTable = memo(function EventTable(props: { geo?: Location; sear
                 <Performers eventDetails={details} />
               </td>
               <td>
-                <Venue name={details.event.venue?.name} eventDetails={details} geo={props.geo} />
+                <Venue eventDetails={details} geo={props.geo} name={details.event.venue?.name} />
               </td>
               <td>
                 <DateAndTime datetime={details.event.datetime_local} size="0.9rem" />

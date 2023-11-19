@@ -8,6 +8,7 @@ module.exports = {
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
     "prettier",
+    "plugin:perfectionist/recommended-natural",
   ],
   ignorePatterns: ["dist", ".eslintrc.cjs"],
   parser: "@typescript-eslint/parser",
@@ -16,7 +17,7 @@ module.exports = {
       jsx: true,
     },
   },
-  plugins: ["react-refresh", "react"],
+  plugins: ["react-refresh", "react", "perfectionist"],
   rules: {
     "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
   },

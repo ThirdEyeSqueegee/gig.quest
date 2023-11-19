@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/joy";
 import { Fragment, memo } from "react";
 import { isMobile } from "react-device-detect";
+
 import { EventDetails } from "../Interfaces.ts";
 import { SpotifyTooltipBox } from "./SpotifyTooltipBox.tsx";
 

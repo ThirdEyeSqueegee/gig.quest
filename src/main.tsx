@@ -4,6 +4,7 @@ import CssBaseline from "@mui/joy/CssBaseline";
 import { CssVarsProvider } from "@mui/joy/styles";
 import React from "react";
 import ReactDOM from "react-dom/client";
+
 import App from "./App.tsx";
 import { theme } from "./theme.ts";
 
