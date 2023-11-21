@@ -173,6 +173,6 @@ const styles = {
   tooltip: {
     animate: { opacity: [0, 1] },
     component: m.div,
-    sx: { backdropFilter: "blur(15px)", backgroundColor: "transparent" },
+    sx: { backdropFilter: "blur(10px)", backgroundColor: "transparent" },
   },
 };

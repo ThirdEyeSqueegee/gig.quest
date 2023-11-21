@@ -1,6 +1,6 @@
 import { Performer } from "./Interfaces.ts";
 
-export const tokenizePerformers = (performers?: Performer[], eventType?: string) => {
+export const tokenizePerformers = (performers: Performer[], eventType: string) => {
   let is1v1 = false;
   let str = "";
 
@@ -15,30 +15,24 @@ export const tokenizePerformers = (performers?: Performer[], eventType?: string)
   ) {
     is1v1 = true;
     if (performers?.length === 1) {
-      str = `${performers![0].name} vs. TBD`;
+      str = `${performers[0].name} vs. TBD`;
     } else {
-      str = `${performers![0].name} vs. ${performers![1].name}`;
+      str = `${performers[0].name} vs. ${performers[1].name}`;
     }
-  } else {
-    if (performers!.length > 1) {
-      performers?.forEach((p, i) => {
-        if (p.primary) {
-          str += p.name + "//";
-        } else {
-          if (i === performers.length - 1) {
-            str += p.name;
-          } else {
-            str += p.name + "//";
-          }
-        }
-      });
-    } else {
-      if (performers![0].name?.includes("&")) {
-        str += performers![0].name.split("&").toString().replace(",", "//");
+  } else if (performers.length > 1) {
+    performers?.forEach((p, i) => {
+      if (p.primary) {
+        str += `${p.name}//`;
+      } else if (i === performers.length - 1) {
+        str += p.name;
       } else {
-        str += performers![0].name;
+        str += `${p.name}//`;
       }
-    }
+    });
+  } else if (performers[0].name?.includes("&")) {
+    str += performers[0].name.split("&").toString().replace(",", "//");
+  } else {
+    str += performers[0].name;
   }
 
   str = str.replaceAll(" Womens Volleyball", "");
@@ -57,5 +51,5 @@ export const tokenizePerformers = (performers?: Performer[], eventType?: string)
 };
 
 export const lerp = (start: number, end: number, amount: number) => {
-  return start + (end - start) * amount;
+  return start + amount * (end - start);
 };

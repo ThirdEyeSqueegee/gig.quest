@@ -4,13 +4,14 @@ import { memo, useState } from "react";
 import { isMobile } from "react-device-detect";
 import useSWR from "swr";
 
+import { SpotifyToken } from "../Interfaces.ts";
 import { getSpotifyToken, spotifySearchArtist } from "../api/API.ts";
 import SpotifyIcon from "../assets/spotify_icon.svg";
 
 export const SpotifyTooltipBox = memo(function SpotifyTooltip(props: { artist: string }) {
   const [tooltipOpen, setTooltipOpen] = useState(false);
 
-  const { data: token, error, isLoading } = useSWR("spotifyToken", () => getSpotifyToken());
+  const { data: token, error, isLoading } = useSWR<SpotifyToken, Error>("spotifyToken", () => getSpotifyToken());
 
   const { data: artistItem, isLoading: artistLoading } = useSWR(!error && !isLoading ? ["artist", props.artist] : null, ([, a]) =>
     spotifySearchArtist(a, token!.token),
@@ -20,7 +21,7 @@ export const SpotifyTooltipBox = memo(function SpotifyTooltip(props: { artist: s
     return (
       <Tooltip
         open={tooltipOpen}
-        sx={{ backdropFilter: "blur(15px)", backgroundColor: "transparent", borderRadius: "15px" }}
+        sx={{ backdropFilter: "blur(10px)", backgroundColor: "transparent", borderRadius: "15px" }}
         title={
           <Box display="flex" justifyContent="center" maxWidth="20rem" p={1}>
             <CircularProgress color="success" size="sm" />
@@ -40,7 +41,7 @@ export const SpotifyTooltipBox = memo(function SpotifyTooltip(props: { artist: s
     return (
       <Tooltip
         open={tooltipOpen}
-        sx={{ backdropFilter: "blur(15px)", backgroundColor: "transparent", borderRadius: "15px" }}
+        sx={{ backdropFilter: "blur(10px)", backgroundColor: "transparent", borderRadius: "15px" }}
         title={
           <Box display="flex" justifyContent="center" maxWidth="20rem" p={1}>
             ¯\_(ツ)_/¯
@@ -59,26 +60,26 @@ export const SpotifyTooltipBox = memo(function SpotifyTooltip(props: { artist: s
   return (
     <Tooltip
       open={tooltipOpen}
-      sx={{ backdropFilter: "blur(15px)", backgroundColor: "transparent", borderRadius: "15px" }}
+      sx={{ backdropFilter: "blur(10px)", backgroundColor: "transparent", borderRadius: "15px" }}
       title={
         <Link color="success" fontSize="0.8rem" href={artistItem?.external_urls?.spotify} overlay underline="none">
           <Box display="flex" justifyContent="center" maxWidth="20rem" p={1}>
-            {artistItem && (
+            {artistItem ? (
               <Box alignItems="center" display="flex" flexDirection="column" gap={1}>
                 <Typography level="body-sm" startDecorator={<img height="20px" src={SpotifyIcon} width="20px" />}>
                   {artistItem.followers?.total?.toLocaleString()} followers
                 </Typography>
                 <Box display="flex" flexWrap="wrap" gap={1} justifyContent="center">
-                  {artistItem.genres?.map((genre, i) => {
+                  {artistItem.genres?.map(genre => {
                     return (
-                      <Chip color="success" key={i} size="sm">
+                      <Chip color="success" key={artistItem.id} size="sm">
                         {genre}
                       </Chip>
                     );
                   })}
                 </Box>
               </Box>
-            )}
+            ) : null}
           </Box>
         </Link>
       }

@@ -24,21 +24,37 @@ export const Header = memo(function Header(props: {
   const isWidescreen = width! / height! > 4 / 3;
 
   const { scrollYProgress } = useScroll();
-  const [scroll, setScroll] = useState(0);
+  const [lerps, setLerps] = useState({
+    headerHeight: 110,
+    locationBoxHeight: 25,
+    locationIconHeight: 24,
+    locationTitleHeight: 0.875,
+    searchMarginRight: 2,
+    searchMarginTop: -4,
+    titleSize: 2.5,
+  });
 
   useMotionValueEvent(scrollYProgress, "change", v => {
-    setScroll(v);
+    setLerps({
+      headerHeight: lerp(110, 60, v),
+      locationBoxHeight: lerp(25, 10, v),
+      locationIconHeight: lerp(24, 12, v),
+      locationTitleHeight: lerp(0.875, 0.6, v),
+      searchMarginRight: lerp(2, 6, v),
+      searchMarginTop: lerp(-4, -5.5, v),
+      titleSize: lerp(2.5, 1.5, v),
+    });
   });
 
   return (
-    <Box alignItems="center" display="flex" flexDirection="column" width={1} {...(!isMobile && { height: lerp(100, 60, scroll) })}>
+    <Box alignItems="center" display="flex" flexDirection="column" height={lerps.headerHeight} width={1}>
       <Box alignItems="center" display="flex" flexDirection="column" gap={1}>
-        <Typography {...styles.headerText} fontSize={isMobile ? "2.5rem" : `${lerp(2.5, 1.5, scroll)}rem`}>
-          <TypeIt>gig.quest</TypeIt>
+        <Typography {...styles.headerText} fontSize={`${lerps.titleSize}rem`}>
+          <TypeIt options={{ cursor: false }}>gig.quest</TypeIt>
         </Typography>
-        <Box alignItems="center" display="flex" justifyContent="center" sx={{ opacity: lerp(1, 0, 3 * scroll) }}>
-          <LocationOn {...styles.locationIcon} />
-          <Typography fontFamily="Fira Code Variable" level="body-sm">
+        <Box alignItems="center" display="flex" height={lerps.locationBoxHeight} justifyContent="center">
+          <LocationOn {...styles.locationIcon} sx={{ color: "red", fontSize: lerps.locationIconHeight }} />
+          <Typography fontFamily="Fira Code Variable" fontSize={`${lerps.locationTitleHeight}rem`} level="body-sm">
             {!pagination.filter.includes("music_festival")
               ? `${props.eventsDetailsAndMeta?.meta.geolocation ? props.eventsDetailsAndMeta.meta.geolocation.display_name : "..."} (${
                   pagination.range
@@ -53,12 +69,8 @@ export const Header = memo(function Header(props: {
         display="flex"
         gap={2}
         justifyContent={isWidescreen ? "end" : "center"}
-        mt={isMobile ? 1 : 0}
-        {...(!isMobile && {
-          mr: lerp(2.5, 7, scroll),
-          position: "absolute",
-          top: lerp(55, 16, scroll),
-        })}
+        mr={lerps.searchMarginRight}
+        mt={isMobile ? 1 : lerps.searchMarginTop}
       >
         <SearchInput searchTerm={props.searchTerm} setSearchTerm={props.setSearchTerm} />
         {!isMobile && (
@@ -103,7 +115,6 @@ const styles = {
     drag: !isMobile,
     dragSnapToOrigin: !isMobile,
     dragTransition: { bounceDamping: 10, bounceStiffness: 500 },
-    htmlColor: "red",
     whileHover: { scale: 1.1 },
     whileTap: { scale: 0.9 },
   },

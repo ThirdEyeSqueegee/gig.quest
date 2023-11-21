@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import axios from "axios";
 import stringComparison from "string-comparison";
 
@@ -69,8 +70,8 @@ export const getEvents = async (pagination: PaginationProps, sorting: SortingPro
 
   const eventsDetails: EventDetails[] = [];
   for (const e of response.data.events!) {
-    const { is1v1, tokens } = tokenizePerformers(e.performers, e.type);
-    eventsDetails.push({ event: e, is1v1: is1v1, performers: tokens });
+    const { is1v1, tokens } = tokenizePerformers(e.performers ?? [], e.type ?? "");
+    eventsDetails.push({ event: e, is1v1, performers: tokens });
   }
 
   return {
@@ -85,8 +86,8 @@ export const getSpotifyToken = async () => {
     {
       grant_type: "client_credentials",
       // eslint-disable-next-line perfectionist/sort-objects
-      client_id: import.meta.env.VITE_SPOTIFY_CLIENT_ID,
-      client_secret: import.meta.env.VITE_SPOTIFY_CLIENT_SECRET,
+      client_id: import.meta.env.VITE_SPOTIFY_CLIENT_ID as string,
+      client_secret: import.meta.env.VITE_SPOTIFY_CLIENT_SECRET as string,
     },
     {
       headers: {
@@ -111,12 +112,11 @@ export const spotifySearchArtist = async (artist: string, token: string) => {
       Authorization: `Bearer ${token}`,
     },
   });
-  const item = response.data.artists.items![0];
+  const [item] = response.data.artists.items!;
   const dice = stringComparison.diceCoefficient.similarity(artist, item.name!);
 
-  if (item.name!.length! > 5) {
+  if (item.name!.length > 5) {
     return dice > 0.8 ? item : ({ id: "-1" } as ArtistItem);
-  } else {
-    return dice > 0.9 ? item : ({ id: "-1" } as ArtistItem);
   }
+  return dice > 0.9 ? item : ({ id: "-1" } as ArtistItem);
 };

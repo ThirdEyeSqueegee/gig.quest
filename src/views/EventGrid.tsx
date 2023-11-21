@@ -40,10 +40,10 @@ export const EventGrid = memo(function EventGrid(props: { geo?: Location; search
 
   return (
     <Grid container spacing={1} width={1}>
-      {eventsDetailsAndMeta?.details.map((details, i) => {
+      {eventsDetailsAndMeta?.details.map(details => {
         return (
-          <Grid display="flex" flexDirection="column" key={i} lg={3} md={6} px={0.5} xs={12}>
-            <Card key={i} {...styles.gridCard}>
+          <Grid display="flex" flexDirection="column" key={details.event.title} lg={3} md={6} px={0.5} xs={12}>
+            <Card {...styles.gridCard}>
               <Box alignItems="start" display="flex" justifyContent="space-between">
                 <Performers eventDetails={details} />
                 <EventTypeIcon eventType={details.event.type} />
@@ -74,7 +74,7 @@ export const EventGrid = memo(function EventGrid(props: { geo?: Location; search
                   </Box>
                 </Box>
                 <Box display="flex" flexDirection="column" gap={1} justifyContent="end">
-                  <PopularityBar event={details.event} />
+                  <PopularityBar score={details.event.score} />
                   <TicketsButton url={details.event.url} />
                 </Box>
               </Box>

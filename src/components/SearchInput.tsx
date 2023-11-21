@@ -18,7 +18,7 @@ export const SearchInput = memo(function SearchInput(props: { searchTerm: string
           },
         }}
         startDecorator={<Search fontSize="small" />}
-        sx={{ backdropFilter: "blur(15px)", backgroundColor: "transparent" }}
+        sx={{ backdropFilter: "blur(10px)", backgroundColor: "transparent" }}
         value={props.searchTerm}
         {...(props.searchTerm && {
           endDecorator: (

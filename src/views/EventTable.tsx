@@ -211,9 +211,9 @@ export const EventTable = memo(function EventTable(props: { geo?: Location; sear
         </tr>
       </thead>
       <tbody>
-        {eventsDetailsAndMeta?.details.map((details, i) => {
+        {eventsDetailsAndMeta?.details.map(details => {
           return (
-            <m.tr animate={{ opacity: [0, 1] }} key={i} whileHover={{ backgroundColor: "#000007", transition: { duration: 0.5 } }}>
+            <m.tr animate={{ opacity: [0, 1] }} key={details.event.title} whileHover={{ backgroundColor: "#000007", transition: { duration: 0.5 } }}>
               <td>
                 <Box alignItems="center" display="flex">
                   <EventTypeIcon eventType={details.event.type} />
@@ -239,7 +239,7 @@ export const EventTable = memo(function EventTable(props: { geo?: Location; sear
               </td>
               <td>
                 <Box width="85%">
-                  <PopularityBar event={details.event} />
+                  <PopularityBar score={details.event.score} />
                 </Box>
               </td>
               <td>

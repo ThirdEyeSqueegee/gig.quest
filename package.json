@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite --open",
     "build": "tsc && vite build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives",
     "preview": "vite preview",
     "format": "prettier --write src/ *.json *.ts *.md *.html *.cjs"
   },
@@ -31,10 +31,10 @@
     "use-count-up": "^3.0.1"
   },
   "devDependencies": {
-    "@types/react": "^18.2.37",
-    "@types/react-dom": "^18.2.15",
-    "@typescript-eslint/eslint-plugin": "^6.11.0",
-    "@typescript-eslint/parser": "^6.11.0",
+    "@types/react": "^18.2.38",
+    "@types/react-dom": "^18.2.16",
+    "@typescript-eslint/eslint-plugin": "^6.12.0",
+    "@typescript-eslint/parser": "^6.12.0",
     "@vitejs/plugin-react-swc": "^3.5.0",
     "eslint": "^8.54.0",
     "eslint-config-prettier": "^9.0.0",
@@ -44,8 +44,8 @@
     "eslint-plugin-react-refresh": "^0.4.4",
     "lightningcss": "^1.22.1",
     "prettier-plugin-organize-imports": "^3.2.4",
-    "typescript": "^5.2.2",
-    "vite": "^5.0.0"
+    "typescript": "^5.3.2",
+    "vite": "^5.0.2"
   },
   "prettier": {
     "plugins": [

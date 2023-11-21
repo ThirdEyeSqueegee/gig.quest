@@ -73,7 +73,7 @@ export default function App() {
           <LazyMotion features={domMax} strict>
             <Box p={isMobile ? 1 : 2}>
               <Card {...styles.mainCard}>
-                <Box {...(!isMobile && { position: "sticky", sx: { backdropFilter: "blur(15px)", zIndex: 5 }, top: 0, width: 1 })}>
+                <Box {...(!isMobile && { position: "sticky", sx: { backdropFilter: "blur(10px)", zIndex: 5 }, top: 0, width: 1 })}>
                   <Header eventsDetailsAndMeta={eventsDetailsAndMeta} searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
                   <IconButton sx={{ "&:hover": { backgroundColor: "transparent" }, position: "absolute", right: "0.5rem", top: "0.5rem" }}>
                     <GitHub />

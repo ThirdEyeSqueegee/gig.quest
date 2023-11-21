@@ -4,22 +4,20 @@ import { memo } from "react";
 import { isMobile } from "react-device-detect";
 import { useCountUp } from "use-count-up";
 
-import { SGEvent } from "../Interfaces.ts";
-
-export const PopularityBar = memo(function PopularityBar(props: { event: SGEvent }) {
+export const PopularityBar = memo(function PopularityBar(props: { score?: number }) {
   const { value } = useCountUp({
     duration: 0.5,
-    end: props.event.score ? props.event.score * 100 : 0,
+    end: props.score ? props.score * 100 : 0,
     isCounting: true,
     start: 0,
   });
 
   return (
-    <Tooltip followCursor placement="top" title={props.event.score && (props.event.score * 100).toFixed(1)} {...styles.tooltip}>
+    <Tooltip followCursor placement="top" title={props.score ? (props.score * 100).toFixed(1) : "¯\\_(ツ)_/¯"} {...styles.tooltip}>
       <LinearProgress
-        color={props.event.score! > 0.75 ? "success" : props.event.score! > 0.5 ? "primary" : props.event.score! > 0.25 ? "warning" : "danger"}
+        color={props.score ? (props.score > 0.75 ? "success" : props.score > 0.5 ? "primary" : props.score > 0.25 ? "warning" : "danger") : "neutral"}
         value={Number(value)}
-        variant="solid"
+        variant="soft"
         {...styles.progressBar}
       />
     </Tooltip>

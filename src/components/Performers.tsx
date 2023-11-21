@@ -5,9 +5,9 @@ import { isMobile } from "react-device-detect";
 import { EventDetails } from "../Interfaces.ts";
 import { SpotifyTooltipBox } from "./SpotifyTooltipBox.tsx";
 
-const regex1 = /\(.*\)/g;
-const regex2 = /(with).*(&|and) ([Mm]ore)/g;
-const regex3 = / - [0-9] ([Dd]ay) ([Pp]ass)/g;
+const regex1 = /\(.*\)/gu;
+const regex2 = /(with).*(&|and) ([Mm]ore)/gu;
+const regex3 = / - [0-9] ([Dd]ay) ([Pp]ass)/gu;
 
 export const Performers = memo(function Performers(props: { eventDetails?: EventDetails }) {
   return (

@@ -43,7 +43,7 @@ export const Footer = memo(function Footer(props: { eventCount?: number }) {
         position: "sticky",
         px: 3,
         py: 0.5,
-        sx: { backdropFilter: "blur(15px)", border: 1, borderColor: "neutral.outlinedBorder", borderRadius: 25, zIndex: "badge" },
+        sx: { backdropFilter: "blur(10px)", border: 1, borderColor: "neutral.outlinedBorder", borderRadius: 25, zIndex: "badge" },
       })}
     >
       <Box alignItems="center" display="flex" flexWrap="wrap" gap={isMobile ? 1 : 2} justifyContent="center">
@@ -64,8 +64,8 @@ export const Footer = memo(function Footer(props: { eventCount?: number }) {
             }}
             renderValue={selected => (
               <Box display="flex" gap="0.25rem">
-                {selected.map((selectedOption, i) => (
-                  <EventTypeIcon eventType={selectedOption.value} key={i} />
+                {selected.map(selectedOption => (
+                  <EventTypeIcon eventType={selectedOption.value} key={selectedOption.id} />
                 ))}
               </Box>
             )}
