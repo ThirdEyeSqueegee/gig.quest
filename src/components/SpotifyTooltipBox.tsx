@@ -70,9 +70,10 @@ export const SpotifyTooltipBox = memo(function SpotifyTooltip(props: { artist: s
                   {artistItem.followers?.total?.toLocaleString()} followers
                 </Typography>
                 <Box display="flex" flexWrap="wrap" gap={1} justifyContent="center">
-                  {artistItem.genres?.map(genre => {
+                  {artistItem.genres?.map((genre, i) => {
                     return (
-                      <Chip color="success" key={artistItem.id} size="sm">
+                      // eslint-disable-next-line react/no-array-index-key
+                      <Chip color="success" key={`${artistItem.id}${i}`} size="sm">
                         {genre}
                       </Chip>
                     );

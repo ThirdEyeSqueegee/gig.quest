@@ -4,6 +4,7 @@ module.exports = {
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended-type-checked",
     "plugin:@typescript-eslint/stylistic-type-checked",
+    "plugin:compat/recommended",
     "plugin:react-hooks/recommended",
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
@@ -19,7 +20,7 @@ module.exports = {
     ecmaVersion: "latest",
     EXPERIMENTAL_useProjectService: true,
   },
-  plugins: ["react-refresh", "react", "react-hooks", "perfectionist"],
+  plugins: ["compat", "react-refresh", "react", "react-hooks", "perfectionist"],
   root: true,
   rules: {
     "no-duplicate-imports": "warn",

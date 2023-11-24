@@ -28,17 +28,19 @@
     "string-comparison": "^1.2.0",
     "swr": "^2.2.4",
     "typeit-react": "^2.6.4",
-    "use-count-up": "^3.0.1"
+    "use-count-up": "^3.0.1",
+    "zustand": "^4.4.6"
   },
   "devDependencies": {
     "@types/react": "^18.2.38",
-    "@types/react-dom": "^18.2.16",
+    "@types/react-dom": "^18.2.17",
     "@typescript-eslint/eslint-plugin": "^6.12.0",
     "@typescript-eslint/parser": "^6.12.0",
     "@vitejs/plugin-react-swc": "^3.5.0",
     "eslint": "^8.54.0",
     "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-perfectionist": "^2.4.0",
+    "eslint-plugin-compat": "^4.2.0",
+    "eslint-plugin-perfectionist": "^2.4.2",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.4",

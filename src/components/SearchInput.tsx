@@ -3,11 +3,15 @@ import { Box, IconButton, Input } from "@mui/joy";
 import { m } from "framer-motion";
 import { memo } from "react";
 
-export const SearchInput = memo(function SearchInput(props: { searchTerm: string; setSearchTerm: React.Dispatch<React.SetStateAction<string>> }) {
+import { useSearch } from "../State.ts";
+
+export const SearchInput = memo(function SearchInput() {
+  const search = useSearch(state => state);
+
   return (
     <Box display="flex" gap={1}>
       <Input
-        onChange={e => props.setSearchTerm(e.target.value)}
+        onChange={e => search.setSearchTerm(e.target.value)}
         placeholder="Search..."
         slotProps={{
           input: {
@@ -19,10 +23,10 @@ export const SearchInput = memo(function SearchInput(props: { searchTerm: string
         }}
         startDecorator={<Search fontSize="small" />}
         sx={{ backdropFilter: "blur(10px)", backgroundColor: "transparent" }}
-        value={props.searchTerm}
-        {...(props.searchTerm && {
+        value={search.searchTerm}
+        {...(search.searchTerm && {
           endDecorator: (
-            <IconButton onClick={() => props.setSearchTerm("")}>
+            <IconButton onClick={() => search.setSearchTerm("")}>
               <CloseRounded />
             </IconButton>
           ),

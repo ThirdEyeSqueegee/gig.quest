@@ -2,23 +2,18 @@ import { GridView, LocationOn, TableRows } from "@mui/icons-material";
 import { Box, Switch, Tooltip, Typography } from "@mui/joy";
 import { useWindowSize } from "@uidotdev/usehooks";
 import { m, useMotionValueEvent, useScroll } from "framer-motion";
-import { memo, useContext, useState } from "react";
+import { memo, useState } from "react";
 import { isMobile } from "react-device-detect";
 import TypeIt from "typeit-react";
 
-import { EventsDetailsAndMeta } from "../Interfaces.ts";
+import { Meta } from "../Interfaces.ts";
+import { usePagination, useView } from "../State.ts";
 import { lerp } from "../Utilities.ts";
-import { PaginationContext } from "../contexts/PaginationContext.ts";
-import { ViewContext } from "../contexts/ViewContext.ts";
 import { SearchInput } from "./SearchInput.tsx";
 
-export const Header = memo(function Header(props: {
-  eventsDetailsAndMeta?: EventsDetailsAndMeta;
-  searchTerm: string;
-  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
-}) {
-  const { props: pagination, setter: setPagination } = useContext(PaginationContext);
-  const { setter: setTableView, state: tableView } = useContext(ViewContext);
+export const Header = memo(function Header(props: { meta?: Meta }) {
+  const pagination = usePagination(state => state);
+  const view = useView(state => state);
 
   const { height, width } = useWindowSize();
   const isWidescreen = width! / height! > 4 / 3;
@@ -47,7 +42,7 @@ export const Header = memo(function Header(props: {
   });
 
   return (
-    <Box alignItems="center" display="flex" flexDirection="column" height={lerps.headerHeight} width={1}>
+    <Box alignItems="center" display="flex" flexDirection="column" height={isMobile ? 1 : lerps.headerHeight} width={1}>
       <Box alignItems="center" display="flex" flexDirection="column" gap={1}>
         <Typography {...styles.headerText} fontSize={`${lerps.titleSize}rem`}>
           <TypeIt options={{ cursor: false }}>gig.quest</TypeIt>
@@ -56,9 +51,7 @@ export const Header = memo(function Header(props: {
           <LocationOn {...styles.locationIcon} sx={{ color: "red", fontSize: lerps.locationIconHeight }} />
           <Typography fontFamily="Fira Code Variable" fontSize={`${lerps.locationTitleHeight}rem`} level="body-sm">
             {!pagination.filter.includes("music_festival")
-              ? `${props.eventsDetailsAndMeta?.meta.geolocation ? props.eventsDetailsAndMeta.meta.geolocation.display_name : "..."} (${
-                  pagination.range
-                })`
+              ? `${props.meta?.geolocation ? props.meta.geolocation.display_name : "..."} (${pagination.range})`
               : "Everywhere"}
           </Typography>
         </Box>
@@ -69,22 +62,19 @@ export const Header = memo(function Header(props: {
         display="flex"
         gap={2}
         justifyContent={isWidescreen ? "end" : "center"}
-        mr={lerps.searchMarginRight}
+        mr={isMobile ? 0 : lerps.searchMarginRight}
         mt={isMobile ? 1 : lerps.searchMarginTop}
       >
-        <SearchInput searchTerm={props.searchTerm} setSearchTerm={props.setSearchTerm} />
+        <SearchInput />
         {!isMobile && (
-          <Tooltip animate={{ opacity: [0, 1] }} component={m.div} title={`Switch to ${tableView ? "grid" : "table"} view`} variant="soft">
+          <Tooltip animate={{ opacity: [0, 1] }} component={m.div} title={`Switch to ${view.tableView ? "grid" : "table"} view`} variant="soft">
             <Switch
-              checked={!tableView}
+              checked={!view.tableView}
               endDecorator={<GridView fontSize="small" />}
               onChange={() => {
-                setTableView(!tableView);
-                setPagination({
-                  ...pagination,
-                  page: 1,
-                  rowsPerPage: tableView ? 36 : 24,
-                });
+                view.toggleGridView();
+                pagination.firstPage();
+                pagination.setRowsPerPage(view.tableView ? 36 : 24);
               }}
               size="lg"
               slotProps={{

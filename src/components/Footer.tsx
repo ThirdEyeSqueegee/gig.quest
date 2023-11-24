@@ -11,18 +11,16 @@ import {
 } from "@mui/icons-material";
 import { Box, IconButton, Option, Select, Slider, Typography, selectClasses } from "@mui/joy";
 import { m } from "framer-motion";
-import { memo, useContext, useState } from "react";
+import { memo, useState } from "react";
 import { isMobile } from "react-device-detect";
 
-import { PaginationContext } from "../contexts/PaginationContext.ts";
-import { SortingContext } from "../contexts/SortingContext.ts";
-import { ViewContext } from "../contexts/ViewContext.ts";
+import { usePagination, useSorting, useView } from "../State.ts";
 import { EventTypeIcon } from "./EventTypeIcon.tsx";
 
 export const Footer = memo(function Footer(props: { eventCount?: number }) {
-  const { props: pagination, setter: setPagination } = useContext(PaginationContext);
-  const { props: sorting, setter: setSorting } = useContext(SortingContext);
-  const { state: tableView } = useContext(ViewContext);
+  const pagination = usePagination(state => state);
+  const sorting = useSorting(state => state);
+  const tableView = useView(state => state.tableView);
 
   const [sliderValue, setSliderValue] = useState(5);
 
@@ -57,9 +55,11 @@ export const Footer = memo(function Footer(props: { eventCount?: number }) {
             multiple
             onChange={(e, v) => {
               if (v.includes("music_festival")) {
-                setPagination({ ...pagination, filter: ["music_festival"], page: 1 });
+                pagination.setFilter(["music_festival"]);
+                pagination.firstPage();
               } else {
-                setPagination({ ...pagination, filter: v, page: 1 });
+                pagination.setFilter(v);
+                pagination.firstPage();
               }
             }}
             renderValue={selected => (
@@ -83,7 +83,8 @@ export const Footer = memo(function Footer(props: { eventCount?: number }) {
               endDecorator: (
                 <IconButton
                   onClick={() => {
-                    setPagination({ ...pagination, filter: [], page: 1 });
+                    pagination.setFilter([]);
+                    pagination.firstPage();
                   }}
                   onMouseDown={event => {
                     event.stopPropagation();
@@ -127,7 +128,8 @@ export const Footer = memo(function Footer(props: { eventCount?: number }) {
           <Select
             indicator={<KeyboardArrowDown />}
             onChange={(e, v: null | number) => {
-              setPagination({ ...pagination, page: 1, rowsPerPage: v! });
+              pagination.setRowsPerPage(v!);
+              pagination.firstPage();
             }}
             size="sm"
             sx={{
@@ -158,14 +160,14 @@ export const Footer = memo(function Footer(props: { eventCount?: number }) {
               valueLabelDisplay="auto"
               {...styles.rangeSlider}
               onChange={(e, v) => setSliderValue(+v)}
-              onChangeCommitted={(e, v) => setPagination({ ...pagination, page: 1, range: `${+v}mi` })}
+              onChangeCommitted={(e, v) => pagination.setRange(`${+v}mi`)}
               value={sliderValue}
             />
             {pagination.range !== "5mi" && (
               <IconButton
                 onClick={() => {
                   setSliderValue(5);
-                  setPagination({ ...pagination, page: 1, range: "5mi" });
+                  pagination.setRange("5mi");
                 }}
                 size="sm"
                 sx={{ "&:hover": { backgroundColor: "transparent" }, "--IconButton-size": "24px" }}
@@ -187,104 +189,34 @@ export const Footer = memo(function Footer(props: { eventCount?: number }) {
               onChange={(e, v: null | string) => {
                 switch (v!) {
                   case "Date (asc.)":
-                    setSorting({
-                      ...sorting,
-                      sortAvgPrice: undefined,
-                      sortDate: true,
-                      sortHighestPrice: undefined,
-                      sortLowestPrice: undefined,
-                      sortPopularity: undefined,
-                    });
+                    sorting.toggleSortDate(true);
                     break;
                   case "Date (desc.)":
-                    setSorting({
-                      ...sorting,
-                      sortAvgPrice: undefined,
-                      sortDate: false,
-                      sortHighestPrice: undefined,
-                      sortLowestPrice: undefined,
-                      sortPopularity: undefined,
-                    });
+                    sorting.toggleSortDate(false);
                     break;
                   case "Popularity (asc.)":
-                    setSorting({
-                      ...sorting,
-                      sortAvgPrice: undefined,
-                      sortDate: undefined,
-                      sortHighestPrice: undefined,
-                      sortLowestPrice: undefined,
-                      sortPopularity: true,
-                    });
+                    sorting.toggleSortPopularity(true);
                     break;
                   case "Popularity (desc.)":
-                    setSorting({
-                      ...sorting,
-                      sortAvgPrice: undefined,
-                      sortDate: undefined,
-                      sortHighestPrice: undefined,
-                      sortLowestPrice: undefined,
-                      sortPopularity: false,
-                    });
+                    sorting.toggleSortPopularity(false);
                     break;
                   case "$ lo (asc.)":
-                    setSorting({
-                      ...sorting,
-                      sortAvgPrice: undefined,
-                      sortDate: undefined,
-                      sortHighestPrice: undefined,
-                      sortLowestPrice: true,
-                      sortPopularity: undefined,
-                    });
+                    sorting.toggleSortLowestPrice(true);
                     break;
                   case "$ lo (desc.)":
-                    setSorting({
-                      ...sorting,
-                      sortAvgPrice: undefined,
-                      sortDate: undefined,
-                      sortHighestPrice: undefined,
-                      sortLowestPrice: false,
-                      sortPopularity: undefined,
-                    });
+                    sorting.toggleSortLowestPrice(false);
                     break;
                   case "$ hi (asc.)":
-                    setSorting({
-                      ...sorting,
-                      sortAvgPrice: undefined,
-                      sortDate: undefined,
-                      sortHighestPrice: true,
-                      sortLowestPrice: undefined,
-                      sortPopularity: undefined,
-                    });
+                    sorting.toggleSortHighestPrice(true);
                     break;
                   case "$ hi (desc.)":
-                    setSorting({
-                      ...sorting,
-                      sortAvgPrice: undefined,
-                      sortDate: undefined,
-                      sortHighestPrice: false,
-                      sortLowestPrice: undefined,
-                      sortPopularity: undefined,
-                    });
+                    sorting.toggleSortHighestPrice(false);
                     break;
                   case "$ avg (asc.)":
-                    setSorting({
-                      ...sorting,
-                      sortAvgPrice: true,
-                      sortDate: undefined,
-                      sortHighestPrice: undefined,
-                      sortLowestPrice: undefined,
-                      sortPopularity: undefined,
-                    });
+                    sorting.toggleSortAvgPrice(true);
                     break;
                   case "$ avg (desc.)":
-                    setSorting({
-                      ...sorting,
-                      sortAvgPrice: false,
-                      sortDate: undefined,
-                      sortHighestPrice: undefined,
-                      sortLowestPrice: undefined,
-                      sortPopularity: undefined,
-                    });
+                    sorting.toggleSortAvgPrice(false);
                     break;
                 }
               }}
@@ -344,23 +276,18 @@ export const Footer = memo(function Footer(props: { eventCount?: number }) {
           <IconButton
             component={m.button}
             disabled={pagination.page === 1}
-            onClick={() => setPagination({ ...pagination, page: 1 })}
+            onClick={pagination.firstPage}
             variant="outlined"
             whileTap={{ scale: 0.8 }}
           >
             <KeyboardDoubleArrowLeft />
           </IconButton>
-          <IconButton
-            disabled={pagination.page === 1}
-            onClick={() => setPagination({ ...pagination, page: pagination.page - 1 })}
-            variant="outlined"
-            {...styles.pageButton}
-          >
+          <IconButton disabled={pagination.page === 1} onClick={pagination.prevPage} variant="outlined" {...styles.pageButton}>
             <KeyboardArrowLeft />
           </IconButton>
           <IconButton
             disabled={pagination.page === Math.ceil(props.eventCount! / pagination.rowsPerPage)}
-            onClick={() => setPagination({ ...pagination, page: pagination.page + 1 })}
+            onClick={pagination.nextPage}
             variant="outlined"
             {...styles.pageButton}
           >
@@ -368,7 +295,7 @@ export const Footer = memo(function Footer(props: { eventCount?: number }) {
           </IconButton>
           <IconButton
             disabled={pagination.page === Math.ceil(props.eventCount! / pagination.rowsPerPage)}
-            onClick={() => setPagination({ ...pagination, page: Math.ceil(props.eventCount! / pagination.rowsPerPage) })}
+            onClick={() => pagination.setPage(Math.ceil(props.eventCount! / pagination.rowsPerPage))}
             variant="outlined"
             {...styles.pageButton}
           >

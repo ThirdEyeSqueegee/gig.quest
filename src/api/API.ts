@@ -7,18 +7,28 @@ import {
   EventDetails,
   EventsDetailsAndMeta,
   Location,
-  PaginationProps,
   SGEvents,
-  SortingProps,
   SpotifyArtistResult,
   SpotifyToken,
   SpotifyTokenResponse,
 } from "../Interfaces.ts";
 import { tokenizePerformers } from "../Utilities.ts";
 
-export const getEvents = async (pagination: PaginationProps, sorting: SortingProps, location: Location, page: number, searchQuery?: string) => {
+export const getEvents = async (
+  filter: string[],
+  location: Location,
+  page: number,
+  rowsPerPage: number,
+  range: string,
+  sortAvgPrice?: boolean,
+  sortDate?: boolean,
+  sortHighestPrice?: boolean,
+  sortLowestPrice?: boolean,
+  sortPopularity?: boolean,
+  searchQuery?: string,
+) => {
   let festivalSearch = false;
-  const filterString = pagination.filter
+  const filterString = filter
     ?.map(e => {
       switch (e) {
         case "sports": {
@@ -41,27 +51,27 @@ export const getEvents = async (pagination: PaginationProps, sorting: SortingPro
     .toString()
     .replaceAll(",", "");
 
-  const response = await axios.get<SGEvents>(`https://api.seatgeek.com/2/events/?per_page=${pagination.rowsPerPage}&page=${page}&client_id=${
+  const response = await axios.get<SGEvents>(`https://api.seatgeek.com/2/events/?per_page=${rowsPerPage}&page=${page}&client_id=${
     import.meta.env.VITE_SEATGEEK_CLIENT_ID
   }&client_secret=${import.meta.env.VITE_SEATGEEK_CLIENT_SECRET}${!festivalSearch ? `&lat=${location.lat}` : ""}${
     !festivalSearch ? `&lon=${location.lon}` : ""
-  }${!festivalSearch ? `&range=${pagination.range}` : ""}${pagination.filter && pagination.filter.length > 0 ? filterString : ""}${
-    sorting.sortDate !== undefined ? (sorting.sortDate === true ? "&sort=datetime_utc.asc" : "&sort=datetime_utc.desc") : ""
-  }${sorting.sortPopularity !== undefined ? (sorting.sortPopularity === true ? "&sort=score.asc" : "&sort=score.desc") : ""}${
-    sorting.sortLowestPrice !== undefined
-      ? sorting.sortLowestPrice === true
+  }${!festivalSearch ? `&range=${range}` : ""}${filter && filter.length > 0 ? filterString : ""}${
+    sortDate !== undefined ? (sortDate === true ? "&sort=datetime_utc.asc" : "&sort=datetime_utc.desc") : ""
+  }${sortPopularity !== undefined ? (sortPopularity === true ? "&sort=score.asc" : "&sort=score.desc") : ""}${
+    sortLowestPrice !== undefined
+      ? sortLowestPrice === true
         ? "&sort=lowest_price.asc&lowest_price.gt=1"
         : "&sort=lowest_price.desc&lowest_price.gt=1"
       : ""
   }${
-    sorting.sortHighestPrice !== undefined
-      ? sorting.sortHighestPrice === true
+    sortHighestPrice !== undefined
+      ? sortHighestPrice === true
         ? "&sort=highest_price.asc&highest_price.gt=1"
         : "&sort=highest_price.desc&highest_price.gt=1"
       : ""
   }${
-    sorting.sortAvgPrice !== undefined
-      ? sorting.sortAvgPrice === true
+    sortAvgPrice !== undefined
+      ? sortAvgPrice === true
         ? "&sort=average_price.asc&average_price.gt=1"
         : "&sort=average_price.desc&average_price.gt=1"
       : ""

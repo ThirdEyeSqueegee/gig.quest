@@ -132,22 +132,6 @@ export interface Location {
   lon: null | number;
 }
 
-export interface PaginationProps {
-  filter: string[];
-  page: number;
-  range: string;
-  rowCountOptions: number[];
-  rowsPerPage: number;
-}
-
-export interface SortingProps {
-  sortAvgPrice?: boolean;
-  sortDate?: boolean;
-  sortHighestPrice?: boolean;
-  sortLowestPrice?: boolean;
-  sortPopularity?: boolean;
-}
-
 export interface SpotifyTokenResponse {
   access_token: string;
   expires_in: number;

@@ -1,12 +1,10 @@
 import { HourglassTop } from "@mui/icons-material";
 import { Box, Card, CircularProgress, Grid, Typography } from "@mui/joy";
 import { m } from "framer-motion";
-import { memo, useContext } from "react";
+import { memo } from "react";
 import { isMobile } from "react-device-detect";
-import useSWRImmutable from "swr/immutable";
 
-import { Location } from "../Interfaces.ts";
-import { getEvents } from "../api/API.ts";
+import { EventDetails } from "../Interfaces.ts";
 import { DateAndTime } from "../components/DateAndTime.tsx";
 import { EventTypeIcon } from "../components/EventTypeIcon.tsx";
 import { Performers } from "../components/Performers.tsx";
@@ -14,19 +12,9 @@ import { PopularityBar } from "../components/PopularityBar.tsx";
 import { Prices } from "../components/Prices.tsx";
 import { TicketsButton } from "../components/TicketsButton.tsx";
 import { Venue } from "../components/Venue.tsx";
-import { PaginationContext } from "../contexts/PaginationContext.ts";
-import { SortingContext } from "../contexts/SortingContext.ts";
 
-export const EventGrid = memo(function EventGrid(props: { geo?: Location; searchTerm?: string }) {
-  const { props: pagination } = useContext(PaginationContext);
-  const { props: sorting } = useContext(SortingContext);
-
-  const { data: eventsDetailsAndMeta, isLoading } = useSWRImmutable(
-    props.geo ? ["eventsDetails", pagination, sorting, props.geo, pagination.page, props.searchTerm] : null,
-    ([, pag, sor, geo, page, term]) => (props.searchTerm ? getEvents(pag, sor, geo, page, term) : getEvents(pag, sor, geo, page)),
-  );
-
-  if (isLoading) {
+export const EventGrid = memo(function EventGrid(props: { eventsDetails: EventDetails[]; isLoading: boolean }) {
+  if (props.isLoading) {
     return (
       <Box alignItems="start" display="flex" height={1200} justifyContent="center" width={1}>
         <Box alignItems="center" display="flex" height="75vh" justifyContent="center" width={1}>
@@ -40,9 +28,10 @@ export const EventGrid = memo(function EventGrid(props: { geo?: Location; search
 
   return (
     <Grid container spacing={1} width={1}>
-      {eventsDetailsAndMeta?.details.map(details => {
+      {props.eventsDetails.map((details, i) => {
         return (
-          <Grid display="flex" flexDirection="column" key={details.event.title} lg={3} md={6} px={0.5} xs={12}>
+          // eslint-disable-next-line react/no-array-index-key
+          <Grid display="flex" flexDirection="column" key={`${details.event.id}${i}`} lg={3} md={6} px={0.5} xs={12}>
             <Card {...styles.gridCard}>
               <Box alignItems="start" display="flex" justifyContent="space-between">
                 <Performers eventDetails={details} />
@@ -50,7 +39,7 @@ export const EventGrid = memo(function EventGrid(props: { geo?: Location; search
               </Box>
               <Box alignItems="end" display="flex" justifyContent="space-between">
                 <Box display="flex" flexDirection="column" gap={0} justifyContent="end">
-                  <Venue eventDetails={details} geo={props.geo} name={details.event.venue?.name} />
+                  <Venue eventDetails={details} name={details.event.venue?.name} />
                   <DateAndTime datetime={details.event.datetime_local} size="0.75rem" />
                   <Box alignItems="center" display="flex" gap={1}>
                     <Box alignItems="center" display="flex" gap={0.5}>

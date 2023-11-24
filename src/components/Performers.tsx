@@ -6,8 +6,8 @@ import { EventDetails } from "../Interfaces.ts";
 import { SpotifyTooltipBox } from "./SpotifyTooltipBox.tsx";
 
 const regex1 = /\(.*\)/gu;
-const regex2 = /(with).*(&|and) ([Mm]ore)/gu;
-const regex3 = / - [0-9] ([Dd]ay) ([Pp]ass)/gu;
+const regex2 = /(?:with).*(?:&|and) (?:[Mm]ore)/gu;
+const regex3 = / - [0-9] (?:[Dd]ay) (?:[Pp]ass)/gu;
 
 export const Performers = memo(function Performers(props: { eventDetails?: EventDetails }) {
   return (
@@ -15,7 +15,8 @@ export const Performers = memo(function Performers(props: { eventDetails?: Event
       {props.eventDetails?.event.type !== "music_festival" ? (
         props.eventDetails?.performers.map((p, i) => {
           return (
-            <Fragment key={i}>
+            // eslint-disable-next-line react/no-array-index-key
+            <Fragment key={`${p}${i}`}>
               {props.eventDetails?.event.type === "concert" ? (
                 <SpotifyTooltipBox artist={p} />
               ) : (
