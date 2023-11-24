@@ -184,42 +184,8 @@ export const Footer = memo(function Footer(props: { eventCount?: number }) {
               Sort:
             </Typography>
             <Select
-              defaultValue="Date (asc.)"
+              defaultValue="Date"
               indicator={<KeyboardArrowDown />}
-              onChange={(e, v: null | string) => {
-                switch (v!) {
-                  case "Date (asc.)":
-                    sorting.toggleSortDate(true);
-                    break;
-                  case "Date (desc.)":
-                    sorting.toggleSortDate(false);
-                    break;
-                  case "Popularity (asc.)":
-                    sorting.toggleSortPopularity(true);
-                    break;
-                  case "Popularity (desc.)":
-                    sorting.toggleSortPopularity(false);
-                    break;
-                  case "$ lo (asc.)":
-                    sorting.toggleSortLowestPrice(true);
-                    break;
-                  case "$ lo (desc.)":
-                    sorting.toggleSortLowestPrice(false);
-                    break;
-                  case "$ hi (asc.)":
-                    sorting.toggleSortHighestPrice(true);
-                    break;
-                  case "$ hi (desc.)":
-                    sorting.toggleSortHighestPrice(false);
-                    break;
-                  case "$ avg (asc.)":
-                    sorting.toggleSortAvgPrice(true);
-                    break;
-                  case "$ avg (desc.)":
-                    sorting.toggleSortAvgPrice(false);
-                    break;
-                }
-              }}
               size="sm"
               slotProps={{
                 listbox: {
@@ -238,35 +204,41 @@ export const Footer = memo(function Footer(props: { eventCount?: number }) {
                 backgroundColor: "transparent",
               }}
             >
-              <Option value="Date (asc.)">
-                Date <ArrowUpward fontSize="small" />
+              <Option onClick={sorting.toggleSortDate} value="Date">
+                Date{" "}
+                {sorting.sortDate === undefined ? null : sorting.sortDate ? <ArrowUpward fontSize="small" /> : <ArrowDownward fontSize="small" />}
               </Option>
-              <Option value="Date (desc.)">
-                Date <ArrowDownward fontSize="small" />
+              <Option onClick={sorting.toggleSortPopularity} value="Popularity">
+                Popularity{" "}
+                {sorting.sortPopularity === undefined ? null : sorting.sortPopularity ? (
+                  <ArrowUpward fontSize="small" />
+                ) : (
+                  <ArrowDownward fontSize="small" />
+                )}
               </Option>
-              <Option value="Popularity (asc.)">
-                Popularity <ArrowUpward fontSize="small" />
+              <Option onClick={sorting.toggleSortLowestPrice} value="$ lo">
+                $ lo{" "}
+                {sorting.sortLowestPrice === undefined ? null : sorting.sortLowestPrice ? (
+                  <ArrowUpward fontSize="small" />
+                ) : (
+                  <ArrowDownward fontSize="small" />
+                )}
               </Option>
-              <Option value="Popularity (desc.)">
-                Popularity <ArrowDownward fontSize="small" />
+              <Option onClick={sorting.toggleSortHighestPrice} value="$ hi">
+                $ hi{" "}
+                {sorting.sortHighestPrice === undefined ? null : sorting.sortHighestPrice ? (
+                  <ArrowUpward fontSize="small" />
+                ) : (
+                  <ArrowDownward fontSize="small" />
+                )}
               </Option>
-              <Option value="$ lo (asc.)">
-                $ lo <ArrowUpward fontSize="small" />
-              </Option>
-              <Option value="$ lo (desc.)">
-                $ lo <ArrowDownward fontSize="small" />
-              </Option>
-              <Option value="$ hi (asc.)">
-                $ hi <ArrowUpward fontSize="small" />
-              </Option>
-              <Option value="$ hi (desc.)">
-                $ hi <ArrowDownward fontSize="small" />
-              </Option>
-              <Option value="$ avg (asc.)">
-                $ avg <ArrowUpward fontSize="small" />
-              </Option>
-              <Option value="$ avg (desc.)">
-                $ avg <ArrowDownward fontSize="small" />
+              <Option onClick={sorting.toggleSortAvgPrice} value="$ avg">
+                $ avg{" "}
+                {sorting.sortAvgPrice === undefined ? null : sorting.sortAvgPrice ? (
+                  <ArrowUpward fontSize="small" />
+                ) : (
+                  <ArrowDownward fontSize="small" />
+                )}
               </Option>
             </Select>
           </Box>

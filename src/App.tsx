@@ -79,9 +79,9 @@ export default function App() {
           </Box>
           {location.location ? (
             view.tableView ? (
-              <EventTable eventsDetails={eventsDetails} isLoading={isLoading} key={pagination.page} />
+              <EventTable eventsDetails={eventsDetails} isLoading={isLoading} />
             ) : (
-              <EventGrid eventsDetails={eventsDetails} isLoading={isLoading} key={pagination.page} />
+              <EventGrid eventsDetails={eventsDetails} isLoading={isLoading} />
             )
           ) : (
             <LocationLoading />

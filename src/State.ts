@@ -26,11 +26,11 @@ export interface SortingState {
   sortHighestPrice?: boolean;
   sortLowestPrice?: boolean;
   sortPopularity?: boolean;
-  toggleSortAvgPrice: (sortAvgPrice?: boolean) => void;
-  toggleSortDate: (sortDate?: boolean) => void;
-  toggleSortHighestPrice: (sortHighestPrice?: boolean) => void;
-  toggleSortLowestPrice: (sortLowestPrice?: boolean) => void;
-  toggleSortPopularity: (sortPopularity?: boolean) => void;
+  toggleSortAvgPrice: () => void;
+  toggleSortDate: () => void;
+  toggleSortHighestPrice: () => void;
+  toggleSortLowestPrice: () => void;
+  toggleSortPopularity: () => void;
 }
 
 export interface ViewState {
@@ -71,45 +71,45 @@ export const useSorting = create<SortingState>()(set => ({
   sortHighestPrice: undefined,
   sortLowestPrice: undefined,
   sortPopularity: undefined,
-  toggleSortAvgPrice: (sortAvgPrice?: boolean) =>
+  toggleSortAvgPrice: () =>
     set(state => ({
-      sortAvgPrice: sortAvgPrice ? sortAvgPrice : !state.sortAvgPrice,
+      sortAvgPrice: !state.sortAvgPrice,
       sortDate: undefined,
       sortHighestPrice: undefined,
       sortLowestPrice: undefined,
       sortPopularity: undefined,
     })),
-  toggleSortDate: (sortDate?: boolean) =>
+  toggleSortDate: () =>
     set(state => ({
       sortAvgPrice: undefined,
-      sortDate: sortDate ? sortDate : !state.sortDate,
+      sortDate: !state.sortDate,
       sortHighestPrice: undefined,
       sortLowestPrice: undefined,
       sortPopularity: undefined,
     })),
-  toggleSortHighestPrice: (sortHighestPrice?: boolean) =>
+  toggleSortHighestPrice: () =>
     set(state => ({
       sortAvgPrice: undefined,
       sortDate: undefined,
-      sortHighestPrice: sortHighestPrice ? sortHighestPrice : !state.sortHighestPrice,
+      sortHighestPrice: !state.sortHighestPrice,
       sortLowestPrice: undefined,
       sortPopularity: undefined,
     })),
-  toggleSortLowestPrice: (sortLowestPrice?: boolean) =>
+  toggleSortLowestPrice: () =>
     set(state => ({
       sortAvgPrice: undefined,
       sortDate: undefined,
       sortHighestPrice: undefined,
-      sortLowestPrice: sortLowestPrice ? sortLowestPrice : !state.sortLowestPrice,
+      sortLowestPrice: !state.sortLowestPrice,
       sortPopularity: undefined,
     })),
-  toggleSortPopularity: (sortPopularity?: boolean) =>
+  toggleSortPopularity: () =>
     set(state => ({
       sortAvgPrice: undefined,
       sortDate: undefined,
       sortHighestPrice: undefined,
       sortLowestPrice: undefined,
-      sortPopularity: sortPopularity ? sortPopularity : !state.sortPopularity,
+      sortPopularity: !state.sortPopularity,
     })),
 }));
 
