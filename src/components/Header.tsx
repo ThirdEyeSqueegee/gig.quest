@@ -22,30 +22,32 @@ export const Header = memo(function Header(props: { meta?: Meta }) {
 
   const { scrollYProgress } = useScroll();
   const [lerps, setLerps] = useState({
-    headerHeight: 110,
+    headerGap: 1,
+    headerHeight: 100,
     locationBoxHeight: 25,
     locationIconHeight: 24,
     locationTitleHeight: 0.875,
-    searchMarginRight: 2,
-    searchMarginTop: -4,
+    searchMarginRight: 2.5,
+    searchMarginTop: -4.5,
     titleSize: 2.5,
   });
 
   useMotionValueEvent(scrollYProgress, "change", v => {
     setLerps({
-      headerHeight: lerp(110, 60, v),
+      headerGap: lerp(1, 0, v),
+      headerHeight: lerp(100, 50, v),
       locationBoxHeight: lerp(25, 10, v),
       locationIconHeight: lerp(24, 12, v),
       locationTitleHeight: lerp(0.875, 0.6, v),
-      searchMarginRight: lerp(2, 6, v),
-      searchMarginTop: lerp(-4, -5.5, v),
+      searchMarginRight: lerp(2.5, 6, v),
+      searchMarginTop: lerp(-4.5, -5, v),
       titleSize: lerp(2.5, 1.5, v),
     });
   });
 
   return (
     <Box alignItems="center" display="flex" flexDirection="column" height={isMobile ? 1 : lerps.headerHeight} width={1}>
-      <Box alignItems="center" display="flex" flexDirection="column" gap={1}>
+      <Box alignItems="center" display="flex" flexDirection="column" gap={isMobile ? 1 : lerps.headerGap}>
         <Typography {...styles.headerText} fontSize={`${lerps.titleSize}rem`}>
           <TypeIt options={{ cursor: false }}>gig.quest</TypeIt>
         </Typography>
@@ -69,7 +71,12 @@ export const Header = memo(function Header(props: { meta?: Meta }) {
       >
         <SearchInput />
         {!isMobile && (
-          <Tooltip animate={{ opacity: [0, 1] }} component={m.div} title={`Switch to ${view.tableView ? "grid" : "table"} view`} variant="soft">
+          <Tooltip
+            animate={{ opacity: [0, 1] }}
+            component={m.div}
+            sx={{ backdropFilter: "blur(10px)", backgroundColor: "transparent" }}
+            title={`Switch to ${view.tableView ? "grid" : "table"} view`}
+          >
             <Switch
               checked={!view.tableView}
               endDecorator={<GridView fontSize="small" />}

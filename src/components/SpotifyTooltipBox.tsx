@@ -13,10 +13,12 @@ export const SpotifyTooltipBox = memo(function SpotifyTooltip(props: { artist: s
 
   const [tooltipOpen, setTooltipOpen] = useState(false);
 
-  const { data: token, error, isLoading } = useSWR<SpotifyToken, Error>("spotifyToken", () => getSpotifyToken());
+  const { data: token, error, isLoading } = useSWR<SpotifyToken, Error>("spotifyToken", getSpotifyToken, { keepPreviousData: true });
 
-  const { data: artistItem, isLoading: artistLoading } = useSWR(!error && !isLoading ? ["artist", artist] : null, ([, a]) =>
-    spotifySearchArtist(a, token!.token),
+  const { data: artistItem, isLoading: artistLoading } = useSWR(
+    !error && !isLoading ? ["artist", artist] : null,
+    ([, a]) => spotifySearchArtist(a, token!.token),
+    { keepPreviousData: true },
   );
 
   if (artistLoading) {

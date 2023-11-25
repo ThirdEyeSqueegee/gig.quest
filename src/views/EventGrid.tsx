@@ -40,25 +40,25 @@ export const EventGrid = memo(function EventGrid(props: { eventsDetails?: EventD
                 <EventTypeIcon eventType={details.event.type} />
               </Box>
               <Box alignItems="end" display="flex" justifyContent="space-between">
-                <Box display="flex" flexDirection="column" gap={0} justifyContent="end">
+                <Box display="flex" flexDirection="column" gap={0.5} justifyContent="end">
                   <Venue eventDetails={details} name={details.event.venue?.name} />
                   <DateAndTime datetime={details.event.datetime_local} size="0.75rem" />
                   <Box alignItems="center" display="flex" gap={1}>
                     <Box alignItems="center" display="flex" gap={0.5}>
                       <Typography color="neutral" fontSize="0.725rem">
-                        $ (lo):
+                        lo:
                       </Typography>
                       <Prices event={details.event} type="lo" />
                     </Box>
                     <Box alignItems="center" display="flex" gap={0.5}>
                       <Typography color="neutral" fontSize="0.725rem">
-                        $ (hi):
+                        hi:
                       </Typography>
                       <Prices event={details.event} type="hi" />
                     </Box>
                     <Box alignItems="center" display="flex" gap={0.5}>
                       <Typography color="neutral" fontSize="0.725rem">
-                        $ (avg):
+                        avg:
                       </Typography>
                       <Prices event={details.event} type="avg" />
                     </Box>
@@ -89,6 +89,6 @@ const styles = {
       justifyContent: "space-between",
       p: 1,
     },
-    whileHover: isMobile ? null : { boxShadow: "#555577 0 0 7px", transition: { duration: 0.1 } },
+    whileHover: isMobile ? null : { boxShadow: "#555555 0 0 5px", transition: { duration: 0.05 } },
   },
 };

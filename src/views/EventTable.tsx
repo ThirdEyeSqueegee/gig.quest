@@ -48,7 +48,7 @@ export const EventTable = memo(function EventTable(props: { eventsDetails?: Even
             <Box alignItems="center" display="flex" justifyContent="space-between">
               <Typography level="body-lg">Date</Typography>
               <IconButton
-                onClick={() => sorting.toggleSortDate()}
+                onClick={sorting.toggleSortDate}
                 size="sm"
                 sx={{
                   "--IconButton-size": "24px",
@@ -70,7 +70,7 @@ export const EventTable = memo(function EventTable(props: { eventsDetails?: Even
             <Box alignItems="center" display="flex" justifyContent="space-between">
               <Typography level="body-md">$ (lo)</Typography>
               <IconButton
-                onClick={() => sorting.toggleSortLowestPrice()}
+                onClick={sorting.toggleSortLowestPrice}
                 size="sm"
                 sx={{
                   "--IconButton-size": "24px",
@@ -92,7 +92,7 @@ export const EventTable = memo(function EventTable(props: { eventsDetails?: Even
             <Box alignItems="center" display="flex" justifyContent="space-between">
               <Typography level="body-md">$ (hi)</Typography>
               <IconButton
-                onClick={() => sorting.toggleSortHighestPrice()}
+                onClick={sorting.toggleSortHighestPrice}
                 size="sm"
                 sx={{
                   "--IconButton-size": "24px",
@@ -114,7 +114,7 @@ export const EventTable = memo(function EventTable(props: { eventsDetails?: Even
             <Box alignItems="center" display="flex" justifyContent="space-between">
               <Typography level="body-md">$ (avg)</Typography>
               <IconButton
-                onClick={() => sorting.toggleSortAvgPrice()}
+                onClick={sorting.toggleSortAvgPrice}
                 size="sm"
                 sx={{
                   "--IconButton-size": "24px",
@@ -136,7 +136,7 @@ export const EventTable = memo(function EventTable(props: { eventsDetails?: Even
             <Box alignItems="center" display="flex" justifyContent="space-between">
               <Typography level="body-lg">Popularity</Typography>
               <IconButton
-                onClick={() => sorting.toggleSortPopularity()}
+                onClick={sorting.toggleSortPopularity}
                 size="sm"
                 sx={{
                   "--IconButton-size": "24px",

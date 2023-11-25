@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/joy";
+import { useWindowSize } from "@uidotdev/usehooks";
 import { Fragment, memo } from "react";
 import { isMobile } from "react-device-detect";
 
@@ -12,6 +13,8 @@ const regex3 = / - [0-9] (?:[Dd]ay) (?:[Pp]ass)/gu;
 
 export const Performers = memo(function Performers(props: { eventDetails?: EventDetails }) {
   const { eventDetails } = props;
+
+  const { width } = useWindowSize();
 
   if (eventDetails?.event.type === "music_festival") {
     return (
@@ -32,7 +35,7 @@ export const Performers = memo(function Performers(props: { eventDetails?: Event
     const [homeTeam, awayTeam] = eventDetails.performers;
 
     return (
-      <Box display="flex" flexWrap="wrap">
+      <Box alignItems="center" display="flex" flexBasis={width && width < 400 ? 175 : "auto"} flexWrap="wrap">
         <NBATeam team={homeTeam} />
         <Typography level="body-sm" mx={1} my="auto">
           vs.

@@ -2,9 +2,10 @@ import { GitHub } from "@mui/icons-material";
 import { Box, Card, Divider, IconButton, Link } from "@mui/joy";
 import { useDebounce, useIsFirstRender } from "@uidotdev/usehooks";
 import { LazyMotion, domMax, m } from "framer-motion";
+import { isEqual } from "ohash";
 import { memo, useEffect } from "react";
 import { isMobile } from "react-device-detect";
-import useSWRImmutable from "swr/immutable";
+import useSWR from "swr";
 
 import { useLocation, usePagination, useSearch, useSorting, useView } from "./State.ts";
 import { getEvents } from "./api/API.ts";
@@ -26,6 +27,7 @@ export const App = memo(function App() {
   if (useIsFirstRender()) {
     navigator.geolocation.getCurrentPosition(
       (p: GeolocationPosition) => {
+        console.log("Position: ", p);
         location.setLocation({ lat: p.coords.latitude, lon: p.coords.longitude });
       },
       null,
@@ -40,7 +42,7 @@ export const App = memo(function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debSearchTerm]);
 
-  const { data: eventsDetailsAndMeta, isLoading } = useSWRImmutable(
+  const { data: eventsDetailsAndMeta, isLoading } = useSWR(
     location.location
       ? [
           "eventsDetails",
@@ -60,6 +62,7 @@ export const App = memo(function App() {
     ([, filter, loc, page, rowsPerPage, range, sortAvgPrice, sortDate, sortHighestPrice, sortLowestPrice, sortPopularity, term]) =>
       getEvents(filter, loc, page, rowsPerPage, range, sortAvgPrice, sortDate, sortHighestPrice, sortLowestPrice, sortPopularity, term),
     {
+      compare: isEqual,
       keepPreviousData: true,
     },
   );
