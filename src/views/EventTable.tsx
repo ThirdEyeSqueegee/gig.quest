@@ -13,7 +13,7 @@ import { Prices } from "../components/Prices.tsx";
 import { TicketsButton } from "../components/TicketsButton.tsx";
 import { Venue } from "../components/Venue.tsx";
 
-export const EventTable = memo(function EventTable(props: { eventsDetails: EventDetails[]; isLoading: boolean }) {
+export const EventTable = memo(function EventTable(props: { eventsDetails?: EventDetails[]; isLoading?: boolean }) {
   const { eventsDetails, isLoading } = props;
 
   const pagination = usePagination(state => state);
@@ -160,7 +160,7 @@ export const EventTable = memo(function EventTable(props: { eventsDetails: Event
         </tr>
       </thead>
       <tbody>
-        {eventsDetails.map((details, i) => {
+        {eventsDetails?.map((details, i) => {
           return (
             <m.tr
               animate={{ opacity: [0, 1] }}

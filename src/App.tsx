@@ -2,7 +2,7 @@ import { GitHub } from "@mui/icons-material";
 import { Box, Card, Divider, IconButton, Link } from "@mui/joy";
 import { useDebounce, useIsFirstRender } from "@uidotdev/usehooks";
 import { LazyMotion, domMax, m } from "framer-motion";
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 import { isMobile } from "react-device-detect";
 import useSWRImmutable from "swr/immutable";
 
@@ -14,7 +14,7 @@ import { LocationLoading } from "./components/LocationLoading.tsx";
 import { EventGrid } from "./views/EventGrid.tsx";
 import { EventTable } from "./views/EventTable.tsx";
 
-export default function App() {
+export const App = memo(function App() {
   const pagination = usePagination(state => state);
   const sorting = useSorting(state => state);
   const view = useView(state => state);
@@ -64,7 +64,7 @@ export default function App() {
     },
   );
 
-  const { details: eventsDetails, meta: meta } = eventsDetailsAndMeta ?? { details: [], meta: {} };
+  const { details: eventsDetails, meta: meta } = eventsDetailsAndMeta ?? { details: undefined, meta: undefined };
 
   return (
     <LazyMotion features={domMax} strict>
@@ -87,12 +87,12 @@ export default function App() {
             <LocationLoading />
           )}
           <Divider />
-          <Footer eventCount={meta.total} />
+          <Footer eventCount={meta?.total} />
         </Card>
       </Box>
     </LazyMotion>
   );
-}
+});
 
 const styles = {
   mainCard: {

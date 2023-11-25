@@ -13,7 +13,7 @@ import { Prices } from "../components/Prices.tsx";
 import { TicketsButton } from "../components/TicketsButton.tsx";
 import { Venue } from "../components/Venue.tsx";
 
-export const EventGrid = memo(function EventGrid(props: { eventsDetails: EventDetails[]; isLoading: boolean }) {
+export const EventGrid = memo(function EventGrid(props: { eventsDetails?: EventDetails[]; isLoading?: boolean }) {
   const { eventsDetails, isLoading } = props;
 
   if (isLoading) {
@@ -30,7 +30,7 @@ export const EventGrid = memo(function EventGrid(props: { eventsDetails: EventDe
 
   return (
     <Grid container spacing={1} width={1}>
-      {eventsDetails.map((details, i) => {
+      {eventsDetails?.map((details, i) => {
         return (
           // eslint-disable-next-line react/no-array-index-key
           <Grid display="flex" flexDirection="column" key={`${details.event.id}${i}`} lg={3} md={6} px={0.5} xs={12}>
