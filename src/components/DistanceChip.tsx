@@ -7,16 +7,19 @@ import { EventDetails } from "../Interfaces.ts";
 import { useLocation } from "../State.ts";
 
 export const DistanceChip = memo(function DistanceChip(props: { eventDetails?: EventDetails }) {
+  const { eventDetails } = props;
+
   const location = useLocation(state => state.location);
+
   return (
     <Chip size="sm" sx={{ height: "1rem" }}>
       <Typography fontSize={isMobile ? "0.65rem" : "0.7rem"}>
-        {props.eventDetails?.event.venue?.location && location
+        {eventDetails?.event.venue?.location && location
           ? convertDistance(
               getPreciseDistance(
                 {
-                  latitude: props.eventDetails.event.venue.location.lat!,
-                  longitude: props.eventDetails.event.venue.location.lon!,
+                  latitude: eventDetails.event.venue.location.lat!,
+                  longitude: eventDetails.event.venue.location.lon!,
                 },
                 { latitude: location.lat!, longitude: location.lon! },
               ),

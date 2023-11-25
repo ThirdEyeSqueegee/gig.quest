@@ -14,10 +14,12 @@ import { TicketsButton } from "../components/TicketsButton.tsx";
 import { Venue } from "../components/Venue.tsx";
 
 export const EventTable = memo(function EventTable(props: { eventsDetails: EventDetails[]; isLoading: boolean }) {
+  const { eventsDetails, isLoading } = props;
+
   const pagination = usePagination(state => state);
   const sorting = useSorting(state => state);
 
-  if (props.isLoading) {
+  if (isLoading) {
     return (
       <Box alignItems="start" display="flex" height={1200} justifyContent="center" width={1}>
         <Box alignItems="center" display="flex" height="75vh" justifyContent="center" width={1}>
@@ -30,7 +32,7 @@ export const EventTable = memo(function EventTable(props: { eventsDetails: Event
   }
 
   return (
-    <Table size="lg" sx={{ minHeight: props.eventsDetails && props.eventsDetails.length < pagination.rowsPerPage ? "auto" : "125vh" }}>
+    <Table size="lg" sx={{ minHeight: eventsDetails && eventsDetails.length < pagination.rowsPerPage ? "auto" : "125vh" }}>
       <thead>
         <tr>
           <th style={{ width: "2.5%" }}>
@@ -158,7 +160,7 @@ export const EventTable = memo(function EventTable(props: { eventsDetails: Event
         </tr>
       </thead>
       <tbody>
-        {props.eventsDetails.map((details, i) => {
+        {eventsDetails.map((details, i) => {
           return (
             <m.tr
               animate={{ opacity: [0, 1] }}

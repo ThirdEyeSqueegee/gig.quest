@@ -9,11 +9,13 @@ import { getSpotifyToken, spotifySearchArtist } from "../api/API.ts";
 import SpotifyIcon from "../assets/spotify_icon.svg";
 
 export const SpotifyTooltipBox = memo(function SpotifyTooltip(props: { artist: string }) {
+  const { artist } = props;
+
   const [tooltipOpen, setTooltipOpen] = useState(false);
 
   const { data: token, error, isLoading } = useSWR<SpotifyToken, Error>("spotifyToken", () => getSpotifyToken());
 
-  const { data: artistItem, isLoading: artistLoading } = useSWR(!error && !isLoading ? ["artist", props.artist] : null, ([, a]) =>
+  const { data: artistItem, isLoading: artistLoading } = useSWR(!error && !isLoading ? ["artist", artist] : null, ([, a]) =>
     spotifySearchArtist(a, token!.token),
   );
 
@@ -31,7 +33,7 @@ export const SpotifyTooltipBox = memo(function SpotifyTooltip(props: { artist: s
         {...styles.tooltip}
       >
         <Typography fontSize={isMobile ? "0.9rem" : "1rem"} onClick={() => setTooltipOpen(!tooltipOpen)}>
-          {props.artist}
+          {artist}
         </Typography>
       </Tooltip>
     );
@@ -51,7 +53,7 @@ export const SpotifyTooltipBox = memo(function SpotifyTooltip(props: { artist: s
         {...styles.tooltip}
       >
         <Typography fontSize={isMobile ? "0.9rem" : "1rem"} onClick={() => setTooltipOpen(!tooltipOpen)}>
-          {props.artist}
+          {artist}
         </Typography>
       </Tooltip>
     );
@@ -88,7 +90,7 @@ export const SpotifyTooltipBox = memo(function SpotifyTooltip(props: { artist: s
       {...styles.tooltip}
     >
       <Typography fontSize={isMobile ? "0.9rem" : "1rem"} onClick={() => setTooltipOpen(!tooltipOpen)}>
-        <Link>{props.artist}</Link>
+        <Link>{artist}</Link>
       </Typography>
     </Tooltip>
   );

@@ -12,6 +12,8 @@ import { lerp } from "../Utilities.ts";
 import { SearchInput } from "./SearchInput.tsx";
 
 export const Header = memo(function Header(props: { meta?: Meta }) {
+  const { meta } = props;
+
   const pagination = usePagination(state => state);
   const view = useView(state => state);
 
@@ -51,7 +53,7 @@ export const Header = memo(function Header(props: { meta?: Meta }) {
           <LocationOn {...styles.locationIcon} sx={{ color: "red", fontSize: lerps.locationIconHeight }} />
           <Typography fontFamily="Fira Code Variable" fontSize={`${lerps.locationTitleHeight}rem`} level="body-sm">
             {!pagination.filter.includes("music_festival")
-              ? `${props.meta?.geolocation ? props.meta.geolocation.display_name : "..."} (${pagination.range})`
+              ? `${meta?.geolocation ? meta.geolocation.display_name : "..."} (${pagination.range})`
               : "Everywhere"}
           </Typography>
         </Box>

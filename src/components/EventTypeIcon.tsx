@@ -21,7 +21,9 @@ import { memo } from "react";
 import { isMobile } from "react-device-detect";
 
 export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: string }) {
-  switch (props.eventType) {
+  const { eventType } = props;
+
+  switch (eventType) {
     case "nba":
       return (
         <Tooltip title="NBA" {...styles.tooltip}>

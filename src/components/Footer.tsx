@@ -18,6 +18,8 @@ import { usePagination, useSorting, useView } from "../State.ts";
 import { EventTypeIcon } from "./EventTypeIcon.tsx";
 
 export const Footer = memo(function Footer(props: { eventCount?: number }) {
+  const { eventCount } = props;
+
   const pagination = usePagination(state => state);
   const sorting = useSorting(state => state);
   const tableView = useView(state => state.tableView);
@@ -258,7 +260,7 @@ export const Footer = memo(function Footer(props: { eventCount?: number }) {
             <KeyboardArrowLeft />
           </IconButton>
           <IconButton
-            disabled={pagination.page === Math.ceil(props.eventCount! / pagination.rowsPerPage)}
+            disabled={pagination.page === Math.ceil(eventCount! / pagination.rowsPerPage)}
             onClick={pagination.nextPage}
             variant="outlined"
             {...styles.pageButton}
@@ -266,8 +268,8 @@ export const Footer = memo(function Footer(props: { eventCount?: number }) {
             <KeyboardArrowRight />
           </IconButton>
           <IconButton
-            disabled={pagination.page === Math.ceil(props.eventCount! / pagination.rowsPerPage)}
-            onClick={() => pagination.setPage(Math.ceil(props.eventCount! / pagination.rowsPerPage))}
+            disabled={pagination.page === Math.ceil(eventCount! / pagination.rowsPerPage)}
+            onClick={() => pagination.setPage(Math.ceil(eventCount! / pagination.rowsPerPage))}
             variant="outlined"
             {...styles.pageButton}
           >
@@ -276,7 +278,7 @@ export const Footer = memo(function Footer(props: { eventCount?: number }) {
         </Box>
       </Box>
       <Typography level="body-sm">
-        Page {pagination.page} of {props.eventCount ? Math.ceil(props.eventCount / pagination.rowsPerPage) : "..."}
+        Page {pagination.page} of {eventCount ? Math.ceil(eventCount / pagination.rowsPerPage) : "..."}
       </Typography>
     </Box>
   );
