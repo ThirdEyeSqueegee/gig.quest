@@ -5,6 +5,7 @@ import { isMobile } from "react-device-detect";
 
 import { EventDetails } from "../Interfaces.ts";
 import { NBATeam } from "./NBATeam.tsx";
+import { NFLTeam } from "./NFLTeam.tsx";
 import { SpotifyTooltipBox } from "./SpotifyTooltipBox.tsx";
 
 const regex1 = /\(.*\)/gu;
@@ -35,12 +36,26 @@ export const Performers = memo(function Performers(props: { eventDetails?: Event
     const [homeTeam, awayTeam] = eventDetails.performers;
 
     return (
-      <Box alignItems="center" display="flex" flexBasis={width && width < 420 ? 175 : "auto"} flexWrap="wrap">
+      <Box alignItems="center" display="flex" flexBasis={width && width < 420 ? 180 : "auto"} flexWrap="wrap">
         <NBATeam team={homeTeam} />
         <Typography level="body-sm" mx={1} my="auto">
           vs.
         </Typography>
         <NBATeam team={awayTeam} />
+      </Box>
+    );
+  }
+
+  if (eventDetails?.event.type === "nfl") {
+    const [homeTeam, awayTeam] = eventDetails.performers;
+
+    return (
+      <Box alignItems="center" display="flex" flexBasis={width && width < 420 ? 180 : "auto"} flexWrap="wrap">
+        <NFLTeam team={homeTeam} />
+        <Typography level="body-sm" mx={1} my="auto">
+          vs.
+        </Typography>
+        <NFLTeam team={awayTeam} />
       </Box>
     );
   }

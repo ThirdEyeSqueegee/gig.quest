@@ -18,7 +18,7 @@ export const EventGrid = memo(function EventGrid(props: { eventsDetails?: EventD
 
   if (isLoading) {
     return (
-      <Box alignItems="start" display="flex" height={1200} justifyContent="center" width={1}>
+      <Box alignItems="start" display="flex" height="150vh" justifyContent="center" width={1}>
         <Box alignItems="center" display="flex" height="75vh" justifyContent="center" width={1}>
           <CircularProgress size="lg">
             <HourglassTop />
@@ -29,7 +29,7 @@ export const EventGrid = memo(function EventGrid(props: { eventsDetails?: EventD
   }
 
   return (
-    <Grid container spacing={1} width={1}>
+    <Grid container mt={isMobile ? 0 : 1} spacing={1} width={1}>
       {eventsDetails?.map((details, i) => {
         return (
           // eslint-disable-next-line react/no-array-index-key

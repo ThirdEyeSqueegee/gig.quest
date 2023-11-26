@@ -25,7 +25,7 @@ export const SpotifyTooltipBox = memo(function SpotifyTooltip(props: { artist: s
     return (
       <Tooltip
         open={tooltipOpen}
-        sx={{ backdropFilter: "blur(10px)", backgroundColor: "transparent", borderRadius: "15px" }}
+        sx={{ backdropFilter: "blur(8px)", backgroundColor: "transparent", borderRadius: "15px" }}
         title={
           <Box display="flex" justifyContent="center" maxWidth="20rem" p={1}>
             <CircularProgress color="success" size="sm" />
@@ -45,7 +45,7 @@ export const SpotifyTooltipBox = memo(function SpotifyTooltip(props: { artist: s
     return (
       <Tooltip
         open={tooltipOpen}
-        sx={{ backdropFilter: "blur(10px)", backgroundColor: "transparent", borderRadius: "15px" }}
+        sx={{ backdropFilter: "blur(8px)", backgroundColor: "transparent", borderRadius: "15px" }}
         title={
           <Box display="flex" justifyContent="center" maxWidth="20rem" p={1}>
             ¯\_(ツ)_/¯
@@ -64,7 +64,7 @@ export const SpotifyTooltipBox = memo(function SpotifyTooltip(props: { artist: s
   return (
     <Tooltip
       open={tooltipOpen}
-      sx={{ backdropFilter: "blur(10px)", backgroundColor: "transparent", borderRadius: "15px" }}
+      sx={{ backdropFilter: "blur(8px)", backgroundColor: "transparent", borderRadius: "15px" }}
       title={
         <Link color="success" fontSize="0.8rem" href={artistItem?.external_urls?.spotify} overlay underline="none">
           <Box display="flex" justifyContent="center" maxWidth="20rem" p={1}>

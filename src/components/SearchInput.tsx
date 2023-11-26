@@ -36,7 +36,7 @@ export const SearchInput = memo(function SearchInput() {
         },
       }}
       startDecorator={<Search fontSize="small" />}
-      sx={{ backdropFilter: "blur(10px)", backgroundColor: "transparent" }}
+      sx={{ backdropFilter: "blur(8px)", backgroundColor: "transparent" }}
       value={search.searchTerm}
       {...(!isMobile && {
         endDecorator: (

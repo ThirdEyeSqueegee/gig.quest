@@ -23,7 +23,7 @@ export const Header = memo(function Header(props: { meta?: Meta }) {
   const { scrollYProgress } = useScroll();
   const [lerps, setLerps] = useState({
     headerGap: 1,
-    headerHeight: 100,
+    headerHeight: 95,
     locationBoxHeight: 25,
     locationIconHeight: 24,
     locationTitleHeight: 0.875,
@@ -35,7 +35,7 @@ export const Header = memo(function Header(props: { meta?: Meta }) {
   useMotionValueEvent(scrollYProgress, "change", v => {
     setLerps({
       headerGap: lerp(1, 0, v),
-      headerHeight: lerp(100, 50, v),
+      headerHeight: lerp(95, 50, v),
       locationBoxHeight: lerp(25, 10, v),
       locationIconHeight: lerp(24, 12, v),
       locationTitleHeight: lerp(0.875, 0.6, v),
@@ -74,7 +74,7 @@ export const Header = memo(function Header(props: { meta?: Meta }) {
           <Tooltip
             animate={{ opacity: [0, 1] }}
             component={m.div}
-            sx={{ backdropFilter: "blur(10px)", backgroundColor: "transparent" }}
+            sx={{ backdropFilter: "blur(8px)", backgroundColor: "transparent" }}
             title={`Switch to ${view.tableView ? "grid" : "table"} view`}
           >
             <Switch

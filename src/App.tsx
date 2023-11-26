@@ -27,7 +27,6 @@ export const App = memo(function App() {
   if (useIsFirstRender()) {
     navigator.geolocation.getCurrentPosition(
       (p: GeolocationPosition) => {
-        console.log("Position: ", p);
         location.setLocation({ lat: p.coords.latitude, lon: p.coords.longitude });
       },
       null,
@@ -73,9 +72,9 @@ export const App = memo(function App() {
     <LazyMotion features={domMax} strict>
       <Box p={isMobile ? 1 : 2}>
         <Card {...styles.mainCard}>
-          <Box {...(!isMobile && { position: "sticky", sx: { backdropFilter: "blur(10px)", zIndex: 5 }, top: 0, width: 1 })}>
+          <Box {...(!isMobile && { position: "sticky", sx: { backdropFilter: "blur(8px)", zIndex: 5 }, top: 0, width: 1 })}>
             <Header meta={meta} />
-            <IconButton sx={{ "&:hover": { backgroundColor: "transparent" }, position: "absolute", right: "0.5rem", top: "0.5rem" }}>
+            <IconButton sx={{ "&:hover": { backgroundColor: "transparent" }, position: "absolute", right: "0.2rem", top: "0.25rem" }}>
               <GitHub />
               <Link href="https://github.com/ThirdEyeSqueegee/gig.quest" overlay />
             </IconButton>

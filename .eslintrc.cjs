@@ -31,6 +31,7 @@ module.exports = {
     eqeqeq: "warn",
     "logical-assignment-operators": ["warn", "always", { enforceForIfStatements: true }],
     "no-array-constructor": "warn",
+    "no-console": "warn",
     "no-else-return": "warn",
     "no-lonely-if": "warn",
     "no-shadow": "warn",

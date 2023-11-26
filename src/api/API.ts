@@ -31,8 +31,14 @@ export const getEvents = async (
   const filterString = filter
     ?.map(e => {
       switch (e) {
+        case "nba": {
+          return "&type.eq=nba";
+        }
+        case "nfl": {
+          return "&type.eq=nfl";
+        }
         case "sports": {
-          return "&type.eq=nba&type.eq=ncaa_basketball&type.eq=ncaa_womens_basketball&type.eq=ncaa_soccer&type.eq=mls&type.eq=ncaa_football&type.eq=nhl&type.eq=hockey&type.eq=minor_league_hockey&type.eq=auto_racing&type.eq=womens_college_volleyball";
+          return "&type.eq=ncaa_basketball&type.eq=ncaa_womens_basketball&type.eq=ncaa_soccer&type.eq=mls&type.eq=ncaa_football&type.eq=nhl&type.eq=hockey&type.eq=minor_league_hockey&type.eq=auto_racing&type.eq=womens_college_volleyball&type.eq=wrestling";
         }
         case "theater": {
           return "&type=theater&type=broadway_tickets_national";

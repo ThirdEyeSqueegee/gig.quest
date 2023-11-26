@@ -20,7 +20,7 @@ export const tokenizePerformers = (performers: Performer[], eventType: string) =
       str = `${performers[0].name} vs. ${performers[1].name}`;
     }
   } else if (performers.length > 1) {
-    performers?.forEach((p, i) => {
+    for (const [i, p] of performers.entries()) {
       if (p.primary) {
         str += `${p.name}//`;
       } else if (i === performers.length - 1) {
@@ -28,7 +28,7 @@ export const tokenizePerformers = (performers: Performer[], eventType: string) =
       } else {
         str += `${p.name}//`;
       }
-    });
+    }
   } else if (performers[0].name?.includes("&")) {
     str += performers[0].name.split("&").toString().replace(",", "//");
   } else {

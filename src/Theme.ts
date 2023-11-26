@@ -14,7 +14,7 @@ export const theme = extendTheme({
           listbox: {
             placement: "top",
             sx: {
-              backdropFilter: "blur(10px)",
+              backdropFilter: "blur(8px)",
               backgroundColor: "transparent",
             },
           },

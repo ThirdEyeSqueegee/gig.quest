@@ -43,7 +43,7 @@ export const Footer = memo(function Footer(props: { eventCount?: number }) {
         position: "sticky",
         px: 3,
         py: 0.5,
-        sx: { backdropFilter: "blur(10px)", border: 1, borderColor: "neutral.outlinedBorder", borderRadius: 25, zIndex: "badge" },
+        sx: { backdropFilter: "blur(8px)", border: 1, borderColor: "neutral.outlinedBorder", borderRadius: 25, zIndex: "badge" },
       })}
     >
       <Box alignItems="center" display="flex" flexWrap="wrap" gap={isMobile ? 1 : 2} justifyContent="center">
@@ -107,6 +107,14 @@ export const Footer = memo(function Footer(props: { eventCount?: number }) {
             <Option value="comedy">
               <EventTypeIcon eventType="comedy" />
               Comedy
+            </Option>
+            <Option value="nba">
+              <EventTypeIcon eventType="nba" />
+              NBA
+            </Option>
+            <Option value="nfl">
+              <EventTypeIcon eventType="nfl" />
+              NFL
             </Option>
             <Option value="sports">
               <EventTypeIcon />

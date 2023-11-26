@@ -21,7 +21,7 @@ export const EventTable = memo(function EventTable(props: { eventsDetails?: Even
 
   if (isLoading) {
     return (
-      <Box alignItems="start" display="flex" height={1200} justifyContent="center" width={1}>
+      <Box alignItems="start" display="flex" height="150vh" justifyContent="center" width={1}>
         <Box alignItems="center" display="flex" height="75vh" justifyContent="center" width={1}>
           <CircularProgress size="lg">
             <HourglassTop />
