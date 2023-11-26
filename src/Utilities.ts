@@ -45,8 +45,8 @@ export const tokenizePerformers = (performers: Performer[], eventType: string) =
     is1v1,
     tokens: str
       .split(is1v1 ? "vs." : "//")
-      .filter(e => e.length > 0)
-      .map(e => e.trim()),
+      .filter((e) => e.length > 0)
+      .map((e) => e.trim()),
   };
 };
 

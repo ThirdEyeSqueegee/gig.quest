@@ -20,9 +20,9 @@ import { EventTypeIcon } from "./EventTypeIcon.tsx";
 export const Footer = memo(function Footer(props: { eventCount?: number }) {
   const { eventCount } = props;
 
-  const pagination = usePagination(state => state);
-  const sorting = useSorting(state => state);
-  const tableView = useView(state => state.tableView);
+  const pagination = usePagination((state) => state);
+  const sorting = useSorting((state) => state);
+  const tableView = useView((state) => state.tableView);
 
   const [sliderValue, setSliderValue] = useState(5);
 
@@ -64,9 +64,9 @@ export const Footer = memo(function Footer(props: { eventCount?: number }) {
                 pagination.firstPage();
               }
             }}
-            renderValue={selected => (
+            renderValue={(selected) => (
               <Box display="flex" gap="0.25rem">
-                {selected.map(selectedOption => (
+                {selected.map((selectedOption) => (
                   <EventTypeIcon eventType={selectedOption.value} key={selectedOption.id} />
                 ))}
               </Box>
@@ -88,7 +88,7 @@ export const Footer = memo(function Footer(props: { eventCount?: number }) {
                     pagination.setFilter([]);
                     pagination.firstPage();
                   }}
-                  onMouseDown={event => {
+                  onMouseDown={(event) => {
                     event.stopPropagation();
                   }}
                   sx={{ "&:hover": { backgroundColor: "transparent" }, "--IconButton-size": "20px" }}
@@ -216,39 +216,43 @@ export const Footer = memo(function Footer(props: { eventCount?: number }) {
             >
               <Option onClick={sorting.toggleSortDate} value="Date">
                 Date{" "}
-                {sorting.sortDate === undefined ? null : sorting.sortDate ? <ArrowUpward fontSize="small" /> : <ArrowDownward fontSize="small" />}
+                {sorting.sortDate === undefined ?
+                  null
+                : sorting.sortDate ?
+                  <ArrowUpward fontSize="small" />
+                : <ArrowDownward fontSize="small" />}
               </Option>
               <Option onClick={sorting.toggleSortPopularity} value="Popularity">
                 Popularity{" "}
-                {sorting.sortPopularity === undefined ? null : sorting.sortPopularity ? (
+                {sorting.sortPopularity === undefined ?
+                  null
+                : sorting.sortPopularity ?
                   <ArrowUpward fontSize="small" />
-                ) : (
-                  <ArrowDownward fontSize="small" />
-                )}
+                : <ArrowDownward fontSize="small" />}
               </Option>
               <Option onClick={sorting.toggleSortLowestPrice} value="$ lo">
                 $ lo{" "}
-                {sorting.sortLowestPrice === undefined ? null : sorting.sortLowestPrice ? (
+                {sorting.sortLowestPrice === undefined ?
+                  null
+                : sorting.sortLowestPrice ?
                   <ArrowUpward fontSize="small" />
-                ) : (
-                  <ArrowDownward fontSize="small" />
-                )}
+                : <ArrowDownward fontSize="small" />}
               </Option>
               <Option onClick={sorting.toggleSortHighestPrice} value="$ hi">
                 $ hi{" "}
-                {sorting.sortHighestPrice === undefined ? null : sorting.sortHighestPrice ? (
+                {sorting.sortHighestPrice === undefined ?
+                  null
+                : sorting.sortHighestPrice ?
                   <ArrowUpward fontSize="small" />
-                ) : (
-                  <ArrowDownward fontSize="small" />
-                )}
+                : <ArrowDownward fontSize="small" />}
               </Option>
               <Option onClick={sorting.toggleSortAvgPrice} value="$ avg">
                 $ avg{" "}
-                {sorting.sortAvgPrice === undefined ? null : sorting.sortAvgPrice ? (
+                {sorting.sortAvgPrice === undefined ?
+                  null
+                : sorting.sortAvgPrice ?
                   <ArrowUpward fontSize="small" />
-                ) : (
-                  <ArrowDownward fontSize="small" />
-                )}
+                : <ArrowDownward fontSize="small" />}
               </Option>
             </Select>
           </Box>

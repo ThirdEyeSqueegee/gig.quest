@@ -17,7 +17,17 @@ export const PopularityBar = memo(function PopularityBar(props: { score?: number
   return (
     <Tooltip followCursor placement="top" title={score ? (score * 100).toFixed(1) : "¯\\_(ツ)_/¯"} {...styles.tooltip}>
       <LinearProgress
-        color={score ? (score > 0.75 ? "success" : score > 0.5 ? "primary" : score > 0.25 ? "warning" : "danger") : "neutral"}
+        color={
+          score ?
+            score > 0.75 ?
+              "success"
+            : score > 0.5 ?
+              "primary"
+            : score > 0.25 ?
+              "warning"
+            : "danger"
+          : "neutral"
+        }
         value={Number(value)}
         variant="soft"
         {...styles.progressBar}

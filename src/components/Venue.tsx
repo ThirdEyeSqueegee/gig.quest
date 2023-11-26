@@ -8,7 +8,7 @@ import { DistanceChip } from "./DistanceChip.tsx";
 export const Venue = memo(function Venue(props: { eventDetails?: EventDetails; name?: string }) {
   const { eventDetails, name } = props;
 
-  const tableView = useView(state => state.tableView);
+  const tableView = useView((state) => state.tableView);
 
   return (
     <Box alignItems="center" display="flex" gap={1}>

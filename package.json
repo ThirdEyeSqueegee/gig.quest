@@ -58,7 +58,7 @@
       "prettier-plugin-organize-imports"
     ],
     "printWidth": 150,
-    "arrowParens": "avoid",
-    "endOfLine": "crlf"
+    "endOfLine": "crlf",
+    "experimentalTernaries": true
   }
 }

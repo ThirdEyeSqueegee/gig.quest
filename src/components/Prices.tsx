@@ -8,7 +8,7 @@ import { useView } from "../State.ts";
 export const Prices = memo(function Prices(props: { event: SGEvent; type: "avg" | "hi" | "lo" }) {
   const { event, type } = props;
 
-  const tableView = useView(state => state.tableView);
+  const tableView = useView((state) => state.tableView);
 
   let price: number | undefined;
   switch (type) {
@@ -25,7 +25,11 @@ export const Prices = memo(function Prices(props: { event: SGEvent; type: "avg" 
 
   return (
     <Typography fontSize={tableView ? "0.9rem" : "0.725rem"}>
-      {price ? `${price.toLocaleString("US", { currency: "USD", maximumFractionDigits: 0, style: "currency" })}` : isMobile ? "?" : "¯\\_(ツ)_/¯"}
+      {price ?
+        `${price.toLocaleString("US", { currency: "USD", maximumFractionDigits: 0, style: "currency" })}`
+      : isMobile ?
+        "?"
+      : "¯\\_(ツ)_/¯"}
     </Typography>
   );
 });

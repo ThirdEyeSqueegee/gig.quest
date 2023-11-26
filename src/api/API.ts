@@ -29,7 +29,7 @@ export const getEvents = async (
 ) => {
   let festivalSearch = false;
   const filterString = filter
-    ?.map(e => {
+    ?.map((e) => {
       switch (e) {
         case "nba": {
           return "&type.eq=nba";
@@ -62,25 +62,35 @@ export const getEvents = async (
   }&client_secret=${import.meta.env.VITE_SEATGEEK_CLIENT_SECRET}${!festivalSearch ? `&lat=${location.lat}` : ""}${
     !festivalSearch ? `&lon=${location.lon}` : ""
   }${!festivalSearch ? `&range=${range}` : ""}${filter && filter.length > 0 ? filterString : ""}${
-    sortDate !== undefined ? (sortDate === true ? "&sort=datetime_utc.asc" : "&sort=datetime_utc.desc") : ""
-  }${sortPopularity !== undefined ? (sortPopularity === true ? "&sort=score.asc" : "&sort=score.desc") : ""}${
-    sortLowestPrice !== undefined
-      ? sortLowestPrice === true
-        ? "&sort=lowest_price.asc&lowest_price.gt=1"
-        : "&sort=lowest_price.desc&lowest_price.gt=1"
-      : ""
+    sortDate !== undefined ?
+      sortDate === true ?
+        "&sort=datetime_utc.asc"
+      : "&sort=datetime_utc.desc"
+    : ""
   }${
-    sortHighestPrice !== undefined
-      ? sortHighestPrice === true
-        ? "&sort=highest_price.asc&highest_price.gt=1"
-        : "&sort=highest_price.desc&highest_price.gt=1"
-      : ""
+    sortPopularity !== undefined ?
+      sortPopularity === true ?
+        "&sort=score.asc"
+      : "&sort=score.desc"
+    : ""
   }${
-    sortAvgPrice !== undefined
-      ? sortAvgPrice === true
-        ? "&sort=average_price.asc&average_price.gt=1"
-        : "&sort=average_price.desc&average_price.gt=1"
-      : ""
+    sortLowestPrice !== undefined ?
+      sortLowestPrice === true ?
+        "&sort=lowest_price.asc&lowest_price.gt=1"
+      : "&sort=lowest_price.desc&lowest_price.gt=1"
+    : ""
+  }${
+    sortHighestPrice !== undefined ?
+      sortHighestPrice === true ?
+        "&sort=highest_price.asc&highest_price.gt=1"
+      : "&sort=highest_price.desc&highest_price.gt=1"
+    : ""
+  }${
+    sortAvgPrice !== undefined ?
+      sortAvgPrice === true ?
+        "&sort=average_price.asc&average_price.gt=1"
+      : "&sort=average_price.desc&average_price.gt=1"
+    : ""
   }&datetime_utc.gt=${new Date().toISOString().replace("Z", "")}${searchQuery ? `&q=${searchQuery}` : ""}
     `);
 

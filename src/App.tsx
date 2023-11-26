@@ -1,6 +1,6 @@
 import { GitHub } from "@mui/icons-material";
 import { Box, Card, Divider, IconButton, Link } from "@mui/joy";
-import { useDebounce, useIsFirstRender } from "@uidotdev/usehooks";
+import { useDebounce } from "@uidotdev/usehooks";
 import { LazyMotion, domMax, m } from "framer-motion";
 import { isEqual } from "ohash";
 import { memo, useEffect } from "react";
@@ -16,15 +16,15 @@ import { EventGrid } from "./views/EventGrid.tsx";
 import { EventTable } from "./views/EventTable.tsx";
 
 export const App = memo(function App() {
-  const pagination = usePagination(state => state);
-  const sorting = useSorting(state => state);
-  const view = useView(state => state);
-  const search = useSearch(state => state);
-  const location = useLocation(state => state);
+  const pagination = usePagination((state) => state);
+  const sorting = useSorting((state) => state);
+  const view = useView((state) => state);
+  const search = useSearch((state) => state);
+  const location = useLocation((state) => state);
 
-  const debSearchTerm = useDebounce(search.searchTerm, 500);
+  const debSearchTerm = useDebounce(search.searchTerm, 750);
 
-  if (useIsFirstRender()) {
+  if (!location.location) {
     navigator.geolocation.getCurrentPosition(
       (p: GeolocationPosition) => {
         location.setLocation({ lat: p.coords.latitude, lon: p.coords.longitude });
@@ -42,22 +42,22 @@ export const App = memo(function App() {
   }, [debSearchTerm]);
 
   const { data: eventsDetailsAndMeta, isLoading } = useSWR(
-    location.location
-      ? [
-          "eventsDetails",
-          pagination.filter,
-          location.location,
-          pagination.page,
-          pagination.rowsPerPage,
-          pagination.range,
-          sorting.sortAvgPrice,
-          sorting.sortDate,
-          sorting.sortHighestPrice,
-          sorting.sortLowestPrice,
-          sorting.sortPopularity,
-          debSearchTerm,
-        ]
-      : null,
+    location.location ?
+      [
+        "eventsDetails",
+        pagination.filter,
+        location.location,
+        pagination.page,
+        pagination.rowsPerPage,
+        pagination.range,
+        sorting.sortAvgPrice,
+        sorting.sortDate,
+        sorting.sortHighestPrice,
+        sorting.sortLowestPrice,
+        sorting.sortPopularity,
+        debSearchTerm,
+      ]
+    : null,
     ([, filter, loc, page, rowsPerPage, range, sortAvgPrice, sortDate, sortHighestPrice, sortLowestPrice, sortPopularity, term]) =>
       getEvents(filter, loc, page, rowsPerPage, range, sortAvgPrice, sortDate, sortHighestPrice, sortLowestPrice, sortPopularity, term),
     {
@@ -79,15 +79,11 @@ export const App = memo(function App() {
               <Link href="https://github.com/ThirdEyeSqueegee/gig.quest" overlay />
             </IconButton>
           </Box>
-          {location.location ? (
-            view.tableView ? (
+          {location.location ?
+            view.tableView ?
               <EventTable eventsDetails={eventsDetails} isLoading={isLoading} />
-            ) : (
-              <EventGrid eventsDetails={eventsDetails} isLoading={isLoading} />
-            )
-          ) : (
-            <LocationLoading />
-          )}
+            : <EventGrid eventsDetails={eventsDetails} isLoading={isLoading} />
+          : <LocationLoading />}
           <Divider />
           <Footer eventCount={meta?.total} />
         </Card>

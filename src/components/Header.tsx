@@ -14,8 +14,8 @@ import { SearchInput } from "./SearchInput.tsx";
 export const Header = memo(function Header(props: { meta?: Meta }) {
   const { meta } = props;
 
-  const pagination = usePagination(state => state);
-  const view = useView(state => state);
+  const pagination = usePagination((state) => state);
+  const view = useView((state) => state);
 
   const { height, width } = useWindowSize();
   const isWidescreen = width! / height! > 4 / 3;
@@ -32,7 +32,7 @@ export const Header = memo(function Header(props: { meta?: Meta }) {
     titleSize: 2.5,
   });
 
-  useMotionValueEvent(scrollYProgress, "change", v => {
+  useMotionValueEvent(scrollYProgress, "change", (v) => {
     setLerps({
       headerGap: lerp(1, 0, v),
       headerHeight: lerp(95, 50, v),
@@ -54,9 +54,9 @@ export const Header = memo(function Header(props: { meta?: Meta }) {
         <Box alignItems="center" display="flex" height={lerps.locationBoxHeight} justifyContent="center">
           <LocationOn {...styles.locationIcon} sx={{ color: "red", fontSize: lerps.locationIconHeight }} />
           <Typography fontFamily="Fira Code Variable" fontSize={`${lerps.locationTitleHeight}rem`} level="body-sm">
-            {!pagination.filter.includes("music_festival")
-              ? `${meta?.geolocation ? meta.geolocation.display_name : "..."} (${pagination.range})`
-              : "Everywhere"}
+            {!pagination.filter.includes("music_festival") ?
+              `${meta?.geolocation ? meta.geolocation.display_name : "..."} (${pagination.range})`
+            : "Everywhere"}
           </Typography>
         </Box>
       </Box>

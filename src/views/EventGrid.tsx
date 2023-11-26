@@ -13,7 +13,7 @@ import { Prices } from "../components/Prices.tsx";
 import { TicketsButton } from "../components/TicketsButton.tsx";
 import { Venue } from "../components/Venue.tsx";
 
-export const EventGrid = memo(function EventGrid(props: { eventsDetails?: EventDetails[]; isLoading?: boolean }) {
+export const EventGrid = memo(function EventGrid(props: { eventsDetails?: EventDetails[]; isLoading: boolean }) {
   const { eventsDetails, isLoading } = props;
 
   if (isLoading) {

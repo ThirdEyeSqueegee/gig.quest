@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/joy";
 import { useWindowSize } from "@uidotdev/usehooks";
+import { isEqual } from "ohash";
 import { Fragment, memo } from "react";
 import { isMobile } from "react-device-detect";
 import useSWR from "swr";
@@ -19,12 +20,16 @@ export const Performers = memo(function Performers(props: { eventDetails?: Event
 
   const { width } = useWindowSize();
 
-  const { data: token, error, isLoading } = useSWR<SpotifyToken, Error>("spotifyToken", getSpotifyToken, { keepPreviousData: true });
+  const {
+    data: token,
+    error,
+    isLoading,
+  } = useSWR<SpotifyToken, Error>("spotifyToken", getSpotifyToken, { compare: isEqual, keepPreviousData: true });
 
-  const { data: artistItems } = useSWR(
+  const { data: artistItemsMap } = useSWR(
     !error && !isLoading && eventDetails?.event.type === "concert" ? ["artists", eventDetails?.performers] : null,
     ([, a]) => spotifySearchArtists(a, token!.token),
-    { keepPreviousData: true },
+    { compare: isEqual, keepPreviousData: true },
   );
 
   if (eventDetails?.event.type === "music_festival") {
@@ -76,16 +81,14 @@ export const Performers = memo(function Performers(props: { eventDetails?: Event
         return (
           // eslint-disable-next-line react/no-array-index-key
           <Fragment key={`${p}${i}`}>
-            {eventDetails?.event.type === "concert" ? (
-              <SpotifyTooltipBox artistItem={artistItems?.get(p)} performerName={p} />
-            ) : (
-              <Typography fontSize={isMobile ? "0.9rem" : "1rem"}>{p}</Typography>
-            )}
-            {eventDetails && i !== eventDetails.performers.length - 1 ? (
+            {eventDetails?.event.type === "concert" ?
+              <SpotifyTooltipBox artistItem={artistItemsMap ? artistItemsMap.get(p) : { id: "-1" }} performerName={p} />
+            : <Typography fontSize={isMobile ? "0.9rem" : "1rem"}>{p}</Typography>}
+            {eventDetails && i !== eventDetails.performers.length - 1 ?
               <Typography level="body-sm" mx={1} my="auto">
                 {eventDetails.is1v1 ? "vs." : "//"}
               </Typography>
-            ) : null}
+            : null}
           </Fragment>
         );
       })}

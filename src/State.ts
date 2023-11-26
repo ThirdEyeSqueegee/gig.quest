@@ -3,7 +3,7 @@ import { create } from "zustand";
 
 import { Location, LocationState, PaginationState, SearchState, SortingState, ViewState } from "./Interfaces.ts";
 
-export const usePagination = create<PaginationState>()(set => ({
+export const usePagination = create<PaginationState>()((set) => ({
   filter: [""],
   page: 1,
   range: "5mi",
@@ -15,11 +15,11 @@ export const usePagination = create<PaginationState>()(set => ({
     window.scrollTo({ behavior: "smooth", top: 0 });
   },
   nextPage: () => {
-    set(state => ({ page: state.page + 1 }));
+    set((state) => ({ page: state.page + 1 }));
     window.scrollTo({ behavior: "smooth", top: 0 });
   },
   prevPage: () => {
-    set(state => ({ page: state.page - 1 }));
+    set((state) => ({ page: state.page - 1 }));
     window.scrollTo({ behavior: "smooth", top: 0 });
   },
   setFilter: (filter: string[]) => set(() => ({ filter })),
@@ -32,14 +32,14 @@ export const usePagination = create<PaginationState>()(set => ({
   setRowsPerPage: (rowsPerPage: number) => set(() => ({ rowsPerPage })),
 }));
 
-export const useSorting = create<SortingState>()(set => ({
+export const useSorting = create<SortingState>()((set) => ({
   sortAvgPrice: undefined,
   sortDate: true,
   sortHighestPrice: undefined,
   sortLowestPrice: undefined,
   sortPopularity: undefined,
   toggleSortAvgPrice: () =>
-    set(state => ({
+    set((state) => ({
       sortAvgPrice: !state.sortAvgPrice,
       sortDate: undefined,
       sortHighestPrice: undefined,
@@ -47,7 +47,7 @@ export const useSorting = create<SortingState>()(set => ({
       sortPopularity: undefined,
     })),
   toggleSortDate: () =>
-    set(state => ({
+    set((state) => ({
       sortAvgPrice: undefined,
       sortDate: !state.sortDate,
       sortHighestPrice: undefined,
@@ -55,7 +55,7 @@ export const useSorting = create<SortingState>()(set => ({
       sortPopularity: undefined,
     })),
   toggleSortHighestPrice: () =>
-    set(state => ({
+    set((state) => ({
       sortAvgPrice: undefined,
       sortDate: undefined,
       sortHighestPrice: !state.sortHighestPrice,
@@ -63,7 +63,7 @@ export const useSorting = create<SortingState>()(set => ({
       sortPopularity: undefined,
     })),
   toggleSortLowestPrice: () =>
-    set(state => ({
+    set((state) => ({
       sortAvgPrice: undefined,
       sortDate: undefined,
       sortHighestPrice: undefined,
@@ -71,7 +71,7 @@ export const useSorting = create<SortingState>()(set => ({
       sortPopularity: undefined,
     })),
   toggleSortPopularity: () =>
-    set(state => ({
+    set((state) => ({
       sortAvgPrice: undefined,
       sortDate: undefined,
       sortHighestPrice: undefined,
@@ -80,17 +80,17 @@ export const useSorting = create<SortingState>()(set => ({
     })),
 }));
 
-export const useView = create<ViewState>()(set => ({
+export const useView = create<ViewState>()((set) => ({
   tableView: !isMobile,
-  toggleGridView: () => set(state => ({ tableView: !state.tableView })),
+  toggleGridView: () => set((state) => ({ tableView: !state.tableView })),
 }));
 
-export const useSearch = create<SearchState>()(set => ({
+export const useSearch = create<SearchState>()((set) => ({
   searchTerm: "",
   setSearchTerm: (term: string) => set(() => ({ searchTerm: term })),
 }));
 
-export const useLocation = create<LocationState>()(set => ({
+export const useLocation = create<LocationState>()((set) => ({
   location: undefined,
   setLocation: (location: Location) => set(() => ({ location })),
 }));

@@ -11,34 +11,17 @@ export const SpotifyTooltipBox = memo(function SpotifyTooltip(props: { artistIte
 
   const [tooltipOpen, setTooltipOpen] = useState(false);
 
-  if (!artistItem || artistItem.id === "-1") {
-    return (
-      <Tooltip
-        open={tooltipOpen}
-        sx={{ backdropFilter: "blur(8px)", backgroundColor: "transparent", borderRadius: "15px" }}
-        title={
-          <Box display="flex" justifyContent="center" maxWidth="20rem" p={1}>
-            ¯\_(ツ)_/¯
-          </Box>
-        }
-        variant="outlined"
-        {...styles.tooltip}
-      >
-        <Typography fontSize={isMobile ? "0.9rem" : "1rem"} onClick={() => setTooltipOpen(!tooltipOpen)}>
-          {performerName}
-        </Typography>
-      </Tooltip>
-    );
-  }
-
   return (
     <Tooltip
       open={tooltipOpen}
       sx={{ backdropFilter: "blur(8px)", backgroundColor: "transparent", borderRadius: "15px" }}
       title={
-        <Link color="success" fontSize="0.8rem" href={artistItem?.external_urls?.spotify} overlay underline="none">
+        !artistItem || artistItem.id === "-1" ?
           <Box display="flex" justifyContent="center" maxWidth="20rem" p={1}>
-            {artistItem ? (
+            ¯\_(ツ)_/¯
+          </Box>
+        : <Link color="success" fontSize="0.8rem" href={artistItem?.external_urls?.spotify} overlay underline="none">
+            <Box display="flex" justifyContent="center" maxWidth="20rem" p={1}>
               <Box alignItems="center" display="flex" flexDirection="column" gap={1}>
                 <Typography level="body-sm" startDecorator={<img height="20px" src={SpotifyIcon} width="20px" />}>
                   {artistItem.followers?.total?.toLocaleString()} followers
@@ -54,15 +37,18 @@ export const SpotifyTooltipBox = memo(function SpotifyTooltip(props: { artistIte
                   })}
                 </Box>
               </Box>
-            ) : null}
-          </Box>
-        </Link>
+            </Box>
+          </Link>
       }
       variant="outlined"
       {...styles.tooltip}
     >
       <Typography fontSize={isMobile ? "0.9rem" : "1rem"} onClick={() => setTooltipOpen(!tooltipOpen)}>
-        <Link>{artistItem ? artistItem.name : <CircularProgress />}</Link>
+        {artistItem ?
+          artistItem.id === "-1" ?
+            performerName
+          : <Link>{artistItem.name}</Link>
+        : <CircularProgress />}
       </Typography>
     </Tooltip>
   );

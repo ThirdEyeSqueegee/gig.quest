@@ -13,11 +13,11 @@ import { Prices } from "../components/Prices.tsx";
 import { TicketsButton } from "../components/TicketsButton.tsx";
 import { Venue } from "../components/Venue.tsx";
 
-export const EventTable = memo(function EventTable(props: { eventsDetails?: EventDetails[]; isLoading?: boolean }) {
+export const EventTable = memo(function EventTable(props: { eventsDetails?: EventDetails[]; isLoading: boolean }) {
   const { eventsDetails, isLoading } = props;
 
-  const pagination = usePagination(state => state);
-  const sorting = useSorting(state => state);
+  const pagination = usePagination((state) => state);
+  const sorting = useSorting((state) => state);
 
   if (isLoading) {
     return (
@@ -47,110 +47,60 @@ export const EventTable = memo(function EventTable(props: { eventsDetails?: Even
           <th style={{ width: "8.5%" }}>
             <Box alignItems="center" display="flex" justifyContent="space-between">
               <Typography level="body-lg">Date</Typography>
-              <IconButton
-                onClick={sorting.toggleSortDate}
-                size="sm"
-                sx={{
-                  "--IconButton-size": "24px",
-                }}
-              >
-                {sorting.sortDate !== undefined ? (
-                  sorting.sortDate ? (
+              <IconButton onClick={sorting.toggleSortDate} size="sm" {...styles.sortButton}>
+                {sorting.sortDate !== undefined ?
+                  sorting.sortDate ?
                     <ArrowUpward fontSize="small" />
-                  ) : (
-                    <ArrowDownward fontSize="small" />
-                  )
-                ) : (
-                  <MoreVert fontSize="small" />
-                )}
+                  : <ArrowDownward fontSize="small" />
+                : <MoreVert fontSize="small" />}
               </IconButton>
             </Box>
           </th>
           <th style={{ width: "3.5%" }}>
             <Box alignItems="center" display="flex" justifyContent="space-between">
               <Typography level="body-md">$ (lo)</Typography>
-              <IconButton
-                onClick={sorting.toggleSortLowestPrice}
-                size="sm"
-                sx={{
-                  "--IconButton-size": "24px",
-                }}
-              >
-                {sorting.sortLowestPrice !== undefined ? (
-                  sorting.sortLowestPrice ? (
+              <IconButton onClick={sorting.toggleSortLowestPrice} size="sm" {...styles.sortButton}>
+                {sorting.sortLowestPrice !== undefined ?
+                  sorting.sortLowestPrice ?
                     <ArrowUpward fontSize="small" />
-                  ) : (
-                    <ArrowDownward fontSize="small" />
-                  )
-                ) : (
-                  <MoreVert fontSize="small" />
-                )}
+                  : <ArrowDownward fontSize="small" />
+                : <MoreVert fontSize="small" />}
               </IconButton>
             </Box>
           </th>
           <th style={{ width: "3.5%" }}>
             <Box alignItems="center" display="flex" justifyContent="space-between">
               <Typography level="body-md">$ (hi)</Typography>
-              <IconButton
-                onClick={sorting.toggleSortHighestPrice}
-                size="sm"
-                sx={{
-                  "--IconButton-size": "24px",
-                }}
-              >
-                {sorting.sortHighestPrice !== undefined ? (
-                  sorting.sortHighestPrice ? (
+              <IconButton onClick={sorting.toggleSortHighestPrice} size="sm" {...styles.sortButton}>
+                {sorting.sortHighestPrice !== undefined ?
+                  sorting.sortHighestPrice ?
                     <ArrowUpward fontSize="small" />
-                  ) : (
-                    <ArrowDownward fontSize="small" />
-                  )
-                ) : (
-                  <MoreVert fontSize="small" />
-                )}
+                  : <ArrowDownward fontSize="small" />
+                : <MoreVert fontSize="small" />}
               </IconButton>
             </Box>
           </th>
           <th style={{ width: "3.5%" }}>
             <Box alignItems="center" display="flex" justifyContent="space-between">
               <Typography level="body-md">$ (avg)</Typography>
-              <IconButton
-                onClick={sorting.toggleSortAvgPrice}
-                size="sm"
-                sx={{
-                  "--IconButton-size": "24px",
-                }}
-              >
-                {sorting.sortAvgPrice !== undefined ? (
-                  sorting.sortAvgPrice ? (
+              <IconButton onClick={sorting.toggleSortAvgPrice} size="sm" {...styles.sortButton}>
+                {sorting.sortAvgPrice !== undefined ?
+                  sorting.sortAvgPrice ?
                     <ArrowUpward fontSize="small" />
-                  ) : (
-                    <ArrowDownward fontSize="small" />
-                  )
-                ) : (
-                  <MoreVert fontSize="small" />
-                )}
+                  : <ArrowDownward fontSize="small" />
+                : <MoreVert fontSize="small" />}
               </IconButton>
             </Box>
           </th>
           <th style={{ width: "7.5%" }}>
             <Box alignItems="center" display="flex" justifyContent="space-between">
               <Typography level="body-lg">Popularity</Typography>
-              <IconButton
-                onClick={sorting.toggleSortPopularity}
-                size="sm"
-                sx={{
-                  "--IconButton-size": "24px",
-                }}
-              >
-                {sorting.sortPopularity !== undefined ? (
-                  sorting.sortPopularity ? (
+              <IconButton onClick={sorting.toggleSortPopularity} size="sm" {...styles.sortButton}>
+                {sorting.sortPopularity !== undefined ?
+                  sorting.sortPopularity ?
                     <ArrowUpward fontSize="small" />
-                  ) : (
-                    <ArrowDownward fontSize="small" />
-                  )
-                ) : (
-                  <MoreVert fontSize="small" />
-                )}
+                  : <ArrowDownward fontSize="small" />
+                : <MoreVert fontSize="small" />}
               </IconButton>
             </Box>
           </th>
@@ -206,3 +156,11 @@ export const EventTable = memo(function EventTable(props: { eventsDetails?: Even
     </Table>
   );
 });
+
+const styles = {
+  sortButton: {
+    sx: {
+      "--IconButton-size": "24px",
+    },
+  },
+};

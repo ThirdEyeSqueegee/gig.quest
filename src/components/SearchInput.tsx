@@ -8,7 +8,7 @@ import { useHotkeys } from "react-hotkeys-hook";
 import { useSearch } from "../State.ts";
 
 export const SearchInput = memo(function SearchInput() {
-  const search = useSearch(state => state);
+  const search = useSearch((state) => state);
 
   useHotkeys(
     "/",
@@ -24,7 +24,7 @@ export const SearchInput = memo(function SearchInput() {
 
   return (
     <Input
-      onChange={e => search.setSearchTerm(e.target.value)}
+      onChange={(e) => search.setSearchTerm(e.target.value)}
       placeholder="Search..."
       slotProps={{
         input: {
