@@ -15,7 +15,7 @@ import { memo, useState } from "react";
 import { isMobile } from "react-device-detect";
 
 import { usePagination, useSorting, useView } from "../State.ts";
-import { EventTypeIcon } from "./EventTypeIcon.tsx";
+import { EventTypeIcon } from "../atoms/EventTypeIcon.tsx";
 
 export const Footer = memo(function Footer(props: { eventCount?: number }) {
   const { eventCount } = props;
@@ -24,7 +24,7 @@ export const Footer = memo(function Footer(props: { eventCount?: number }) {
   const sorting = useSorting((state) => state);
   const tableView = useView((state) => state.tableView);
 
-  const [sliderValue, setSliderValue] = useState(5);
+  const [sliderValue, setSliderValue] = useState(15);
 
   return (
     <Box
@@ -173,11 +173,11 @@ export const Footer = memo(function Footer(props: { eventCount?: number }) {
               onChangeCommitted={(e, v) => pagination.setRange(`${+v}mi`)}
               value={sliderValue}
             />
-            {pagination.range !== "5mi" && (
+            {pagination.range !== "15mi" && (
               <IconButton
                 onClick={() => {
-                  setSliderValue(5);
-                  pagination.setRange("5mi");
+                  setSliderValue(15);
+                  pagination.setRange("15mi");
                 }}
                 size="sm"
                 sx={{ "&:hover": { backgroundColor: "transparent" }, "--IconButton-size": "24px" }}
@@ -302,7 +302,7 @@ const styles = {
     whileTap: { scale: 0.8 },
   },
   rangeSlider: {
-    defaultValue: 5,
+    defaultValue: 15,
     max: 50,
     sx: { minWidth: "8rem" },
   },

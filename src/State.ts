@@ -6,7 +6,7 @@ import { Location, LocationState, PaginationState, SearchState, SortingState, Vi
 export const usePagination = create<PaginationState>()((set) => ({
   filter: [""],
   page: 1,
-  range: "5mi",
+  range: "15mi",
   rowCountOptions: [24, 36, 48],
   rowsPerPage: 24,
   // eslint-disable-next-line perfectionist/sort-objects

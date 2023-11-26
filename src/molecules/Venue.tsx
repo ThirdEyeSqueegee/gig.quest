@@ -3,7 +3,7 @@ import { memo } from "react";
 
 import { EventDetails } from "../Interfaces.ts";
 import { useView } from "../State.ts";
-import { DistanceChip } from "./DistanceChip.tsx";
+import { DistanceChip } from "../atoms/DistanceChip.tsx";
 
 export const Venue = memo(function Venue(props: { eventDetails?: EventDetails; name?: string }) {
   const { eventDetails, name } = props;

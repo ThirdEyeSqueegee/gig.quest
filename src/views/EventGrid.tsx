@@ -5,13 +5,13 @@ import { memo } from "react";
 import { isMobile } from "react-device-detect";
 
 import { EventDetails } from "../Interfaces.ts";
-import { DateAndTime } from "../components/DateAndTime.tsx";
-import { EventTypeIcon } from "../components/EventTypeIcon.tsx";
-import { Performers } from "../components/Performers.tsx";
-import { PopularityBar } from "../components/PopularityBar.tsx";
-import { Prices } from "../components/Prices.tsx";
-import { TicketsButton } from "../components/TicketsButton.tsx";
-import { Venue } from "../components/Venue.tsx";
+import { DateAndTime } from "../atoms/DateAndTime.tsx";
+import { EventTypeIcon } from "../atoms/EventTypeIcon.tsx";
+import { PopularityBar } from "../atoms/PopularityBar.tsx";
+import { Prices } from "../atoms/Prices.tsx";
+import { TicketsButton } from "../atoms/TicketsButton.tsx";
+import { Performers } from "../molecules/Performers.tsx";
+import { Venue } from "../molecules/Venue.tsx";
 
 export const EventGrid = memo(function EventGrid(props: { eventsDetails?: EventDetails[]; isLoading: boolean }) {
   const { eventsDetails, isLoading } = props;

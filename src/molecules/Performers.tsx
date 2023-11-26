@@ -7,9 +7,9 @@ import useSWR from "swr";
 
 import { EventDetails, SpotifyToken } from "../Interfaces.ts";
 import { getSpotifyToken, spotifySearchArtists } from "../api/API.ts";
-import { NBATeam } from "./NBATeam.tsx";
-import { NFLTeam } from "./NFLTeam.tsx";
-import { SpotifyTooltipBox } from "./SpotifyTooltipBox.tsx";
+import { NBATeam } from "../atoms/NBATeam.tsx";
+import { NFLTeam } from "../atoms/NFLTeam.tsx";
+import { SpotifyTooltipBox } from "../atoms/SpotifyTooltipBox.tsx";
 
 const regex1 = /\(.*\)/gu;
 const regex2 = /(?:with).*(?:&|and) (?:[Mm]ore)/gu;

@@ -9,7 +9,7 @@ import TypeIt from "typeit-react";
 import { Meta } from "../Interfaces.ts";
 import { usePagination, useView } from "../State.ts";
 import { lerp } from "../Utilities.ts";
-import { SearchInput } from "./SearchInput.tsx";
+import { SearchInput } from "../atoms/SearchInput.tsx";
 
 export const Header = memo(function Header(props: { meta?: Meta }) {
   const { meta } = props;
