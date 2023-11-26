@@ -2,8 +2,10 @@ import { Box, Typography } from "@mui/joy";
 import { useWindowSize } from "@uidotdev/usehooks";
 import { Fragment, memo } from "react";
 import { isMobile } from "react-device-detect";
+import useSWR from "swr";
 
-import { EventDetails } from "../Interfaces.ts";
+import { EventDetails, SpotifyToken } from "../Interfaces.ts";
+import { getSpotifyToken, spotifySearchArtists } from "../api/API.ts";
 import { NBATeam } from "./NBATeam.tsx";
 import { NFLTeam } from "./NFLTeam.tsx";
 import { SpotifyTooltipBox } from "./SpotifyTooltipBox.tsx";
@@ -16,6 +18,14 @@ export const Performers = memo(function Performers(props: { eventDetails?: Event
   const { eventDetails } = props;
 
   const { width } = useWindowSize();
+
+  const { data: token, error, isLoading } = useSWR<SpotifyToken, Error>("spotifyToken", getSpotifyToken, { keepPreviousData: true });
+
+  const { data: artistItems } = useSWR(
+    !error && !isLoading && eventDetails?.event.type === "concert" ? ["artists", eventDetails?.performers] : null,
+    ([, a]) => spotifySearchArtists(a, token!.token),
+    { keepPreviousData: true },
+  );
 
   if (eventDetails?.event.type === "music_festival") {
     return (
@@ -67,7 +77,7 @@ export const Performers = memo(function Performers(props: { eventDetails?: Event
           // eslint-disable-next-line react/no-array-index-key
           <Fragment key={`${p}${i}`}>
             {eventDetails?.event.type === "concert" ? (
-              <SpotifyTooltipBox artist={p} />
+              <SpotifyTooltipBox artistItem={artistItems?.get(p)} performerName={p} />
             ) : (
               <Typography fontSize={isMobile ? "0.9rem" : "1rem"}>{p}</Typography>
             )}

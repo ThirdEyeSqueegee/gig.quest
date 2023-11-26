@@ -2,46 +2,16 @@ import { Box, Chip, CircularProgress, Link, Tooltip, Typography } from "@mui/joy
 import { m } from "framer-motion";
 import { memo, useState } from "react";
 import { isMobile } from "react-device-detect";
-import useSWR from "swr";
 
-import { SpotifyToken } from "../Interfaces.ts";
-import { getSpotifyToken, spotifySearchArtist } from "../api/API.ts";
+import { ArtistItem } from "../Interfaces.ts";
 import SpotifyIcon from "../assets/spotify_icon.svg";
 
-export const SpotifyTooltipBox = memo(function SpotifyTooltip(props: { artist: string }) {
-  const { artist } = props;
+export const SpotifyTooltipBox = memo(function SpotifyTooltip(props: { artistItem?: ArtistItem; performerName?: string }) {
+  const { artistItem, performerName } = props;
 
   const [tooltipOpen, setTooltipOpen] = useState(false);
 
-  const { data: token, error, isLoading } = useSWR<SpotifyToken, Error>("spotifyToken", getSpotifyToken, { keepPreviousData: true });
-
-  const { data: artistItem, isLoading: artistLoading } = useSWR(
-    !error && !isLoading ? ["artist", artist] : null,
-    ([, a]) => spotifySearchArtist(a, token!.token),
-    { keepPreviousData: true },
-  );
-
-  if (artistLoading) {
-    return (
-      <Tooltip
-        open={tooltipOpen}
-        sx={{ backdropFilter: "blur(8px)", backgroundColor: "transparent", borderRadius: "15px" }}
-        title={
-          <Box display="flex" justifyContent="center" maxWidth="20rem" p={1}>
-            <CircularProgress color="success" size="sm" />
-          </Box>
-        }
-        variant="outlined"
-        {...styles.tooltip}
-      >
-        <Typography fontSize={isMobile ? "0.9rem" : "1rem"} onClick={() => setTooltipOpen(!tooltipOpen)}>
-          {artist}
-        </Typography>
-      </Tooltip>
-    );
-  }
-
-  if (artistItem?.id === "-1") {
+  if (!artistItem || artistItem.id === "-1") {
     return (
       <Tooltip
         open={tooltipOpen}
@@ -55,7 +25,7 @@ export const SpotifyTooltipBox = memo(function SpotifyTooltip(props: { artist: s
         {...styles.tooltip}
       >
         <Typography fontSize={isMobile ? "0.9rem" : "1rem"} onClick={() => setTooltipOpen(!tooltipOpen)}>
-          {artist}
+          {performerName}
         </Typography>
       </Tooltip>
     );
@@ -92,7 +62,7 @@ export const SpotifyTooltipBox = memo(function SpotifyTooltip(props: { artist: s
       {...styles.tooltip}
     >
       <Typography fontSize={isMobile ? "0.9rem" : "1rem"} onClick={() => setTooltipOpen(!tooltipOpen)}>
-        <Link>{artist}</Link>
+        <Link>{artistItem ? artistItem.name : <CircularProgress />}</Link>
       </Typography>
     </Tooltip>
   );

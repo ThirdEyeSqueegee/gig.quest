@@ -117,7 +117,7 @@ export const getSpotifyToken = async () => {
   } as SpotifyToken;
 };
 
-export const spotifySearchArtist = async (artist: string, token: string) => {
+const spotifySearchArtist = async (artist: string, token: string) => {
   const response = await axios.get<SpotifyArtistResult>("https://api.spotify.com/v1/search", {
     params: {
       q: artist,
@@ -128,11 +128,27 @@ export const spotifySearchArtist = async (artist: string, token: string) => {
       Authorization: `Bearer ${token}`,
     },
   });
-  const [item] = response.data.artists.items!;
-  const dice = stringComparison.diceCoefficient.similarity(artist, item.name!);
 
-  if (item.name!.length > 5) {
-    return dice > 0.8 ? item : ({ id: "-1" } as ArtistItem);
+  if (response.data.artists.items) {
+    const [item] = response.data.artists.items;
+    const dice = stringComparison.diceCoefficient.similarity(artist, item.name!);
+
+    if (item.name!.length > 5) {
+      return dice > 0.8 ? item : ({ id: "-1" } as ArtistItem);
+    }
+    return dice > 0.9 ? item : ({ id: "-1" } as ArtistItem);
   }
-  return dice > 0.9 ? item : ({ id: "-1" } as ArtistItem);
+
+  return { id: "-1" } as ArtistItem;
+};
+
+export const spotifySearchArtists = async (artists: string[], token: string) => {
+  const artistItemsMap = new Map<string, ArtistItem>();
+
+  for (const a of artists) {
+    const artistItem = await spotifySearchArtist(a, token);
+    artistItemsMap.set(a, artistItem);
+  }
+
+  return artistItemsMap;
 };
