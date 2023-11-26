@@ -107,7 +107,7 @@ const styles = {
   headerText: {
     component: m.span,
     fontFamily: "Fira Code Variable",
-    whileHover: { rotate: [0, -3, 3, -3, 3, 0], transition: { duration: 0.5 } },
+    whileHover: { rotate: [0, 3, -3, 3, -3, 0], transition: { duration: 0.75 } },
   },
   locationIcon: {
     component: m.svg,

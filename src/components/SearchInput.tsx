@@ -1,12 +1,26 @@
 import { CloseRounded, Search } from "@mui/icons-material";
-import { IconButton, Input } from "@mui/joy";
+import { Box, IconButton, Input, Typography } from "@mui/joy";
 import { m } from "framer-motion";
-import { memo } from "react";
+import { memo, useRef } from "react";
+import { isMobile } from "react-device-detect";
+import { useHotkeys } from "react-hotkeys-hook";
 
 import { useSearch } from "../State.ts";
 
 export const SearchInput = memo(function SearchInput() {
   const search = useSearch(state => state);
+
+  useHotkeys(
+    "/",
+    () => {
+      inputRef.current?.focus();
+    },
+    {
+      preventDefault: true,
+    },
+  );
+
+  const inputRef = useRef<HTMLInputElement>(null);
 
   return (
     <Input
@@ -15,6 +29,7 @@ export const SearchInput = memo(function SearchInput() {
       slotProps={{
         input: {
           component: m.input,
+          ref: inputRef,
           transition: { duration: 0.5, type: "spring" },
           whileFocus: { width: "17.5rem" },
           whileHover: { width: "17.5rem" },
@@ -23,6 +38,24 @@ export const SearchInput = memo(function SearchInput() {
       startDecorator={<Search fontSize="small" />}
       sx={{ backdropFilter: "blur(10px)", backgroundColor: "transparent" }}
       value={search.searchTerm}
+      {...(!isMobile && {
+        endDecorator: (
+          <Box
+            alignItems="start"
+            border={2}
+            borderColor="neutral.outlinedBorder"
+            borderRadius={5}
+            display="flex"
+            height="1.5rem"
+            justifyContent="center"
+            width="1.5rem"
+          >
+            <Typography fontSize="0.7rem" level="title-sm">
+              /
+            </Typography>
+          </Box>
+        ),
+      })}
       {...(search.searchTerm && {
         endDecorator: (
           <IconButton onClick={() => search.setSearchTerm("")}>
