@@ -9,13 +9,14 @@ import {
   KeyboardDoubleArrowRight,
   RestartAlt,
 } from "@mui/icons-material";
-import { Box, IconButton, Option, Select, Slider, Typography, selectClasses } from "@mui/joy";
+import { IconButton, Option, Select, Slider, Typography, selectClasses } from "@mui/joy";
 import { m } from "framer-motion";
 import { memo, useState } from "react";
 import { isMobile } from "react-device-detect";
 
-import { usePagination, useSorting, useView } from "../State.ts";
+import { usePagination, useSorting, useView } from "../../State.ts";
 import { EventTypeIcon } from "../atoms/EventTypeIcon.tsx";
+import { Flexbox } from "../atoms/Flexbox.tsx";
 
 export const Footer = memo(function Footer(props: { eventCount?: number }) {
   const { eventCount } = props;
@@ -27,10 +28,8 @@ export const Footer = memo(function Footer(props: { eventCount?: number }) {
   const [sliderValue, setSliderValue] = useState(15);
 
   return (
-    <Box
-      alignItems="center"
+    <Flexbox
       component={m.div}
-      display="flex"
       flexDirection="column"
       gap={isMobile ? 1 : 0}
       layout
@@ -46,9 +45,9 @@ export const Footer = memo(function Footer(props: { eventCount?: number }) {
         sx: { backdropFilter: "blur(8px)", border: 1, borderColor: "neutral.outlinedBorder", borderRadius: 25, zIndex: "badge" },
       })}
     >
-      <Box alignItems="center" display="flex" flexWrap="wrap" gap={isMobile ? 1 : 2} justifyContent="center">
+      <Flexbox flexWrap="wrap" gap={isMobile ? 1 : 2}>
         {/* --------------- Filter --------------- */}
-        <Box alignItems="center" display="flex" gap={1}>
+        <Flexbox gap={1}>
           <Typography fontSize="0.75rem" level="body-sm">
             Filter:
           </Typography>
@@ -65,11 +64,11 @@ export const Footer = memo(function Footer(props: { eventCount?: number }) {
               }
             }}
             renderValue={(selected) => (
-              <Box display="flex" gap="0.25rem">
+              <Flexbox gap="0.25rem">
                 {selected.map((selectedOption) => (
                   <EventTypeIcon eventType={selectedOption.value} key={selectedOption.id} />
                 ))}
-              </Box>
+              </Flexbox>
             )}
             size="sm"
             sx={{
@@ -129,9 +128,9 @@ export const Footer = memo(function Footer(props: { eventCount?: number }) {
               Festival
             </Option>
           </Select>
-        </Box>
+        </Flexbox>
         {/* --------------- Rows --------------- */}
-        <Box alignItems="center" display="flex" gap={1}>
+        <Flexbox gap={1}>
           <Typography fontSize="0.75rem" level="body-sm">
             Rows:
           </Typography>
@@ -157,13 +156,13 @@ export const Footer = memo(function Footer(props: { eventCount?: number }) {
             <Option value={pagination.rowCountOptions[1]}>{pagination.rowCountOptions[1]}</Option>
             <Option value={pagination.rowCountOptions[2]}>{pagination.rowCountOptions[2]}</Option>
           </Select>
-        </Box>
+        </Flexbox>
         {/* --------------- Range --------------- */}
-        <Box alignItems="center" display="flex" gap={1.5}>
+        <Flexbox gap={1.5}>
           <Typography fontSize="0.75rem" level="body-sm">
             Range:
           </Typography>
-          <Box alignItems="center" display="flex" gap={0.5}>
+          <Flexbox gap={0.5}>
             <Slider
               color="neutral"
               size="sm"
@@ -185,11 +184,11 @@ export const Footer = memo(function Footer(props: { eventCount?: number }) {
                 <RestartAlt fontSize="small" />
               </IconButton>
             )}
-          </Box>
-        </Box>
+          </Flexbox>
+        </Flexbox>
         {/* --------------- Sort --------------- */}
         {!tableView && (
-          <Box alignItems="center" display="flex" gap={1}>
+          <Flexbox gap={1}>
             <Typography fontSize="0.75rem" level="body-sm">
               Sort:
             </Typography>
@@ -255,10 +254,10 @@ export const Footer = memo(function Footer(props: { eventCount?: number }) {
                 : <ArrowDownward fontSize="small" />}
               </Option>
             </Select>
-          </Box>
+          </Flexbox>
         )}
         {/* --------------- Pagination --------------- */}
-        <Box alignItems="center" display="flex" gap={1}>
+        <Flexbox gap={1}>
           <IconButton
             component={m.button}
             disabled={pagination.page === 1}
@@ -287,12 +286,12 @@ export const Footer = memo(function Footer(props: { eventCount?: number }) {
           >
             <KeyboardDoubleArrowRight />
           </IconButton>
-        </Box>
-      </Box>
+        </Flexbox>
+      </Flexbox>
       <Typography level="body-sm">
         Page {pagination.page} of {eventCount ? Math.ceil(eventCount / pagination.rowsPerPage) : "..."}
       </Typography>
-    </Box>
+    </Flexbox>
   );
 });
 

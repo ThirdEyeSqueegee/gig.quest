@@ -2,8 +2,8 @@ import { Typography } from "@mui/joy";
 import { memo } from "react";
 import { isMobile } from "react-device-detect";
 
-import { SGEvent } from "../Interfaces.ts";
-import { useView } from "../State.ts";
+import { SGEvent } from "../../Interfaces.ts";
+import { useView } from "../../State.ts";
 
 export const Prices = memo(function Prices(props: { event: SGEvent; type: "avg" | "hi" | "lo" }) {
   const { event, type } = props;

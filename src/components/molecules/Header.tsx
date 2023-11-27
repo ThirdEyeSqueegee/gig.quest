@@ -1,14 +1,15 @@
 import { GridView, LocationOn, TableRows } from "@mui/icons-material";
-import { Box, Switch, Tooltip, Typography } from "@mui/joy";
+import { Switch, Tooltip, Typography } from "@mui/joy";
 import { useWindowSize } from "@uidotdev/usehooks";
 import { m, useMotionValueEvent, useScroll } from "framer-motion";
 import { memo, useState } from "react";
 import { isMobile } from "react-device-detect";
 import TypeIt from "typeit-react";
 
-import { Meta } from "../Interfaces.ts";
-import { usePagination, useView } from "../State.ts";
-import { lerp } from "../Utilities.ts";
+import { Meta } from "../../Interfaces.ts";
+import { usePagination, useView } from "../../State.ts";
+import { lerp } from "../../Utilities.ts";
+import { Flexbox } from "../atoms/Flexbox.tsx";
 import { SearchInput } from "../atoms/SearchInput.tsx";
 
 export const Header = memo(function Header(props: { meta?: Meta }) {
@@ -27,7 +28,7 @@ export const Header = memo(function Header(props: { meta?: Meta }) {
     locationBoxHeight: 25,
     locationIconHeight: 24,
     locationTitleHeight: 0.875,
-    searchMarginRight: 2.5,
+    searchMarginRight: 2,
     searchMarginTop: -4.5,
     titleSize: 2.5,
   });
@@ -39,31 +40,29 @@ export const Header = memo(function Header(props: { meta?: Meta }) {
       locationBoxHeight: lerp(25, 10, v),
       locationIconHeight: lerp(24, 12, v),
       locationTitleHeight: lerp(0.875, 0.6, v),
-      searchMarginRight: lerp(2.5, 6, v),
+      searchMarginRight: lerp(2, 6, v),
       searchMarginTop: lerp(-4.5, -5, v),
       titleSize: lerp(2.5, 1.5, v),
     });
   });
 
   return (
-    <Box alignItems="center" display="flex" flexDirection="column" height={isMobile ? 1 : lerps.headerHeight} width={1}>
-      <Box alignItems="center" display="flex" flexDirection="column" gap={isMobile ? 1 : lerps.headerGap}>
+    <Flexbox flexDirection="column" height={isMobile ? 1 : lerps.headerHeight} width={1}>
+      <Flexbox flexDirection="column" gap={isMobile ? 1 : lerps.headerGap}>
         <Typography {...styles.headerText} fontSize={`${lerps.titleSize}rem`}>
           <TypeIt options={{ cursor: false }}>gig.quest</TypeIt>
         </Typography>
-        <Box alignItems="center" display="flex" height={lerps.locationBoxHeight} justifyContent="center">
+        <Flexbox height={lerps.locationBoxHeight}>
           <LocationOn {...styles.locationIcon} sx={{ color: "red", fontSize: lerps.locationIconHeight }} />
           <Typography fontFamily="Fira Code Variable" fontSize={`${lerps.locationTitleHeight}rem`} level="body-sm">
             {!pagination.filter.includes("music_festival") ?
               `${meta?.geolocation ? meta.geolocation.display_name : "..."} (${pagination.range})`
             : "Everywhere"}
           </Typography>
-        </Box>
-      </Box>
-      <Box
-        alignItems="center"
+        </Flexbox>
+      </Flexbox>
+      <Flexbox
         alignSelf="end"
-        display="flex"
         gap={2}
         justifyContent={isWidescreen ? "end" : "center"}
         mr={isMobile ? 0 : lerps.searchMarginRight}
@@ -98,8 +97,8 @@ export const Header = memo(function Header(props: { meta?: Meta }) {
             />
           </Tooltip>
         )}
-      </Box>
-    </Box>
+      </Flexbox>
+    </Flexbox>
   );
 });
 

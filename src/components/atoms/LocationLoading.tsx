@@ -1,16 +1,18 @@
 import { LocationOn } from "@mui/icons-material";
-import { Box, CircularProgress, Typography } from "@mui/joy";
+import { CircularProgress, Typography } from "@mui/joy";
 import { m } from "framer-motion";
 import { memo } from "react";
 
+import { Flexbox } from "./Flexbox.tsx";
+
 export const LocationLoading = memo(function LocationLoading() {
   return (
-    <Box alignItems="center" display="flex" flexDirection="column" gap={2} height="85vh" justifyContent="center">
+    <Flexbox flexDirection="column" gap={2} height="85vh">
       <CircularProgress size="lg" {...styles.loading}>
         <LocationOn htmlColor="red" />
       </CircularProgress>
       <Typography level="body-sm">Waiting for location...</Typography>
-    </Box>
+    </Flexbox>
   );
 });
 

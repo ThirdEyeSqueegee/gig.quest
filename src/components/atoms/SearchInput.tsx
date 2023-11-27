@@ -1,11 +1,12 @@
 import { CloseRounded, Search } from "@mui/icons-material";
-import { Box, IconButton, Input, Typography } from "@mui/joy";
+import { IconButton, Input, Typography } from "@mui/joy";
 import { m } from "framer-motion";
 import { memo, useRef } from "react";
 import { isMobile } from "react-device-detect";
 import { useHotkeys } from "react-hotkeys-hook";
 
-import { useSearch } from "../State.ts";
+import { useSearch } from "../../State.ts";
+import { Flexbox } from "./Flexbox.tsx";
 
 export const SearchInput = memo(function SearchInput() {
   const search = useSearch((state) => state);
@@ -40,20 +41,11 @@ export const SearchInput = memo(function SearchInput() {
       value={search.searchTerm}
       {...(!isMobile && {
         endDecorator: (
-          <Box
-            alignItems="start"
-            border={2}
-            borderColor="neutral.outlinedBorder"
-            borderRadius={5}
-            display="flex"
-            height="1.5rem"
-            justifyContent="center"
-            width="1.5rem"
-          >
+          <Flexbox alignItems="start" border={2} borderColor="neutral.outlinedBorder" borderRadius={5} height="1.5rem" width="1.5rem">
             <Typography fontSize="0.7rem" level="title-sm">
               /
             </Typography>
-          </Box>
+          </Flexbox>
         ),
       })}
       {...(search.searchTerm && {

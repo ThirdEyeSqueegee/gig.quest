@@ -1,30 +1,31 @@
 import { HourglassTop } from "@mui/icons-material";
-import { Box, Card, CircularProgress, Grid, Typography } from "@mui/joy";
+import { Card, CircularProgress, Grid, Typography } from "@mui/joy";
 import { m } from "framer-motion";
 import { memo } from "react";
 import { isMobile } from "react-device-detect";
 
 import { EventDetails } from "../Interfaces.ts";
-import { DateAndTime } from "../atoms/DateAndTime.tsx";
-import { EventTypeIcon } from "../atoms/EventTypeIcon.tsx";
-import { PopularityBar } from "../atoms/PopularityBar.tsx";
-import { Prices } from "../atoms/Prices.tsx";
-import { TicketsButton } from "../atoms/TicketsButton.tsx";
-import { Performers } from "../molecules/Performers.tsx";
-import { Venue } from "../molecules/Venue.tsx";
+import { DateAndTime } from "../components/atoms/DateAndTime.tsx";
+import { EventTypeIcon } from "../components/atoms/EventTypeIcon.tsx";
+import { Flexbox } from "../components/atoms/Flexbox.tsx";
+import { PopularityBar } from "../components/atoms/PopularityBar.tsx";
+import { Prices } from "../components/atoms/Prices.tsx";
+import { TicketsButton } from "../components/atoms/TicketsButton.tsx";
+import { Performers } from "../components/molecules/Performers.tsx";
+import { Venue } from "../components/molecules/Venue.tsx";
 
 export const EventGrid = memo(function EventGrid(props: { eventsDetails?: EventDetails[]; isLoading: boolean }) {
   const { eventsDetails, isLoading } = props;
 
   if (isLoading) {
     return (
-      <Box alignItems="start" display="flex" height="150vh" justifyContent="center" width={1}>
-        <Box alignItems="center" display="flex" height="75vh" justifyContent="center" width={1}>
+      <Flexbox alignItems="start" height="150vh" width={1}>
+        <Flexbox height="75vh" width={1}>
           <CircularProgress size="lg">
             <HourglassTop />
           </CircularProgress>
-        </Box>
-      </Box>
+        </Flexbox>
+      </Flexbox>
     );
   }
 
@@ -35,40 +36,42 @@ export const EventGrid = memo(function EventGrid(props: { eventsDetails?: EventD
           // eslint-disable-next-line react/no-array-index-key
           <Grid display="flex" flexDirection="column" key={`${details.event.id}${i}`} lg={3} md={6} px={0.5} xs={12}>
             <Card {...styles.gridCard}>
-              <Box alignItems="start" display="flex" justifyContent="space-between">
+              <Flexbox alignItems="start" justifyContent="space-between">
                 <Performers eventDetails={details} />
                 <EventTypeIcon eventType={details.event.type} />
-              </Box>
-              <Box alignItems="end" display="flex" justifyContent="space-between">
-                <Box display="flex" flexDirection="column" gap={0.5} justifyContent="end">
+              </Flexbox>
+              <Flexbox alignItems="end" justifyContent="space-between">
+                <Flexbox alignItems="start" flexDirection="column" gap={0.5} justifyContent="end">
                   <Venue eventDetails={details} name={details.event.venue?.name} />
                   <DateAndTime datetime={details.event.datetime_local} size="0.75rem" />
-                  <Box alignItems="center" display="flex" gap={1}>
-                    <Box alignItems="center" display="flex" gap={0.5}>
+                  <Flexbox gap={1}>
+                    <Flexbox gap={0.5}>
                       <Typography color="neutral" fontSize="0.725rem">
                         lo:
                       </Typography>
                       <Prices event={details.event} type="lo" />
-                    </Box>
-                    <Box alignItems="center" display="flex" gap={0.5}>
+                    </Flexbox>
+                    <Flexbox gap={0.5}>
                       <Typography color="neutral" fontSize="0.725rem">
                         hi:
                       </Typography>
                       <Prices event={details.event} type="hi" />
-                    </Box>
-                    <Box alignItems="center" display="flex" gap={0.5}>
+                    </Flexbox>
+                    <Flexbox gap={0.5}>
                       <Typography color="neutral" fontSize="0.725rem">
                         avg:
                       </Typography>
                       <Prices event={details.event} type="avg" />
-                    </Box>
-                  </Box>
-                </Box>
-                <Box display="flex" flexDirection="column" gap={1} justifyContent="end">
-                  <PopularityBar score={details.event.score} />
+                    </Flexbox>
+                  </Flexbox>
+                </Flexbox>
+                <Flexbox flexDirection="column" gap={1} justifyContent="end">
+                  <Flexbox width={1}>
+                    <PopularityBar score={details.event.score} />
+                  </Flexbox>
                   <TicketsButton url={details.event.url} />
-                </Box>
-              </Box>
+                </Flexbox>
+              </Flexbox>
             </Card>
           </Grid>
         );

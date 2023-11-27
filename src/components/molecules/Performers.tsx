@@ -1,12 +1,13 @@
-import { Box, Typography } from "@mui/joy";
+import { Typography } from "@mui/joy";
 import { useWindowSize } from "@uidotdev/usehooks";
 import { isEqual } from "ohash";
 import { Fragment, memo } from "react";
 import { isMobile } from "react-device-detect";
 import useSWR from "swr";
 
-import { EventDetails, SpotifyToken } from "../Interfaces.ts";
-import { getSpotifyToken, spotifySearchArtists } from "../api/API.ts";
+import { EventDetails, SpotifyToken } from "../../Interfaces.ts";
+import { getSpotifyToken, spotifySearchArtists } from "../../api/API.ts";
+import { Flexbox } from "../atoms/Flexbox.tsx";
 import { NBATeam } from "../atoms/NBATeam.tsx";
 import { NFLTeam } from "../atoms/NFLTeam.tsx";
 import { SpotifyTooltip } from "../atoms/SpotifyTooltip.tsx";
@@ -34,7 +35,7 @@ export const Performers = memo(function Performers(props: { eventDetails?: Event
 
   if (eventDetails?.event.type === "music_festival") {
     return (
-      <Box display="flex" flexWrap="wrap">
+      <Flexbox flexWrap="wrap" justifyContent="start">
         <Typography fontSize={isMobile ? "0.9rem" : "1rem"}>
           {eventDetails.event.short_title
             ?.replaceAll("Music Festival", "")
@@ -43,7 +44,7 @@ export const Performers = memo(function Performers(props: { eventDetails?: Event
             .replaceAll(regex2, "")
             .replaceAll(regex3, "")}
         </Typography>
-      </Box>
+      </Flexbox>
     );
   }
 
@@ -51,13 +52,13 @@ export const Performers = memo(function Performers(props: { eventDetails?: Event
     const [homeTeam, awayTeam] = eventDetails.performers;
 
     return (
-      <Box alignItems="center" display="flex" flexBasis={width && width < 420 ? 180 : "auto"} flexWrap="wrap">
+      <Flexbox flexBasis={width && width < 420 ? 180 : "auto"} flexWrap="wrap" justifyContent="start">
         <NBATeam team={homeTeam} />
         <Typography level="body-sm" mx={1} my="auto">
           vs.
         </Typography>
         <NBATeam team={awayTeam} />
-      </Box>
+      </Flexbox>
     );
   }
 
@@ -65,18 +66,18 @@ export const Performers = memo(function Performers(props: { eventDetails?: Event
     const [homeTeam, awayTeam] = eventDetails.performers;
 
     return (
-      <Box alignItems="center" display="flex" flexBasis={width && width < 420 ? 180 : "auto"} flexWrap="wrap">
+      <Flexbox flexBasis={width && width < 420 ? 180 : "auto"} flexWrap="wrap" justifyContent="start">
         <NFLTeam team={homeTeam} />
         <Typography level="body-sm" mx={1} my="auto">
           vs.
         </Typography>
         <NFLTeam team={awayTeam} />
-      </Box>
+      </Flexbox>
     );
   }
 
   return (
-    <Box display="flex" flexWrap="wrap">
+    <Flexbox flexWrap="wrap" justifyContent="start">
       {eventDetails?.performers.map((p, i) => {
         return (
           // eslint-disable-next-line react/no-array-index-key
@@ -92,6 +93,6 @@ export const Performers = memo(function Performers(props: { eventDetails?: Event
           </Fragment>
         );
       })}
-    </Box>
+    </Flexbox>
   );
 });

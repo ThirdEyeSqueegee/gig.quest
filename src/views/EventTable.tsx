@@ -5,13 +5,14 @@ import { memo } from "react";
 
 import { EventDetails } from "../Interfaces.ts";
 import { usePagination, useSorting } from "../State.ts";
-import { DateAndTime } from "../atoms/DateAndTime.tsx";
-import { EventTypeIcon } from "../atoms/EventTypeIcon.tsx";
-import { PopularityBar } from "../atoms/PopularityBar.tsx";
-import { Prices } from "../atoms/Prices.tsx";
-import { TicketsButton } from "../atoms/TicketsButton.tsx";
-import { Performers } from "../molecules/Performers.tsx";
-import { Venue } from "../molecules/Venue.tsx";
+import { DateAndTime } from "../components/atoms/DateAndTime.tsx";
+import { EventTypeIcon } from "../components/atoms/EventTypeIcon.tsx";
+import { Flexbox } from "../components/atoms/Flexbox.tsx";
+import { PopularityBar } from "../components/atoms/PopularityBar.tsx";
+import { Prices } from "../components/atoms/Prices.tsx";
+import { TicketsButton } from "../components/atoms/TicketsButton.tsx";
+import { Performers } from "../components/molecules/Performers.tsx";
+import { Venue } from "../components/molecules/Venue.tsx";
 
 export const EventTable = memo(function EventTable(props: { eventsDetails?: EventDetails[]; isLoading: boolean }) {
   const { eventsDetails, isLoading } = props;
@@ -45,7 +46,7 @@ export const EventTable = memo(function EventTable(props: { eventsDetails?: Even
             <Typography level="body-lg">Venue</Typography>
           </th>
           <th style={{ width: "8.5%" }}>
-            <Box alignItems="center" display="flex" justifyContent="space-between">
+            <Flexbox justifyContent="space-between">
               <Typography level="body-lg">Date</Typography>
               <IconButton onClick={sorting.toggleSortDate} size="sm" {...styles.sortButton}>
                 {sorting.sortDate !== undefined ?
@@ -54,10 +55,10 @@ export const EventTable = memo(function EventTable(props: { eventsDetails?: Even
                   : <ArrowDownward fontSize="small" />
                 : <MoreVert fontSize="small" />}
               </IconButton>
-            </Box>
+            </Flexbox>
           </th>
           <th style={{ width: "3.5%" }}>
-            <Box alignItems="center" display="flex" justifyContent="space-between">
+            <Flexbox justifyContent="space-between">
               <Typography level="body-md">$ (lo)</Typography>
               <IconButton onClick={sorting.toggleSortLowestPrice} size="sm" {...styles.sortButton}>
                 {sorting.sortLowestPrice !== undefined ?
@@ -66,10 +67,10 @@ export const EventTable = memo(function EventTable(props: { eventsDetails?: Even
                   : <ArrowDownward fontSize="small" />
                 : <MoreVert fontSize="small" />}
               </IconButton>
-            </Box>
+            </Flexbox>
           </th>
           <th style={{ width: "3.5%" }}>
-            <Box alignItems="center" display="flex" justifyContent="space-between">
+            <Flexbox justifyContent="space-between">
               <Typography level="body-md">$ (hi)</Typography>
               <IconButton onClick={sorting.toggleSortHighestPrice} size="sm" {...styles.sortButton}>
                 {sorting.sortHighestPrice !== undefined ?
@@ -78,10 +79,10 @@ export const EventTable = memo(function EventTable(props: { eventsDetails?: Even
                   : <ArrowDownward fontSize="small" />
                 : <MoreVert fontSize="small" />}
               </IconButton>
-            </Box>
+            </Flexbox>
           </th>
           <th style={{ width: "3.5%" }}>
-            <Box alignItems="center" display="flex" justifyContent="space-between">
+            <Flexbox justifyContent="space-between">
               <Typography level="body-md">$ (avg)</Typography>
               <IconButton onClick={sorting.toggleSortAvgPrice} size="sm" {...styles.sortButton}>
                 {sorting.sortAvgPrice !== undefined ?
@@ -90,10 +91,10 @@ export const EventTable = memo(function EventTable(props: { eventsDetails?: Even
                   : <ArrowDownward fontSize="small" />
                 : <MoreVert fontSize="small" />}
               </IconButton>
-            </Box>
+            </Flexbox>
           </th>
           <th style={{ width: "7.5%" }}>
-            <Box alignItems="center" display="flex" justifyContent="space-between">
+            <Flexbox justifyContent="space-between">
               <Typography level="body-lg">Popularity</Typography>
               <IconButton onClick={sorting.toggleSortPopularity} size="sm" {...styles.sortButton}>
                 {sorting.sortPopularity !== undefined ?
@@ -102,7 +103,7 @@ export const EventTable = memo(function EventTable(props: { eventsDetails?: Even
                   : <ArrowDownward fontSize="small" />
                 : <MoreVert fontSize="small" />}
               </IconButton>
-            </Box>
+            </Flexbox>
           </th>
           <th style={{ width: "5%" }}>
             <Typography level="body-lg">Tickets</Typography>
@@ -119,9 +120,9 @@ export const EventTable = memo(function EventTable(props: { eventsDetails?: Even
               whileHover={{ backgroundColor: "#000007", transition: { duration: 0.5 } }}
             >
               <td>
-                <Box alignItems="center" display="flex">
+                <Flexbox>
                   <EventTypeIcon eventType={details.event.type} />
-                </Box>
+                </Flexbox>
               </td>
               <td>
                 <Performers eventDetails={details} />
@@ -142,9 +143,9 @@ export const EventTable = memo(function EventTable(props: { eventsDetails?: Even
                 <Prices event={details.event} type="avg" />
               </td>
               <td>
-                <Box width="85%">
+                <Flexbox width="85%">
                   <PopularityBar score={details.event.score} />
-                </Box>
+                </Flexbox>
               </td>
               <td>
                 <TicketsButton url={details.event.url} />

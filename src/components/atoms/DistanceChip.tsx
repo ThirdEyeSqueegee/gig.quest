@@ -3,8 +3,8 @@ import { convertDistance, getPreciseDistance } from "geolib";
 import { memo } from "react";
 import { isMobile } from "react-device-detect";
 
-import { EventDetails } from "../Interfaces.ts";
-import { useLocation } from "../State.ts";
+import { EventDetails } from "../../Interfaces.ts";
+import { useLocation } from "../../State.ts";
 
 export const DistanceChip = memo(function DistanceChip(props: { eventDetails?: EventDetails }) {
   const { eventDetails } = props;

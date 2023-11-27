@@ -9,9 +9,9 @@ import useSWR from "swr";
 
 import { useLocation, usePagination, useSearch, useSorting, useView } from "./State.ts";
 import { getEvents } from "./api/API.ts";
-import { LocationLoading } from "./atoms/LocationLoading.tsx";
-import { Footer } from "./molecules/Footer.tsx";
-import { Header } from "./molecules/Header.tsx";
+import { LocationLoading } from "./components/atoms/LocationLoading.tsx";
+import { Footer } from "./components/molecules/Footer.tsx";
+import { Header } from "./components/molecules/Header.tsx";
 import { EventGrid } from "./views/EventGrid.tsx";
 import { EventTable } from "./views/EventTable.tsx";
 
