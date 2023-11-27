@@ -9,7 +9,7 @@ import { EventDetails, SpotifyToken } from "../Interfaces.ts";
 import { getSpotifyToken, spotifySearchArtists } from "../api/API.ts";
 import { NBATeam } from "../atoms/NBATeam.tsx";
 import { NFLTeam } from "../atoms/NFLTeam.tsx";
-import { SpotifyTooltipBox } from "../atoms/SpotifyTooltipBox.tsx";
+import { SpotifyTooltip } from "../atoms/SpotifyTooltip.tsx";
 
 const regex1 = /\(.*\)/gu;
 const regex2 = /(?:with).*(?:&|and) (?:[Mm]ore)/gu;
@@ -82,7 +82,7 @@ export const Performers = memo(function Performers(props: { eventDetails?: Event
           // eslint-disable-next-line react/no-array-index-key
           <Fragment key={`${p}${i}`}>
             {eventDetails?.event.type === "concert" ?
-              <SpotifyTooltipBox artistItem={artistItemsMap ? artistItemsMap.get(p) : { id: "-1" }} performerName={p} />
+              <SpotifyTooltip artistItem={artistItemsMap ? artistItemsMap.get(p) : { id: "-1" }} performerName={p} />
             : <Typography fontSize={isMobile ? "0.9rem" : "1rem"}>{p}</Typography>}
             {eventDetails && i !== eventDetails.performers.length - 1 ?
               <Typography level="body-sm" mx={1} my="auto">
