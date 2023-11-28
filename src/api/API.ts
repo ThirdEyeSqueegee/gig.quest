@@ -14,7 +14,7 @@ import {
 } from "../Interfaces.ts";
 import { tokenizePerformers } from "../Utilities.ts";
 
-export const getEvents = async (
+export const eventsFetcher = async (
   filter: string[],
   location: Location,
   page: number,
@@ -106,7 +106,7 @@ export const getEvents = async (
   } as EventsDetailsAndMeta;
 };
 
-export const getSpotifyToken = async () => {
+export const spotifyTokenFetcher = async () => {
   const response = await axios.post<SpotifyTokenResponse>(
     "https://accounts.spotify.com/api/token",
     {
@@ -152,7 +152,7 @@ const spotifySearchArtist = async (artist: string, token: string) => {
   return { id: "notFound" } as ArtistItem;
 };
 
-export const spotifySearchArtists = async (artists: string[], token: string) => {
+export const spotifyArtistsFetcher = async (artists: string[], token: string) => {
   const artistItemsMap = new Map<string, ArtistItem>();
 
   for (const artist of artists) {

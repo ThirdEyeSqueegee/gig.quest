@@ -1,7 +1,7 @@
 import { isEqual } from "ohash";
 import useSWR from "swr";
 
-import { getEvents } from "../api/API.ts";
+import { eventsFetcher } from "../api/API.ts";
 import { useLocationStore } from "../stores/useLocationStore.ts";
 import { usePaginationStore } from "../stores/usePaginationStore.ts";
 import { useSearchStore } from "../stores/useSearchStore.ts";
@@ -31,7 +31,7 @@ export const useEvents = () => {
       ]
     : null,
     ([, filter, loc, page, rowsPerPage, range, sortAvgPrice, sortDate, sortHighestPrice, sortLowestPrice, sortPopularity, term]) =>
-      getEvents(filter, loc, page, rowsPerPage, range, sortAvgPrice, sortDate, sortHighestPrice, sortLowestPrice, sortPopularity, term),
+      eventsFetcher(filter, loc, page, rowsPerPage, range, sortAvgPrice, sortDate, sortHighestPrice, sortLowestPrice, sortPopularity, term),
     {
       compare: isEqual,
       keepPreviousData: true,

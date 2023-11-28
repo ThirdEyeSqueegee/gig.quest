@@ -1,12 +1,10 @@
 import { Typography } from "@mui/joy";
 import { useWindowSize } from "@uidotdev/usehooks";
-import { isEqual } from "ohash";
 import { Fragment, memo } from "react";
 import { isMobile } from "react-device-detect";
-import useSWR from "swr";
 
-import { EventDetails, SpotifyToken } from "../../Interfaces.ts";
-import { getSpotifyToken, spotifySearchArtists } from "../../api/API.ts";
+import { EventDetails } from "../../Interfaces.ts";
+import { useSpotifyArtists } from "../../hooks/useSpotifyArtists.ts";
 import { Flexbox } from "../atoms/Flexbox.tsx";
 import { NBATeam } from "../atoms/NBATeam.tsx";
 import { NFLTeam } from "../atoms/NFLTeam.tsx";
@@ -21,17 +19,7 @@ export const Performers = memo(function Performers(props: { eventDetails?: Event
 
   const { width } = useWindowSize();
 
-  const {
-    data: token,
-    error,
-    isLoading,
-  } = useSWR<SpotifyToken, Error>("spotifyToken", getSpotifyToken, { compare: isEqual, keepPreviousData: true });
-
-  const { data: artistItemsMap } = useSWR(
-    !error && !isLoading && eventDetails?.event.type === "concert" ? ["artists", eventDetails?.performers] : null,
-    ([, a]) => spotifySearchArtists(a, token!.token),
-    { compare: isEqual, keepPreviousData: true },
-  );
+  const artistItemsMap = useSpotifyArtists(eventDetails);
 
   if (eventDetails?.event.type === "music_festival") {
     return (
