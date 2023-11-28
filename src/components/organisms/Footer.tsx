@@ -18,8 +18,8 @@ import { useEvents } from "../../hooks/useEvents.ts";
 import { usePaginationStore } from "../../stores/usePaginationStore.ts";
 import { useSortingStore } from "../../stores/useSortingStore.ts";
 import { useViewStore } from "../../stores/useViewStore.ts";
-import { EventTypeIcon } from "../atoms/EventTypeIcon.tsx";
 import { Flexbox } from "../atoms/Flexbox.tsx";
+import { EventTypeIcon } from "../molecules/EventTypeIcon.tsx";
 
 export const Footer = memo(function Footer() {
   const pagination = usePaginationStore((state) => state);
@@ -33,14 +33,7 @@ export const Footer = memo(function Footer() {
 
   return (
     <Flexbox
-      component={m.div}
       flexDirection="column"
-      gap={isMobile ? 1 : 0}
-      layout
-      mb={1}
-      mt={1}
-      transition={{ duration: 0.25 }}
-      width={isMobile ? "90%" : "auto"}
       {...(!isMobile && {
         bottom: 25,
         position: "sticky",
@@ -48,6 +41,7 @@ export const Footer = memo(function Footer() {
         py: 0.5,
         sx: { backdropFilter: "blur(8px)", border: 1, borderColor: "neutral.outlinedBorder", borderRadius: 25, zIndex: "badge" },
       })}
+      {...styles.mainFlex}
     >
       <Flexbox flexWrap="wrap" gap={isMobile ? 1 : 2}>
         {/* --------------- Filter --------------- */}
@@ -75,15 +69,7 @@ export const Footer = memo(function Footer() {
               </Flexbox>
             )}
             size="sm"
-            sx={{
-              [`& .${selectClasses.indicator}`]: {
-                [`&.${selectClasses.expanded}`]: {
-                  transform: "rotate(-180deg)",
-                },
-                transition: "0.2s",
-              },
-              backgroundColor: "transparent",
-            }}
+            {...styles.select}
             {...(pagination.filter.length > 0 && {
               endDecorator: (
                 <IconButton
@@ -94,7 +80,8 @@ export const Footer = memo(function Footer() {
                   onMouseDown={(event) => {
                     event.stopPropagation();
                   }}
-                  sx={{ "&:hover": { backgroundColor: "transparent" }, "--IconButton-size": "20px" }}
+                  size="sm"
+                  sx={{ "&:hover": { "--IconButton-size": "20px", backgroundColor: "transparent" } }}
                 >
                   <CloseRounded fontSize="small" />
                 </IconButton>
@@ -145,16 +132,8 @@ export const Footer = memo(function Footer() {
               pagination.firstPage();
             }}
             size="sm"
-            sx={{
-              [`& .${selectClasses.indicator}`]: {
-                [`&.${selectClasses.expanded}`]: {
-                  transform: "rotate(-180deg)",
-                },
-                transition: "0.25s",
-              },
-              backgroundColor: "transparent",
-            }}
             value={pagination.rowsPerPage}
+            {...styles.select}
           >
             <Option value={pagination.rowCountOptions[0]}>{pagination.rowCountOptions[0]}</Option>
             <Option value={pagination.rowCountOptions[1]}>{pagination.rowCountOptions[1]}</Option>
@@ -183,7 +162,7 @@ export const Footer = memo(function Footer() {
                   pagination.setRange("15mi");
                 }}
                 size="sm"
-                sx={{ "&:hover": { backgroundColor: "transparent" }, "--IconButton-size": "24px" }}
+                sx={{ "&:hover": { backgroundColor: "transparent" }, "--IconButton-size": "1.5rem" }}
               >
                 <RestartAlt fontSize="small" />
               </IconButton>
@@ -207,15 +186,7 @@ export const Footer = memo(function Footer() {
                   },
                 },
               }}
-              sx={{
-                [`& .${selectClasses.indicator}`]: {
-                  [`&.${selectClasses.expanded}`]: {
-                    transform: "rotate(-180deg)",
-                  },
-                  transition: "0.25s",
-                },
-                backgroundColor: "transparent",
-              }}
+              {...styles.select}
             >
               <Option onClick={sorting.toggleSortDate} value="Date">
                 Date{" "}
@@ -262,13 +233,7 @@ export const Footer = memo(function Footer() {
         )}
         {/* --------------- Pagination --------------- */}
         <Flexbox gap={1}>
-          <IconButton
-            component={m.button}
-            disabled={pagination.page === 1}
-            onClick={pagination.firstPage}
-            variant="outlined"
-            whileTap={{ scale: 0.8 }}
-          >
+          <IconButton disabled={pagination.page === 1} onClick={pagination.firstPage} variant="outlined" {...styles.pageButton}>
             <KeyboardDoubleArrowLeft />
           </IconButton>
           <IconButton disabled={pagination.page === 1} onClick={pagination.prevPage} variant="outlined" {...styles.pageButton}>
@@ -300,6 +265,15 @@ export const Footer = memo(function Footer() {
 });
 
 const styles = {
+  mainFlex: {
+    component: m.div,
+    gap: isMobile ? 1 : 0,
+    layout: true,
+    mb: 1,
+    mt: 1,
+    transition: { duration: 0.25 },
+    width: isMobile ? 0.9 : "auto",
+  },
   pageButton: {
     component: m.button,
     whileTap: { scale: 0.8 },
@@ -308,5 +282,16 @@ const styles = {
     defaultValue: 15,
     max: 50,
     sx: { minWidth: "8rem" },
+  },
+  select: {
+    sx: {
+      [`& .${selectClasses.indicator}`]: {
+        [`&.${selectClasses.expanded}`]: {
+          transform: "rotate(-180deg)",
+        },
+        transition: "0.2s",
+      },
+      backgroundColor: "transparent",
+    },
   },
 };

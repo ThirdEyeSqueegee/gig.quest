@@ -3,11 +3,11 @@ import { CircularProgress, Typography } from "@mui/joy";
 import { m } from "framer-motion";
 import { memo } from "react";
 
-import { Flexbox } from "./Flexbox.tsx";
+import { Flexbox } from "../atoms/Flexbox.tsx";
 
 export const LocationLoading = memo(function LocationLoading() {
   return (
-    <Flexbox flexDirection="column" gap={2} height="85vh">
+    <Flexbox flexDirection="column" {...styles.flex}>
       <CircularProgress size="lg" {...styles.loading}>
         <LocationOn htmlColor="red" />
       </CircularProgress>
@@ -17,6 +17,10 @@ export const LocationLoading = memo(function LocationLoading() {
 });
 
 const styles = {
+  flex: {
+    gap: 2,
+    height: "85vh",
+  },
   loading: {
     animate: { scale: 1.25 },
     component: m.span,

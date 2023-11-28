@@ -3,8 +3,8 @@ import { memo } from "react";
 
 import { EventDetails } from "../../Interfaces.ts";
 import { useViewStore } from "../../stores/useViewStore.ts";
-import { DistanceChip } from "../atoms/DistanceChip.tsx";
 import { Flexbox } from "../atoms/Flexbox.tsx";
+import { DistanceChip } from "../molecules/DistanceChip.tsx";
 
 export const Venue = memo(function Venue(props: { eventDetails?: EventDetails; name?: string }) {
   const { eventDetails, name } = props;

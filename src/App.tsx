@@ -1,13 +1,14 @@
 import { GitHub } from "@mui/icons-material";
-import { Box, Card, Divider, IconButton, Link } from "@mui/joy";
+import { Card, Divider, IconButton, Link } from "@mui/joy";
 import { useDebounce } from "@uidotdev/usehooks";
 import { LazyMotion, domMax, m } from "framer-motion";
 import { memo, useEffect } from "react";
 import { isMobile } from "react-device-detect";
 
-import { LocationLoading } from "./components/atoms/LocationLoading.tsx";
-import { Footer } from "./components/molecules/Footer.tsx";
-import { Header } from "./components/molecules/Header.tsx";
+import { Flexbox } from "./components/atoms/Flexbox.tsx";
+import { LocationLoading } from "./components/molecules/LocationLoading.tsx";
+import { Footer } from "./components/organisms/Footer.tsx";
+import { Header } from "./components/organisms/Header.tsx";
 import { useLocationStore } from "./stores/useLocationStore.ts";
 import { usePaginationStore } from "./stores/usePaginationStore.ts";
 import { useSearchStore } from "./stores/useSearchStore.ts";
@@ -44,15 +45,15 @@ export const App = memo(function App() {
 
   return (
     <LazyMotion features={domMax} strict>
-      <Box p={isMobile ? 1 : 2}>
+      <Flexbox p={isMobile ? 1 : 2}>
         <Card {...styles.mainCard}>
-          <Box {...(!isMobile && { position: "sticky", sx: { backdropFilter: "blur(8px)", zIndex: 5 }, top: 0, width: 1 })}>
+          <Flexbox position="sticky" {...styles.headerBox}>
             <Header />
-            <IconButton sx={{ "&:hover": { backgroundColor: "transparent" }, position: "absolute", right: "0.2rem", top: "0.25rem" }}>
+            <IconButton sx={styles.githubButton}>
               <GitHub />
               <Link href="https://github.com/ThirdEyeSqueegee/gig.quest" overlay />
             </IconButton>
-          </Box>
+          </Flexbox>
           {location.location ?
             tableView ?
               <EventTable />
@@ -61,20 +62,35 @@ export const App = memo(function App() {
           <Divider />
           <Footer />
         </Card>
-      </Box>
+      </Flexbox>
     </LazyMotion>
   );
 });
 
 const styles = {
+  githubButton: {
+    "&:hover": { backgroundColor: "transparent" },
+    position: "absolute",
+    right: "0.2rem",
+    top: "0.25rem",
+  },
+  headerBox: {
+    ...(!isMobile && {
+      sx: { backdropFilter: "blur(8px)", zIndex: 5 },
+      top: 0,
+    }),
+    width: 1,
+  },
   mainCard: {
     animate: { scaleY: [0, 1] },
     component: m.div,
+    layout: true,
     sx: {
       alignItems: "center",
       gap: isMobile ? 1 : 0,
       overflowAnchor: "none",
       p: 0,
+      width: 1,
     },
     transition: { duration: 0.5, type: "spring" },
   },

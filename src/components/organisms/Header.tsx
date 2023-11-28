@@ -11,10 +11,13 @@ import { useEvents } from "../../hooks/useEvents.ts";
 import { usePaginationStore } from "../../stores/usePaginationStore.ts";
 import { useViewStore } from "../../stores/useViewStore.ts";
 import { Flexbox } from "../atoms/Flexbox.tsx";
-import { SearchInput } from "../atoms/SearchInput.tsx";
+import { SearchInput } from "../molecules/SearchInput.tsx";
 
 export const Header = memo(function Header() {
-  const pagination = usePaginationStore((state) => state);
+  const filter = usePaginationStore((state) => state.filter);
+  const range = usePaginationStore((state) => state.range);
+  const firstPage = usePaginationStore((state) => state.firstPage);
+  const setRowsPerPage = usePaginationStore((state) => state.setRowsPerPage);
   const view = useViewStore((state) => state);
 
   const { meta } = useEvents();
@@ -49,7 +52,7 @@ export const Header = memo(function Header() {
   });
 
   return (
-    <Flexbox flexDirection="column" height={isMobile ? 1 : lerps.headerHeight} width={1}>
+    <Flexbox flexDirection="column" width={1}>
       <Flexbox flexDirection="column" gap={isMobile ? 1 : lerps.headerGap}>
         <Typography {...styles.headerText} fontSize={`${lerps.titleSize}rem`}>
           <TypeIt options={{ cursor: false }}>gig.quest</TypeIt>
@@ -57,43 +60,29 @@ export const Header = memo(function Header() {
         <Flexbox height={lerps.locationBoxHeight}>
           <LocationOn {...styles.locationIcon} sx={{ color: "red", fontSize: lerps.locationIconHeight }} />
           <Typography fontFamily="Fira Code Variable" fontSize={`${lerps.locationTitleHeight}rem`} level="body-sm">
-            {!pagination.filter.includes("music_festival") ? `${geolocation ? geolocation.display_name : "..."} (${pagination.range})` : "Everywhere"}
+            {!filter.includes("music_festival") ? `${geolocation ? geolocation.display_name : "..."} (${range})` : "Everywhere"}
           </Typography>
         </Flexbox>
       </Flexbox>
       <Flexbox
-        alignSelf="end"
-        gap={2}
         justifyContent={isWidescreen ? "end" : "center"}
         mr={isMobile ? 0 : lerps.searchMarginRight}
         mt={isMobile ? 1 : lerps.searchMarginTop}
+        {...styles.searchFlex}
       >
         <SearchInput />
         {!isMobile && (
-          <Tooltip
-            animate={{ opacity: [0, 1] }}
-            component={m.div}
-            sx={{ backdropFilter: "blur(8px)", backgroundColor: "transparent" }}
-            title={`Switch to ${view.tableView ? "grid" : "table"} view`}
-          >
+          <Tooltip title={`Switch to ${view.tableView ? "grid" : "table"} view`} {...styles.switchTooltip}>
             <Switch
               checked={!view.tableView}
-              endDecorator={<GridView fontSize="small" />}
               onChange={() => {
                 view.toggleGridView();
-                pagination.firstPage();
-                pagination.setRowsPerPage(view.tableView ? 36 : 24);
+                firstPage();
+                setRowsPerPage(view.tableView ? 36 : 24);
               }}
               size="lg"
-              slotProps={{
-                thumb: {
-                  style: {
-                    transition: "0.25s",
-                  },
-                },
-              }}
-              startDecorator={<TableRows fontSize="small" />}
               variant="outlined"
+              {...styles.switch}
             />
           </Tooltip>
         )}
@@ -115,5 +104,25 @@ const styles = {
     dragTransition: { bounceDamping: 10, bounceStiffness: 500 },
     whileHover: { scale: 1.1 },
     whileTap: { scale: 0.9 },
+  },
+  searchFlex: {
+    alignSelf: "end",
+    gap: 2,
+  },
+  switch: {
+    endDecorator: <GridView fontSize="small" />,
+    slotProps: {
+      thumb: {
+        style: {
+          transition: "0.25s",
+        },
+      },
+    },
+    startDecorator: <TableRows fontSize="small" />,
+  },
+  switchTooltip: {
+    animate: { opacity: [0, 1] },
+    component: m.div,
+    sx: { backdropFilter: "blur(8px)", backgroundColor: "transparent" },
   },
 };

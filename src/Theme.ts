@@ -2,6 +2,17 @@ import { extendTheme } from "@mui/joy";
 
 export const theme = extendTheme({
   components: {
+    JoyCircularProgress: {
+      styleOverrides: {
+        root: ({ ownerState }) => ({
+          ...(ownerState.size === "xs" && {
+            "--_progress-thickness": "3px",
+            "--_root-size": "16px",
+            "--_track-thickness": "3px",
+          }),
+        }),
+      },
+    },
     JoyLink: {
       defaultProps: {
         rel: "noopener",
@@ -31,3 +42,9 @@ export const theme = extendTheme({
     },
   },
 });
+
+declare module "@mui/joy/CircularProgress" {
+  interface CircularProgressPropsSizeOverrides {
+    xs: true;
+  }
+}

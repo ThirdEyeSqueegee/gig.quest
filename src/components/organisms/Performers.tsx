@@ -6,9 +6,9 @@ import { isMobile } from "react-device-detect";
 import { EventDetails } from "../../Interfaces.ts";
 import { useSpotifyArtists } from "../../hooks/useSpotifyArtists.ts";
 import { Flexbox } from "../atoms/Flexbox.tsx";
-import { NBATeam } from "../atoms/NBATeam.tsx";
-import { NFLTeam } from "../atoms/NFLTeam.tsx";
-import { SpotifyTooltip } from "../atoms/SpotifyTooltip.tsx";
+import { NBATeam } from "../molecules/NBATeam.tsx";
+import { NFLTeam } from "../molecules/NFLTeam.tsx";
+import { SpotifyTooltip } from "../molecules/SpotifyTooltip.tsx";
 
 const regex1 = /\(.*\)/gu;
 const regex2 = /(?:with).*(?:&|and) (?:[Mm]ore)/gu;
@@ -24,7 +24,7 @@ export const Performers = memo(function Performers(props: { eventDetails?: Event
   if (eventDetails?.event.type === "music_festival") {
     return (
       <Flexbox flexWrap="wrap" justifyContent="start">
-        <Typography fontSize={isMobile ? "0.9rem" : "1rem"}>
+        <Typography {...styles.typography}>
           {eventDetails.event.short_title
             ?.replaceAll("Music Festival", "")
             .replaceAll("Festival", "")
@@ -72,7 +72,7 @@ export const Performers = memo(function Performers(props: { eventDetails?: Event
           <Fragment key={`${p}${i}`}>
             {eventDetails?.event.type === "concert" ?
               <SpotifyTooltip artistItem={artistItemsMap ? artistItemsMap.get(p) : { id: "loading" }} performerName={p} />
-            : <Typography fontSize={isMobile ? "0.9rem" : "1rem"}>{p}</Typography>}
+            : <Typography {...styles.typography}>{p}</Typography>}
             {eventDetails && i !== eventDetails.performers.length - 1 ?
               <Typography level="body-sm" mx={1} my="auto">
                 {eventDetails.is1v1 ? "vs." : "//"}
@@ -84,3 +84,9 @@ export const Performers = memo(function Performers(props: { eventDetails?: Event
     </Flexbox>
   );
 });
+
+const styles = {
+  typography: {
+    fontSize: isMobile ? "0.9rem" : "1rem",
+  },
+};

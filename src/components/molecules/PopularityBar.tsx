@@ -15,7 +15,7 @@ export const PopularityBar = memo(function PopularityBar(props: { score?: number
   });
 
   return (
-    <Tooltip followCursor placement="top" title={score ? (score * 100).toFixed(1) : "¯\\_(ツ)_/¯"} {...styles.tooltip}>
+    <Tooltip placement="top" title={score ? (score * 100).toFixed(1) : "¯\\_(ツ)_/¯"} {...styles.tooltip}>
       <LinearProgress
         color={
           score ?
@@ -28,7 +28,7 @@ export const PopularityBar = memo(function PopularityBar(props: { score?: number
             : "danger"
           : "neutral"
         }
-        value={Number(value)}
+        value={+value!}
         variant="soft"
         {...styles.progressBar}
       />
@@ -50,5 +50,6 @@ const styles = {
   tooltip: {
     animate: { opacity: [0, 1] },
     component: m.div,
+    followCursor: true,
   },
 };

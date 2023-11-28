@@ -1,16 +1,17 @@
 import { ArrowDownward, ArrowUpward, HourglassTop, MoreVert } from "@mui/icons-material";
-import { Box, CircularProgress, IconButton, Table, Typography } from "@mui/joy";
+import { CircularProgress, IconButton, Table, Typography } from "@mui/joy";
+import { useMeasure } from "@uidotdev/usehooks";
 import { m } from "framer-motion";
-import { memo } from "react";
+import { memo, useEffect, useRef } from "react";
 
-import { DateAndTime } from "../components/atoms/DateAndTime.tsx";
-import { EventTypeIcon } from "../components/atoms/EventTypeIcon.tsx";
 import { Flexbox } from "../components/atoms/Flexbox.tsx";
-import { PopularityBar } from "../components/atoms/PopularityBar.tsx";
-import { Prices } from "../components/atoms/Prices.tsx";
-import { TicketsButton } from "../components/atoms/TicketsButton.tsx";
-import { Performers } from "../components/molecules/Performers.tsx";
-import { Venue } from "../components/molecules/Venue.tsx";
+import { DateAndTime } from "../components/molecules/DateAndTime.tsx";
+import { EventTypeIcon } from "../components/molecules/EventTypeIcon.tsx";
+import { PopularityBar } from "../components/molecules/PopularityBar.tsx";
+import { Prices } from "../components/molecules/Prices.tsx";
+import { TicketsButton } from "../components/molecules/TicketsButton.tsx";
+import { Performers } from "../components/organisms/Performers.tsx";
+import { Venue } from "../components/organisms/Venue.tsx";
 import { useEvents } from "../hooks/useEvents.ts";
 import { usePaginationStore } from "../stores/usePaginationStore.ts";
 import { useSortingStore } from "../stores/useSortingStore.ts";
@@ -19,22 +20,35 @@ export const EventTable = memo(function EventTable() {
   const sorting = useSortingStore((state) => state);
   const rowsPerPage = usePaginationStore((state) => state.rowsPerPage);
 
+  const [ref, { height }] = useMeasure();
+  const tableBodyHeight = useRef(0);
+
   const { details: eventsDetails, isLoading } = useEvents();
+
+  useEffect(() => {
+    if (height && height > 0) {
+      tableBodyHeight.current = height;
+    }
+  }, [height]);
+
+  useEffect(() => {
+    tableBodyHeight.current = 0;
+  }, [rowsPerPage]);
 
   if (isLoading) {
     return (
-      <Box alignItems="start" display="flex" height="150vh" justifyContent="center" width={1}>
-        <Box alignItems="center" display="flex" height="75vh" justifyContent="center" width={1}>
+      <Flexbox alignItems="start" height={tableBodyHeight.current > 0 ? tableBodyHeight.current : "90vh"} width={1}>
+        <Flexbox height={0.7} width={1}>
           <CircularProgress size="lg">
             <HourglassTop />
           </CircularProgress>
-        </Box>
-      </Box>
+        </Flexbox>
+      </Flexbox>
     );
   }
 
   return (
-    <Table size="lg" sx={{ minHeight: eventsDetails && eventsDetails.length < rowsPerPage ? "auto" : "125vh" }}>
+    <Table component={m.table} layout ref={ref} size="lg">
       <thead>
         <tr>
           <th style={{ width: "2.5%" }}>
@@ -115,10 +129,9 @@ export const EventTable = memo(function EventTable() {
         {eventsDetails?.map((details, i) => {
           return (
             <m.tr
-              animate={{ opacity: [0, 1] }}
               // eslint-disable-next-line react/no-array-index-key
               key={`${details.event.id}${i}`}
-              whileHover={{ backgroundColor: "#000007", transition: { duration: 0.5 } }}
+              {...styles.tr}
             >
               <td>
                 <Flexbox>
@@ -162,7 +175,13 @@ export const EventTable = memo(function EventTable() {
 const styles = {
   sortButton: {
     sx: {
-      "--IconButton-size": "24px",
+      "&:hover": { backgroundColor: "transparent" },
+      "--IconButton-size": "1.5rem",
     },
+  },
+  tr: {
+    animate: { opacity: [0, 1] },
+    layout: true,
+    whileHover: { backgroundColor: "#000007", transition: { duration: 0.5 } },
   },
 };

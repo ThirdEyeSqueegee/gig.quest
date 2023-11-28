@@ -9,7 +9,7 @@ export const TicketsButton = memo(function TicketsButton(props: { url?: string }
 
   return (
     <Button size="sm" variant="outlined" {...styles.ticketButton}>
-      <Link fontSize={isMobile ? "0.8rem" : "0.9rem"} href={url} overlay underline="none">
+      <Link href={url} underline="none" {...styles.ticketLink}>
         Tickets
       </Link>
     </Button>
@@ -24,5 +24,9 @@ const styles = {
       fontWeight: "normal",
     },
     whileTap: { scale: 0.9 },
+  },
+  ticketLink: {
+    fontSize: isMobile ? "0.8rem" : "0.9rem",
+    overlay: true,
   },
 };

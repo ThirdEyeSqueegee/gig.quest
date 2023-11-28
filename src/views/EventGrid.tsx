@@ -1,26 +1,43 @@
 import { HourglassTop } from "@mui/icons-material";
 import { Card, CircularProgress, Grid, Typography } from "@mui/joy";
+import { useMeasure } from "@uidotdev/usehooks";
 import { m } from "framer-motion";
-import { memo } from "react";
+import { memo, useEffect, useRef } from "react";
 import { isMobile } from "react-device-detect";
 
-import { DateAndTime } from "../components/atoms/DateAndTime.tsx";
-import { EventTypeIcon } from "../components/atoms/EventTypeIcon.tsx";
 import { Flexbox } from "../components/atoms/Flexbox.tsx";
-import { PopularityBar } from "../components/atoms/PopularityBar.tsx";
-import { Prices } from "../components/atoms/Prices.tsx";
-import { TicketsButton } from "../components/atoms/TicketsButton.tsx";
-import { Performers } from "../components/molecules/Performers.tsx";
-import { Venue } from "../components/molecules/Venue.tsx";
+import { DateAndTime } from "../components/molecules/DateAndTime.tsx";
+import { EventTypeIcon } from "../components/molecules/EventTypeIcon.tsx";
+import { PopularityBar } from "../components/molecules/PopularityBar.tsx";
+import { Prices } from "../components/molecules/Prices.tsx";
+import { TicketsButton } from "../components/molecules/TicketsButton.tsx";
+import { Performers } from "../components/organisms/Performers.tsx";
+import { Venue } from "../components/organisms/Venue.tsx";
 import { useEvents } from "../hooks/useEvents.ts";
+import { usePaginationStore } from "../stores/usePaginationStore.ts";
 
 export const EventGrid = memo(function EventGrid() {
+  const rowsPerPage = usePaginationStore((state) => state.rowsPerPage);
+
+  const [ref, { height }] = useMeasure();
+  const tableBodyHeight = useRef(0);
+
   const { details: eventsDetails, isLoading } = useEvents();
+
+  useEffect(() => {
+    if (height && height > 0) {
+      tableBodyHeight.current = height;
+    }
+  }, [height]);
+
+  useEffect(() => {
+    tableBodyHeight.current = 0;
+  }, [rowsPerPage]);
 
   if (isLoading) {
     return (
-      <Flexbox alignItems="start" height="150vh" width={1}>
-        <Flexbox height="75vh" width={1}>
+      <Flexbox alignItems="start" height={tableBodyHeight.current > 0 ? tableBodyHeight.current : "90vh"} width={1}>
+        <Flexbox height={0.7} width={1}>
           <CircularProgress size="lg">
             <HourglassTop />
           </CircularProgress>
@@ -30,7 +47,7 @@ export const EventGrid = memo(function EventGrid() {
   }
 
   return (
-    <Grid container mt={isMobile ? 0 : 1} spacing={1} width={1}>
+    <Grid ref={ref} {...styles.gridContainer}>
       {eventsDetails?.map((details, i) => {
         return (
           // eslint-disable-next-line react/no-array-index-key
@@ -87,11 +104,20 @@ const styles = {
       transition: { duration: 0.25 },
     },
     component: m.div,
+    layout: true,
     sx: {
       flex: 1,
       justifyContent: "space-between",
       p: 1,
     },
     whileHover: isMobile ? null : { boxShadow: "#555555 0 0 5px", transition: { duration: 0.05 } },
+  },
+  gridContainer: {
+    component: m.div,
+    container: true,
+    layout: true,
+    mt: isMobile ? 0 : 1,
+    spacing: 1,
+    width: 1,
   },
 };

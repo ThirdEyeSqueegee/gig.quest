@@ -9,17 +9,19 @@ import { useLocationStore } from "../../stores/useLocationStore.ts";
 export const DistanceChip = memo(function DistanceChip(props: { eventDetails?: EventDetails }) {
   const { eventDetails } = props;
 
+  const eventLocation = eventDetails?.event.venue ? eventDetails.event.venue.location : { lat: null, lon: null };
+
   const location = useLocationStore((state) => state.location);
 
   return (
-    <Chip size="sm" sx={{ height: "1rem" }}>
-      <Typography fontSize={isMobile ? "0.65rem" : "0.7rem"}>
-        {eventDetails?.event.venue?.location && location ?
+    <Chip size="sm" sx={styles.distanceChip}>
+      <Typography {...styles.distance}>
+        {eventLocation && location ?
           convertDistance(
             getPreciseDistance(
               {
-                latitude: eventDetails.event.venue.location.lat!,
-                longitude: eventDetails.event.venue.location.lon!,
+                latitude: eventLocation.lat!,
+                longitude: eventLocation.lon!,
               },
               { latitude: location.lat!, longitude: location.lon! },
             ),
@@ -31,3 +33,12 @@ export const DistanceChip = memo(function DistanceChip(props: { eventDetails?: E
     </Chip>
   );
 });
+
+const styles = {
+  distance: {
+    fontSize: isMobile ? "0.65rem" : "0.7rem",
+  },
+  distanceChip: {
+    height: "1rem",
+  },
+};
