@@ -14,16 +14,20 @@ import { m } from "framer-motion";
 import { memo, useState } from "react";
 import { isMobile } from "react-device-detect";
 
-import { usePagination, useSorting, useView } from "../../State.ts";
+import { useEvents } from "../../hooks/useEvents.ts";
+import { usePaginationStore } from "../../stores/usePaginationStore.ts";
+import { useSortingStore } from "../../stores/useSortingStore.ts";
+import { useViewStore } from "../../stores/useViewStore.ts";
 import { EventTypeIcon } from "../atoms/EventTypeIcon.tsx";
 import { Flexbox } from "../atoms/Flexbox.tsx";
 
-export const Footer = memo(function Footer(props: { eventCount?: number }) {
-  const { eventCount } = props;
+export const Footer = memo(function Footer() {
+  const pagination = usePaginationStore((state) => state);
+  const sorting = useSortingStore((state) => state);
+  const tableView = useViewStore((state) => state.tableView);
 
-  const pagination = usePagination((state) => state);
-  const sorting = useSorting((state) => state);
-  const tableView = useView((state) => state.tableView);
+  const { meta } = useEvents();
+  const eventCount = meta?.total;
 
   const [sliderValue, setSliderValue] = useState(15);
 

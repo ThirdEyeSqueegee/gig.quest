@@ -144,20 +144,20 @@ const spotifySearchArtist = async (artist: string, token: string) => {
     const dice = stringComparison.diceCoefficient.similarity(artist, item.name!);
 
     if (item.name!.length > 5) {
-      return dice > 0.8 ? item : ({ id: "-1" } as ArtistItem);
+      return dice > 0.8 ? item : ({ id: "notFound" } as ArtistItem);
     }
-    return dice > 0.9 ? item : ({ id: "-1" } as ArtistItem);
+    return dice > 0.9 ? item : ({ id: "notFound" } as ArtistItem);
   }
 
-  return { id: "-1" } as ArtistItem;
+  return { id: "notFound" } as ArtistItem;
 };
 
 export const spotifySearchArtists = async (artists: string[], token: string) => {
   const artistItemsMap = new Map<string, ArtistItem>();
 
-  for (const a of artists) {
-    const artistItem = await spotifySearchArtist(a, token);
-    artistItemsMap.set(a, artistItem);
+  for (const artist of artists) {
+    const artistItem = await spotifySearchArtist(artist, token);
+    artistItemsMap.set(artist, artistItem);
   }
 
   return artistItemsMap;

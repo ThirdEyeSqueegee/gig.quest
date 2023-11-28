@@ -6,17 +6,19 @@ import { memo, useState } from "react";
 import { isMobile } from "react-device-detect";
 import TypeIt from "typeit-react";
 
-import { Meta } from "../../Interfaces.ts";
-import { usePagination, useView } from "../../State.ts";
 import { lerp } from "../../Utilities.ts";
+import { useEvents } from "../../hooks/useEvents.ts";
+import { usePaginationStore } from "../../stores/usePaginationStore.ts";
+import { useViewStore } from "../../stores/useViewStore.ts";
 import { Flexbox } from "../atoms/Flexbox.tsx";
 import { SearchInput } from "../atoms/SearchInput.tsx";
 
-export const Header = memo(function Header(props: { meta?: Meta }) {
-  const { meta } = props;
+export const Header = memo(function Header() {
+  const pagination = usePaginationStore((state) => state);
+  const view = useViewStore((state) => state);
 
-  const pagination = usePagination((state) => state);
-  const view = useView((state) => state);
+  const { meta } = useEvents();
+  const geolocation = meta?.geolocation;
 
   const { height, width } = useWindowSize();
   const isWidescreen = width! / height! > 4 / 3;
@@ -55,9 +57,7 @@ export const Header = memo(function Header(props: { meta?: Meta }) {
         <Flexbox height={lerps.locationBoxHeight}>
           <LocationOn {...styles.locationIcon} sx={{ color: "red", fontSize: lerps.locationIconHeight }} />
           <Typography fontFamily="Fira Code Variable" fontSize={`${lerps.locationTitleHeight}rem`} level="body-sm">
-            {!pagination.filter.includes("music_festival") ?
-              `${meta?.geolocation ? meta.geolocation.display_name : "..."} (${pagination.range})`
-            : "Everywhere"}
+            {!pagination.filter.includes("music_festival") ? `${geolocation ? geolocation.display_name : "..."} (${pagination.range})` : "Everywhere"}
           </Typography>
         </Flexbox>
       </Flexbox>

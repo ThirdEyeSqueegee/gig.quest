@@ -5,11 +5,11 @@ import { memo, useRef } from "react";
 import { isMobile } from "react-device-detect";
 import { useHotkeys } from "react-hotkeys-hook";
 
-import { useSearch } from "../../State.ts";
+import { useSearchStore } from "../../stores/useSearchStore.ts";
 import { Flexbox } from "./Flexbox.tsx";
 
 export const SearchInput = memo(function SearchInput() {
-  const search = useSearch((state) => state);
+  const search = useSearchStore((state) => state);
 
   useHotkeys(
     "/",

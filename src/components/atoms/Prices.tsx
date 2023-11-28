@@ -3,12 +3,12 @@ import { memo } from "react";
 import { isMobile } from "react-device-detect";
 
 import { SGEvent } from "../../Interfaces.ts";
-import { useView } from "../../State.ts";
+import { useViewStore } from "../../stores/useViewStore.ts";
 
 export const Prices = memo(function Prices(props: { event: SGEvent; type: "avg" | "hi" | "lo" }) {
   const { event, type } = props;
 
-  const tableView = useView((state) => state.tableView);
+  const tableView = useViewStore((state) => state.tableView);
 
   let price: number | undefined;
   switch (type) {

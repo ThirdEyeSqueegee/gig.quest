@@ -4,7 +4,6 @@ import { m } from "framer-motion";
 import { memo } from "react";
 import { isMobile } from "react-device-detect";
 
-import { EventDetails } from "../Interfaces.ts";
 import { DateAndTime } from "../components/atoms/DateAndTime.tsx";
 import { EventTypeIcon } from "../components/atoms/EventTypeIcon.tsx";
 import { Flexbox } from "../components/atoms/Flexbox.tsx";
@@ -13,9 +12,10 @@ import { Prices } from "../components/atoms/Prices.tsx";
 import { TicketsButton } from "../components/atoms/TicketsButton.tsx";
 import { Performers } from "../components/molecules/Performers.tsx";
 import { Venue } from "../components/molecules/Venue.tsx";
+import { useEvents } from "../hooks/useEvents.ts";
 
-export const EventGrid = memo(function EventGrid(props: { eventsDetails?: EventDetails[]; isLoading: boolean }) {
-  const { eventsDetails, isLoading } = props;
+export const EventGrid = memo(function EventGrid() {
+  const { details: eventsDetails, isLoading } = useEvents();
 
   if (isLoading) {
     return (

@@ -232,7 +232,9 @@ export interface ViewState {
 }
 
 export interface SearchState {
+  debSearchTerm: string;
   searchTerm: string;
+  setDebSearchTerm: (term: string) => void;
   setSearchTerm: (term: string) => void;
 }
 

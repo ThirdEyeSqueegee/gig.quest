@@ -2,14 +2,14 @@ import { Link, Typography } from "@mui/joy";
 import { memo } from "react";
 
 import { EventDetails } from "../../Interfaces.ts";
-import { useView } from "../../State.ts";
+import { useViewStore } from "../../stores/useViewStore.ts";
 import { DistanceChip } from "../atoms/DistanceChip.tsx";
 import { Flexbox } from "../atoms/Flexbox.tsx";
 
 export const Venue = memo(function Venue(props: { eventDetails?: EventDetails; name?: string }) {
   const { eventDetails, name } = props;
 
-  const tableView = useView((state) => state.tableView);
+  const tableView = useViewStore((state) => state.tableView);
 
   return (
     <Flexbox gap={1} justifyContent="start">

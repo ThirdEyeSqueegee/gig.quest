@@ -3,8 +3,6 @@ import { Box, CircularProgress, IconButton, Table, Typography } from "@mui/joy";
 import { m } from "framer-motion";
 import { memo } from "react";
 
-import { EventDetails } from "../Interfaces.ts";
-import { usePagination, useSorting } from "../State.ts";
 import { DateAndTime } from "../components/atoms/DateAndTime.tsx";
 import { EventTypeIcon } from "../components/atoms/EventTypeIcon.tsx";
 import { Flexbox } from "../components/atoms/Flexbox.tsx";
@@ -13,12 +11,15 @@ import { Prices } from "../components/atoms/Prices.tsx";
 import { TicketsButton } from "../components/atoms/TicketsButton.tsx";
 import { Performers } from "../components/molecules/Performers.tsx";
 import { Venue } from "../components/molecules/Venue.tsx";
+import { useEvents } from "../hooks/useEvents.ts";
+import { usePaginationStore } from "../stores/usePaginationStore.ts";
+import { useSortingStore } from "../stores/useSortingStore.ts";
 
-export const EventTable = memo(function EventTable(props: { eventsDetails?: EventDetails[]; isLoading: boolean }) {
-  const { eventsDetails, isLoading } = props;
+export const EventTable = memo(function EventTable() {
+  const sorting = useSortingStore((state) => state);
+  const rowsPerPage = usePaginationStore((state) => state.rowsPerPage);
 
-  const pagination = usePagination((state) => state);
-  const sorting = useSorting((state) => state);
+  const { details: eventsDetails, isLoading } = useEvents();
 
   if (isLoading) {
     return (
@@ -33,7 +34,7 @@ export const EventTable = memo(function EventTable(props: { eventsDetails?: Even
   }
 
   return (
-    <Table size="lg" sx={{ minHeight: eventsDetails && eventsDetails.length < pagination.rowsPerPage ? "auto" : "125vh" }}>
+    <Table size="lg" sx={{ minHeight: eventsDetails && eventsDetails.length < rowsPerPage ? "auto" : "125vh" }}>
       <thead>
         <tr>
           <th style={{ width: "2.5%" }}>

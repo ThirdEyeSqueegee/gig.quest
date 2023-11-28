@@ -4,12 +4,12 @@ import { memo } from "react";
 import { isMobile } from "react-device-detect";
 
 import { EventDetails } from "../../Interfaces.ts";
-import { useLocation } from "../../State.ts";
+import { useLocationStore } from "../../stores/useLocationStore.ts";
 
 export const DistanceChip = memo(function DistanceChip(props: { eventDetails?: EventDetails }) {
   const { eventDetails } = props;
 
-  const location = useLocation((state) => state.location);
+  const location = useLocationStore((state) => state.location);
 
   return (
     <Chip size="sm" sx={{ height: "1rem" }}>

@@ -83,7 +83,7 @@ export const Performers = memo(function Performers(props: { eventDetails?: Event
           // eslint-disable-next-line react/no-array-index-key
           <Fragment key={`${p}${i}`}>
             {eventDetails?.event.type === "concert" ?
-              <SpotifyTooltip artistItem={artistItemsMap ? artistItemsMap.get(p) : { id: "-1" }} performerName={p} />
+              <SpotifyTooltip artistItem={artistItemsMap ? artistItemsMap.get(p) : { id: "loading" }} performerName={p} />
             : <Typography fontSize={isMobile ? "0.9rem" : "1rem"}>{p}</Typography>}
             {eventDetails && i !== eventDetails.performers.length - 1 ?
               <Typography level="body-sm" mx={1} my="auto">

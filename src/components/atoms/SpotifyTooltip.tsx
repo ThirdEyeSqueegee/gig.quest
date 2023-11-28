@@ -1,5 +1,6 @@
 import { ClickAwayListener } from "@mui/base";
-import { Chip, CircularProgress, Link, Tooltip, Typography } from "@mui/joy";
+import { Chip, Link, Tooltip, Typography } from "@mui/joy";
+import { CircularProgress } from "@mui/material";
 import { m } from "framer-motion";
 import { memo, useState } from "react";
 import { isMobile } from "react-device-detect";
@@ -47,11 +48,11 @@ export const SpotifyTooltip = memo(function SpotifyTooltip(props: { artistItem?:
         {...styles.tooltip}
       >
         <Typography fontSize={isMobile ? "0.9rem" : "1rem"} onClick={() => setTooltipOpen(!tooltipOpen)}>
-          {artistItem ?
-            artistItem.id === "-1" ?
-              performerName
-            : <Link>{artistItem.name}</Link>
-          : <CircularProgress />}
+          {artistItem?.id === "notFound" ?
+            performerName
+          : artistItem?.id === "loading" ?
+            <CircularProgress size="sm" />
+          : <Link>{artistItem?.name}</Link>}
         </Typography>
       </Tooltip>
     </ClickAwayListener>
