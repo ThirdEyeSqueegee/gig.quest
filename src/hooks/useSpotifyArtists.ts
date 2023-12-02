@@ -1,29 +1,13 @@
 import { isEqual } from "ohash";
 import useSWR from "swr";
 
-import { EventDetails, SpotifyToken } from "../Interfaces.ts";
-import { spotifyArtistsFetcher, spotifyTokenFetcher } from "../api/API.ts";
+import { SGEventDetails } from "../api/interfaces/SeatGeek.ts";
+import { spotifyArtistsFetcher } from "../api/spotifyFetcher.ts";
 
-const useSpotifyToken = () => {
-  const {
-    data: token,
-    error,
-    isLoading,
-  } = useSWR<SpotifyToken, Error>("spotifyToken", spotifyTokenFetcher, { compare: isEqual, keepPreviousData: true });
-
-  return {
-    error,
-    isLoading,
-    token,
-  };
-};
-
-export const useSpotifyArtists = (eventDetails?: EventDetails) => {
-  const { error, isLoading, token } = useSpotifyToken();
-
+export const useSpotifyArtists = (eventDetails?: SGEventDetails) => {
   const { data: artistItemsMap } = useSWR(
-    !error && !isLoading && eventDetails?.event.type === "concert" ? ["artists", eventDetails?.performers] : null,
-    ([, a]) => spotifyArtistsFetcher(a, token!.token),
+    eventDetails && eventDetails.event.type === "concert" ? ["artists", eventDetails?.performers] : null,
+    ([, a]) => spotifyArtistsFetcher(a),
     { compare: isEqual, keepPreviousData: true },
   );
 

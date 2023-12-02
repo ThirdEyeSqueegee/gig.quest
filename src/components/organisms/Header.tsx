@@ -7,7 +7,7 @@ import { isMobile } from "react-device-detect";
 import TypeIt from "typeit-react";
 
 import { lerp } from "../../Utilities.ts";
-import { useEvents } from "../../hooks/useEvents.ts";
+import { useSeatGeekEvents } from "../../hooks/useSeatGeekEvents.ts";
 import { usePaginationStore } from "../../stores/usePaginationStore.ts";
 import { useViewStore } from "../../stores/useViewStore.ts";
 import { Flexbox } from "../atoms/Flexbox.tsx";
@@ -20,7 +20,7 @@ export const Header = memo(function Header() {
   const setRowsPerPage = usePaginationStore((state) => state.setRowsPerPage);
   const view = useViewStore((state) => state);
 
-  const { meta } = useEvents();
+  const { meta } = useSeatGeekEvents();
   const geolocation = meta?.geolocation;
 
   const { height, width } = useWindowSize();
@@ -82,7 +82,7 @@ export const Header = memo(function Header() {
               }}
               size="lg"
               variant="outlined"
-              {...styles.switch}
+              {...styles.viewSwitch}
             />
           </Tooltip>
         )}
@@ -106,10 +106,15 @@ const styles = {
     whileTap: { scale: 0.9 },
   },
   searchFlex: {
-    alignSelf: "end",
+    alignSelf: isMobile ? "center" : "end",
     gap: 2,
   },
-  switch: {
+  switchTooltip: {
+    animate: { opacity: [0, 1] },
+    component: m.div,
+    sx: { backdropFilter: "blur(8px)", backgroundColor: "transparent" },
+  },
+  viewSwitch: {
     endDecorator: <GridView fontSize="small" />,
     slotProps: {
       thumb: {
@@ -119,10 +124,5 @@ const styles = {
       },
     },
     startDecorator: <TableRows fontSize="small" />,
-  },
-  switchTooltip: {
-    animate: { opacity: [0, 1] },
-    component: m.div,
-    sx: { backdropFilter: "blur(8px)", backgroundColor: "transparent" },
   },
 };

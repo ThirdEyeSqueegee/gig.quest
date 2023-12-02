@@ -14,7 +14,7 @@ import { m } from "framer-motion";
 import { memo, useState } from "react";
 import { isMobile } from "react-device-detect";
 
-import { useEvents } from "../../hooks/useEvents.ts";
+import { useSeatGeekEvents } from "../../hooks/useSeatGeekEvents.ts";
 import { usePaginationStore } from "../../stores/usePaginationStore.ts";
 import { useSortingStore } from "../../stores/useSortingStore.ts";
 import { useViewStore } from "../../stores/useViewStore.ts";
@@ -26,8 +26,11 @@ export const Footer = memo(function Footer() {
   const sorting = useSortingStore((state) => state);
   const tableView = useViewStore((state) => state.tableView);
 
-  const { meta } = useEvents();
-  const eventCount = meta?.total;
+  const { meta: sgMeta } = useSeatGeekEvents();
+
+  const sgEventCount = sgMeta?.total;
+
+  const lastPage = sgEventCount ? Math.ceil(sgEventCount / pagination.rowsPerPage) : undefined;
 
   const [sliderValue, setSliderValue] = useState(15);
 
@@ -81,7 +84,7 @@ export const Footer = memo(function Footer() {
                     event.stopPropagation();
                   }}
                   size="sm"
-                  sx={{ "&:hover": { "--IconButton-size": "20px", backgroundColor: "transparent" } }}
+                  sx={{ "&:hover": { backgroundColor: "transparent" }, "--IconButton-size": "1.5rem" }}
                 >
                   <CloseRounded fontSize="small" />
                 </IconButton>
@@ -239,26 +242,16 @@ export const Footer = memo(function Footer() {
           <IconButton disabled={pagination.page === 1} onClick={pagination.prevPage} variant="outlined" {...styles.pageButton}>
             <KeyboardArrowLeft />
           </IconButton>
-          <IconButton
-            disabled={pagination.page === Math.ceil(eventCount! / pagination.rowsPerPage)}
-            onClick={pagination.nextPage}
-            variant="outlined"
-            {...styles.pageButton}
-          >
+          <IconButton disabled={pagination.page === lastPage} onClick={pagination.nextPage} variant="outlined" {...styles.pageButton}>
             <KeyboardArrowRight />
           </IconButton>
-          <IconButton
-            disabled={pagination.page === Math.ceil(eventCount! / pagination.rowsPerPage)}
-            onClick={() => pagination.setPage(Math.ceil(eventCount! / pagination.rowsPerPage))}
-            variant="outlined"
-            {...styles.pageButton}
-          >
+          <IconButton disabled={pagination.page === lastPage} onClick={() => pagination.setPage(lastPage!)} variant="outlined" {...styles.pageButton}>
             <KeyboardDoubleArrowRight />
           </IconButton>
         </Flexbox>
       </Flexbox>
       <Typography level="body-sm">
-        Page {pagination.page} of {eventCount ? Math.ceil(eventCount / pagination.rowsPerPage) : "..."}
+        Page {pagination.page} of {lastPage ?? "..."}
       </Typography>
     </Flexbox>
   );

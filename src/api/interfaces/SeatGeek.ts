@@ -1,6 +1,6 @@
 export interface SGEvents {
   events?: SGEvent[];
-  meta?: Meta;
+  meta?: SGMeta;
 }
 
 export interface SGEvent {
@@ -22,11 +22,11 @@ export interface SGEvent {
   is_visible?: boolean;
   is_visible_override?: string;
   links?: string[];
-  performers?: Performer[];
+  performers?: SGPerformer[];
   popularity?: number;
   score?: number;
   short_title?: string;
-  stats?: EventStats;
+  stats?: SGEventStats;
   status?: string;
   taxonomies?: object[];
   tdc_pv_id?: number;
@@ -36,20 +36,20 @@ export interface SGEvent {
   title?: string;
   type?: string;
   url?: string;
-  venue?: Venue;
+  venue?: SGVenue;
   visible_at?: string;
   visible_until_utc?: string;
 }
 
-export interface Meta {
-  geolocation?: Geolocation;
+export interface SGMeta {
+  geolocation?: SGGeolocation;
   page?: number;
   per_page?: number;
   took?: number;
   total?: number;
 }
 
-export interface Geolocation {
+export interface SGGeolocation {
   city?: string;
   country?: string;
   display_name?: string;
@@ -61,7 +61,7 @@ export interface Geolocation {
   state?: string;
 }
 
-export interface Venue {
+export interface SGVenue {
   access_method?: object;
   address?: string;
   capacity?: number;
@@ -86,7 +86,7 @@ export interface Venue {
   url?: string;
 }
 
-export interface Performer {
+export interface SGPerformer {
   away_team?: boolean;
   colors?: object;
   divisions?: object[];
@@ -114,7 +114,7 @@ export interface Performer {
   url?: string;
 }
 
-export interface EventStats {
+export interface SGEventStats {
   average_price?: number;
   dq_bucket_counts?: number[];
   highest_price?: number;
@@ -128,117 +128,17 @@ export interface EventStats {
 }
 
 export interface Location {
-  lat: null | number;
-  lon: null | number;
+  lat?: number;
+  lon?: number;
 }
 
-export interface SpotifyTokenResponse {
-  access_token: string;
-  expires_in: number;
-  token_type: string;
-}
-
-export interface SpotifyToken {
-  expires_at: Date;
-  token: string;
-}
-
-export interface SpotifyArtistDetails {
-  href?: string;
-  items?: ArtistItem[];
-  limit?: number;
-  next?: string;
-  offset?: number;
-  previous?: string;
-  total?: number;
-}
-
-export interface SpotifyArtistResult {
-  artists: SpotifyArtistDetails;
-}
-
-export interface ExternalUrls {
-  spotify?: string;
-}
-
-export interface Followers {
-  href?: string;
-  total?: number;
-}
-
-export interface Image {
-  height?: number;
-  url?: string;
-  width?: number;
-}
-
-export interface ArtistItem {
-  external_urls?: ExternalUrls;
-  followers?: Followers;
-  genres?: string[];
-  href?: string;
-  id?: string;
-  images?: Image[];
-  name?: string;
-  popularity?: number;
-  type?: string;
-  uri?: string;
-}
-
-export interface EventDetails {
+export interface SGEventDetails {
   event: SGEvent;
   is1v1: boolean;
   performers: string[];
 }
 
-export interface EventsDetailsAndMeta {
-  details: EventDetails[];
-  meta: Meta;
-}
-
-export interface PaginationState {
-  filter: string[];
-  page: number;
-  range: string;
-  rowCountOptions: number[];
-  rowsPerPage: number;
-  // eslint-disable-next-line perfectionist/sort-interfaces
-  firstPage: () => void;
-  nextPage: () => void;
-  prevPage: () => void;
-  setFilter: (filter: string[]) => void;
-  setPage: (page: number) => void;
-  setRange: (range: string) => void;
-  setRowCountOptions: (rowCountOptions: number[]) => void;
-  setRowsPerPage: (rowsPerPage: number) => void;
-}
-
-export interface SortingState {
-  sortAvgPrice?: boolean;
-  sortDate?: boolean;
-  sortHighestPrice?: boolean;
-  sortLowestPrice?: boolean;
-  sortPopularity?: boolean;
-  toggleSortAvgPrice: () => void;
-  toggleSortDate: () => void;
-  toggleSortHighestPrice: () => void;
-  toggleSortLowestPrice: () => void;
-  toggleSortPopularity: () => void;
-}
-
-export interface ViewState {
-  tableView: boolean;
-  toggleGridView: () => void;
-}
-
-export interface SearchState {
-  debSearchTerm: string;
-  searchTerm: string;
-  setDebSearchTerm: (term: string) => void;
-  setSearchTerm: (term: string) => void;
-}
-
-export interface LocationState {
-  location?: Location;
-  setLocation: (location: Location) => void;
+export interface SGEventsDetailsAndMeta {
+  details: SGEventDetails[];
+  meta: SGMeta;
 }

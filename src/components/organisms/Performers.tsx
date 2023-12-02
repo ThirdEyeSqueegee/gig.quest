@@ -1,9 +1,10 @@
 import { Typography } from "@mui/joy";
+import { Artist } from "@spotify/web-api-ts-sdk";
 import { useWindowSize } from "@uidotdev/usehooks";
 import { Fragment, memo } from "react";
 import { isMobile } from "react-device-detect";
 
-import { EventDetails } from "../../Interfaces.ts";
+import { SGEventDetails } from "../../api/interfaces/SeatGeek.ts";
 import { useSpotifyArtists } from "../../hooks/useSpotifyArtists.ts";
 import { Flexbox } from "../atoms/Flexbox.tsx";
 import { NBATeam } from "../molecules/NBATeam.tsx";
@@ -14,7 +15,7 @@ const regex1 = /\(.*\)/gu;
 const regex2 = /(?:with).*(?:&|and) (?:[Mm]ore)/gu;
 const regex3 = / - [0-9] (?:[Dd]ay) (?:[Pp]ass)/gu;
 
-export const Performers = memo(function Performers(props: { eventDetails?: EventDetails }) {
+export const Performers = memo(function Performers(props: { eventDetails?: SGEventDetails }) {
   const { eventDetails } = props;
 
   const { width } = useWindowSize();
@@ -71,7 +72,7 @@ export const Performers = memo(function Performers(props: { eventDetails?: Event
           // eslint-disable-next-line react/no-array-index-key
           <Fragment key={`${p}${i}`}>
             {eventDetails?.event.type === "concert" ?
-              <SpotifyTooltip artistItem={artistItemsMap ? artistItemsMap.get(p) : { id: "loading" }} performerName={p} />
+              <SpotifyTooltip artist={artistItemsMap ? artistItemsMap.get(p) : ({ id: "loading" } as Artist)} performerName={p} />
             : <Typography {...styles.typography}>{p}</Typography>}
             {eventDetails && i !== eventDetails.performers.length - 1 ?
               <Typography level="body-sm" mx={1} my="auto">

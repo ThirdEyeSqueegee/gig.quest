@@ -14,24 +14,17 @@ export const PopularityBar = memo(function PopularityBar(props: { score?: number
     start: 0,
   });
 
+  const color =
+    score ?
+      score > 0.75 ? "success"
+      : score > 0.5 ? "primary"
+      : score > 0.25 ? "warning"
+      : "danger"
+    : "neutral";
+
   return (
-    <Tooltip placement="top" title={score ? (score * 100).toFixed(1) : "¯\\_(ツ)_/¯"} {...styles.tooltip}>
-      <LinearProgress
-        color={
-          score ?
-            score > 0.75 ?
-              "success"
-            : score > 0.5 ?
-              "primary"
-            : score > 0.25 ?
-              "warning"
-            : "danger"
-          : "neutral"
-        }
-        value={+value!}
-        variant="soft"
-        {...styles.progressBar}
-      />
+    <Tooltip placement="top" title={score ? `Popularity: ${(score * 100).toFixed(1)}` : "¯\\_(ツ)_/¯"} {...styles.tooltip}>
+      <LinearProgress color={color} value={+value!} variant="soft" {...styles.progressBar} />
     </Tooltip>
   );
 });
@@ -51,5 +44,6 @@ const styles = {
     animate: { opacity: [0, 1] },
     component: m.div,
     followCursor: true,
+    sx: { backdropFilter: "blur(8px)", backgroundColor: "transparent" },
   },
 };

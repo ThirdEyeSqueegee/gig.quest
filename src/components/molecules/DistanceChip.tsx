@@ -3,13 +3,13 @@ import { convertDistance, getPreciseDistance } from "geolib";
 import { memo } from "react";
 import { isMobile } from "react-device-detect";
 
-import { EventDetails } from "../../Interfaces.ts";
+import { SGVenue } from "../../api/interfaces/SeatGeek.ts";
 import { useLocationStore } from "../../stores/useLocationStore.ts";
 
-export const DistanceChip = memo(function DistanceChip(props: { eventDetails?: EventDetails }) {
-  const { eventDetails } = props;
+export const DistanceChip = memo(function DistanceChip(props: { venue?: SGVenue }) {
+  const { venue } = props;
 
-  const eventLocation = eventDetails?.event.venue ? eventDetails.event.venue.location : { lat: null, lon: null };
+  const eventLocation = venue?.location ?? { lat: undefined, lon: undefined };
 
   const location = useLocationStore((state) => state.location);
 

@@ -1,7 +1,7 @@
 import { isMobile } from "react-device-detect";
 import { create } from "zustand";
 
-import { ViewState } from "../Interfaces.ts";
+import { ViewState } from "./interfaces/State.ts";
 
 export const useViewStore = create<ViewState>()((set) => ({
   tableView: !isMobile,

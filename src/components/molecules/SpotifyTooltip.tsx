@@ -1,16 +1,16 @@
 import { ClickAwayListener } from "@mui/base";
 import { Chip, Link, Tooltip, Typography } from "@mui/joy";
 import { CircularProgress } from "@mui/material";
+import { Artist } from "@spotify/web-api-ts-sdk";
 import { m } from "framer-motion";
 import { memo, useState } from "react";
 import { isMobile } from "react-device-detect";
 
-import { ArtistItem } from "../../Interfaces.ts";
 import SpotifyIcon from "../../assets/spotify_icon.svg";
 import { Flexbox } from "../atoms/Flexbox.tsx";
 
-export const SpotifyTooltip = memo(function SpotifyTooltip(props: { artistItem?: ArtistItem; performerName?: string }) {
-  const { artistItem, performerName } = props;
+export const SpotifyTooltip = memo(function SpotifyTooltip(props: { artist?: Artist; performerName?: string }) {
+  const { artist, performerName } = props;
 
   const [tooltipOpen, setTooltipOpen] = useState(false);
 
@@ -19,19 +19,19 @@ export const SpotifyTooltip = memo(function SpotifyTooltip(props: { artistItem?:
       <Tooltip
         open={tooltipOpen}
         title={
-          !artistItem || artistItem.id === "-1" ?
+          !artist || artist.id === "notFound" ?
             <Flexbox {...styles.tooltipBox}>¯\_(ツ)_/¯</Flexbox>
-          : <Link color="success" href={artistItem?.external_urls?.spotify} underline="none" {...styles.tooltipLink}>
+          : <Link color="success" href={artist.external_urls?.spotify} underline="none" {...styles.tooltipLink}>
               <Flexbox {...styles.tooltipBox}>
                 <Flexbox flexDirection="column" gap={1}>
                   <Typography level="body-sm" {...styles.artistFollowers}>
-                    {artistItem.followers?.total?.toLocaleString()} followers
+                    {artist.followers?.total.toLocaleString()} followers
                   </Typography>
                   <Flexbox flexWrap="wrap" gap={1}>
-                    {artistItem.genres?.map((genre, i) => {
+                    {artist.genres?.map((genre, i) => {
                       return (
                         // eslint-disable-next-line react/no-array-index-key
-                        <Chip color="success" key={`${artistItem.id}${i}`} size="sm">
+                        <Chip color="success" key={`${artist.id}${i}`} size="sm">
                           {genre}
                         </Chip>
                       );
@@ -45,11 +45,11 @@ export const SpotifyTooltip = memo(function SpotifyTooltip(props: { artistItem?:
         {...styles.tooltip}
       >
         <Typography onClick={() => setTooltipOpen(!tooltipOpen)} {...styles.artistName}>
-          {artistItem?.id === "notFound" ?
+          {artist?.id === "notFound" ?
             performerName
-          : artistItem?.id === "loading" ?
+          : artist?.id === "loading" ?
             <CircularProgress size="xs" />
-          : <Link>{artistItem?.name}</Link>}
+          : <Link>{artist?.name}</Link>}
         </Typography>
       </Tooltip>
     </ClickAwayListener>
@@ -71,6 +71,7 @@ const styles = {
   tooltipBox: {
     gap: 1,
     maxWidth: "20rem",
+    py: 0.5,
   },
   tooltipLink: {
     fontSize: "0.8rem",

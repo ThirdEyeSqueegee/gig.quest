@@ -2,24 +2,24 @@ import { Typography } from "@mui/joy";
 import { memo } from "react";
 import { isMobile } from "react-device-detect";
 
-import { SGEvent } from "../../Interfaces.ts";
+import { SGEventStats } from "../../api/interfaces/SeatGeek.ts";
 import { useViewStore } from "../../stores/useViewStore.ts";
 
-export const Prices = memo(function Prices(props: { event: SGEvent; type: "avg" | "hi" | "lo" }) {
-  const { event, type } = props;
+export const Prices = memo(function Prices(props: { stats?: SGEventStats; type: "avg" | "hi" | "lo" }) {
+  const { stats, type } = props;
 
   const tableView = useViewStore((state) => state.tableView);
 
   let price: number | undefined;
   switch (type) {
     case "lo":
-      price = event.stats?.lowest_price;
+      price = stats?.lowest_price;
       break;
     case "hi":
-      price = event.stats?.highest_price;
+      price = stats?.highest_price;
       break;
     case "avg":
-      price = event.stats?.average_price;
+      price = stats?.average_price;
       break;
   }
 

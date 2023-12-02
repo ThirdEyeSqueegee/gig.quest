@@ -1,13 +1,13 @@
 import { isEqual } from "ohash";
 import useSWR from "swr";
 
-import { eventsFetcher } from "../api/API.ts";
+import { seatGeekFetcher } from "../api/seatGeekFetcher.ts";
 import { useLocationStore } from "../stores/useLocationStore.ts";
 import { usePaginationStore } from "../stores/usePaginationStore.ts";
 import { useSearchStore } from "../stores/useSearchStore.ts";
 import { useSortingStore } from "../stores/useSortingStore.ts";
 
-export const useEvents = () => {
+export const useSeatGeekEvents = () => {
   const pagination = usePaginationStore((state) => state);
   const sorting = useSortingStore((state) => state);
   const location = useLocationStore((state) => state);
@@ -31,7 +31,7 @@ export const useEvents = () => {
       ]
     : null,
     ([, filter, loc, page, rowsPerPage, range, sortAvgPrice, sortDate, sortHighestPrice, sortLowestPrice, sortPopularity, term]) =>
-      eventsFetcher(filter, loc, page, rowsPerPage, range, sortAvgPrice, sortDate, sortHighestPrice, sortLowestPrice, sortPopularity, term),
+      seatGeekFetcher(filter, loc, page, rowsPerPage, range, sortAvgPrice, sortDate, sortHighestPrice, sortLowestPrice, sortPopularity, term),
     {
       compare: isEqual,
       keepPreviousData: true,

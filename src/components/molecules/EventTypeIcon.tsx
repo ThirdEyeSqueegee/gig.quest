@@ -46,7 +46,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: st
     case "mls":
       return (
         <Tooltip title="MLS" {...styles.tooltip}>
-          <SportsSoccer {...styles.eventIcon} />
+          <SportsSoccer htmlColor="lightWhite" {...styles.eventIcon} />
         </Tooltip>
       );
     case "ncaa_football":

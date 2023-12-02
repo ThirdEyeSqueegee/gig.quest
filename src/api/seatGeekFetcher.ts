@@ -1,20 +1,9 @@
-/* eslint-disable camelcase */
 import axios from "axios";
-import stringComparison from "string-comparison";
 
-import {
-  ArtistItem,
-  EventDetails,
-  EventsDetailsAndMeta,
-  Location,
-  SGEvents,
-  SpotifyArtistResult,
-  SpotifyToken,
-  SpotifyTokenResponse,
-} from "../Interfaces.ts";
 import { tokenizePerformers } from "../Utilities.ts";
+import { Location, SGEventDetails, SGEvents, SGEventsDetailsAndMeta } from "./interfaces/SeatGeek.ts";
 
-export const eventsFetcher = async (
+export const seatGeekFetcher = async (
   filter: string[],
   location: Location,
   page: number,
@@ -94,71 +83,14 @@ export const eventsFetcher = async (
   }&datetime_utc.gt=${new Date().toISOString().replace("Z", "")}${searchQuery ? `&q=${searchQuery}` : ""}
     `);
 
-  const eventsDetails: EventDetails[] = [];
+  const eventsDetails: SGEventDetails[] = [];
   for (const e of response.data.events!) {
-    const { is1v1, tokens } = tokenizePerformers(e.performers ?? [], e.type ?? "");
+    const { is1v1, tokens } = tokenizePerformers(e.performers, e.type);
     eventsDetails.push({ event: e, is1v1, performers: tokens });
   }
 
   return {
     details: eventsDetails,
     meta: response.data.meta,
-  } as EventsDetailsAndMeta;
-};
-
-export const spotifyTokenFetcher = async () => {
-  const response = await axios.post<SpotifyTokenResponse>(
-    "https://accounts.spotify.com/api/token",
-    {
-      grant_type: "client_credentials",
-      // eslint-disable-next-line perfectionist/sort-objects
-      client_id: import.meta.env.VITE_SPOTIFY_CLIENT_ID as string,
-      client_secret: import.meta.env.VITE_SPOTIFY_CLIENT_SECRET as string,
-    },
-    {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-    },
-  );
-  return {
-    expires_at: new Date(Date.now() + response.data.expires_in * 1000),
-    token: response.data.access_token,
-  } as SpotifyToken;
-};
-
-const spotifySearchArtist = async (artist: string, token: string) => {
-  const response = await axios.get<SpotifyArtistResult>("https://api.spotify.com/v1/search", {
-    params: {
-      q: artist,
-      type: "artist",
-    },
-    // eslint-disable-next-line perfectionist/sort-objects
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
-  if (response.data.artists.items) {
-    const [item] = response.data.artists.items;
-    const dice = stringComparison.diceCoefficient.similarity(artist, item.name!);
-
-    if (item.name!.length > 5) {
-      return dice > 0.8 ? item : ({ id: "notFound" } as ArtistItem);
-    }
-    return dice > 0.9 ? item : ({ id: "notFound" } as ArtistItem);
-  }
-
-  return { id: "notFound" } as ArtistItem;
-};
-
-export const spotifyArtistsFetcher = async (artists: string[], token: string) => {
-  const artistItemsMap = new Map<string, ArtistItem>();
-
-  for (const artist of artists) {
-    const artistItem = await spotifySearchArtist(artist, token);
-    artistItemsMap.set(artist, artistItem);
-  }
-
-  return artistItemsMap;
+  } as SGEventsDetailsAndMeta;
 };

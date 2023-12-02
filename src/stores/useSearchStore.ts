@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-import { SearchState } from "../Interfaces.ts";
+import { SearchState } from "./interfaces/State.ts";
 
 export const useSearchStore = create<SearchState>()((set) => ({
   debSearchTerm: "",
