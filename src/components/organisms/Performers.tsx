@@ -1,6 +1,5 @@
 import { Typography } from "@mui/joy";
 import { Artist } from "@spotify/web-api-ts-sdk";
-import { useWindowSize } from "@uidotdev/usehooks";
 import { Fragment, memo } from "react";
 import { isMobile } from "react-device-detect";
 
@@ -17,8 +16,6 @@ const regex3 = / - [0-9] (?:[Dd]ay) (?:[Pp]ass)/gu;
 
 export const Performers = memo(function Performers(props: { eventDetails?: SGEventDetails }) {
   const { eventDetails } = props;
-
-  const { width } = useWindowSize();
 
   const artistItemsMap = useSpotifyArtists(eventDetails);
 
@@ -41,7 +38,7 @@ export const Performers = memo(function Performers(props: { eventDetails?: SGEve
     const [homeTeam, awayTeam] = eventDetails.performers;
 
     return (
-      <Flexbox flexBasis={width && width < 420 ? 180 : "auto"} flexWrap="wrap" justifyContent="start">
+      <Flexbox flexWrap="wrap" justifyContent="start">
         <NBATeam team={homeTeam} />
         <Typography level="body-sm" mx={1} my="auto">
           vs.
@@ -55,7 +52,7 @@ export const Performers = memo(function Performers(props: { eventDetails?: SGEve
     const [homeTeam, awayTeam] = eventDetails.performers;
 
     return (
-      <Flexbox flexBasis={width && width < 420 ? 180 : "auto"} flexWrap="wrap" justifyContent="start">
+      <Flexbox flexWrap="wrap" justifyContent="start">
         <NFLTeam team={homeTeam} />
         <Typography level="body-sm" mx={1} my="auto">
           vs.

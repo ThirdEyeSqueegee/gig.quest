@@ -25,7 +25,7 @@ export const theme = extendTheme({
           listbox: {
             placement: "top",
             sx: {
-              backdropFilter: "blur(8px)",
+              backdropFilter: "blur(0.5rem)",
               backgroundColor: "transparent",
             },
           },
@@ -37,6 +37,7 @@ export const theme = extendTheme({
         arrow: true,
         enterTouchDelay: 25,
         leaveTouchDelay: 3000,
+        placement: "top",
         variant: "soft",
       },
     },

@@ -6,6 +6,7 @@ import { memo, useEffect } from "react";
 import { isMobile } from "react-device-detect";
 
 import { Flexbox } from "./components/atoms/Flexbox.tsx";
+import { HelpButton } from "./components/molecules/HelpButton.tsx";
 import { LocationLoading } from "./components/molecules/LocationLoading.tsx";
 import { Footer } from "./components/organisms/Footer.tsx";
 import { Header } from "./components/organisms/Header.tsx";
@@ -53,6 +54,7 @@ export const App = memo(function App() {
               <GitHub />
               <Link href="https://github.com/ThirdEyeSqueegee/gig.quest" overlay />
             </IconButton>
+            <HelpButton />
           </Flexbox>
           {location.location ?
             tableView ?
@@ -69,14 +71,14 @@ export const App = memo(function App() {
 
 const styles = {
   githubButton: {
-    "&:hover": { backgroundColor: "transparent" },
+    "&:hover, &:active": { backgroundColor: "transparent" },
     position: "absolute",
     right: "0.2rem",
     top: "0.25rem",
   },
   headerBox: {
     ...(!isMobile && {
-      sx: { backdropFilter: "blur(8px)", zIndex: 5 },
+      sx: { backdropFilter: "blur(0.5rem)", zIndex: 5 },
       top: 0,
     }),
     width: 1,

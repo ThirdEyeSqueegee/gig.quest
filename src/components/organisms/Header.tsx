@@ -59,7 +59,7 @@ export const Header = memo(function Header() {
         </Typography>
         <Flexbox height={lerps.locationBoxHeight}>
           <LocationOn {...styles.locationIcon} sx={{ color: "red", fontSize: lerps.locationIconHeight }} />
-          <Typography fontFamily="Fira Code Variable" fontSize={`${lerps.locationTitleHeight}rem`} level="body-sm">
+          <Typography fontFamily="Fira Code Variable" fontSize={`${lerps.locationTitleHeight}rem`} level="body-sm" sx={{ userSelect: "none" }}>
             {!filter.includes("music_festival") ? `${geolocation ? geolocation.display_name : "..."} (${range})` : "Everywhere"}
           </Typography>
         </Flexbox>
@@ -95,6 +95,7 @@ const styles = {
   headerText: {
     component: m.span,
     fontFamily: "Fira Code Variable",
+    sx: { userSelect: "none" },
     whileHover: { rotate: [0, 3, -3, 3, -3, 0], transition: { duration: 0.75 } },
   },
   locationIcon: {
@@ -112,7 +113,7 @@ const styles = {
   switchTooltip: {
     animate: { opacity: [0, 1] },
     component: m.div,
-    sx: { backdropFilter: "blur(8px)", backgroundColor: "transparent" },
+    sx: { backdropFilter: "blur(0.5rem)", backgroundColor: "transparent" },
   },
   viewSwitch: {
     endDecorator: <GridView fontSize="small" />,

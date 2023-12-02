@@ -20,6 +20,11 @@ import { m } from "framer-motion";
 import { memo } from "react";
 import { isMobile } from "react-device-detect";
 
+import MLSLogo from "../../assets/mls_logo.svg";
+import NBALogo from "../../assets/nba_logo.svg";
+import NFLLogo from "../../assets/nfl_logo.svg";
+import NHLLogo from "../../assets/nhl_logo.svg";
+
 export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: string }) {
   const { eventType } = props;
 
@@ -27,7 +32,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: st
     case "nba":
       return (
         <Tooltip title="NBA" {...styles.tooltip}>
-          <SportsBasketball htmlColor="coral" {...styles.eventIcon} />
+          <m.img height={32} src={NBALogo} {...styles.eventIcon} />
         </Tooltip>
       );
     case "ncaa_basketball":
@@ -40,13 +45,13 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: st
     case "ncaa_soccer":
       return (
         <Tooltip title="NCAA Soccer" {...styles.tooltip}>
-          <SportsSoccer {...styles.eventIcon} />
+          <SportsSoccer htmlColor="lightWhite" {...styles.eventIcon} />
         </Tooltip>
       );
     case "mls":
       return (
         <Tooltip title="MLS" {...styles.tooltip}>
-          <SportsSoccer htmlColor="lightWhite" {...styles.eventIcon} />
+          <m.img height={28} src={MLSLogo} {...styles.eventIcon} />
         </Tooltip>
       );
     case "ncaa_football":
@@ -95,31 +100,31 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: st
     case "esports":
       return (
         <Tooltip title="Esports" {...styles.tooltip}>
-          <SportsEsports {...styles.eventIcon} />
+          <SportsEsports htmlColor="lightWhite" {...styles.eventIcon} />
         </Tooltip>
       );
     case "nhl":
       return (
         <Tooltip title="NHL" {...styles.tooltip}>
-          <SportsHockey {...styles.eventIcon} />
+          <m.img height={32} src={NHLLogo} {...styles.eventIcon} />
         </Tooltip>
       );
     case "hockey":
       return (
         <Tooltip title="Hockey" {...styles.tooltip}>
-          <SportsHockey {...styles.eventIcon} />
+          <SportsHockey htmlColor="lightWhite" {...styles.eventIcon} />
         </Tooltip>
       );
     case "minor_league_hockey":
       return (
         <Tooltip title="Minor League Hockey" {...styles.tooltip}>
-          <SportsHockey {...styles.eventIcon} />
+          <SportsHockey htmlColor="lightWhite" {...styles.eventIcon} />
         </Tooltip>
       );
     case "family":
       return (
         <Tooltip title="Family" {...styles.tooltip}>
-          <Diversity3 {...styles.eventIcon} />
+          <Diversity3 htmlColor="lightWhite" {...styles.eventIcon} />
         </Tooltip>
       );
     case "comedy":
@@ -131,25 +136,25 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: st
     case "auto_racing":
       return (
         <Tooltip title="Racing" {...styles.tooltip}>
-          <DirectionsCar {...styles.eventIcon} />
+          <DirectionsCar htmlColor="lightWhite" {...styles.eventIcon} />
         </Tooltip>
       );
     case "womens_college_volleyball":
       return (
         <Tooltip title="Women's College Volleyball" {...styles.tooltip}>
-          <SportsVolleyball {...styles.eventIcon} />
+          <SportsVolleyball htmlColor="lightWhite" {...styles.eventIcon} />
         </Tooltip>
       );
     case "wrestling":
       return (
         <Tooltip title="Wrestling" {...styles.tooltip}>
-          <SportsKabaddi {...styles.eventIcon} />
+          <SportsKabaddi htmlColor="lightWhite" {...styles.eventIcon} />
         </Tooltip>
       );
     case "nfl":
       return (
         <Tooltip title="NFL" {...styles.tooltip}>
-          <SportsFootball htmlColor="saddlebrown" {...styles.eventIcon} />
+          <m.img height={32} src={NFLLogo} {...styles.eventIcon} />
         </Tooltip>
       );
     case "nba_dleague":
@@ -175,6 +180,6 @@ const styles = {
   tooltip: {
     animate: { opacity: [0, 1] },
     component: m.div,
-    sx: { backdropFilter: "blur(8px)", backgroundColor: "transparent" },
+    sx: { backdropFilter: "blur(0.5rem)", backgroundColor: "transparent" },
   },
 };

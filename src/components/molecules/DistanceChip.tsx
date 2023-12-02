@@ -37,6 +37,7 @@ export const DistanceChip = memo(function DistanceChip(props: { venue?: SGVenue 
 const styles = {
   distance: {
     fontSize: isMobile ? "0.65rem" : "0.7rem",
+    sx: { userSelect: "none" },
   },
   distanceChip: {
     height: "1rem",

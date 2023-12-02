@@ -12,17 +12,25 @@ export const EventTableHeader = memo(function EventTableHeader() {
     <thead>
       <tr>
         <th style={{ width: "2.5%" }}>
-          <Typography level="body-lg">Type</Typography>
+          <Typography level="body-lg" sx={{ userSelect: "none" }}>
+            Type
+          </Typography>
         </th>
         <th style={{ width: "20%" }}>
-          <Typography level="body-lg">Performers</Typography>
+          <Typography level="body-lg" sx={{ userSelect: "none" }}>
+            Event
+          </Typography>
         </th>
         <th style={{ width: "15%" }}>
-          <Typography level="body-lg">Venue</Typography>
+          <Typography level="body-lg" sx={{ userSelect: "none" }}>
+            Venue
+          </Typography>
         </th>
         <th style={{ width: "8.5%" }}>
-          <Flexbox alignItems="start" justifyContent="space-between">
-            <Typography level="body-lg">Date</Typography>
+          <Flexbox justifyContent="space-between">
+            <Typography level="body-lg" sx={{ userSelect: "none" }}>
+              Date
+            </Typography>
             <IconButton onClick={sorting.toggleSortDate} size="sm" {...styles.sortButton}>
               {sorting.sortDate !== undefined ?
                 sorting.sortDate ?
@@ -33,8 +41,10 @@ export const EventTableHeader = memo(function EventTableHeader() {
           </Flexbox>
         </th>
         <th style={{ width: "3.5%" }}>
-          <Flexbox alignItems="start" justifyContent="space-between">
-            <Typography level="body-lg">$ (lo)</Typography>
+          <Flexbox justifyContent="space-between">
+            <Typography level="body-lg" sx={{ userSelect: "none" }}>
+              $ (lo)
+            </Typography>
             <IconButton onClick={sorting.toggleSortLowestPrice} size="sm" {...styles.sortButton}>
               {sorting.sortLowestPrice !== undefined ?
                 sorting.sortLowestPrice ?
@@ -45,8 +55,10 @@ export const EventTableHeader = memo(function EventTableHeader() {
           </Flexbox>
         </th>
         <th style={{ width: "3.5%" }}>
-          <Flexbox alignItems="start" justifyContent="space-between">
-            <Typography level="body-lg">$ (hi)</Typography>
+          <Flexbox justifyContent="space-between">
+            <Typography level="body-lg" sx={{ userSelect: "none" }}>
+              $ (hi)
+            </Typography>
             <IconButton onClick={sorting.toggleSortHighestPrice} size="sm" {...styles.sortButton}>
               {sorting.sortHighestPrice !== undefined ?
                 sorting.sortHighestPrice ?
@@ -57,8 +69,10 @@ export const EventTableHeader = memo(function EventTableHeader() {
           </Flexbox>
         </th>
         <th style={{ width: "3.5%" }}>
-          <Flexbox alignItems="start" justifyContent="space-between">
-            <Typography level="body-lg">$ (avg)</Typography>
+          <Flexbox justifyContent="space-between">
+            <Typography level="body-lg" sx={{ userSelect: "none" }}>
+              $ (avg)
+            </Typography>
             <IconButton onClick={sorting.toggleSortAvgPrice} size="sm" {...styles.sortButton}>
               {sorting.sortAvgPrice !== undefined ?
                 sorting.sortAvgPrice ?
@@ -69,8 +83,10 @@ export const EventTableHeader = memo(function EventTableHeader() {
           </Flexbox>
         </th>
         <th style={{ width: "7.5%" }}>
-          <Flexbox alignItems="start" justifyContent="space-between">
-            <Typography level="body-lg">Popularity</Typography>
+          <Flexbox justifyContent="space-between">
+            <Typography level="body-lg" sx={{ userSelect: "none" }}>
+              Popularity
+            </Typography>
             <IconButton onClick={sorting.toggleSortPopularity} size="sm" {...styles.sortButton}>
               {sorting.sortPopularity !== undefined ?
                 sorting.sortPopularity ?
@@ -81,7 +97,9 @@ export const EventTableHeader = memo(function EventTableHeader() {
           </Flexbox>
         </th>
         <th style={{ width: "5%" }}>
-          <Typography level="body-lg">Tickets</Typography>
+          <Typography level="body-lg" sx={{ userSelect: "none" }}>
+            Tickets
+          </Typography>
         </th>
       </tr>
     </thead>
@@ -91,7 +109,7 @@ export const EventTableHeader = memo(function EventTableHeader() {
 const styles = {
   sortButton: {
     sx: {
-      "&:hover": { backgroundColor: "transparent" },
+      "&:hover, &:active": { backgroundColor: "transparent" },
       "--IconButton-size": "1.5rem",
     },
   },

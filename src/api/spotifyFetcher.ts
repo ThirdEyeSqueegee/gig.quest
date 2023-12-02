@@ -6,7 +6,7 @@ const sdk = SpotifyApi.withClientCredentials(import.meta.env.VITE_SPOTIFY_CLIENT
 const spotifySearchArtist = async (artist: string) => {
   const response = await sdk.search(artist, ["artist"]);
 
-  if (response.artists.items) {
+  if (response.artists.items.length > 0) {
     const [item] = response.artists.items;
     const dice = stringComparison.diceCoefficient.similarity(artist, item.name);
 

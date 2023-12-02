@@ -24,7 +24,7 @@ export const Prices = memo(function Prices(props: { stats?: SGEventStats; type: 
   }
 
   return (
-    <Typography fontSize={tableView ? "0.9rem" : "0.725rem"}>
+    <Typography fontSize={tableView ? "0.9rem" : "0.725rem"} sx={{ userSelect: "none" }}>
       {price ?
         `${price.toLocaleString("US", { currency: "USD", maximumFractionDigits: 0, style: "currency" })}`
       : isMobile ?

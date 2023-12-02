@@ -1,6 +1,5 @@
 import { ClickAwayListener } from "@mui/base";
-import { Chip, Link, Tooltip, Typography } from "@mui/joy";
-import { CircularProgress } from "@mui/material";
+import { Chip, CircularProgress, Link, Tooltip, Typography } from "@mui/joy";
 import { Artist } from "@spotify/web-api-ts-sdk";
 import { m } from "framer-motion";
 import { memo, useState } from "react";
@@ -58,7 +57,7 @@ export const SpotifyTooltip = memo(function SpotifyTooltip(props: { artist?: Art
 
 const styles = {
   artistFollowers: {
-    startDecorator: <img height="16px" src={SpotifyIcon} />,
+    startDecorator: <img height={16} src={SpotifyIcon} />,
   },
   artistName: {
     fontSize: isMobile ? "0.9rem" : "1rem",
@@ -66,12 +65,12 @@ const styles = {
   tooltip: {
     animate: { opacity: [0, 1] },
     component: m.div,
-    sx: { backdropFilter: "blur(8px)", backgroundColor: "transparent", borderRadius: "15px" },
+    sx: { backdropFilter: "blur(0.5rem)", backgroundColor: "transparent", borderRadius: "1rem" },
   },
   tooltipBox: {
     gap: 1,
     maxWidth: "20rem",
-    py: 0.5,
+    p: 0.5,
   },
   tooltipLink: {
     fontSize: "0.8rem",

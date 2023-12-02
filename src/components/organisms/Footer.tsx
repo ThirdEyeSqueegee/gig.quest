@@ -42,7 +42,7 @@ export const Footer = memo(function Footer() {
         position: "sticky",
         px: 3,
         py: 0.5,
-        sx: { backdropFilter: "blur(8px)", border: 1, borderColor: "neutral.outlinedBorder", borderRadius: 25, zIndex: "badge" },
+        sx: { backdropFilter: "blur(0.5rem)", border: 1, borderColor: "neutral.outlinedBorder", borderRadius: 25, zIndex: "badge" },
       })}
       {...styles.mainFlex}
     >
@@ -84,7 +84,7 @@ export const Footer = memo(function Footer() {
                     event.stopPropagation();
                   }}
                   size="sm"
-                  sx={{ "&:hover": { backgroundColor: "transparent" }, "--IconButton-size": "1.5rem" }}
+                  sx={{ "&:hover, &:active": { backgroundColor: "transparent" }, "--IconButton-size": "1.5rem" }}
                 >
                   <CloseRounded fontSize="small" />
                 </IconButton>
@@ -165,7 +165,7 @@ export const Footer = memo(function Footer() {
                   pagination.setRange("15mi");
                 }}
                 size="sm"
-                sx={{ "&:hover": { backgroundColor: "transparent" }, "--IconButton-size": "1.5rem" }}
+                sx={{ "&:hover, &:active": { backgroundColor: "transparent" }, "--IconButton-size": "1.5rem" }}
               >
                 <RestartAlt fontSize="small" />
               </IconButton>

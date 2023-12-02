@@ -60,11 +60,11 @@ export const SearchInput = memo(function SearchInput() {
 
 const styles = {
   iconButton: {
-    "&:hover": { backgroundColor: "transparent" },
+    "&:hover, &:active": { backgroundColor: "transparent" },
   },
   searchInput: {
     placeholder: "Search...",
     startDecorator: <Search fontSize="small" />,
-    sx: { backdropFilter: "blur(8px)", backgroundColor: "transparent" },
+    sx: { backdropFilter: "blur(0.5rem)", backgroundColor: "transparent" },
   },
 };

@@ -95,7 +95,7 @@ export const EventTableBody = memo(function EventTableBody() {
               <Prices stats={details.event.stats} type="avg" />
             </td>
             <td>
-              <Flexbox width="85%">
+              <Flexbox width={0.9}>
                 <PopularityBar score={details.event.score} />
               </Flexbox>
             </td>

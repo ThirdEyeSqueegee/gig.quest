@@ -23,8 +23,8 @@ export const PopularityBar = memo(function PopularityBar(props: { score?: number
     : "neutral";
 
   return (
-    <Tooltip placement="top" title={score ? `Popularity: ${(score * 100).toFixed(1)}` : "¯\\_(ツ)_/¯"} {...styles.tooltip}>
-      <LinearProgress color={color} value={+value!} variant="soft" {...styles.progressBar} />
+    <Tooltip title={score ? `Popularity: ${(score * 100).toFixed(1)}` : "¯\\_(ツ)_/¯"} {...styles.tooltip}>
+      <LinearProgress color={color} size="lg" value={+value!} {...styles.progressBar} />
     </Tooltip>
   );
 });
@@ -36,7 +36,6 @@ const styles = {
     drag: !isMobile,
     dragSnapToOrigin: !isMobile,
     dragTransition: { bounceDamping: 10, bounceStiffness: 500 },
-    thickness: 8,
     whileHover: { scale: 1.1 },
     whileTap: { scale: 0.9 },
   },
@@ -44,6 +43,6 @@ const styles = {
     animate: { opacity: [0, 1] },
     component: m.div,
     followCursor: true,
-    sx: { backdropFilter: "blur(8px)", backgroundColor: "transparent" },
+    sx: { backdropFilter: "blur(0.5rem)", backgroundColor: "transparent" },
   },
 };
