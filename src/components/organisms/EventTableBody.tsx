@@ -64,13 +64,9 @@ export const EventTableBody = memo(function EventTableBody() {
 
   return (
     <tbody ref={ref} style={{ height: sgEventsDetails && sgEventsDetails.length >= rowsPerPage ? tableBodyHeight.current : "auto" }}>
-      {sgEventsDetails?.map((details, i) => {
+      {sgEventsDetails?.map((details) => {
         return (
-          <m.tr
-            // eslint-disable-next-line react/no-array-index-key
-            key={`${details.event.id}${i}`}
-            {...styles.tr}
-          >
+          <m.tr key={details.event.id} {...styles.tr}>
             <td>
               <Flexbox>
                 <EventTypeIcon eventType={details.event.type} />

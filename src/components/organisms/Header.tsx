@@ -15,7 +15,6 @@ import { Flexbox } from "../atoms/Flexbox.tsx";
 import { SearchInput } from "../molecules/SearchInput.tsx";
 
 export const Header = memo(function Header() {
-  const filter = usePaginationStore((state) => state.filter);
   const range = usePaginationStore((state) => state.range);
   const firstPage = usePaginationStore((state) => state.firstPage);
   const setRowsPerPage = usePaginationStore((state) => state.setRowsPerPage);
@@ -55,15 +54,24 @@ export const Header = memo(function Header() {
   return (
     <Flexbox flexDirection="column" width={1}>
       <Flexbox flexDirection="column" gap={isMobile ? 1 : lerps.headerGap}>
-        <Typography {...styles.headerText} fontSize={`${lerps.titleSize}rem`}>
+        <Typography {...styles.headerText} fontSize={!isMobile ? `${lerps.titleSize}rem` : "2.5rem"}>
           <TypeIt options={{ cursor: false }}>gig.quest</TypeIt>
         </Typography>
-        <Flexbox height={lerps.locationBoxHeight}>
+        <Flexbox height={!isMobile ? lerps.locationBoxHeight : "auto"}>
           <Flexbox {...styles.locationIconBox}>
-            <MdLocationOn color="red" fontSize={lerps.locationIconHeight} />
+            <MdLocationOn color="red" fontSize={!isMobile ? lerps.locationIconHeight : "1.5rem"} />
           </Flexbox>
-          <Typography fontFamily="Fira Code Variable" fontSize={`${lerps.locationTitleHeight}rem`} level="body-sm" sx={{ userSelect: "none" }}>
-            {!filter.includes("music_festival") ? `${geolocation ? geolocation.display_name : "..."} (${range})` : "Everywhere"}
+          <Typography
+            fontFamily="Fira Code Variable"
+            fontSize={!isMobile ? `${lerps.locationTitleHeight}rem` : "0.875rem"}
+            level="body-sm"
+            sx={{ userSelect: "none" }}
+          >
+            {`${
+              geolocation ? geolocation.display_name
+              : range === "0mi" ? "Everywhere"
+              : "..."
+            } (${range === "0mi" ? "\u221E mi" : range})`}
           </Typography>
         </Flexbox>
       </Flexbox>
@@ -120,13 +128,7 @@ const styles = {
   },
   viewSwitch: {
     endDecorator: <FiGrid fontSize="small" />,
-    slotProps: {
-      thumb: {
-        style: {
-          transition: "0.25s",
-        },
-      },
-    },
+    slotProps: { thumb: { style: { transition: "0.25s" } } },
     startDecorator: <MdTableRows fontSize="small" />,
   },
 };

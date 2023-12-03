@@ -22,6 +22,9 @@ const HelpBox = memo(function HelpBox() {
         <ListItem>
           <Typography level="body-sm">Search keywords like &quot;concert&quot; or &quot;NBA&quot; to filter events</Typography>
         </ListItem>
+        <ListItem>
+          <Typography level="body-sm">Drag the range slider to 0 to see all events regardless of location</Typography>
+        </ListItem>
       </List>
     </Flexbox>
   );

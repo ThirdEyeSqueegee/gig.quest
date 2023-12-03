@@ -48,10 +48,9 @@ export const EventGrid = memo(function EventGrid() {
 
   return (
     <Grid ref={ref} {...styles.gridContainer}>
-      {sgEventsDetails?.map((details, i) => {
+      {sgEventsDetails?.map((details) => {
         return (
-          // eslint-disable-next-line react/no-array-index-key
-          <Grid display="flex" flexDirection="column" key={`${details.event.id}${i}`} lg={3} md={6} px={0.5} xs={12}>
+          <Grid display="flex" flexDirection="column" key={details.event.id} lg={3} md={6} px={0.5} xs={12}>
             <Card {...styles.gridCard}>
               <Flexbox alignItems="start" justifyContent="space-between">
                 <Performers eventDetails={details} />

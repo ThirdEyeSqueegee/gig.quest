@@ -231,9 +231,7 @@ const styles = {
     fontSize: isMobile ? "0.9rem" : "1rem",
     slotProps: {
       startDecorator: {
-        sx: {
-          mr: 0.5,
-        },
+        sx: { mr: 0.5 },
       },
     },
   },

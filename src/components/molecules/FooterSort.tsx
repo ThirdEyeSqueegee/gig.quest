@@ -79,9 +79,7 @@ const styles = {
   select: {
     sx: {
       [`& .${selectClasses.indicator}`]: {
-        [`&.${selectClasses.expanded}`]: {
-          transform: "rotate(-180deg)",
-        },
+        [`&.${selectClasses.expanded}`]: { transform: "rotate(-180deg)" },
         transition: "0.2s",
       },
       backgroundColor: "transparent",

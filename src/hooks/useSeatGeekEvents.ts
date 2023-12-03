@@ -17,7 +17,6 @@ export const useSeatGeekEvents = () => {
     location.location ?
       [
         "eventsDetails",
-        pagination.filter,
         location.location,
         pagination.page,
         pagination.rowsPerPage,
@@ -30,12 +29,9 @@ export const useSeatGeekEvents = () => {
         debSearchTerm,
       ]
     : null,
-    ([, filter, loc, page, rowsPerPage, range, sortAvgPrice, sortDate, sortHighestPrice, sortLowestPrice, sortPopularity, term]) =>
-      seatGeekFetcher(filter, loc, page, rowsPerPage, range, sortAvgPrice, sortDate, sortHighestPrice, sortLowestPrice, sortPopularity, term),
-    {
-      compare: isEqual,
-      keepPreviousData: true,
-    },
+    ([, loc, page, rowsPerPage, range, sortAvgPrice, sortDate, sortHighestPrice, sortLowestPrice, sortPopularity, term]) =>
+      seatGeekFetcher(loc, page, rowsPerPage, range, sortAvgPrice, sortDate, sortHighestPrice, sortLowestPrice, sortPopularity, term),
+    { compare: isEqual, keepPreviousData: true },
   );
 
   return {

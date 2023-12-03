@@ -66,8 +66,7 @@ export const Performers = memo(function Performers(props: { eventDetails?: SGEve
     <Flexbox flexWrap="wrap" {...styles.flex}>
       {eventDetails?.performers.map((p, i) => {
         return (
-          // eslint-disable-next-line react/no-array-index-key
-          <Fragment key={`${p}${i}`}>
+          <Fragment key={p}>
             {eventDetails?.event.type === "concert" ?
               <SpotifyTooltip artist={artistItemsMap ? artistItemsMap.get(p) : ({ id: "loading" } as Artist)} performerName={p} />
             : <Typography {...styles.typography}>{p}</Typography>}

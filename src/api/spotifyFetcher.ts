@@ -13,6 +13,7 @@ const spotifySearchArtist = async (artist: string) => {
     if (item.name.length > 5) {
       return dice > 0.8 ? item : ({ id: "notFound" } as Artist);
     }
+
     return dice > 0.9 ? item : ({ id: "notFound" } as Artist);
   }
 

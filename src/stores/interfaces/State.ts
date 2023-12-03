@@ -1,7 +1,6 @@
 import { Location } from "../../api/interfaces/SeatGeek.ts";
 
 export interface PaginationState {
-  filter: string[];
   page: number;
   range: string;
   rowCountOptions: number[];
@@ -10,7 +9,6 @@ export interface PaginationState {
   firstPage: () => void;
   nextPage: () => void;
   prevPage: () => void;
-  setFilter: (filter: string[]) => void;
   setPage: (page: number) => void;
   setRange: (range: string) => void;
   setRowCountOptions: (rowCountOptions: number[]) => void;
@@ -43,8 +41,6 @@ export interface SearchState {
 }
 
 export interface LocationState {
-  city?: string;
   location?: Location;
-  setCity: (city: string) => void;
   setLocation: (location: Location) => void;
 }

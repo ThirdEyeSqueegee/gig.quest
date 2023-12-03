@@ -20,9 +20,7 @@ const styles = {
   ticketButton: {
     component: m.button,
     startDecorator: <MdLocalActivity />,
-    sx: {
-      fontWeight: "normal",
-    },
+    sx: { fontWeight: "normal" },
     whileTap: { scale: 0.9 },
   },
   ticketLink: {

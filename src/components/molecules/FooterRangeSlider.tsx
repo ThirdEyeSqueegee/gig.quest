@@ -24,6 +24,7 @@ export const FooterRangeSlider = memo(function FooterRangeSlider() {
           onChangeCommitted={(e, v) => setRange(`${+v}mi`)}
           slotProps={{ valueLabel: { sx: { backdropFilter: "blur(0.5rem)", background: "transparent" } } }}
           value={sliderValue}
+          valueLabelFormat={(v) => (v === 0 ? "\u221E mi" : `${+v} mi`)}
         />
         {range !== "15mi" && (
           <IconButton

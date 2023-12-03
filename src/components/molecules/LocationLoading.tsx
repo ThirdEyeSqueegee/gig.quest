@@ -24,10 +24,6 @@ const styles = {
   loading: {
     animate: { scale: 1.25 },
     component: m.span,
-    transition: {
-      duration: 1,
-      repeat: Infinity,
-      repeatType: "mirror",
-    },
+    transition: { duration: 1, repeat: Infinity, repeatType: "mirror" },
   },
 };

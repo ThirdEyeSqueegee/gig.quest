@@ -109,9 +109,6 @@ export const EventTableHeader = memo(function EventTableHeader() {
 
 const styles = {
   sortButton: {
-    sx: {
-      "&:hover, &:active": { backgroundColor: "transparent" },
-      "--IconButton-size": "1.5rem",
-    },
+    sx: { "&:hover, &:active": { backgroundColor: "transparent" }, "--IconButton-size": "1.5rem" },
   },
 };

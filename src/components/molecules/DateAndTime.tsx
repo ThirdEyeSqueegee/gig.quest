@@ -5,6 +5,7 @@ import { memo } from "react";
 
 export const DateAndTime = memo(function DateAndTime(props: { datetime?: string; size?: string }) {
   const { datetime, size } = props;
+
   const date = new Date(datetime!);
 
   return (
