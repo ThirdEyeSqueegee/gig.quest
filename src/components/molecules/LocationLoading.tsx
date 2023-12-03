@@ -1,7 +1,7 @@
-import { LocationOn } from "@mui/icons-material";
 import { CircularProgress, Typography } from "@mui/joy";
 import { m } from "framer-motion";
 import { memo } from "react";
+import { MdLocationOn } from "react-icons/md";
 
 import { Flexbox } from "../atoms/Flexbox.tsx";
 
@@ -9,7 +9,7 @@ export const LocationLoading = memo(function LocationLoading() {
   return (
     <Flexbox flexDirection="column" {...styles.flex}>
       <CircularProgress size="lg" {...styles.loading}>
-        <LocationOn htmlColor="red" />
+        <MdLocationOn color="red" />
       </CircularProgress>
       <Typography level="body-sm">Waiting for location...</Typography>
     </Flexbox>

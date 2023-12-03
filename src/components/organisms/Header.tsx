@@ -1,9 +1,10 @@
-import { GridView, LocationOn, TableRows } from "@mui/icons-material";
 import { Switch, Tooltip, Typography } from "@mui/joy";
 import { useWindowSize } from "@uidotdev/usehooks";
 import { m, useMotionValueEvent, useScroll } from "framer-motion";
 import { memo, useState } from "react";
 import { isMobile } from "react-device-detect";
+import { FiGrid } from "react-icons/fi";
+import { MdLocationOn, MdTableRows } from "react-icons/md";
 import TypeIt from "typeit-react";
 
 import { lerp } from "../../Utilities.ts";
@@ -58,7 +59,9 @@ export const Header = memo(function Header() {
           <TypeIt options={{ cursor: false }}>gig.quest</TypeIt>
         </Typography>
         <Flexbox height={lerps.locationBoxHeight}>
-          <LocationOn {...styles.locationIcon} sx={{ color: "red", fontSize: lerps.locationIconHeight }} />
+          <Flexbox {...styles.locationIconBox}>
+            <MdLocationOn color="red" fontSize={lerps.locationIconHeight} />
+          </Flexbox>
           <Typography fontFamily="Fira Code Variable" fontSize={`${lerps.locationTitleHeight}rem`} level="body-sm" sx={{ userSelect: "none" }}>
             {!filter.includes("music_festival") ? `${geolocation ? geolocation.display_name : "..."} (${range})` : "Everywhere"}
           </Typography>
@@ -98,8 +101,8 @@ const styles = {
     sx: { userSelect: "none" },
     whileHover: { rotate: [0, 3, -3, 3, -3, 0], transition: { duration: 0.75 } },
   },
-  locationIcon: {
-    component: m.svg,
+  locationIconBox: {
+    component: m.div,
     drag: !isMobile,
     dragSnapToOrigin: !isMobile,
     dragTransition: { bounceDamping: 10, bounceStiffness: 500 },
@@ -116,7 +119,7 @@ const styles = {
     sx: { backdropFilter: "blur(0.5rem)", backgroundColor: "transparent" },
   },
   viewSwitch: {
-    endDecorator: <GridView fontSize="small" />,
+    endDecorator: <FiGrid fontSize="small" />,
     slotProps: {
       thumb: {
         style: {
@@ -124,6 +127,6 @@ const styles = {
         },
       },
     },
-    startDecorator: <TableRows fontSize="small" />,
+    startDecorator: <MdTableRows fontSize="small" />,
   },
 };

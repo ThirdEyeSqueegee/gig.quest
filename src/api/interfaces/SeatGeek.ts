@@ -34,7 +34,7 @@ export interface SGEvent {
   themes?: string[];
   time_tbd?: boolean;
   title?: string;
-  type?: string;
+  type?: SGEventType;
   url?: string;
   venue?: SGVenue;
   visible_at?: string;
@@ -109,7 +109,7 @@ export interface SGPerformer {
   short_name?: string;
   slug?: string;
   stats?: object;
-  taxonomies?: object;
+  taxonomies?: object[];
   type?: string;
   url?: string;
 }
@@ -142,3 +142,148 @@ export interface SGEventsDetailsAndMeta {
   details: SGEventDetails[];
   meta: SGMeta;
 }
+
+export const SGSportsEventTypes = [
+  "sports",
+
+  "auto_racing",
+  "nascar",
+  "nascar_sprintcup",
+  "nascar_nationwide",
+  "indycar",
+  "f1",
+  "monster_truck",
+  "motocross",
+
+  "golf",
+  "pga",
+  "lpga",
+  "college_golf",
+  "womens_college_golf",
+
+  "wwe",
+
+  "animal_sports",
+  "horse_racing",
+  "rodeo",
+  "college_rodeo",
+
+  "extreme_sports",
+
+  "olympic_sports",
+
+  "esports",
+  "college_esports",
+
+  "climbing",
+
+  "volleyball",
+  "college_volleyball",
+  "womens_college_volleyball",
+
+  "gymnastics",
+  "college_gymnastics",
+
+  "track_and_field",
+  "college_track_and_field",
+
+  "swimming",
+  "college_swimming",
+] as const;
+
+export const SG1v1SportsEventTypes = [
+  "baseball",
+  "mlb",
+  "ncaa_baseball",
+  "minor_league_baseball",
+  "college_softball",
+
+  "football",
+  "nfl",
+  "ncaa_football",
+  "xfl",
+
+  "basketball",
+  "nba",
+  "ncaa_basketball",
+  "ncaa_womens_basketball",
+  "wnba",
+  "nba_dleague",
+
+  "hockey",
+  "nhl",
+  "ncaa_hockey",
+  "womens_college_hockey",
+  "minor_league_hockey",
+  "national_womens_hockey",
+
+  "soccer",
+  "mls",
+  "ncaa_soccer",
+  "womens_college_soccer",
+  "european_soccer",
+  "international_soccer",
+  "world_cup",
+  "united_soccer_league",
+  "national_womens_soccer",
+
+  "fighting",
+  "boxing",
+  "mma",
+
+  "wrestling",
+  "wwe",
+  "college_wrestling",
+
+  "tennis",
+  "college_tennis",
+  "womens_college_tennis",
+
+  "lacrosse",
+  "major_league_lacrosse",
+  "womens_professional_league_lacrosse",
+  "college_lacrosse",
+  "womens_college_lacrosse",
+
+  "rugby",
+  "major_league_rugby",
+] as const;
+
+export const SGMusicEventTypes = ["concerts", "concert", "music_festival"] as const;
+
+export const SGTheaterEventTypes = [
+  "theater",
+  "classical",
+  "classical_opera",
+  "classical_vocal",
+  "classical_orchestral_instrumental",
+  "cirque_du_soleil",
+  "broadway_tickets_national",
+  "comedy",
+  "family",
+  "dance_performance_tour",
+  "film",
+  "literary",
+  "circus",
+  "entertainment",
+  "addon",
+  "parking",
+  "club_passes",
+  "suite",
+] as const;
+
+export type SGMusicEventType = (typeof SGMusicEventTypes)[number];
+export type SGSportsEventType = (typeof SGSportsEventTypes)[number];
+export type SG1v1SportsEventType = (typeof SG1v1SportsEventTypes)[number];
+export type SGTheaterEventType = (typeof SGTheaterEventTypes)[number];
+
+export type SGEventType = SG1v1SportsEventType | SGMusicEventType | SGSportsEventType | SGTheaterEventType;
+
+export const isSGMusicEventType = (eventType: SGEventType): eventType is SGMusicEventType =>
+  SGMusicEventTypes.includes(eventType as SGMusicEventType);
+export const isSGSportsEventType = (eventType: SGEventType): eventType is SGSportsEventType =>
+  SGSportsEventTypes.includes(eventType as SGSportsEventType);
+export const isSG1v1SportsEventType = (eventType: SGEventType): eventType is SG1v1SportsEventType =>
+  SG1v1SportsEventTypes.includes(eventType as SG1v1SportsEventType);
+export const isSGTheaterEventType = (eventType: SGEventType): eventType is SGTheaterEventType =>
+  SGTheaterEventTypes.includes(eventType as SGTheaterEventType);

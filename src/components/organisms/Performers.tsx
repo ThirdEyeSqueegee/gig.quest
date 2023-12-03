@@ -21,7 +21,7 @@ export const Performers = memo(function Performers(props: { eventDetails?: SGEve
 
   if (eventDetails?.event.type === "music_festival") {
     return (
-      <Flexbox flexWrap="wrap" justifyContent="start">
+      <Flexbox flexWrap="wrap" {...styles.flex}>
         <Typography {...styles.typography}>
           {eventDetails.event.short_title
             ?.replaceAll("Music Festival", "")
@@ -38,7 +38,7 @@ export const Performers = memo(function Performers(props: { eventDetails?: SGEve
     const [homeTeam, awayTeam] = eventDetails.performers;
 
     return (
-      <Flexbox flexWrap="wrap" justifyContent="start">
+      <Flexbox flexWrap="wrap" {...styles.flex}>
         <NBATeam team={homeTeam} />
         <Typography level="body-sm" mx={1} my="auto">
           vs.
@@ -52,7 +52,7 @@ export const Performers = memo(function Performers(props: { eventDetails?: SGEve
     const [homeTeam, awayTeam] = eventDetails.performers;
 
     return (
-      <Flexbox flexWrap="wrap" justifyContent="start">
+      <Flexbox flexWrap="wrap" {...styles.flex}>
         <NFLTeam team={homeTeam} />
         <Typography level="body-sm" mx={1} my="auto">
           vs.
@@ -63,7 +63,7 @@ export const Performers = memo(function Performers(props: { eventDetails?: SGEve
   }
 
   return (
-    <Flexbox flexWrap="wrap" justifyContent="start">
+    <Flexbox flexWrap="wrap" {...styles.flex}>
       {eventDetails?.performers.map((p, i) => {
         return (
           // eslint-disable-next-line react/no-array-index-key
@@ -84,6 +84,10 @@ export const Performers = memo(function Performers(props: { eventDetails?: SGEve
 });
 
 const styles = {
+  flex: {
+    justifyContent: "start",
+    width: 0.9,
+  },
   typography: {
     fontSize: isMobile ? "0.9rem" : "1rem",
   },

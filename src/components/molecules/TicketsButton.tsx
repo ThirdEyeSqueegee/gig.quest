@@ -1,8 +1,8 @@
-import { LocalActivity } from "@mui/icons-material";
 import { Button, Link } from "@mui/joy";
 import { m } from "framer-motion";
 import { memo } from "react";
 import { isMobile } from "react-device-detect";
+import { MdLocalActivity } from "react-icons/md";
 
 export const TicketsButton = memo(function TicketsButton(props: { url?: string }) {
   const { url } = props;
@@ -19,7 +19,7 @@ export const TicketsButton = memo(function TicketsButton(props: { url?: string }
 const styles = {
   ticketButton: {
     component: m.button,
-    startDecorator: <LocalActivity />,
+    startDecorator: <MdLocalActivity />,
     sx: {
       fontWeight: "normal",
     },

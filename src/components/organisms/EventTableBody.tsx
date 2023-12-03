@@ -1,8 +1,8 @@
-import { HourglassTop } from "@mui/icons-material";
 import { CircularProgress } from "@mui/joy";
 import { useMeasure, useWindowSize } from "@uidotdev/usehooks";
 import { m } from "framer-motion";
 import { memo, useEffect, useRef } from "react";
+import { FaHourglassHalf } from "react-icons/fa6";
 
 import { useSeatGeekEvents } from "../../hooks/useSeatGeekEvents.ts";
 import { usePaginationStore } from "../../stores/usePaginationStore.ts";
@@ -52,7 +52,7 @@ export const EventTableBody = memo(function EventTableBody() {
             >
               <Flexbox height={0.5}>
                 <CircularProgress size="lg">
-                  <HourglassTop />
+                  <FaHourglassHalf />
                 </CircularProgress>
               </Flexbox>
             </Flexbox>

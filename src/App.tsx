@@ -1,9 +1,9 @@
-import { GitHub } from "@mui/icons-material";
 import { Card, Divider, IconButton, Link } from "@mui/joy";
 import { useDebounce } from "@uidotdev/usehooks";
 import { LazyMotion, domMax, m } from "framer-motion";
 import { memo, useEffect } from "react";
 import { isMobile } from "react-device-detect";
+import { FiGithub } from "react-icons/fi";
 
 import { Flexbox } from "./components/atoms/Flexbox.tsx";
 import { HelpButton } from "./components/molecules/HelpButton.tsx";
@@ -51,7 +51,7 @@ export const App = memo(function App() {
           <Flexbox position="sticky" {...styles.headerBox}>
             <Header />
             <IconButton sx={styles.githubButton}>
-              <GitHub />
+              <FiGithub fontSize="1.5rem" />
               <Link href="https://github.com/ThirdEyeSqueegee/gig.quest" overlay />
             </IconButton>
             <HelpButton />

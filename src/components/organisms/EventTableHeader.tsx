@@ -1,6 +1,7 @@
-import { ArrowDownward, ArrowUpward, MoreVert } from "@mui/icons-material";
 import { IconButton, Typography } from "@mui/joy";
 import { memo } from "react";
+import { FiChevronDown, FiChevronUp } from "react-icons/fi";
+import { MdMoreVert } from "react-icons/md";
 
 import { useSortingStore } from "../../stores/useSortingStore.ts";
 import { Flexbox } from "../atoms/Flexbox.tsx";
@@ -34,9 +35,9 @@ export const EventTableHeader = memo(function EventTableHeader() {
             <IconButton onClick={sorting.toggleSortDate} size="sm" {...styles.sortButton}>
               {sorting.sortDate !== undefined ?
                 sorting.sortDate ?
-                  <ArrowUpward fontSize="small" />
-                : <ArrowDownward fontSize="small" />
-              : <MoreVert fontSize="small" />}
+                  <FiChevronUp fontSize="small" />
+                : <FiChevronDown fontSize="small" />
+              : <MdMoreVert fontSize="small" />}
             </IconButton>
           </Flexbox>
         </th>
@@ -48,9 +49,9 @@ export const EventTableHeader = memo(function EventTableHeader() {
             <IconButton onClick={sorting.toggleSortLowestPrice} size="sm" {...styles.sortButton}>
               {sorting.sortLowestPrice !== undefined ?
                 sorting.sortLowestPrice ?
-                  <ArrowUpward fontSize="small" />
-                : <ArrowDownward fontSize="small" />
-              : <MoreVert fontSize="small" />}
+                  <FiChevronUp fontSize="small" />
+                : <FiChevronDown fontSize="small" />
+              : <MdMoreVert fontSize="small" />}
             </IconButton>
           </Flexbox>
         </th>
@@ -62,9 +63,9 @@ export const EventTableHeader = memo(function EventTableHeader() {
             <IconButton onClick={sorting.toggleSortHighestPrice} size="sm" {...styles.sortButton}>
               {sorting.sortHighestPrice !== undefined ?
                 sorting.sortHighestPrice ?
-                  <ArrowUpward fontSize="small" />
-                : <ArrowDownward fontSize="small" />
-              : <MoreVert fontSize="small" />}
+                  <FiChevronUp fontSize="small" />
+                : <FiChevronDown fontSize="small" />
+              : <MdMoreVert fontSize="small" />}
             </IconButton>
           </Flexbox>
         </th>
@@ -76,9 +77,9 @@ export const EventTableHeader = memo(function EventTableHeader() {
             <IconButton onClick={sorting.toggleSortAvgPrice} size="sm" {...styles.sortButton}>
               {sorting.sortAvgPrice !== undefined ?
                 sorting.sortAvgPrice ?
-                  <ArrowUpward fontSize="small" />
-                : <ArrowDownward fontSize="small" />
-              : <MoreVert fontSize="small" />}
+                  <FiChevronUp fontSize="small" />
+                : <FiChevronDown fontSize="small" />
+              : <MdMoreVert fontSize="small" />}
             </IconButton>
           </Flexbox>
         </th>
@@ -90,9 +91,9 @@ export const EventTableHeader = memo(function EventTableHeader() {
             <IconButton onClick={sorting.toggleSortPopularity} size="sm" {...styles.sortButton}>
               {sorting.sortPopularity !== undefined ?
                 sorting.sortPopularity ?
-                  <ArrowUpward fontSize="small" />
-                : <ArrowDownward fontSize="small" />
-              : <MoreVert fontSize="small" />}
+                  <FiChevronUp fontSize="small" />
+                : <FiChevronDown fontSize="small" />
+              : <MdMoreVert fontSize="small" />}
             </IconButton>
           </Flexbox>
         </th>

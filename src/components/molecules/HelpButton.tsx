@@ -1,21 +1,15 @@
 import { ClickAwayListener } from "@mui/base";
-import { QuestionMark } from "@mui/icons-material";
 import { IconButton, List, ListItem, Tooltip, Typography } from "@mui/joy";
 import { m } from "framer-motion";
 import { memo, useState } from "react";
+import { GoQuestion } from "react-icons/go";
 
 import { Flexbox } from "../atoms/Flexbox.tsx";
 
 const HelpBox = memo(function HelpBox() {
   return (
     <Flexbox flexDirection="column">
-      <List
-        marker="disc"
-        sx={{
-          "--ListItem-minHeight": "1rem",
-          "--ListItem-paddingY": 0,
-        }}
-      >
+      <List marker="disc" sx={{ "--ListItem-minHeight": "1rem" }}>
         <ListItem>
           <Typography level="body-sm">Hover/tap event icon to see event type</Typography>
         </ListItem>
@@ -24,6 +18,9 @@ const HelpBox = memo(function HelpBox() {
         </ListItem>
         <ListItem>
           <Typography level="body-sm">Click/tap Spotify tooltip to go the artist&apos;s Spotify</Typography>
+        </ListItem>
+        <ListItem>
+          <Typography level="body-sm">Search keywords like &quot;concert&quot; or &quot;NBA&quot; to filter events</Typography>
         </ListItem>
       </List>
     </Flexbox>
@@ -35,9 +32,9 @@ export const HelpButton = memo(function HelpButton() {
 
   return (
     <ClickAwayListener onClickAway={() => setTooltipOpen(false)}>
-      <Tooltip open={tooltipOpen} placement="right-end" {...styles.tooltip}>
+      <Tooltip open={tooltipOpen} {...styles.tooltip}>
         <IconButton onClick={() => setTooltipOpen(!tooltipOpen)} sx={styles.helpButton}>
-          <QuestionMark />
+          <GoQuestion fontSize="1.5rem" />
         </IconButton>
       </Tooltip>
     </ClickAwayListener>

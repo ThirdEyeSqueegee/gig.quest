@@ -1,9 +1,10 @@
-import { CloseRounded, Search } from "@mui/icons-material";
 import { IconButton, Input, Typography } from "@mui/joy";
 import { m } from "framer-motion";
 import { memo, useRef } from "react";
 import { isMobile } from "react-device-detect";
 import { useHotkeys } from "react-hotkeys-hook";
+import { GoSearch } from "react-icons/go";
+import { MdClose } from "react-icons/md";
 
 import { useSearchStore } from "../../stores/useSearchStore.ts";
 import { Flexbox } from "../atoms/Flexbox.tsx";
@@ -39,7 +40,7 @@ export const SearchInput = memo(function SearchInput() {
       {...(search.searchTerm && {
         endDecorator: (
           <IconButton onClick={() => search.setSearchTerm("")} sx={styles.iconButton}>
-            <CloseRounded />
+            <MdClose />
           </IconButton>
         ),
       })}
@@ -64,7 +65,7 @@ const styles = {
   },
   searchInput: {
     placeholder: "Search...",
-    startDecorator: <Search fontSize="small" />,
+    startDecorator: <GoSearch fontSize="small" />,
     sx: { backdropFilter: "blur(0.5rem)", backgroundColor: "transparent" },
   },
 };

@@ -1,9 +1,9 @@
-import { HourglassTop } from "@mui/icons-material";
 import { Card, CircularProgress, Grid, Typography } from "@mui/joy";
 import { useMeasure } from "@uidotdev/usehooks";
 import { m } from "framer-motion";
 import { memo, useEffect, useRef } from "react";
 import { isMobile } from "react-device-detect";
+import { FaHourglassHalf } from "react-icons/fa6";
 
 import { Flexbox } from "../components/atoms/Flexbox.tsx";
 import { DateAndTime } from "../components/molecules/DateAndTime.tsx";
@@ -39,7 +39,7 @@ export const EventGrid = memo(function EventGrid() {
       <Flexbox alignItems="start" height={tableBodyHeight.current > 0 ? tableBodyHeight.current : "90vh"} width={1}>
         <Flexbox height={0.7} width={1}>
           <CircularProgress size="lg">
-            <HourglassTop />
+            <FaHourglassHalf />
           </CircularProgress>
         </Flexbox>
       </Flexbox>
