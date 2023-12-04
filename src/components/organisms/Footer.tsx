@@ -6,6 +6,7 @@ import { isMobile } from "react-device-detect";
 import { useSeatGeekEvents } from "../../hooks/useSeatGeekEvents.ts";
 import { usePaginationStore } from "../../stores/usePaginationStore.ts";
 import { Flexbox } from "../atoms/Flexbox.tsx";
+import { FooterFilter } from "../molecules/FooterFilter.tsx";
 import { FooterPagination } from "../molecules/FooterPagination.tsx";
 import { FooterRangeSlider } from "../molecules/FooterRangeSlider.tsx";
 import { FooterRows } from "../molecules/FooterRows.tsx";
@@ -24,6 +25,7 @@ export const Footer = memo(function Footer() {
   return (
     <Flexbox flexDirection="column" position={isMobile ? "inherit" : "sticky"} {...styles.mainFlex}>
       <Flexbox flexWrap="wrap" gap={isMobile ? 1 : 2}>
+        <FooterFilter />
         <FooterRows />
         <FooterRangeSlider />
         <FooterSort />

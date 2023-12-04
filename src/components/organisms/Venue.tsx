@@ -13,10 +13,14 @@ export const Venue = memo(function Venue(props: { venue?: SGVenue }) {
 
   return (
     <Flexbox {...styles.flexbox}>
-      <Link href={`https://www.google.com/maps/search/${venue?.name?.replaceAll(" ", "+")}`}>
-        <Typography fontSize={tableView ? "0.95rem" : "0.75rem"}>{venue?.name}</Typography>
-      </Link>
-      <DistanceChip venue={venue} />
+      <Typography
+        component="span"
+        fontSize={tableView ? "0.95rem" : "0.75rem"}
+        sx={{ alignItems: "center", display: "inline-flex", flexBasis: tableView ? "95%" : "auto", gap: 0.75 }}
+      >
+        <Link href={`https://www.google.com/maps/search/${venue?.name?.replaceAll(" ", "+")}`}>{venue?.name}</Link>
+        <DistanceChip venue={venue} />
+      </Typography>
     </Flexbox>
   );
 });

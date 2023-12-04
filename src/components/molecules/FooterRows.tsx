@@ -18,7 +18,7 @@ export const FooterRows = memo(function FooterRows() {
       </Typography>
       <Select
         indicator={<FiChevronDown />}
-        onChange={(e, v: null | number) => {
+        onChange={(e, v) => {
           setRowsPerPage(v!);
           firstPage();
         }}
@@ -37,6 +37,7 @@ export const FooterRows = memo(function FooterRows() {
 const styles = {
   select: {
     sx: {
+      "&:hover": { backgroundColor: "rgba(0, 0, 0, 0.25)" },
       [`& .${selectClasses.indicator}`]: {
         [`&.${selectClasses.expanded}`]: { transform: "rotate(-180deg)" },
         transition: "0.2s",

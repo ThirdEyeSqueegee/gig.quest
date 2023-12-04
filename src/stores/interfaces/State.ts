@@ -35,8 +35,10 @@ export interface ViewState {
 
 export interface SearchState {
   debSearchTerm: string;
+  filter: string[];
   searchTerm: string;
   setDebSearchTerm: (term: string) => void;
+  setFilter: (filter: string[]) => void;
   setSearchTerm: (term: string) => void;
 }
 

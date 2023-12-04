@@ -6,7 +6,7 @@ export const tokenizePerformers = (performers?: SGPerformer[], eventType?: SGEve
   let is1v1 = false;
   let str = "";
 
-  if (performers && eventType) {
+  if (performers && performers.length > 0 && eventType) {
     if (isSG1v1SportsEventType(eventType)) {
       is1v1 = true;
       for (const p of performers) {
@@ -15,18 +15,22 @@ export const tokenizePerformers = (performers?: SGPerformer[], eventType?: SGEve
           const nbaTeamIdx = NBATeams.indexOf(teamName);
           const nflTeamIdx = NFLTeams.indexOf(teamName);
           const nhlTeamIdx = NHLTeams.indexOf(teamName);
+          const mlbTeamIndex = MLBTeams.indexOf(teamName);
           const mlsTeamIdx = MLSTeams.indexOf(teamName);
           if (nbaTeamIdx !== -1) {
-            str += `${NBATeams[nbaTeamIdx]}vs.`;
+            str += `${NBATeams[nbaTeamIdx]}`;
           } else if (nflTeamIdx !== -1) {
-            str += `${NFLTeams[nflTeamIdx]}vs.`;
+            str += `${NFLTeams[nflTeamIdx]}`;
           } else if (nhlTeamIdx !== -1) {
-            str += `${NHLTeams[nhlTeamIdx]}vs.`;
+            str += `${NHLTeams[nhlTeamIdx]}`;
+          } else if (mlbTeamIndex !== -1) {
+            str += `${MLBTeams[mlbTeamIndex]}`;
           } else if (mlsTeamIdx !== -1) {
-            str += `${MLSTeams[mlsTeamIdx]}vs.`;
+            str += `${MLSTeams[mlsTeamIdx]}`;
           } else if (!teamName.includes("Playoffs") && !teamName.includes("Final")) {
-            str += `${p.name}vs.`;
+            str += `${p.name}`;
           }
+          str += "vs.";
         }
       }
     } else if (performers.length > 1) {
@@ -159,6 +163,39 @@ const NHLTeams = [
   "Vegas Golden Knights",
   "Washington Capitals",
   "Winnipeg Jets",
+];
+
+const MLBTeams = [
+  "Arizona Diamondbacks",
+  "Atlanta Braves",
+  "Baltimore Orioles",
+  "Boston Red Sox",
+  "Chicago Cubs",
+  "Chicago White Sox",
+  "Cincinnati Reds",
+  "Cleveland Guardians",
+  "Colorado Rockies",
+  "Detroit Tigers",
+  "Houston Astros",
+  "Kansas City Royals",
+  "Los Angeles Angels",
+  "Los Angeles Dodgers",
+  "Miami Marlins",
+  "Milwaukee Brewers",
+  "Minnesota Twins",
+  "New York Mets",
+  "New York Yankees",
+  "Oakland Athletics",
+  "Philadelphia Phillies",
+  "Pittsburgh Pirates",
+  "San Diego Padres",
+  "San Francisco Giants",
+  "Seattle Mariners",
+  "St. Louis Cardinals",
+  "Tampa Bay Rays",
+  "Texas Rangers",
+  "Toronto Blue Jays",
+  "Washington Nationals",
 ];
 
 const MLSTeams = [

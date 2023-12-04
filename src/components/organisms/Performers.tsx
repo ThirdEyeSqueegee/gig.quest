@@ -6,6 +6,7 @@ import { isMobile } from "react-device-detect";
 import { SGEventDetails } from "../../api/interfaces/SeatGeek.ts";
 import { useSpotifyArtists } from "../../hooks/useSpotifyArtists.ts";
 import { Flexbox } from "../atoms/Flexbox.tsx";
+import { MLBTeam } from "../molecules/MLBTeam.tsx";
 import { NBATeam } from "../molecules/NBATeam.tsx";
 import { NFLTeam } from "../molecules/NFLTeam.tsx";
 import { SpotifyTooltip } from "../molecules/SpotifyTooltip.tsx";
@@ -58,6 +59,20 @@ export const Performers = memo(function Performers(props: { eventDetails?: SGEve
           vs.
         </Typography>
         <NFLTeam team={awayTeam} />
+      </Flexbox>
+    );
+  }
+
+  if (eventDetails?.event.type === "mlb") {
+    const [homeTeam, awayTeam] = eventDetails.performers;
+
+    return (
+      <Flexbox flexWrap="wrap" {...styles.flex}>
+        <MLBTeam team={homeTeam} />
+        <Typography level="body-sm" mx={1} my="auto">
+          vs.
+        </Typography>
+        <MLBTeam team={awayTeam} />
       </Flexbox>
     );
   }

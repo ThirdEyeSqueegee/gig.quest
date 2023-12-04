@@ -34,6 +34,7 @@ import { RiBoxingFill } from "react-icons/ri";
 import { TbOlympics } from "react-icons/tb";
 
 import { SGEventType } from "../../api/interfaces/SeatGeek.ts";
+import MLBLogo from "../../assets/mlb_logo.svg";
 import MLSLogo from "../../assets/mls_logo.svg";
 import NBALogo from "../../assets/nba_logo.svg";
 import NFLLogo from "../../assets/nfl_logo.svg";
@@ -49,7 +50,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Baseball" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <IoMdBaseball fontSize={size ?? "1.5rem"} />{" "}
+              <IoMdBaseball fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -57,7 +58,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="MLB" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <IoMdBaseball fontSize={size ?? "1.5rem"} />{" "}
+              <m.img height={size ? +size.replace("rem", "") * 16 : 24} src={MLBLogo} />
             </Flexbox>
           </Tooltip>
         );
@@ -65,7 +66,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="NCAA Baseball" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <IoMdBaseball fontSize={size ?? "1.5rem"} />{" "}
+              <IoMdBaseball fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -73,7 +74,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Minor League Baseball" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <IoMdBaseball fontSize={size ?? "1.5rem"} />{" "}
+              <IoMdBaseball fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -81,7 +82,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="College Softball" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <IoMdBaseball fontSize={size ?? "1.5rem"} />{" "}
+              <IoMdBaseball fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -89,7 +90,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Football" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <FaFootball color="saddlebrown" fontSize={size ?? "1.5rem"} />{" "}
+              <FaFootball color="saddlebrown" fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -97,7 +98,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="NFL" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <m.img height={size ? +size.replace("rem", "") * 16 : 24} src={NFLLogo} />{" "}
+              <m.img height={size ? +size.replace("rem", "") * 16 : 24} src={NFLLogo} />
             </Flexbox>
           </Tooltip>
         );
@@ -105,7 +106,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="NCAA Football" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <FaFootball color="saddlebrown" fontSize={size ?? "1.5rem"} />{" "}
+              <FaFootball color="saddlebrown" fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -113,7 +114,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="XFL" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <FaFootball color="saddlebrown" fontSize={size ?? "1.5rem"} />{" "}
+              <FaFootball color="saddlebrown" fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -121,7 +122,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Basketball" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <FaBasketball color="coral" fontSize={size ?? "1.5rem"} />{" "}
+              <FaBasketball color="coral" fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -129,7 +130,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="NBA" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <m.img height={size ? +size.replace("rem", "") * 16 : 24} src={NBALogo} />{" "}
+              <m.img height={size ? +size.replace("rem", "") * 16 : 24} src={NBALogo} />
             </Flexbox>
           </Tooltip>
         );
@@ -137,7 +138,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="NCAA Basketball" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <FaBasketball color="coral" fontSize={size ?? "1.5rem"} />{" "}
+              <FaBasketball color="coral" fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -145,7 +146,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="NCAA Women's Basketball" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <FaBasketball color="coral" fontSize={size ?? "1.5rem"} />{" "}
+              <FaBasketball color="coral" fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -153,7 +154,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="WNBA" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <FaBasketball color="coral" fontSize={size ?? "1.5rem"} />{" "}
+              <FaBasketball color="coral" fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -161,7 +162,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="G League" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <FaBasketball color="coral" fontSize={size ?? "1.5rem"} />{" "}
+              <FaBasketball color="coral" fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -169,7 +170,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Hockey" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <MdSportsHockey fontSize={size ?? "1.5rem"} />{" "}
+              <MdSportsHockey fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -177,7 +178,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="NHL" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <m.img height={size ? +size.replace("rem", "") * 16 : 24} src={NHLLogo} />{" "}
+              <m.img height={size ? +size.replace("rem", "") * 16 : 24} src={NHLLogo} />
             </Flexbox>
           </Tooltip>
         );
@@ -185,7 +186,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="NCAA Hockey" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <MdSportsHockey fontSize={size ?? "1.5rem"} />{" "}
+              <MdSportsHockey fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -193,7 +194,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Women's College Hockey" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <MdSportsHockey fontSize={size ?? "1.5rem"} />{" "}
+              <MdSportsHockey fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -201,7 +202,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Minor League Hockey" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <MdSportsHockey fontSize={size ?? "1.5rem"} />{" "}
+              <MdSportsHockey fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -209,7 +210,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Women's National Hockey" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <MdSportsHockey fontSize={size ?? "1.5rem"} />{" "}
+              <MdSportsHockey fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -217,7 +218,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Soccer" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <GiSoccerKick fontSize={size ?? "1.5rem"} />{" "}
+              <GiSoccerKick fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -225,7 +226,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="MLS" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <m.img height={size ? +size.replace("rem", "") * 16 : 24} src={MLSLogo} />{" "}
+              <m.img height={size ? +size.replace("rem", "") * 16 : 24} src={MLSLogo} />
             </Flexbox>
           </Tooltip>
         );
@@ -233,7 +234,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="NCAA Soccer" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <GiSoccerKick fontSize={size ?? "1.5rem"} />{" "}
+              <GiSoccerKick fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -241,7 +242,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Women's College Soccer" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <GiSoccerKick fontSize={size ?? "1.5rem"} />{" "}
+              <GiSoccerKick fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -249,7 +250,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Euro Soccer" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <GiSoccerKick fontSize={size ?? "1.5rem"} />{" "}
+              <GiSoccerKick fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -257,7 +258,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Intl. Soccer" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <GiSoccerKick fontSize={size ?? "1.5rem"} />{" "}
+              <GiSoccerKick fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -265,7 +266,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="FIFA World Cup" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <GiSoccerKick fontSize={size ?? "1.5rem"} />{" "}
+              <GiSoccerKick fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -273,7 +274,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="United Soccer League" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <GiSoccerKick fontSize={size ?? "1.5rem"} />{" "}
+              <GiSoccerKick fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -281,7 +282,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Women's National Soccer" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <GiSoccerKick fontSize={size ?? "1.5rem"} />{" "}
+              <GiSoccerKick fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -289,7 +290,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Fighting" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <MdSportsKabaddi fontSize={size ?? "1.5rem"} />{" "}
+              <MdSportsKabaddi fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -297,7 +298,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Boxing" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <RiBoxingFill fontSize={size ?? "1.5rem"} />{" "}
+              <RiBoxingFill fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -305,7 +306,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="MMA" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <RiBoxingFill fontSize={size ?? "1.5rem"} />{" "}
+              <RiBoxingFill fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -313,7 +314,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Wrestling" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <MdSportsKabaddi fontSize={size ?? "1.5rem"} />{" "}
+              <MdSportsKabaddi fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -321,7 +322,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="WWE" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <MdSportsKabaddi fontSize={size ?? "1.5rem"} />{" "}
+              <MdSportsKabaddi fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -329,7 +330,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="College Wrestling" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <MdSportsKabaddi fontSize={size ?? "1.5rem"} />{" "}
+              <MdSportsKabaddi fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -337,7 +338,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Tennis" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <MdSportsTennis fontSize={size ?? "1.5rem"} />{" "}
+              <MdSportsTennis fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -345,7 +346,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="College Tennis" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <MdSportsTennis fontSize={size ?? "1.5rem"} />{" "}
+              <MdSportsTennis fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -353,7 +354,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Women's College Tennis" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <MdSportsTennis fontSize={size ?? "1.5rem"} />{" "}
+              <MdSportsTennis fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -367,7 +368,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Rugby" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <MdSportsRugby color="saddlebrown" fontSize={size ?? "1.5rem"} />{" "}
+              <MdSportsRugby color="saddlebrown" fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -375,7 +376,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Major League Rugby" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <MdSportsRugby color="saddlebrown" fontSize={size ?? "1.5rem"} />{" "}
+              <MdSportsRugby color="saddlebrown" fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -384,7 +385,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Concert" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <FaCirclePlay color="royalblue" fontSize={size ?? "1.5rem"} />{" "}
+              <FaCirclePlay color="royalblue" fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -392,7 +393,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Music Festival" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <MdFestival color="royalblue" fontSize={size ?? "1.5rem"} />{" "}
+              <MdFestival color="royalblue" fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -400,7 +401,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Sports" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <MdLocalActivity fontSize={size ?? "1.5rem"} />{" "}
+              <MdLocalActivity fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -408,7 +409,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Auto Racing" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <MdMinorCrash fontSize={size ?? "1.5rem"} />{" "}
+              <MdMinorCrash fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -416,7 +417,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="NASCAR" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <MdMinorCrash fontSize={size ?? "1.5rem"} />{" "}
+              <MdMinorCrash fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -424,7 +425,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="NASCAR Sprint Cup" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <MdMinorCrash fontSize={size ?? "1.5rem"} />{" "}
+              <MdMinorCrash fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -432,7 +433,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="NASCAR Nationwide" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <MdMinorCrash fontSize={size ?? "1.5rem"} />{" "}
+              <MdMinorCrash fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -440,7 +441,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="IndyCar" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <MdMinorCrash fontSize={size ?? "1.5rem"} />{" "}
+              <MdMinorCrash fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -448,7 +449,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="F1" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <MdMinorCrash fontSize={size ?? "1.5rem"} />{" "}
+              <MdMinorCrash fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -456,7 +457,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Monster Truck" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <MdMinorCrash fontSize={size ?? "1.5rem"} />{" "}
+              <MdMinorCrash fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -464,7 +465,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="MotoCross" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <MdTwoWheeler fontSize={size ?? "1.5rem"} />{" "}
+              <MdTwoWheeler fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -472,7 +473,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Golf" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <IoGolf fontSize={size ?? "1.5rem"} />{" "}
+              <IoGolf fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -480,7 +481,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="PGA" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <IoGolf fontSize={size ?? "1.5rem"} />{" "}
+              <IoGolf fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -488,7 +489,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="LPGA" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <IoGolf fontSize={size ?? "1.5rem"} />{" "}
+              <IoGolf fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -496,7 +497,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="College Golf" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <IoGolf fontSize={size ?? "1.5rem"} />{" "}
+              <IoGolf fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -504,7 +505,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Women's College Golf" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <IoGolf fontSize={size ?? "1.5rem"} />{" "}
+              <IoGolf fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -514,7 +515,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Horse Racing" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <GiHorseshoe fontSize={size ?? "1.5rem"} />{" "}
+              <GiHorseshoe fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -522,7 +523,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Rodeo" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <GiChargingBull fontSize={size ?? "1.5rem"} />{" "}
+              <GiChargingBull fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -530,7 +531,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="College Rodeo" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <GiChargingBull fontSize={size ?? "1.5rem"} />{" "}
+              <GiChargingBull fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -540,7 +541,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Olympic Sports" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <TbOlympics fontSize={size ?? "1.5rem"} />{" "}
+              <TbOlympics fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -548,7 +549,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Esports" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <MdSportsEsports fontSize={size ?? "1.5rem"} />{" "}
+              <MdSportsEsports fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -556,7 +557,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="College Esports" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <MdSportsEsports fontSize={size ?? "1.5rem"} />{" "}
+              <MdSportsEsports fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -564,7 +565,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Climbing" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <GiMountainClimbing fontSize={size ?? "1.5rem"} />{" "}
+              <GiMountainClimbing fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -572,7 +573,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Volleyball" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <FaVolleyball fontSize={size ?? "1.5rem"} />{" "}
+              <FaVolleyball fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -580,7 +581,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="College Volleyball" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <FaVolleyball fontSize={size ?? "1.5rem"} />{" "}
+              <FaVolleyball fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -588,7 +589,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Women's College Volleyball" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <FaVolleyball fontSize={size ?? "1.5rem"} />{" "}
+              <FaVolleyball fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -596,7 +597,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Gymnastics" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <MdSportsGymnastics fontSize={size ?? "1.5rem"} />{" "}
+              <MdSportsGymnastics fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -604,7 +605,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="College Gymnastics" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <MdSportsGymnastics fontSize={size ?? "1.5rem"} />{" "}
+              <MdSportsGymnastics fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -612,7 +613,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Track & Field" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <FaPersonRunning color="dodgerblue" fontSize={size ?? "1.5rem"} />{" "}
+              <FaPersonRunning color="dodgerblue" fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -620,7 +621,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="College Track & Field" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <FaPersonRunning color="dodgerblue" fontSize={size ?? "1.5rem"} />{" "}
+              <FaPersonRunning color="dodgerblue" fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -628,7 +629,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Swimming" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <MdPool color="dodgerblue" fontSize={size ?? "1.5rem"} />{" "}
+              <MdPool color="dodgerblue" fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -636,7 +637,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="College Swimming" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <MdPool color="dodgerblue" fontSize={size ?? "1.5rem"} />{" "}
+              <MdPool color="dodgerblue" fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -644,7 +645,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Theater" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <FaMasksTheater color="lightseagreen" fontSize={size ?? "1.5rem"} />{" "}
+              <FaMasksTheater color="lightseagreen" fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -652,7 +653,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Classical" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <GiViolin color="slateblue" fontSize={size ?? "1.5rem"} />{" "}
+              <GiViolin color="slateblue" fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -660,7 +661,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Classical Opera" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <IoMusicalNotes color="slateblue" fontSize={size ?? "1.5rem"} />{" "}
+              <IoMusicalNotes color="slateblue" fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -668,7 +669,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Classical Vocal" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <IoMusicalNotes color="slateblue" fontSize={size ?? "1.5rem"} />{" "}
+              <IoMusicalNotes color="slateblue" fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -676,7 +677,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Classical Instrumental" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <GiViolin color="slateblue" fontSize={size ?? "1.5rem"} />{" "}
+              <GiViolin color="slateblue" fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -684,7 +685,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Cirque du Soleil" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <FaMasksTheater color="lightseagreen" fontSize={size ?? "1.5rem"} />{" "}
+              <FaMasksTheater color="lightseagreen" fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -692,7 +693,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Broadway" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <FaMasksTheater color="lightseagreen" fontSize={size ?? "1.5rem"} />{" "}
+              <FaMasksTheater color="lightseagreen" fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -700,7 +701,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Comedy" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <FaFaceLaughSquint color="gold" fontSize={size ?? "1.5rem"} />{" "}
+              <FaFaceLaughSquint color="gold" fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -708,7 +709,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Family" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <MdFamilyRestroom fontSize={size ?? "1.5rem"} />{" "}
+              <MdFamilyRestroom fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -716,7 +717,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Dance" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <MdLocalActivity fontSize={size ?? "1.5rem"} />{" "}
+              <MdLocalActivity fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -724,7 +725,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Film" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <MdLocalMovies fontSize={size ?? "1.5rem"} />{" "}
+              <MdLocalMovies fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -732,7 +733,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Literary" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <FaBookOpen color="chocolate" fontSize={size ?? "1.5rem"} />{" "}
+              <FaBookOpen color="chocolate" fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -740,7 +741,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Circus" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <MdFestival color="turqoise" fontSize={size ?? "1.5rem"} />{" "}
+              <MdFestival color="turqoise" fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );
@@ -748,7 +749,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         return (
           <Tooltip title="Entertainment" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
-              <MdLocalActivity fontSize={size ?? "1.5rem"} />{" "}
+              <MdLocalActivity fontSize={size ?? "1.5rem"} />
             </Flexbox>
           </Tooltip>
         );

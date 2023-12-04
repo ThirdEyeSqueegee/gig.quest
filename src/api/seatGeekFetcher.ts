@@ -1,13 +1,16 @@
 import axios from "axios";
 
 import { tokenizePerformers } from "../Utilities.ts";
-import { Location, SGEventDetails, SGEvents, SGEventsDetailsAndMeta } from "./interfaces/SeatGeek.ts";
+import { Location, SG1v1SportsEventTypes, SGEventDetails, SGEvents, SGEventsDetailsAndMeta, SGSportsEventTypes } from "./interfaces/SeatGeek.ts";
+
+const majorLeagues = ["nba", "nfl", "nhl", "mlb", "mls"];
 
 export const seatGeekFetcher = async (
   location: Location,
   page: number,
   rowsPerPage: number,
   range: string,
+  filter?: string[],
   sortAvgPrice?: boolean,
   sortDate?: boolean,
   sortHighestPrice?: boolean,
@@ -15,10 +18,26 @@ export const seatGeekFetcher = async (
   sortPopularity?: boolean,
   searchQuery?: string,
 ) => {
+  let filterString = "";
+
+  if (filter) {
+    for (const f of filter) {
+      if (f === "sports") {
+        for (const s of [...SGSportsEventTypes, ...SG1v1SportsEventTypes]) {
+          if (!majorLeagues.includes(s)) {
+            filterString += `&type.eq=${s}`;
+          }
+        }
+      } else {
+        filterString += `&type.eq=${f}`;
+      }
+    }
+  }
+
   const response = await axios.get<SGEvents>(
     `https://api.seatgeek.com/2/events/?per_page=${rowsPerPage}&page=${page}&client_id=${import.meta.env.VITE_SEATGEEK_CLIENT_ID}&client_secret=${
       import.meta.env.VITE_SEATGEEK_CLIENT_SECRET
-    }${range !== "0mi" ? `&lat=${location.lat}&lon=${location.lon}&range=${range}` : ""}${
+    }${range !== "0mi" ? `&lat=${location.lat}&lon=${location.lon}&range=${range}` : ""}${filterString}${
       sortDate !== undefined ?
         sortDate === true ?
           "&sort=datetime_utc.asc"

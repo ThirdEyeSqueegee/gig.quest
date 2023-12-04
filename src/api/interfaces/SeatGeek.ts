@@ -232,7 +232,6 @@ export const SG1v1SportsEventTypes = [
   "mma",
 
   "wrestling",
-  "wwe",
   "college_wrestling",
 
   "tennis",

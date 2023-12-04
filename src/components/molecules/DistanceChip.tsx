@@ -14,7 +14,7 @@ export const DistanceChip = memo(function DistanceChip(props: { venue?: SGVenue 
   const location = useLocationStore((state) => state.location);
 
   return (
-    <Chip size="sm" sx={styles.distanceChip}>
+    <Chip size="sm" sx={styles.distanceChip} variant="outlined">
       <Typography {...styles.distance}>
         {eventLocation && location ?
           convertDistance(

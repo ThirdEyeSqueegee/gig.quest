@@ -12,6 +12,7 @@ export const useSeatGeekEvents = () => {
   const sorting = useSortingStore((state) => state);
   const location = useLocationStore((state) => state);
   const debSearchTerm = useSearchStore((state) => state.debSearchTerm);
+  const filter = useSearchStore((state) => state.filter);
 
   const { data: eventsDetailsAndMeta, isLoading } = useSWR(
     location.location ?
@@ -21,6 +22,7 @@ export const useSeatGeekEvents = () => {
         pagination.page,
         pagination.rowsPerPage,
         pagination.range,
+        filter,
         sorting.sortAvgPrice,
         sorting.sortDate,
         sorting.sortHighestPrice,
@@ -29,8 +31,8 @@ export const useSeatGeekEvents = () => {
         debSearchTerm,
       ]
     : null,
-    ([, loc, page, rowsPerPage, range, sortAvgPrice, sortDate, sortHighestPrice, sortLowestPrice, sortPopularity, term]) =>
-      seatGeekFetcher(loc, page, rowsPerPage, range, sortAvgPrice, sortDate, sortHighestPrice, sortLowestPrice, sortPopularity, term),
+    ([, loc, page, rowsPerPage, range, f, sortAvgPrice, sortDate, sortHighestPrice, sortLowestPrice, sortPopularity, term]) =>
+      seatGeekFetcher(loc, page, rowsPerPage, range, f, sortAvgPrice, sortDate, sortHighestPrice, sortLowestPrice, sortPopularity, term),
     { compare: isEqual, keepPreviousData: true },
   );
 
