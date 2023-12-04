@@ -85,7 +85,6 @@ export const Performers = memo(function Performers(props: { eventDetails?: SGEve
 const styles = {
   flex: {
     justifyContent: "start",
-    width: 0.9,
   },
   typography: {
     fontSize: isMobile ? "0.9rem" : "1rem",

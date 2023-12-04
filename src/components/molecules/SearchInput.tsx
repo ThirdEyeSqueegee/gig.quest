@@ -1,13 +1,12 @@
-import { IconButton, Input, Typography } from "@mui/joy";
+import { IconButton, Input } from "@mui/joy";
 import { m } from "framer-motion";
 import { memo, useRef } from "react";
 import { isMobile } from "react-device-detect";
 import { useHotkeys } from "react-hotkeys-hook";
-import { GoSearch } from "react-icons/go";
+import { FiSearch } from "react-icons/fi";
 import { MdClose } from "react-icons/md";
 
 import { useSearchStore } from "../../stores/useSearchStore.ts";
-import { Flexbox } from "../atoms/Flexbox.tsx";
 
 export const SearchInput = memo(function SearchInput() {
   const search = useSearchStore((state) => state);
@@ -32,8 +31,8 @@ export const SearchInput = memo(function SearchInput() {
           component: m.input,
           ref: inputRef,
           transition: { duration: 0.5, type: "spring" },
-          whileFocus: { width: "17.5rem" },
-          whileHover: { width: "17.5rem" },
+          whileFocus: { width: isMobile ? "17.5rem" : "20rem" },
+          whileHover: { width: isMobile ? "17.5rem" : "20rem" },
         },
       }}
       value={search.searchTerm}
@@ -44,16 +43,6 @@ export const SearchInput = memo(function SearchInput() {
           </IconButton>
         ),
       })}
-      {...(!isMobile &&
-        !search.searchTerm && {
-          endDecorator: (
-            <Flexbox alignItems="start" border={2} borderColor="neutral.outlinedBorder" borderRadius={5} height="1.5rem" width="1.5rem">
-              <Typography fontSize="0.7rem" level="title-sm">
-                /
-              </Typography>
-            </Flexbox>
-          ),
-        })}
       {...styles.searchInput}
     />
   );
@@ -64,8 +53,13 @@ const styles = {
     "&:hover, &:active": { backgroundColor: "transparent" },
   },
   searchInput: {
-    placeholder: "Search...",
-    startDecorator: <GoSearch fontSize="small" />,
-    sx: { backdropFilter: "blur(0.5rem)", backgroundColor: "transparent" },
+    placeholder: "Type / to search...",
+    startDecorator: <FiSearch />,
+    sx: {
+      "--Input-paddingInline": "0.5rem",
+      backdropFilter: "blur(0.5rem)",
+      backgroundColor: "transparent",
+      minWidth: isMobile ? "15rem" : "17.5rem",
+    },
   },
 };

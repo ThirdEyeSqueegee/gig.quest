@@ -36,10 +36,10 @@ export const EventGrid = memo(function EventGrid() {
 
   if (sgLoading) {
     return (
-      <Flexbox alignItems="start" height={tableBodyHeight.current > 0 ? tableBodyHeight.current : "90vh"} width={1}>
-        <Flexbox height={0.7} width={1}>
+      <Flexbox alignItems="start" height={tableBodyHeight.current > 0 ? tableBodyHeight.current : "125vh"} width={1}>
+        <Flexbox height={0.5}>
           <CircularProgress size="lg">
-            <FaHourglassHalf />
+            <FaHourglassHalf fontSize="1.5rem" />
           </CircularProgress>
         </Flexbox>
       </Flexbox>
@@ -52,11 +52,11 @@ export const EventGrid = memo(function EventGrid() {
         return (
           <Grid display="flex" flexDirection="column" key={details.event.id} lg={3} md={6} px={0.5} xs={12}>
             <Card {...styles.gridCard}>
-              <Flexbox alignItems="start" justifyContent="space-between">
+              <Flexbox alignItems="start" gap={1} justifyContent="space-between">
                 <Performers eventDetails={details} />
                 <EventTypeIcon eventType={details.event.type} />
               </Flexbox>
-              <Flexbox alignItems="end" justifyContent="space-between">
+              <Flexbox alignItems="end" gap={1} justifyContent="space-between">
                 <Flexbox alignItems="start" flexDirection="column" gap={0.5} justifyContent="end">
                   <Venue venue={details.event.venue} />
                   <DateAndTime datetime={details.event.datetime_local} size="0.75rem" />

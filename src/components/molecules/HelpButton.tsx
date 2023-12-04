@@ -11,19 +11,19 @@ const HelpBox = memo(function HelpBox() {
     <Flexbox flexDirection="column">
       <List marker="disc" sx={{ "--ListItem-minHeight": "1rem" }}>
         <ListItem>
-          <Typography level="body-sm">Hover/tap event icon to see event type</Typography>
+          <Typography level="title-sm">Hover/tap event icon to see event type</Typography>
         </ListItem>
         <ListItem>
-          <Typography level="body-sm">Click/tap artist&apos;s name to see genres</Typography>
+          <Typography level="title-sm">Click/tap artist&apos;s name to see genres</Typography>
         </ListItem>
         <ListItem>
-          <Typography level="body-sm">Click/tap Spotify tooltip to go the artist&apos;s Spotify</Typography>
+          <Typography level="title-sm">Click/tap Spotify tooltip to go artist&apos;s Spotify</Typography>
         </ListItem>
         <ListItem>
-          <Typography level="body-sm">Search keywords like &quot;concert&quot; or &quot;NBA&quot; to filter events</Typography>
+          <Typography level="title-sm">Search keywords like &quot;concert&quot; or &quot;NBA&quot; to filter events</Typography>
         </ListItem>
         <ListItem>
-          <Typography level="body-sm">Drag the range slider to 0 to see all events regardless of location</Typography>
+          <Typography level="title-sm">Drag range slider to 0 to see all events regardless of location</Typography>
         </ListItem>
       </List>
     </Flexbox>
@@ -54,7 +54,7 @@ const styles = {
   tooltip: {
     animate: { opacity: [0, 1] },
     component: m.div,
-    sx: { backdropFilter: "blur(0.5rem)", backgroundColor: "rgba(0, 0, 0, 0.5)" },
+    sx: { backdropFilter: "blur(0.5rem)", backgroundColor: "rgba(0, 0, 0, 0.25)" },
     title: <HelpBox />,
   },
 };

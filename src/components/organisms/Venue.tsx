@@ -23,7 +23,7 @@ export const Venue = memo(function Venue(props: { venue?: SGVenue }) {
 
 const styles = {
   flexbox: {
-    gap: 1,
+    gap: 0.5,
     justifyContent: "start",
   },
 };

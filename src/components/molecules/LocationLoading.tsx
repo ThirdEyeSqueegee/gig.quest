@@ -9,7 +9,7 @@ export const LocationLoading = memo(function LocationLoading() {
   return (
     <Flexbox flexDirection="column" {...styles.flex}>
       <CircularProgress size="lg" {...styles.loading}>
-        <MdLocationOn color="red" />
+        <MdLocationOn color="red" fontSize="1.5rem" />
       </CircularProgress>
       <Typography level="body-sm">Waiting for location...</Typography>
     </Flexbox>

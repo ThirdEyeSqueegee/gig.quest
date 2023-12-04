@@ -730,7 +730,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
         );
       case "literary":
         return (
-          <Tooltip title="Film" {...styles.tooltip}>
+          <Tooltip title="Literary" {...styles.tooltip}>
             <Flexbox {...styles.iconBox}>
               <FaBookOpen color="chocolate" fontSize={size ?? "1.5rem"} />{" "}
             </Flexbox>

@@ -52,7 +52,7 @@ export const EventTableBody = memo(function EventTableBody() {
             >
               <Flexbox height={0.5}>
                 <CircularProgress size="lg">
-                  <FaHourglassHalf />
+                  <FaHourglassHalf fontSize="1.5rem" />
                 </CircularProgress>
               </Flexbox>
             </Flexbox>
