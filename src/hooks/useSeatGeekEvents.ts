@@ -8,31 +8,30 @@ import { useSearchStore } from "../stores/useSearchStore.ts";
 import { useSortingStore } from "../stores/useSortingStore.ts";
 
 export const useSeatGeekEvents = () => {
-  const pagination = usePaginationStore((state) => state);
-  const sorting = useSortingStore((state) => state);
-  const location = useLocationStore((state) => state);
+  const page = usePaginationStore((state) => state.page);
+  const rowsPerPage = usePaginationStore((state) => state.rowsPerPage);
+  const range = usePaginationStore((state) => state.range);
+  const location = useLocationStore((state) => state.location);
   const debSearchTerm = useSearchStore((state) => state.debSearchTerm);
   const filter = useSearchStore((state) => state.filter);
+  const sorting = useSortingStore((state) => state);
 
   const { data: eventsDetailsAndMeta, isLoading } = useSWR(
-    location.location ?
-      [
-        "eventsDetails",
-        location.location,
-        pagination.page,
-        pagination.rowsPerPage,
-        pagination.range,
-        filter,
-        sorting.sortAvgPrice,
-        sorting.sortDate,
-        sorting.sortHighestPrice,
-        sorting.sortLowestPrice,
-        sorting.sortPopularity,
-        debSearchTerm,
-      ]
-    : null,
-    ([, loc, page, rowsPerPage, range, f, sortAvgPrice, sortDate, sortHighestPrice, sortLowestPrice, sortPopularity, term]) =>
-      seatGeekFetcher(loc, page, rowsPerPage, range, f, sortAvgPrice, sortDate, sortHighestPrice, sortLowestPrice, sortPopularity, term),
+    [
+      "eventsDetails",
+      page,
+      rowsPerPage,
+      range,
+      location,
+      filter,
+      sorting.sortAvgPrice,
+      sorting.sortDate,
+      sorting.sortHighestPrice,
+      sorting.sortLowestPrice,
+      sorting.sortPopularity,
+      debSearchTerm,
+    ],
+    ([, ...args]) => seatGeekFetcher(...args),
     { compare: isEqual, keepPreviousData: true },
   );
 

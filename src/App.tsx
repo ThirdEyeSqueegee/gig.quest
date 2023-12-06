@@ -7,7 +7,6 @@ import { FiGithub } from "react-icons/fi";
 
 import { Flexbox } from "./components/atoms/Flexbox.tsx";
 import { HelpButton } from "./components/molecules/HelpButton.tsx";
-import { LocationLoading } from "./components/molecules/LocationLoading.tsx";
 import { Footer } from "./components/organisms/Footer.tsx";
 import { Header } from "./components/organisms/Header.tsx";
 import { useLocationStore } from "./stores/useLocationStore.ts";
@@ -22,27 +21,16 @@ export const App = memo(function App() {
   const tableView = useViewStore((state) => state.tableView);
   const searchTerm = useSearchStore((state) => state.searchTerm);
   const setDebSearchTerm = useSearchStore((state) => state.setDebSearchTerm);
-  const location = useLocationStore((state) => state);
+  const location = useLocationStore((state) => state.location);
 
   const debSearchTerm = useDebounce(searchTerm, 750);
-
-  if (!location.location) {
-    navigator.geolocation.getCurrentPosition(
-      (p: GeolocationPosition) => {
-        location.setLocation({ lat: p.coords.latitude, lon: p.coords.longitude });
-      },
-      null,
-      {
-        enableHighAccuracy: true,
-      },
-    );
-  }
 
   useEffect(() => {
     firstPage();
     setDebSearchTerm(debSearchTerm);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debSearchTerm]);
+  }, [debSearchTerm, firstPage, setDebSearchTerm]);
+
+  useEffect(() => firstPage(), [firstPage, location]);
 
   return (
     <LazyMotion features={domMax} strict>
@@ -56,11 +44,9 @@ export const App = memo(function App() {
             </IconButton>
             <HelpButton />
           </Flexbox>
-          {location.location ?
-            tableView ?
-              <EventTable />
-            : <EventGrid />
-          : <LocationLoading />}
+          {tableView ?
+            <EventTable />
+          : <EventGrid />}
           <Divider />
           <Footer />
         </Card>
@@ -84,7 +70,7 @@ const styles = {
     width: 1,
   },
   mainCard: {
-    animate: { scaleY: [0, 1] },
+    animate: { opacity: [0, 1], transition: { duration: 1 } },
     component: m.div,
     layout: true,
     sx: {
@@ -94,6 +80,5 @@ const styles = {
       p: 0,
       width: 1,
     },
-    transition: { duration: 0.5, type: "spring" },
   },
 };

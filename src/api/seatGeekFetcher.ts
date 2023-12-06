@@ -15,10 +15,10 @@ import {
 const majorLeagues = ["nba", "nfl", "nhl", "mlb", "mls"];
 
 export const seatGeekFetcher = async (
-  location: Location,
   page: number,
   rowsPerPage: number,
   range: string,
+  location?: Location,
   filter?: string[],
   sortAvgPrice?: boolean,
   sortDate?: boolean,
@@ -59,7 +59,12 @@ export const seatGeekFetcher = async (
   const response = await axios.get<SGEvents>(
     `https://api.seatgeek.com/2/events/?per_page=${rowsPerPage}&page=${page}&client_id=${import.meta.env.VITE_SEATGEEK_CLIENT_ID}&client_secret=${
       import.meta.env.VITE_SEATGEEK_CLIENT_SECRET
-    }${range !== "0mi" ? `&lat=${location.lat}&lon=${location.lon}&range=${range}` : ""}${filterString}${
+    }${
+      range !== "0mi" ?
+        location ? `&lat=${location.lat}&lon=${location.lon}&range=${range}`
+        : `&geoip=true&range=${range}`
+      : ""
+    }${filterString}${
       sortDate !== undefined ?
         sortDate === true ?
           "&sort=datetime_utc.asc"

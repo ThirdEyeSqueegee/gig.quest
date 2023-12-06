@@ -1,4 +1,4 @@
-import { Switch, Tooltip, Typography } from "@mui/joy";
+import { IconButton, Switch, Tooltip, Typography } from "@mui/joy";
 import { useWindowSize } from "@uidotdev/usehooks";
 import { m, useMotionValueEvent, useScroll } from "framer-motion";
 import { memo, useState } from "react";
@@ -9,6 +9,7 @@ import TypeIt from "typeit-react";
 
 import { lerp } from "../../Utilities.ts";
 import { useSeatGeekEvents } from "../../hooks/useSeatGeekEvents.ts";
+import { useLocationStore } from "../../stores/useLocationStore.ts";
 import { usePaginationStore } from "../../stores/usePaginationStore.ts";
 import { useViewStore } from "../../stores/useViewStore.ts";
 import { Flexbox } from "../atoms/Flexbox.tsx";
@@ -19,6 +20,7 @@ export const Header = memo(function Header() {
   const firstPage = usePaginationStore((state) => state.firstPage);
   const setRowsPerPage = usePaginationStore((state) => state.setRowsPerPage);
   const view = useViewStore((state) => state);
+  const location = useLocationStore((state) => state);
 
   const { meta } = useSeatGeekEvents();
   const geolocation = meta?.geolocation;
@@ -28,7 +30,7 @@ export const Header = memo(function Header() {
 
   const { scrollYProgress } = useScroll();
   const [lerps, setLerps] = useState({
-    locationIconHeight: 1.5,
+    locationIconHeight: 1.75,
     locationTitleHeight: 0.875,
     searchMarginRight: 2,
     searchMarginTop: -4.5,
@@ -37,13 +39,27 @@ export const Header = memo(function Header() {
 
   useMotionValueEvent(scrollYProgress, "change", (v) => {
     setLerps({
-      locationIconHeight: lerp(1.5, 0.75, v),
+      locationIconHeight: lerp(1.75, 0.75, v),
       locationTitleHeight: lerp(0.875, 0.6, v),
       searchMarginRight: lerp(2, 6, v),
       searchMarginTop: lerp(-4.5, -5.5, v),
       titleSize: lerp(2.5, 1.5, v),
     });
   });
+
+  const handleSetLocation = () => {
+    if (!location.location) {
+      navigator.geolocation.getCurrentPosition(
+        (p: GeolocationPosition) => {
+          location.setLocation({ lat: p.coords.latitude, lon: p.coords.longitude });
+        },
+        null,
+        {
+          enableHighAccuracy: true,
+        },
+      );
+    }
+  };
 
   return (
     <Flexbox flexDirection="column" pb={isMobile ? 0 : 1} width={1}>
@@ -52,15 +68,23 @@ export const Header = memo(function Header() {
           <TypeIt options={{ cursor: false }}>gig.quest</TypeIt>
         </Typography>
         <Flexbox>
-          <Flexbox {...styles.locationIconBox}>
-            <MdLocationOn color="red" fontSize={!isMobile ? `${lerps.locationIconHeight}rem` : "1.5rem"} />
-          </Flexbox>
-          <Typography
-            fontFamily="Fira Code Variable"
-            fontSize={!isMobile ? `${lerps.locationTitleHeight}rem` : undefined}
-            level="body-sm"
-            sx={{ userSelect: "none" }}
+          <Tooltip
+            open={!location.location}
+            placement="bottom"
+            title="Click/tap location icon to use precise location"
+            variant="outlined"
+            {...styles.locationTooltip}
           >
+            <IconButton
+              onClick={handleSetLocation}
+              sx={{ "&:hover, &:active": { backgroundColor: "transparent" }, "--IconButton-size": "1rem", px: 0 }}
+            >
+              <Flexbox {...styles.locationIconBox}>
+                <MdLocationOn color="red" fontSize={!isMobile ? `${lerps.locationIconHeight}rem` : "1.75rem"} />
+              </Flexbox>
+            </IconButton>
+          </Tooltip>
+          <Typography fontSize={!isMobile ? `${lerps.locationTitleHeight}rem` : undefined} level="body-sm" sx={{ userSelect: "none" }}>
             {`${
               geolocation ? geolocation.display_name
               : range === "0mi" ? "Everywhere"
@@ -110,6 +134,11 @@ const styles = {
     dragTransition: { bounceDamping: 10, bounceStiffness: 500 },
     whileHover: { scale: 1.1 },
     whileTap: { scale: 0.9 },
+  },
+  locationTooltip: {
+    animate: { opacity: [0, 1], transition: { delay: 0.5 } },
+    component: m.div,
+    sx: { backdropFilter: "blur(0.5rem)", backgroundColor: "transparent" },
   },
   searchFlex: {
     alignSelf: isMobile ? "center" : "end",

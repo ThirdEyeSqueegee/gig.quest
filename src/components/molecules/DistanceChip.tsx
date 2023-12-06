@@ -26,7 +26,7 @@ export const DistanceChip = memo(function DistanceChip(props: { venue?: SGVenue 
             ),
             "mi",
           ).toFixed(2)
-        : "..."}
+        : "?"}
         {" mi"}
       </Typography>
     </Chip>
