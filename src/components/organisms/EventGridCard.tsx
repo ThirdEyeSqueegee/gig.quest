@@ -67,4 +67,4 @@ const styles = {
     sx: { flex: 1, justifyContent: "space-between", p: 1 },
     whileHover: isMobile ? null : { boxShadow: "#555555 0 0 5px", transition: { duration: 0.05 } },
   },
-};
+} as const;

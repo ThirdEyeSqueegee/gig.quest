@@ -13,16 +13,12 @@ export const FooterRows = memo(function FooterRows() {
 
   return (
     <Flexbox gap={1}>
-      <Typography level="body-xs" sx={{ userSelect: "none" }}>
-        Rows:
-      </Typography>
+      <Typography {...styles.typography}>Rows:</Typography>
       <Select
-        indicator={<FiChevronDown />}
         onChange={(e, v) => {
           setRowsPerPage(v!);
           firstPage();
         }}
-        size="sm"
         value={rowsPerPage}
         {...styles.select}
       >
@@ -36,6 +32,8 @@ export const FooterRows = memo(function FooterRows() {
 
 const styles = {
   select: {
+    indicator: <FiChevronDown />,
+    size: "sm",
     sx: {
       "&:hover": { backgroundColor: "rgba(0, 0, 0, 0.25)" },
       [`& .${selectClasses.indicator}`]: {
@@ -45,4 +43,8 @@ const styles = {
       backgroundColor: "transparent",
     },
   },
-};
+  typography: {
+    level: "body-xs",
+    sx: { userSelect: "none" },
+  },
+} as const;

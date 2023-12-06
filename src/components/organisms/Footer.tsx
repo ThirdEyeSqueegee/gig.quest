@@ -23,7 +23,7 @@ export const Footer = memo(function Footer() {
   const lastPage = sgEventCount ? Math.ceil(sgEventCount / rowsPerPage) : undefined;
 
   return (
-    <Flexbox flexDirection="column" position={isMobile ? undefined : "sticky"} {...styles.mainFlex}>
+    <Flexbox {...styles.mainFlex}>
       <Flexbox columnGap={isMobile ? 1 : 2} flexWrap="wrap" rowGap={0}>
         <FooterFilter />
         <FooterRows />
@@ -41,8 +41,10 @@ export const Footer = memo(function Footer() {
 const styles = {
   mainFlex: {
     component: m.div,
+    flexDirection: "column",
     layout: true,
     my: 1.25,
+    position: isMobile ? undefined : "sticky",
     rowGap: isMobile ? 2 : 0,
     transition: { duration: 0.25 },
     width: isMobile ? 0.9 : "auto",
@@ -53,4 +55,4 @@ const styles = {
       sx: { backdropFilter: "blur(0.5rem)", border: 1, borderColor: "neutral.outlinedBorder", borderRadius: 25, zIndex: "badge" },
     }),
   },
-};
+} as const;

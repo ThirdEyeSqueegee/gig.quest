@@ -1,233 +1,112 @@
 /* eslint-disable react/jsx-pascal-case */
-import { Typography } from "@mui/joy";
+import { CircularProgress } from "@mui/joy";
 import { memo } from "react";
 import { FaQuestion } from "react-icons/fa6";
 import * as NBAIcons from "react-nba-logos";
 
+import { NBATeamsMap } from "../../Utilities.ts";
+import { useESPNTeam } from "../../hooks/useESPNTeam.ts";
+import { ESPNTooltip } from "./ESPNTooltip.tsx";
+
 export const NBATeam = memo(function NBATeam(props: { team?: string }) {
   const { team } = props;
 
+  const { data, isLoading } = useESPNTeam("nba", team ? NBATeamsMap.get(team) : undefined);
+
+  if (isLoading) {
+    return <CircularProgress size="xs" />;
+  }
   if (team === "TBA") {
-    return (
-      <Typography {...styles.typography} startDecorator={<FaQuestion />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<FaQuestion />} team={team} teamData={data} />;
   }
   if (team?.includes("Hawks")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NBAIcons.ATL size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NBAIcons.ATL size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Nets")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NBAIcons.BKN size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NBAIcons.BKN size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Celtics")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NBAIcons.BOS size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NBAIcons.BOS size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Hornets")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NBAIcons.CHA size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NBAIcons.CHA size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Bulls")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NBAIcons.CHI size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NBAIcons.CHI size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Cavaliers")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NBAIcons.CLE size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NBAIcons.CLE size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Mavericks")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NBAIcons.DAL size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NBAIcons.DAL size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Nuggets")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NBAIcons.DEN size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NBAIcons.DEN size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Pistons")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NBAIcons.DET size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NBAIcons.DET size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Warriors")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NBAIcons.GSW size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NBAIcons.GSW size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Rockets")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NBAIcons.HOU size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NBAIcons.HOU size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Pacers")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NBAIcons.IND size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NBAIcons.IND size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Clippers")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NBAIcons.LAC size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NBAIcons.LAC size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Lakers")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NBAIcons.LAL size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NBAIcons.LAL size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Grizzlies")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NBAIcons.MEM size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NBAIcons.MEM size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Heat")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NBAIcons.MIA size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NBAIcons.MIA size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Bucks")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NBAIcons.MIL size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NBAIcons.MIL size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Timberwolves")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NBAIcons.MIN size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NBAIcons.MIN size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Pelicans")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NBAIcons.NOP size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NBAIcons.NOP size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Knicks")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NBAIcons.NYK size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NBAIcons.NYK size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Thunder")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NBAIcons.OKC size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NBAIcons.OKC size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Magic")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NBAIcons.ORL size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NBAIcons.ORL size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("76ers")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NBAIcons.PHI size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NBAIcons.PHI size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Suns")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NBAIcons.PHX size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NBAIcons.PHX size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Blazers")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NBAIcons.POR size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NBAIcons.POR size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Kings")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NBAIcons.SAC size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NBAIcons.SAC size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Spurs")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NBAIcons.SAS size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NBAIcons.SAS size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Raptors")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NBAIcons.TOR size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NBAIcons.TOR size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Jazz")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NBAIcons.UTA size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NBAIcons.UTA size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Wizards")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NBAIcons.WAS size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NBAIcons.WAS size="2rem" />} team={team} teamData={data} />;
   }
 });
-
-const styles = {
-  typography: {
-    slotProps: { startDecorator: { sx: { mr: 0.5 } } },
-  },
-};

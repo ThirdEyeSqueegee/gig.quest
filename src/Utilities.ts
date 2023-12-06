@@ -84,7 +84,7 @@ export const NBATeamsMap = new Map([
   ["Golden State Warriors", 9],
   ["Houston Rockets", 10],
   ["Indiana Pacers", 11],
-  ["LA Clippers", 12],
+  ["Los Angeles Clippers", 12],
   ["Los Angeles Lakers", 13],
   ["Memphis Grizzlies", 29],
   ["Miami Heat", 14],

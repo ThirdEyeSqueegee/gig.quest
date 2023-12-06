@@ -17,16 +17,16 @@ export const FooterPagination = memo(function FooterPagination(props: { lastPage
 
   return (
     <Flexbox gap={1}>
-      <IconButton disabled={page === 1} onClick={firstPage} variant="outlined" {...styles.pageButton}>
+      <IconButton disabled={page === 1} onClick={firstPage} {...styles.pageButton}>
         <FaAnglesLeft />
       </IconButton>
-      <IconButton disabled={page === 1} onClick={prevPage} variant="outlined" {...styles.pageButton}>
+      <IconButton disabled={page === 1} onClick={prevPage} {...styles.pageButton}>
         <FaAngleLeft />
       </IconButton>
-      <IconButton disabled={page === lastPage} onClick={nextPage} variant="outlined" {...styles.pageButton}>
+      <IconButton disabled={page === lastPage} onClick={nextPage} {...styles.pageButton}>
         <FaAngleRight />
       </IconButton>
-      <IconButton disabled={page === lastPage} onClick={() => setPage(lastPage!)} variant="outlined" {...styles.pageButton}>
+      <IconButton disabled={page === lastPage} onClick={() => setPage(lastPage!)} {...styles.pageButton}>
         <FaAnglesRight />
       </IconButton>
     </Flexbox>
@@ -36,6 +36,7 @@ export const FooterPagination = memo(function FooterPagination(props: { lastPage
 const styles = {
   pageButton: {
     component: m.button,
+    variant: "outlined",
     whileTap: { scale: 0.8 },
   },
-};
+} as const;

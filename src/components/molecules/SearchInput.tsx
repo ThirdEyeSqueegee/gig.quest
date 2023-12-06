@@ -63,4 +63,4 @@ const styles = {
       minWidth: isMobile ? "15rem" : "17.5rem",
     },
   },
-};
+} as const;

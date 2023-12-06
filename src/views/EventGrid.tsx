@@ -53,4 +53,4 @@ const styles = {
     spacing: 1,
     width: 1,
   },
-};
+} as const;

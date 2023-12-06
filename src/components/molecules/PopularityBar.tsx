@@ -24,7 +24,7 @@ export const PopularityBar = memo(function PopularityBar(props: { score?: number
 
   return (
     <Tooltip title={score ? `Popularity: ${(score * 100).toFixed(1)}` : "¯\\_(ツ)_/¯"} {...styles.tooltip}>
-      <LinearProgress color={color} size="lg" value={+value!} {...styles.progressBar} />
+      <LinearProgress color={color} value={+value!} {...styles.progressBar} />
     </Tooltip>
   );
 });
@@ -36,6 +36,7 @@ const styles = {
     drag: !isMobile,
     dragSnapToOrigin: !isMobile,
     dragTransition: { bounceDamping: 10, bounceStiffness: 500 },
+    size: "lg",
     whileHover: { scale: 1.1 },
     whileTap: { scale: 0.9 },
   },
@@ -45,4 +46,4 @@ const styles = {
     followCursor: true,
     sx: { backdropFilter: "blur(0.5rem)", backgroundColor: "transparent" },
   },
-};
+} as const;

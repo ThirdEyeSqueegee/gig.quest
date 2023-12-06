@@ -28,4 +28,4 @@ const styles = {
     followCursor: true,
     sx: { backdropFilter: "blur(0.5rem)", backgroundColor: "transparent", borderRadius: "15px" },
   },
-};
+} as const;

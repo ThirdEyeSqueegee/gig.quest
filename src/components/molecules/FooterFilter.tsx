@@ -16,12 +16,8 @@ export const FooterFilter = memo(function FooterFilter() {
 
   return (
     <Flexbox gap={1}>
-      <Typography level="body-xs" sx={{ userSelect: "none" }}>
-        Filter:
-      </Typography>
+      <Typography {...styles.typography}>Filter:</Typography>
       <Select
-        indicator={<FiChevronDown />}
-        multiple
         onChange={(e, v) => {
           setFilter(v);
           firstPage();
@@ -33,7 +29,6 @@ export const FooterFilter = memo(function FooterFilter() {
             ))}
           </Flexbox>
         )}
-        size="sm"
         value={filter}
         {...styles.select}
         {...(filter.length > 0 && {
@@ -100,6 +95,9 @@ export const FooterFilter = memo(function FooterFilter() {
 
 const styles = {
   select: {
+    indicator: <FiChevronDown />,
+    multiple: true,
+    size: "sm",
     sx: {
       "&:hover": { backgroundColor: "rgba(0, 0, 0, 0.25)" },
       [`& .${selectClasses.indicator}`]: {
@@ -109,4 +107,8 @@ const styles = {
       backgroundColor: "transparent",
     },
   },
-};
+  typography: {
+    level: "body-xs",
+    sx: { userSelect: "none" },
+  },
+} as const;

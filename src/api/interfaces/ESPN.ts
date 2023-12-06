@@ -11,7 +11,7 @@ export interface ESPNTeamTeam {
   groups?: object;
   id?: string;
   isActive?: boolean;
-  links?: object[];
+  links?: ESPNLink[];
   location?: string;
   logos?: object[];
   name?: string;
@@ -21,6 +21,16 @@ export interface ESPNTeamTeam {
   slug?: string;
   standingSummary?: string;
   uid?: string;
+}
+
+export interface ESPNLink {
+  href?: string;
+  isExternal?: boolean;
+  isPremium?: boolean;
+  language?: string;
+  rel?: string[];
+  shortText?: string;
+  text?: string;
 }
 
 export interface ESPNRecord {

@@ -766,4 +766,4 @@ const styles = {
     component: m.div,
     sx: { backdropFilter: "blur(0.5rem)", backgroundColor: "transparent" },
   },
-};
+} as const;

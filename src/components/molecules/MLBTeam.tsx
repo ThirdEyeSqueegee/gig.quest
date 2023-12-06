@@ -1,233 +1,112 @@
 /* eslint-disable react/jsx-pascal-case */
-import { Typography } from "@mui/joy";
+import { CircularProgress } from "@mui/joy";
 import { memo } from "react";
 import { FaQuestion } from "react-icons/fa6";
 import * as MLBIcons from "react-mlb-logos";
 
+import { MLBTeamsMap } from "../../Utilities.ts";
+import { useESPNTeam } from "../../hooks/useESPNTeam.ts";
+import { ESPNTooltip } from "./ESPNTooltip.tsx";
+
 export const MLBTeam = memo(function MLBTeam(props: { team?: string }) {
   const { team } = props;
 
+  const { data, isLoading } = useESPNTeam("mlb", MLBTeamsMap.get(team ?? ""));
+
+  if (isLoading) {
+    return <CircularProgress size="xs" />;
+  }
   if (team === "TBA") {
-    return (
-      <Typography {...styles.typography} startDecorator={<FaQuestion />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<FaQuestion />} team={team} teamData={data} />;
   }
   if (team?.includes("Diamondbacks")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<MLBIcons.ARI size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<MLBIcons.ARI size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Braves")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<MLBIcons.ATL size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<MLBIcons.ATL size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Orioles")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<MLBIcons.BAL size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<MLBIcons.BAL size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Red Sox")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<MLBIcons.BOS size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<MLBIcons.BOS size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Cubs")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<MLBIcons.CHC size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<MLBIcons.CHC size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("White Sox")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<MLBIcons.CHW size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<MLBIcons.CHW size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Reds")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<MLBIcons.CIN size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<MLBIcons.CIN size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Guardians")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<MLBIcons.CLE size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<MLBIcons.CLE size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Rockies")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<MLBIcons.COL size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<MLBIcons.COL size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Tigers")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<MLBIcons.DET size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<MLBIcons.DET size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Astros")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<MLBIcons.HOU size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<MLBIcons.HOU size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Royals")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<MLBIcons.KAN size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<MLBIcons.KAN size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Angels")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<MLBIcons.LAA size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<MLBIcons.LAA size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Dodgers")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<MLBIcons.LAD size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<MLBIcons.LAD size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Marlins")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<MLBIcons.MIA size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<MLBIcons.MIA size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Brewers")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<MLBIcons.MIL size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<MLBIcons.MIL size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Twins")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<MLBIcons.MIN size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<MLBIcons.MIN size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Mets")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<MLBIcons.NYM size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<MLBIcons.NYM size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Yankees")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<MLBIcons.NYY size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<MLBIcons.NYY size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Athletics")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<MLBIcons.OAK size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<MLBIcons.OAK size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Phillies")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<MLBIcons.PHI size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<MLBIcons.PHI size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Pirates")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<MLBIcons.PIT size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<MLBIcons.PIT size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Padres")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<MLBIcons.SD size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<MLBIcons.SD size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Giants")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<MLBIcons.SF size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<MLBIcons.SF size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Mariners")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<MLBIcons.SEA size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<MLBIcons.SEA size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Cardinals")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<MLBIcons.STL size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<MLBIcons.STL size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Rays")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<MLBIcons.TB size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<MLBIcons.TB size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Rangers")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<MLBIcons.TEX size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<MLBIcons.TEX size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Blue Jays")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<MLBIcons.TOR size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<MLBIcons.TOR size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Nationals")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<MLBIcons.WAS size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<MLBIcons.WAS size="2rem" />} team={team} teamData={data} />;
   }
 });
-
-const styles = {
-  typography: {
-    slotProps: { startDecorator: { sx: { mr: 0.5 } } },
-  },
-};

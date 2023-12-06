@@ -60,7 +60,7 @@ export const seatGeekFetcher = async (
     `https://api.seatgeek.com/2/events/?per_page=${rowsPerPage}&page=${page}&client_id=${import.meta.env.VITE_SEATGEEK_CLIENT_ID}&client_secret=${
       import.meta.env.VITE_SEATGEEK_CLIENT_SECRET
     }${
-      range !== "0mi" ?
+      range !== "51mi" ?
         location ? `&lat=${location.lat}&lon=${location.lon}&range=${range}`
         : `&geoip=true&range=${range}`
       : ""

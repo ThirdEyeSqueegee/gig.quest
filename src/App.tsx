@@ -36,7 +36,7 @@ export const App = memo(function App() {
     <LazyMotion features={domMax} strict>
       <Flexbox p={isMobile ? 1 : 2}>
         <Card {...styles.mainCard}>
-          <Flexbox position="sticky" {...styles.headerBox}>
+          <Flexbox {...styles.headerBox}>
             <Header />
             <IconButton sx={styles.githubButton}>
               <FiGithub fontSize="1.5rem" />
@@ -63,6 +63,7 @@ const styles = {
     top: "0.25rem",
   },
   headerBox: {
+    position: "sticky",
     ...(!isMobile && {
       sx: { backdropFilter: "blur(0.5rem)", zIndex: 5 },
       top: 0,
@@ -81,4 +82,4 @@ const styles = {
       width: 1,
     },
   },
-};
+} as const;

@@ -6,7 +6,7 @@ import { FiHelpCircle } from "react-icons/fi";
 
 const HelpBox = memo(function HelpBox() {
   return (
-    <List marker="disc" sx={{ "--ListItem-minHeight": "1rem" }}>
+    <List {...styles.list}>
       <ListItem>
         <Typography fontSize="sm">Hover/tap event icon to see event type</Typography>
       </ListItem>
@@ -31,7 +31,7 @@ export const HelpButton = memo(function HelpButton() {
 
   return (
     <ClickAwayListener onClickAway={() => setTooltipOpen(false)}>
-      <Tooltip open={tooltipOpen} variant="outlined" {...styles.tooltip}>
+      <Tooltip open={tooltipOpen} {...styles.tooltip}>
         <IconButton onClick={() => setTooltipOpen(!tooltipOpen)} sx={styles.helpButton}>
           <FiHelpCircle fontSize="1.5rem" />
         </IconButton>
@@ -47,10 +47,15 @@ const styles = {
     position: "absolute",
     top: "0.25rem",
   },
+  list: {
+    marker: "disc",
+    sx: { "--ListItem-minHeight": "1rem" },
+  },
   tooltip: {
     animate: { opacity: [0, 1] },
     component: m.div,
     sx: { backdropFilter: "blur(0.5rem)", backgroundColor: "rgba(0, 0, 0, 0.25)" },
     title: <HelpBox />,
+    variant: "outlined",
   },
-};
+} as const;

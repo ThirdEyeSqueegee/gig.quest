@@ -1,243 +1,118 @@
 /* eslint-disable react/jsx-pascal-case */
-import { Typography } from "@mui/joy";
+import { CircularProgress } from "@mui/joy";
 import { memo } from "react";
 import { FaQuestion } from "react-icons/fa6";
 import * as NFLIcons from "react-nfl-logos";
 
+import { NFLTeamsMap } from "../../Utilities.ts";
+import { useESPNTeam } from "../../hooks/useESPNTeam.ts";
+import { ESPNTooltip } from "./ESPNTooltip.tsx";
+
 export const NFLTeam = memo(function NFLTeam(props: { team?: string }) {
   const { team } = props;
 
+  const { data, isLoading } = useESPNTeam("nfl", team ? NFLTeamsMap.get(team) : undefined);
+
+  if (isLoading) {
+    return <CircularProgress size="xs" />;
+  }
   if (team === "TBA") {
-    return (
-      <Typography {...styles.typography} startDecorator={<FaQuestion />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<FaQuestion />} team={team} teamData={data} />;
   }
   if (team?.includes("Cardinals")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NFLIcons.ARI size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NFLIcons.ARI size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Falcons")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NFLIcons.ATL size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NFLIcons.ATL size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Ravens")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NFLIcons.BAL size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NFLIcons.BAL size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Bills")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NFLIcons.BUF size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NFLIcons.BUF size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Panthers")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NFLIcons.CAR size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NFLIcons.CAR size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Bears")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NFLIcons.CHI size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NFLIcons.CHI size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Bengals")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NFLIcons.CIN size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NFLIcons.CIN size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Browns")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NFLIcons.CLE size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NFLIcons.CLE size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Cowboys")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NFLIcons.DAL size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NFLIcons.DAL size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Broncos")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NFLIcons.DEN size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NFLIcons.DEN size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Lions")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NFLIcons.DET size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NFLIcons.DET size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Packers")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NFLIcons.GB size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NFLIcons.GB size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Texans")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NFLIcons.HOU size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NFLIcons.HOU size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Colts")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NFLIcons.IND size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NFLIcons.IND size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Jaguars")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NFLIcons.JAX size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NFLIcons.JAX size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Chiefs")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NFLIcons.KC size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NFLIcons.KC size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Raiders")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NFLIcons.LV size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NFLIcons.LV size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Chargers")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NFLIcons.LAC size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NFLIcons.LAC size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Rams")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NFLIcons.LAR size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NFLIcons.LAR size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Dolphins")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NFLIcons.MIA size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NFLIcons.MIA size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Vikings")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NFLIcons.MIN size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NFLIcons.MIN size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Patriots")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NFLIcons.NE size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NFLIcons.NE size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Saints")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NFLIcons.NO size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NFLIcons.NO size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Giants")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NFLIcons.NYG size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NFLIcons.NYG size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Jets")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NFLIcons.NYJ size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NFLIcons.NYJ size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Eagles")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NFLIcons.PHI size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NFLIcons.PHI size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Steelers")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NFLIcons.PIT size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NFLIcons.PIT size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("49ers")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NFLIcons.SF size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NFLIcons.SF size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Seahawks")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NFLIcons.SEA size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NFLIcons.SEA size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Buccaneers")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NFLIcons.TB size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NFLIcons.TB size="2rem" />} team={team} teamData={data} />;
   }
   if (team?.includes("Titans")) {
-    return <Typography {...styles.typography}>{team}</Typography>;
+    return <ESPNTooltip team={team} teamData={data} />;
   }
   if (team?.includes("Commanders")) {
-    return (
-      <Typography {...styles.typography} startDecorator={<NFLIcons.WAS size="2rem" />}>
-        {team}
-      </Typography>
-    );
+    return <ESPNTooltip startDecorator={<NFLIcons.WAS size="2rem" />} team={team} teamData={data} />;
   }
 });
-
-const styles = {
-  typography: {
-    slotProps: { startDecorator: { sx: { mr: 0.5 } } },
-  },
-};

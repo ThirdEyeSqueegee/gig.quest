@@ -68,13 +68,7 @@ export const Header = memo(function Header() {
           <TypeIt options={{ cursor: false }}>gig.quest</TypeIt>
         </Typography>
         <Flexbox>
-          <Tooltip
-            open={!location.location}
-            placement="bottom"
-            title="Click/tap location icon to use precise location"
-            variant="outlined"
-            {...styles.locationTooltip}
-          >
+          <Tooltip open={!location.location} {...styles.locationTooltip}>
             <IconButton
               onClick={handleSetLocation}
               sx={{ "&:hover, &:active": { backgroundColor: "transparent" }, "--IconButton-size": "1rem", px: 0 }}
@@ -87,9 +81,9 @@ export const Header = memo(function Header() {
           <Typography fontSize={!isMobile ? `${lerps.locationTitleHeight}rem` : undefined} level="body-sm" sx={{ userSelect: "none" }}>
             {`${
               geolocation ? geolocation.display_name
-              : range === "0mi" ? "Everywhere"
+              : range === "51mi" ? "Everywhere"
               : "..."
-            } (${range === "0mi" ? "\u221E mi" : range})`}
+            } (${range === "51mi" ? "\u221E mi" : range})`}
           </Typography>
         </Flexbox>
       </Flexbox>
@@ -109,8 +103,6 @@ export const Header = memo(function Header() {
                 firstPage();
                 setRowsPerPage(view.tableView ? 36 : 24);
               }}
-              size="lg"
-              variant="outlined"
               {...styles.viewSwitch}
             />
           </Tooltip>
@@ -138,7 +130,10 @@ const styles = {
   locationTooltip: {
     animate: { opacity: [0, 1], transition: { delay: 0.5 } },
     component: m.div,
+    placement: isMobile ? "bottom-start" : "bottom",
     sx: { backdropFilter: "blur(0.5rem)", backgroundColor: "transparent" },
+    title: "Click/tap location icon to use precise location",
+    variant: "outlined",
   },
   searchFlex: {
     alignSelf: isMobile ? "center" : "end",
@@ -151,7 +146,9 @@ const styles = {
   },
   viewSwitch: {
     endDecorator: <FiGrid fontSize="small" />,
+    size: "lg",
     slotProps: { thumb: { style: { transition: "0.25s" } } },
     startDecorator: <MdTableRows fontSize="small" />,
+    variant: "outlined",
   },
-};
+} as const;

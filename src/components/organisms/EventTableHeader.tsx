@@ -32,7 +32,7 @@ export const EventTableHeader = memo(function EventTableHeader() {
             <Typography level="body-lg" sx={{ userSelect: "none" }}>
               Date
             </Typography>
-            <IconButton onClick={sorting.toggleSortDate} size="sm" {...styles.sortButton}>
+            <IconButton onClick={sorting.toggleSortDate} {...styles.sortButton}>
               {sorting.sortDate !== undefined ?
                 sorting.sortDate ?
                   <FiChevronUp fontSize="0.875rem" />
@@ -46,7 +46,7 @@ export const EventTableHeader = memo(function EventTableHeader() {
             <Typography level="body-lg" sx={{ userSelect: "none" }}>
               $ (lo)
             </Typography>
-            <IconButton onClick={sorting.toggleSortLowestPrice} size="sm" {...styles.sortButton}>
+            <IconButton onClick={sorting.toggleSortLowestPrice} {...styles.sortButton}>
               {sorting.sortLowestPrice !== undefined ?
                 sorting.sortLowestPrice ?
                   <FiChevronUp fontSize="0.875rem" />
@@ -60,7 +60,7 @@ export const EventTableHeader = memo(function EventTableHeader() {
             <Typography level="body-lg" sx={{ userSelect: "none" }}>
               $ (hi)
             </Typography>
-            <IconButton onClick={sorting.toggleSortHighestPrice} size="sm" {...styles.sortButton}>
+            <IconButton onClick={sorting.toggleSortHighestPrice} {...styles.sortButton}>
               {sorting.sortHighestPrice !== undefined ?
                 sorting.sortHighestPrice ?
                   <FiChevronUp fontSize="0.875rem" />
@@ -74,7 +74,7 @@ export const EventTableHeader = memo(function EventTableHeader() {
             <Typography level="body-lg" sx={{ userSelect: "none" }}>
               $ (avg)
             </Typography>
-            <IconButton onClick={sorting.toggleSortAvgPrice} size="sm" {...styles.sortButton}>
+            <IconButton onClick={sorting.toggleSortAvgPrice} {...styles.sortButton}>
               {sorting.sortAvgPrice !== undefined ?
                 sorting.sortAvgPrice ?
                   <FiChevronUp fontSize="0.875rem" />
@@ -88,7 +88,7 @@ export const EventTableHeader = memo(function EventTableHeader() {
             <Typography level="body-lg" sx={{ userSelect: "none" }}>
               Popularity
             </Typography>
-            <IconButton onClick={sorting.toggleSortPopularity} size="sm" {...styles.sortButton}>
+            <IconButton onClick={sorting.toggleSortPopularity} {...styles.sortButton}>
               {sorting.sortPopularity !== undefined ?
                 sorting.sortPopularity ?
                   <FiChevronUp fontSize="0.875rem" />
@@ -109,6 +109,7 @@ export const EventTableHeader = memo(function EventTableHeader() {
 
 const styles = {
   sortButton: {
+    size: "sm",
     sx: { "&:hover, &:active": { backgroundColor: "transparent" }, "--IconButton-size": "1rem" },
   },
-};
+} as const;

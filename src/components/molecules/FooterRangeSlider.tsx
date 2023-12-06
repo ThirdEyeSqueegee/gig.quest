@@ -14,19 +14,14 @@ export const FooterRangeSlider = memo(function FooterRangeSlider() {
 
   return (
     <Flexbox gap={1.5}>
-      <Typography level="body-xs" sx={{ userSelect: "none" }}>
-        Range:
-      </Typography>
+      <Typography {...styles.typography}>Range:</Typography>
       <Flexbox gap={0.5}>
         <Slider
-          color="neutral"
-          valueLabelDisplay="auto"
           {...styles.rangeSlider}
           onChange={(e, v) => setSliderValue(+v)}
           onChangeCommitted={(e, v) => setRange(`${+v}mi`)}
-          slotProps={{ valueLabel: { sx: { backdropFilter: "blur(0.5rem)", background: "transparent" } } }}
           value={sliderValue}
-          valueLabelFormat={(v) => (v === 0 ? "\u221E mi" : `${+v} mi`)}
+          valueLabelFormat={(v) => (v === 51 ? "\u221E mi" : `${+v} mi`)}
         />
         {range !== "15mi" && (
           <IconButton
@@ -35,10 +30,9 @@ export const FooterRangeSlider = memo(function FooterRangeSlider() {
               setRange("15mi");
               firstPage();
             }}
-            size="sm"
-            sx={{ "&:hover, &:active": { backgroundColor: "transparent" }, "--IconButton-size": "1rem", ml: 0.75 }}
+            {...styles.iconButton}
           >
-            <MdReplay fontSize="small" />
+            <MdReplay fontSize="1rem" />
           </IconButton>
         )}
       </Flexbox>
@@ -47,9 +41,21 @@ export const FooterRangeSlider = memo(function FooterRangeSlider() {
 });
 
 const styles = {
-  rangeSlider: {
-    defaultValue: 15,
-    max: 50,
-    sx: { minWidth: "8rem" },
+  iconButton: {
+    size: "sm",
+    sx: { "&:hover, &:active": { backgroundColor: "transparent" }, "--IconButton-size": "1rem", ml: 0.75 },
   },
-};
+  rangeSlider: {
+    color: "neutral",
+    defaultValue: 15,
+    max: 51,
+    min: 1,
+    slotProps: { valueLabel: { sx: { backdropFilter: "blur(0.5rem)", background: "transparent" } } },
+    sx: { minWidth: "8rem" },
+    valueLabelDisplay: "auto",
+  },
+  typography: {
+    level: "body-xs",
+    sx: { userSelect: "none" },
+  },
+} as const;
