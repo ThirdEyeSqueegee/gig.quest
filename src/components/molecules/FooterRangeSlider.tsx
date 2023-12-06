@@ -8,6 +8,8 @@ import { Flexbox } from "../atoms/Flexbox.tsx";
 export const FooterRangeSlider = memo(function FooterRangeSlider() {
   const range = usePaginationStore((state) => state.range);
   const setRange = usePaginationStore((state) => state.setRange);
+  const firstPage = usePaginationStore((state) => state.firstPage);
+
   const [sliderValue, setSliderValue] = useState(15);
 
   return (
@@ -31,6 +33,7 @@ export const FooterRangeSlider = memo(function FooterRangeSlider() {
             onClick={() => {
               setSliderValue(15);
               setRange("15mi");
+              firstPage();
             }}
             size="sm"
             sx={{ "&:hover, &:active": { backgroundColor: "transparent" }, "--IconButton-size": "1rem", ml: 0.75 }}

@@ -248,14 +248,18 @@ export const SG1v1SportsEventTypes = [
   "major_league_rugby",
 ] as const;
 
-export const SGMusicEventTypes = ["concerts", "concert", "music_festival"] as const;
-
-export const SGTheaterEventTypes = [
-  "theater",
+export const SGMusicEventTypes = [
+  "concerts",
+  "concert",
+  "music_festival",
   "classical",
   "classical_opera",
   "classical_vocal",
   "classical_orchestral_instrumental",
+] as const;
+
+export const SGTheaterEventTypes = [
+  "theater",
   "cirque_du_soleil",
   "broadway_tickets_national",
   "comedy",
@@ -265,18 +269,17 @@ export const SGTheaterEventTypes = [
   "literary",
   "circus",
   "entertainment",
-  "addon",
-  "parking",
-  "club_passes",
-  "suite",
 ] as const;
+
+export const SGOtherEventTypes = ["addon", "parking", "club_passes", "suite"] as const;
 
 export type SGMusicEventType = (typeof SGMusicEventTypes)[number];
 export type SGSportsEventType = (typeof SGSportsEventTypes)[number];
 export type SG1v1SportsEventType = (typeof SG1v1SportsEventTypes)[number];
 export type SGTheaterEventType = (typeof SGTheaterEventTypes)[number];
+export type SGOtherEventType = (typeof SGOtherEventTypes)[number];
 
-export type SGEventType = SG1v1SportsEventType | SGMusicEventType | SGSportsEventType | SGTheaterEventType;
+export type SGEventType = SG1v1SportsEventType | SGMusicEventType | SGOtherEventType | SGSportsEventType | SGTheaterEventType;
 
 export const isSGMusicEventType = (eventType: SGEventType): eventType is SGMusicEventType =>
   SGMusicEventTypes.includes(eventType as SGMusicEventType);

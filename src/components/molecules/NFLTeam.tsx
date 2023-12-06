@@ -1,11 +1,19 @@
 /* eslint-disable react/jsx-pascal-case */
 import { Typography } from "@mui/joy";
 import { memo } from "react";
+import { FaQuestion } from "react-icons/fa6";
 import * as NFLIcons from "react-nfl-logos";
 
 export const NFLTeam = memo(function NFLTeam(props: { team?: string }) {
   const { team } = props;
 
+  if (team === "TBA") {
+    return (
+      <Typography {...styles.typography} startDecorator={<FaQuestion />}>
+        {team}
+      </Typography>
+    );
+  }
   if (team?.includes("Cardinals")) {
     return (
       <Typography {...styles.typography} startDecorator={<NFLIcons.ARI size="2rem" />}>
@@ -215,6 +223,9 @@ export const NFLTeam = memo(function NFLTeam(props: { team?: string }) {
         {team}
       </Typography>
     );
+  }
+  if (team?.includes("Titans")) {
+    return <Typography {...styles.typography}>{team}</Typography>;
   }
   if (team?.includes("Commanders")) {
     return (

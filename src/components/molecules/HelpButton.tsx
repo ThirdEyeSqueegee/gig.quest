@@ -2,7 +2,7 @@ import { ClickAwayListener } from "@mui/base";
 import { IconButton, List, ListItem, Tooltip, Typography } from "@mui/joy";
 import { m } from "framer-motion";
 import { memo, useState } from "react";
-import { GoQuestion } from "react-icons/go";
+import { FiHelpCircle } from "react-icons/fi";
 
 const HelpBox = memo(function HelpBox() {
   return (
@@ -31,9 +31,9 @@ export const HelpButton = memo(function HelpButton() {
 
   return (
     <ClickAwayListener onClickAway={() => setTooltipOpen(false)}>
-      <Tooltip open={tooltipOpen} {...styles.tooltip}>
+      <Tooltip open={tooltipOpen} variant="outlined" {...styles.tooltip}>
         <IconButton onClick={() => setTooltipOpen(!tooltipOpen)} sx={styles.helpButton}>
-          <GoQuestion fontSize="1.5rem" />
+          <FiHelpCircle fontSize="1.5rem" />
         </IconButton>
       </Tooltip>
     </ClickAwayListener>

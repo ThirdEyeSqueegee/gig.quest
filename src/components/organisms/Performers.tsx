@@ -22,7 +22,7 @@ export const Performers = memo(function Performers(props: { eventDetails?: SGEve
   if (eventDetails?.event.type === "music_festival") {
     return (
       <Flexbox flexWrap="wrap" justifyContent="start">
-        <Typography>
+        <Typography sx={{ userSelect: "none" }}>
           {eventDetails.event.short_title
             ?.replaceAll("Music Festival", "")
             .replaceAll("Festival", "")
@@ -37,10 +37,27 @@ export const Performers = memo(function Performers(props: { eventDetails?: SGEve
   if (eventDetails?.event.type === "nba") {
     const [homeTeam, awayTeam] = eventDetails.performers;
 
+    if (homeTeam.includes("In-Season")) {
+      return (
+        <Flexbox flexWrap="wrap" justifyContent="start">
+          <Typography level="body-sm" mr={0.5} sx={{ userSelect: "none" }}>
+            In-Season:
+          </Typography>
+          <NBATeam team={awayTeam} />
+          <Typography level="body-sm" mx={1} my="auto" sx={{ userSelect: "none" }}>
+            vs.
+          </Typography>
+          {eventDetails.performers[2] ?
+            <NBATeam team={eventDetails.performers[2]} />
+          : <NBATeam team="TBA" />}
+        </Flexbox>
+      );
+    }
+
     return (
       <Flexbox flexWrap="wrap" justifyContent="start">
         <NBATeam team={homeTeam} />
-        <Typography level="body-sm" mx={1} my="auto">
+        <Typography level="body-sm" mx={1} my="auto" sx={{ userSelect: "none" }}>
           vs.
         </Typography>
         <NBATeam team={awayTeam} />
@@ -51,10 +68,27 @@ export const Performers = memo(function Performers(props: { eventDetails?: SGEve
   if (eventDetails?.event.type === "nfl") {
     const [homeTeam, awayTeam] = eventDetails.performers;
 
+    if (homeTeam.includes("Bowl")) {
+      return (
+        <Flexbox flexWrap="wrap" justifyContent="start">
+          <Typography level="body-sm" mr={0.5} sx={{ userSelect: "none" }}>
+            {homeTeam}:
+          </Typography>
+          <NFLTeam team={awayTeam} />
+          <Typography level="body-sm" mx={1} my="auto" sx={{ userSelect: "none" }}>
+            vs.
+          </Typography>
+          {eventDetails.performers[2] ?
+            <NFLTeam team={eventDetails.performers[2]} />
+          : <NFLTeam team="TBA" />}
+        </Flexbox>
+      );
+    }
+
     return (
       <Flexbox flexWrap="wrap" justifyContent="start">
         <NFLTeam team={homeTeam} />
-        <Typography level="body-sm" mx={1} my="auto">
+        <Typography level="body-sm" mx={1} my="auto" sx={{ userSelect: "none" }}>
           vs.
         </Typography>
         <NFLTeam team={awayTeam} />

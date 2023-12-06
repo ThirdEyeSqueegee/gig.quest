@@ -1,7 +1,16 @@
 import axios from "axios";
 
 import { tokenizePerformers } from "../Utilities.ts";
-import { Location, SG1v1SportsEventTypes, SGEventDetails, SGEvents, SGEventsDetailsAndMeta, SGSportsEventTypes } from "./interfaces/SeatGeek.ts";
+import {
+  Location,
+  SG1v1SportsEventTypes,
+  SGEventDetails,
+  SGEvents,
+  SGEventsDetailsAndMeta,
+  SGMusicEventTypes,
+  SGSportsEventTypes,
+  SGTheaterEventTypes,
+} from "./interfaces/SeatGeek.ts";
 
 const majorLeagues = ["nba", "nfl", "nhl", "mlb", "mls"];
 
@@ -22,13 +31,26 @@ export const seatGeekFetcher = async (
 
   if (filter) {
     for (const f of filter) {
-      if (f === "sports") {
+      if (f.includes("concert")) {
+        for (const m of SGMusicEventTypes) {
+          filterString += `&type.eq=${m}`;
+        }
+      }
+      if (f.includes("sports")) {
         for (const s of [...SGSportsEventTypes, ...SG1v1SportsEventTypes]) {
           if (!majorLeagues.includes(s)) {
             filterString += `&type.eq=${s}`;
           }
         }
-      } else {
+      }
+      if (f.includes("theater")) {
+        for (const t of SGTheaterEventTypes) {
+          if (t !== "comedy" && !t.includes("classical")) {
+            filterString += `&type.eq=${t}`;
+          }
+        }
+      }
+      if (!f.includes("concert") && !f.includes("sports") && !f.includes("theater")) {
         filterString += `&type.eq=${f}`;
       }
     }

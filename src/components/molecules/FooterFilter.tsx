@@ -61,6 +61,10 @@ export const FooterFilter = memo(function FooterFilter() {
           <EventTypeIcon eventType="comedy" size="1rem" />
           Comedy
         </Option>
+        <Option value="theater">
+          <EventTypeIcon eventType="theater" size="1rem" />
+          Theater
+        </Option>
         <Option value="music_festival">
           <EventTypeIcon eventType="music_festival" size="1rem" />
           Festival
