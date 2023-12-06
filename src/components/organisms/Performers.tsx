@@ -1,18 +1,16 @@
+import type { Artist } from "@spotify/web-api-ts-sdk";
+
 import { Typography } from "@mui/joy";
-import { Artist } from "@spotify/web-api-ts-sdk";
 import { Fragment, memo } from "react";
 
-import { SGEventDetails } from "../../api/interfaces/SeatGeek.ts";
+import type { SGEventDetails } from "../../api/interfaces/SeatGeek.ts";
+
 import { useSpotifyArtists } from "../../hooks/useSpotifyArtists.ts";
 import { Flexbox } from "../atoms/Flexbox.tsx";
 import { MLBTeam } from "../molecules/MLBTeam.tsx";
 import { NBATeam } from "../molecules/NBATeam.tsx";
 import { NFLTeam } from "../molecules/NFLTeam.tsx";
 import { SpotifyTooltip } from "../molecules/SpotifyTooltip.tsx";
-
-const regex1 = /\(.*\)/gu;
-const regex2 = /(?:with).*(?:&|and) (?:[Mm]ore)/gu;
-const regex3 = / - [0-9] (?:[Dd]ay) (?:[Pp]ass)/gu;
 
 export const Performers = memo(function Performers(props: { eventDetails?: SGEventDetails }) {
   const { eventDetails } = props;
@@ -23,12 +21,7 @@ export const Performers = memo(function Performers(props: { eventDetails?: SGEve
     return (
       <Flexbox flexWrap="wrap" justifyContent="start">
         <Typography sx={{ userSelect: "none" }}>
-          {eventDetails.event.short_title
-            ?.replaceAll("Music Festival", "")
-            .replaceAll("Festival", "")
-            .replaceAll(regex1, "")
-            .replaceAll(regex2, "")
-            .replaceAll(regex3, "")}
+          {eventDetails.event.short_title?.replaceAll("Music Festival", "").replaceAll("Festival", "")}
         </Typography>
       </Flexbox>
     );
@@ -115,10 +108,10 @@ export const Performers = memo(function Performers(props: { eventDetails?: SGEve
       {eventDetails?.performers.map((p, i) => {
         return (
           <Fragment key={p}>
-            {eventDetails?.event.type === "concert" ?
+            {eventDetails.event.type === "concert" ?
               <SpotifyTooltip artist={artistItemsMap ? artistItemsMap.get(p) : ({ id: "loading" } as Artist)} performerName={p} />
             : <Typography>{p}</Typography>}
-            {eventDetails && i !== eventDetails.performers.length - 1 ?
+            {i !== eventDetails.performers.length - 1 ?
               <Typography level="body-sm" mx={1} my="auto">
                 {eventDetails.is1v1 ? "vs." : "//"}
               </Typography>

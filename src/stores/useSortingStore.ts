@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-import { SortingState } from "./interfaces/State.ts";
+import type { SortingState } from "./interfaces/State.ts";
 
 export const useSortingStore = create<SortingState>()((set) => ({
   sortAvgPrice: undefined,

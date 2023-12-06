@@ -1,6 +1,7 @@
+import type { Artist } from "@spotify/web-api-ts-sdk";
+
 import { ClickAwayListener } from "@mui/base";
 import { Chip, CircularProgress, Link, Tooltip, Typography } from "@mui/joy";
-import { Artist } from "@spotify/web-api-ts-sdk";
 import { m } from "framer-motion";
 import { memo, useState } from "react";
 
@@ -19,11 +20,11 @@ export const SpotifyTooltip = memo(function SpotifyTooltip(props: { artist?: Art
         title={
           !artist || artist.id === "notFound" ?
             <Flexbox {...styles.tooltipBox}>¯\_(ツ)_/¯</Flexbox>
-          : <Link href={artist.external_urls?.spotify} overlay underline="none">
+          : <Link href={artist.external_urls.spotify} overlay underline="none">
               <Flexbox {...styles.tooltipBox}>
-                <Typography {...styles.typography}>{artist.followers?.total.toLocaleString()} followers</Typography>
+                <Typography {...styles.typography}>{artist.followers.total.toLocaleString()} followers</Typography>
                 <Flexbox flexWrap="wrap" gap={1}>
-                  {artist.genres?.map((genre) => {
+                  {artist.genres.map((genre) => {
                     return (
                       <Chip color="success" key={artist.id + genre} size="sm">
                         {genre}

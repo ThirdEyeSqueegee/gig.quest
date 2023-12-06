@@ -26,7 +26,7 @@ export const FooterPagination = memo(function FooterPagination(props: { lastPage
       <IconButton disabled={page === lastPage} onClick={nextPage} {...styles.pageButton}>
         <FaAngleRight />
       </IconButton>
-      <IconButton disabled={page === lastPage} onClick={() => setPage(lastPage!)} {...styles.pageButton}>
+      <IconButton disabled={page === lastPage} onClick={() => (lastPage ? setPage(lastPage) : undefined)} {...styles.pageButton}>
         <FaAnglesRight />
       </IconButton>
     </Flexbox>

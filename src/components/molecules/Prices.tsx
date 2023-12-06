@@ -2,7 +2,8 @@ import { Typography } from "@mui/joy";
 import { memo } from "react";
 import { isMobile } from "react-device-detect";
 
-import { SGEventStats } from "../../api/interfaces/SeatGeek.ts";
+import type { SGEventStats } from "../../api/interfaces/SeatGeek.ts";
+
 import { useViewStore } from "../../stores/useViewStore.ts";
 
 export const Prices = memo(function Prices(props: { stats?: SGEventStats; type: "avg" | "hi" | "lo" }) {

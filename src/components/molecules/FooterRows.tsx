@@ -16,7 +16,9 @@ export const FooterRows = memo(function FooterRows() {
       <Typography {...styles.typography}>Rows:</Typography>
       <Select
         onChange={(e, v) => {
-          setRowsPerPage(v!);
+          if (v) {
+            setRowsPerPage(v);
+          }
           firstPage();
         }}
         value={rowsPerPage}

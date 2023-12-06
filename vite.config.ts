@@ -21,4 +21,10 @@ export default defineConfig({
     transformer: "lightningcss",
   },
   plugins: [react({ devTarget: "esnext" }), splitVendorChunkPlugin()],
+  resolve: {
+    alias: {
+      "@mui/base": "@mui/base/modern",
+      "@mui/joy": "@mui/joy/modern",
+    },
+  },
 });

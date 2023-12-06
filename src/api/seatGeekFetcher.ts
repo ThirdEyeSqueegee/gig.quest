@@ -1,16 +1,9 @@
 import axios from "axios";
 
+import type { Location, SGEventDetails, SGEvents, SGEventsDetailsAndMeta } from "./interfaces/SeatGeek.ts";
+
 import { tokenizePerformers } from "../Utilities.ts";
-import {
-  Location,
-  SG1v1SportsEventTypes,
-  SGEventDetails,
-  SGEvents,
-  SGEventsDetailsAndMeta,
-  SGMusicEventTypes,
-  SGSportsEventTypes,
-  SGTheaterEventTypes,
-} from "./interfaces/SeatGeek.ts";
+import { SG1v1SportsEventTypes, SGMusicEventTypes, SGSportsEventTypes, SGTheaterEventTypes } from "./interfaces/SeatGeek.ts";
 
 const majorLeagues = ["nba", "nfl", "nhl", "mlb", "mls"];
 
@@ -66,32 +59,27 @@ export const seatGeekFetcher = async (
       : ""
     }${filterString}${
       sortDate !== undefined ?
-        sortDate === true ?
-          "&sort=datetime_utc.asc"
+        sortDate ? "&sort=datetime_utc.asc"
         : "&sort=datetime_utc.desc"
       : ""
     }${
       sortPopularity !== undefined ?
-        sortPopularity === true ?
-          "&sort=score.asc"
+        sortPopularity ? "&sort=score.asc"
         : "&sort=score.desc"
       : ""
     }${
       sortLowestPrice !== undefined ?
-        sortLowestPrice === true ?
-          "&sort=lowest_price.asc&lowest_price.gt=1"
+        sortLowestPrice ? "&sort=lowest_price.asc&lowest_price.gt=1"
         : "&sort=lowest_price.desc&lowest_price.gt=1"
       : ""
     }${
       sortHighestPrice !== undefined ?
-        sortHighestPrice === true ?
-          "&sort=highest_price.asc&highest_price.gt=1"
+        sortHighestPrice ? "&sort=highest_price.asc&highest_price.gt=1"
         : "&sort=highest_price.desc&highest_price.gt=1"
       : ""
     }${
       sortAvgPrice !== undefined ?
-        sortAvgPrice === true ?
-          "&sort=average_price.asc&average_price.gt=1"
+        sortAvgPrice ? "&sort=average_price.asc&average_price.gt=1"
         : "&sort=average_price.desc&average_price.gt=1"
       : ""
     }&datetime_utc.gt=${new Date().toISOString().replace("Z", "")}${searchQuery ? `&q=${searchQuery}` : ""} `,
@@ -99,9 +87,11 @@ export const seatGeekFetcher = async (
 
   const eventsDetails: SGEventDetails[] = [];
 
-  for (const e of response.data.events!) {
-    const { is1v1, tokens } = tokenizePerformers(e.performers, e.type);
-    eventsDetails.push({ event: e, is1v1, performers: tokens });
+  if (response.data.events) {
+    for (const e of response.data.events) {
+      const { is1v1, tokens } = tokenizePerformers(e.performers, e.type);
+      eventsDetails.push({ event: e, is1v1, performers: tokens });
+    }
   }
 
   return {

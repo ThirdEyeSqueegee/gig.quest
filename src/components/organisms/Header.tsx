@@ -26,7 +26,7 @@ export const Header = memo(function Header() {
   const geolocation = meta?.geolocation;
 
   const { height, width } = useWindowSize();
-  const isWidescreen = width! / height! > 4 / 3;
+  const isWidescreen = width && height ? width / height > 4 / 3 : undefined;
 
   const { scrollYProgress } = useScroll();
   const [lerps, setLerps] = useState({
@@ -130,8 +130,8 @@ const styles = {
   locationTooltip: {
     animate: { opacity: [0, 1], transition: { delay: 0.5 } },
     component: m.div,
-    placement: isMobile ? "bottom-start" : "bottom",
-    sx: { backdropFilter: "blur(0.5rem)", backgroundColor: "transparent" },
+    placement: "bottom",
+    sx: { backdropFilter: "blur(0.5rem)", backgroundColor: "transparent", userSelect: "none" },
     title: "Click/tap location icon to use precise location",
     variant: "outlined",
   },
@@ -142,7 +142,7 @@ const styles = {
   switchTooltip: {
     animate: { opacity: [0, 1] },
     component: m.div,
-    sx: { backdropFilter: "blur(0.5rem)", backgroundColor: "transparent" },
+    sx: { backdropFilter: "blur(0.5rem)", backgroundColor: "transparent", userSelect: "none" },
   },
   viewSwitch: {
     endDecorator: <FiGrid fontSize="small" />,

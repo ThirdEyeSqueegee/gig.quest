@@ -23,9 +23,11 @@ export const PopularityBar = memo(function PopularityBar(props: { score?: number
     : "neutral";
 
   return (
-    <Tooltip title={score ? `Popularity: ${(score * 100).toFixed(1)}` : "¯\\_(ツ)_/¯"} {...styles.tooltip}>
-      <LinearProgress color={color} value={+value!} {...styles.progressBar} />
-    </Tooltip>
+    value && (
+      <Tooltip title={score ? `Popularity: ${(score * 100).toFixed(1)}` : "¯\\_(ツ)_/¯"} {...styles.tooltip}>
+        <LinearProgress color={color} value={+value} {...styles.progressBar} />
+      </Tooltip>
+    )
   );
 });
 

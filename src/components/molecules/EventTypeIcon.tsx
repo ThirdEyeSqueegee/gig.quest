@@ -33,7 +33,8 @@ import {
 import { RiBoxingFill } from "react-icons/ri";
 import { TbOlympics } from "react-icons/tb";
 
-import { SGEventType } from "../../api/interfaces/SeatGeek.ts";
+import type { SGEventType } from "../../api/interfaces/SeatGeek.ts";
+
 import MLBLogo from "../../assets/mlb_logo.svg";
 import MLSLogo from "../../assets/mls_logo.svg";
 import NBALogo from "../../assets/nba_logo.svg";
@@ -764,6 +765,6 @@ const styles = {
   tooltip: {
     animate: { opacity: [0, 1] },
     component: m.div,
-    sx: { backdropFilter: "blur(0.5rem)", backgroundColor: "transparent" },
+    sx: { backdropFilter: "blur(0.5rem)", backgroundColor: "transparent", userSelect: "none" },
   },
 } as const;

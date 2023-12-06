@@ -1,4 +1,4 @@
-import { Location } from "../../api/interfaces/SeatGeek.ts";
+import type { Location } from "../../api/interfaces/SeatGeek.ts";
 
 export interface PaginationState {
   page: number;

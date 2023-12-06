@@ -3,7 +3,8 @@ import { m } from "framer-motion";
 import { memo } from "react";
 import { isMobile } from "react-device-detect";
 
-import { SGEventDetails } from "../../api/interfaces/SeatGeek.ts";
+import type { SGEventDetails } from "../../api/interfaces/SeatGeek.ts";
+
 import { Flexbox } from "../atoms/Flexbox.tsx";
 import { DateAndTime } from "../molecules/DateAndTime.tsx";
 import { EventTypeIcon } from "../molecules/EventTypeIcon.tsx";

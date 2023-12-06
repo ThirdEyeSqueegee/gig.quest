@@ -1,4 +1,6 @@
-import { SGEventType, SGPerformer, isSG1v1SportsEventType } from "./api/interfaces/SeatGeek.ts";
+import type { SGEventType, SGPerformer } from "./api/interfaces/SeatGeek.ts";
+
+import { isSG1v1SportsEventType } from "./api/interfaces/SeatGeek.ts";
 
 export const tokenizePerformers = (performers?: SGPerformer[], eventType?: SGEventType) => {
   let is1v1 = false;

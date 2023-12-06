@@ -1,9 +1,12 @@
+import type { ReactNode } from "react";
+
 import { ClickAwayListener } from "@mui/base";
 import { Link, Tooltip, Typography } from "@mui/joy";
 import { m } from "framer-motion";
-import { ReactNode, memo, useState } from "react";
+import { memo, useState } from "react";
 
-import { ESPNTeamTeam } from "../../api/interfaces/ESPN.ts";
+import type { ESPNTeamTeam } from "../../api/interfaces/ESPN.ts";
+
 import { Flexbox } from "../atoms/Flexbox.tsx";
 
 export const ESPNTooltip = memo(function ESPNTooltip(props: { startDecorator?: ReactNode; team?: string; teamData?: ESPNTeamTeam }) {
@@ -27,16 +30,16 @@ export const ESPNTooltip = memo(function ESPNTooltip(props: { startDecorator?: R
           <Link href={teamData?.links ? teamData.links[0].href : undefined} {...styles.link}>
             <Flexbox {...styles.tooltipBox}>
               <Flexbox gap={1}>
-                <Typography>
+                <Typography level="body-sm">
                   <Typography color="success">W: </Typography>
                   {wins === -1 ? "?" : wins}
                 </Typography>
-                <Typography>
+                <Typography level="body-sm">
                   <Typography color="danger">L: </Typography>
                   {losses === -1 ? "?" : losses}
                 </Typography>
               </Flexbox>
-              <Typography>{teamData?.standingSummary}</Typography>
+              <Typography level="body-sm">{teamData?.standingSummary}</Typography>
             </Flexbox>
           </Link>
         }
@@ -52,7 +55,6 @@ export const ESPNTooltip = memo(function ESPNTooltip(props: { startDecorator?: R
 
 const styles = {
   link: {
-    color: "neutral",
     overlay: true,
     underline: "none",
   },

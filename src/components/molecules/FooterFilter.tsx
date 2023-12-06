@@ -3,7 +3,8 @@ import { memo } from "react";
 import { FiChevronDown } from "react-icons/fi";
 import { MdClose } from "react-icons/md";
 
-import { SGEventType } from "../../api/interfaces/SeatGeek.ts";
+import type { SGEventType } from "../../api/interfaces/SeatGeek.ts";
+
 import { usePaginationStore } from "../../stores/usePaginationStore.ts";
 import { useSearchStore } from "../../stores/useSearchStore.ts";
 import { Flexbox } from "../atoms/Flexbox.tsx";

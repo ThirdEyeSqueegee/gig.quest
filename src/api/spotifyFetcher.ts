@@ -1,4 +1,6 @@
-import { Artist, SpotifyApi } from "@spotify/web-api-ts-sdk";
+import type { Artist } from "@spotify/web-api-ts-sdk";
+
+import { SpotifyApi } from "@spotify/web-api-ts-sdk";
 import stringComparison from "string-comparison";
 
 const sdk = SpotifyApi.withClientCredentials(import.meta.env.VITE_SPOTIFY_CLIENT_ID as string, import.meta.env.VITE_SPOTIFY_CLIENT_SECRET as string);

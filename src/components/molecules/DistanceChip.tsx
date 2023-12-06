@@ -2,7 +2,8 @@ import { Chip, Typography } from "@mui/joy";
 import { convertDistance, getPreciseDistance } from "geolib";
 import { memo } from "react";
 
-import { SGVenue } from "../../api/interfaces/SeatGeek.ts";
+import type { SGVenue } from "../../api/interfaces/SeatGeek.ts";
+
 import { useLocationStore } from "../../stores/useLocationStore.ts";
 
 export const DistanceChip = memo(function DistanceChip(props: { venue?: SGVenue }) {
@@ -15,14 +16,14 @@ export const DistanceChip = memo(function DistanceChip(props: { venue?: SGVenue 
   return (
     <Chip {...styles.chip}>
       <Typography {...styles.distance}>
-        {eventLocation && location ?
+        {eventLocation.lat && eventLocation.lon && location?.lat && location.lon ?
           convertDistance(
             getPreciseDistance(
               {
-                latitude: eventLocation.lat!,
-                longitude: eventLocation.lon!,
+                latitude: eventLocation.lat,
+                longitude: eventLocation.lon,
               },
-              { latitude: location.lat!, longitude: location.lon! },
+              { latitude: location.lat, longitude: location.lon },
             ),
             "mi",
           ).toFixed(2)

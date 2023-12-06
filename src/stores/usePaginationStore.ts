@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-import { PaginationState } from "./interfaces/State.ts";
+import type { PaginationState } from "./interfaces/State.ts";
 
 export const usePaginationStore = create<PaginationState>()((set) => ({
   page: 1,

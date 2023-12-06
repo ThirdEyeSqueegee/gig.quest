@@ -48,7 +48,7 @@ export const EventTableBody = memo(function EventTableBody() {
             <Flexbox
               alignItems="start"
               height={tableBodyHeight.current > 0 ? tableBodyHeight.current : "125vh"}
-              width={tableBodyWidth.current > 0 ? tableBodyWidth.current : viewportWidth! - 32}
+              width={tableBodyWidth.current > 0 ? tableBodyWidth.current : (viewportWidth ?? 1920) - 32}
             >
               <Flexbox height={0.5}>
                 <CircularProgress size="lg">
