@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-pascal-case */
 import { Typography } from "@mui/joy";
 import { memo } from "react";
-import { isMobile } from "react-device-detect";
 import * as NFLIcons from "react-nfl-logos";
 
 export const NFLTeam = memo(function NFLTeam(props: { team?: string }) {
@@ -228,11 +227,6 @@ export const NFLTeam = memo(function NFLTeam(props: { team?: string }) {
 
 const styles = {
   typography: {
-    fontSize: isMobile ? "0.9rem" : "1rem",
-    slotProps: {
-      startDecorator: {
-        sx: { mr: 0.5 },
-      },
-    },
+    slotProps: { startDecorator: { sx: { mr: 0.5 } } },
   },
 };

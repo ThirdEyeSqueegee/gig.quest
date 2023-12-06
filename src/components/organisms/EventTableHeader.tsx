@@ -35,13 +35,13 @@ export const EventTableHeader = memo(function EventTableHeader() {
             <IconButton onClick={sorting.toggleSortDate} size="sm" {...styles.sortButton}>
               {sorting.sortDate !== undefined ?
                 sorting.sortDate ?
-                  <FiChevronUp fontSize="small" />
-                : <FiChevronDown fontSize="small" />
-              : <MdMoreVert fontSize="small" />}
+                  <FiChevronUp fontSize="0.875rem" />
+                : <FiChevronDown fontSize="0.875rem" />
+              : <MdMoreVert fontSize="0.875rem" />}
             </IconButton>
           </Flexbox>
         </th>
-        <th style={{ width: "3.5%" }}>
+        <th style={{ width: "4%" }}>
           <Flexbox justifyContent="space-between">
             <Typography level="body-lg" sx={{ userSelect: "none" }}>
               $ (lo)
@@ -49,13 +49,13 @@ export const EventTableHeader = memo(function EventTableHeader() {
             <IconButton onClick={sorting.toggleSortLowestPrice} size="sm" {...styles.sortButton}>
               {sorting.sortLowestPrice !== undefined ?
                 sorting.sortLowestPrice ?
-                  <FiChevronUp fontSize="small" />
-                : <FiChevronDown fontSize="small" />
-              : <MdMoreVert fontSize="small" />}
+                  <FiChevronUp fontSize="0.875rem" />
+                : <FiChevronDown fontSize="0.875rem" />
+              : <MdMoreVert fontSize="0.875rem" />}
             </IconButton>
           </Flexbox>
         </th>
-        <th style={{ width: "3.5%" }}>
+        <th style={{ width: "4%" }}>
           <Flexbox justifyContent="space-between">
             <Typography level="body-lg" sx={{ userSelect: "none" }}>
               $ (hi)
@@ -63,13 +63,13 @@ export const EventTableHeader = memo(function EventTableHeader() {
             <IconButton onClick={sorting.toggleSortHighestPrice} size="sm" {...styles.sortButton}>
               {sorting.sortHighestPrice !== undefined ?
                 sorting.sortHighestPrice ?
-                  <FiChevronUp fontSize="small" />
-                : <FiChevronDown fontSize="small" />
-              : <MdMoreVert fontSize="small" />}
+                  <FiChevronUp fontSize="0.875rem" />
+                : <FiChevronDown fontSize="0.875rem" />
+              : <MdMoreVert fontSize="0.875rem" />}
             </IconButton>
           </Flexbox>
         </th>
-        <th style={{ width: "3.5%" }}>
+        <th style={{ width: "4%" }}>
           <Flexbox justifyContent="space-between">
             <Typography level="body-lg" sx={{ userSelect: "none" }}>
               $ (avg)
@@ -77,9 +77,9 @@ export const EventTableHeader = memo(function EventTableHeader() {
             <IconButton onClick={sorting.toggleSortAvgPrice} size="sm" {...styles.sortButton}>
               {sorting.sortAvgPrice !== undefined ?
                 sorting.sortAvgPrice ?
-                  <FiChevronUp fontSize="small" />
-                : <FiChevronDown fontSize="small" />
-              : <MdMoreVert fontSize="small" />}
+                  <FiChevronUp fontSize="0.875rem" />
+                : <FiChevronDown fontSize="0.875rem" />
+              : <MdMoreVert fontSize="0.875rem" />}
             </IconButton>
           </Flexbox>
         </th>
@@ -91,9 +91,9 @@ export const EventTableHeader = memo(function EventTableHeader() {
             <IconButton onClick={sorting.toggleSortPopularity} size="sm" {...styles.sortButton}>
               {sorting.sortPopularity !== undefined ?
                 sorting.sortPopularity ?
-                  <FiChevronUp fontSize="small" />
-                : <FiChevronDown fontSize="small" />
-              : <MdMoreVert fontSize="small" />}
+                  <FiChevronUp fontSize="0.875rem" />
+                : <FiChevronDown fontSize="0.875rem" />
+              : <MdMoreVert fontSize="0.875rem" />}
             </IconButton>
           </Flexbox>
         </th>
@@ -109,6 +109,6 @@ export const EventTableHeader = memo(function EventTableHeader() {
 
 const styles = {
   sortButton: {
-    sx: { "&:hover, &:active": { backgroundColor: "transparent" }, "--IconButton-size": "1.5rem" },
+    sx: { "&:hover, &:active": { backgroundColor: "transparent" }, "--IconButton-size": "1rem" },
   },
 };

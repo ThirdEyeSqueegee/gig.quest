@@ -24,10 +24,7 @@ export const theme = extendTheme({
         slotProps: {
           listbox: {
             placement: "top",
-            sx: {
-              backdropFilter: "blur(0.5rem)",
-              backgroundColor: "transparent",
-            },
+            sx: { backdropFilter: "blur(0.5rem)", backgroundColor: "transparent" },
           },
         },
       },
@@ -41,6 +38,12 @@ export const theme = extendTheme({
         variant: "soft",
       },
     },
+  },
+  fontFamily: {
+    body: "Figtree Variable",
+    code: "Fira Code Variable",
+    display: "Figtree Variable",
+    fallback: "Figtree Variable",
   },
 });
 

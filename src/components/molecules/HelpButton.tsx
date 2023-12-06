@@ -4,29 +4,25 @@ import { m } from "framer-motion";
 import { memo, useState } from "react";
 import { GoQuestion } from "react-icons/go";
 
-import { Flexbox } from "../atoms/Flexbox.tsx";
-
 const HelpBox = memo(function HelpBox() {
   return (
-    <Flexbox flexDirection="column">
-      <List marker="disc" sx={{ "--ListItem-minHeight": "1rem" }}>
-        <ListItem>
-          <Typography level="title-sm">Hover/tap event icon to see event type</Typography>
-        </ListItem>
-        <ListItem>
-          <Typography level="title-sm">Click/tap artist&apos;s name to see genres</Typography>
-        </ListItem>
-        <ListItem>
-          <Typography level="title-sm">Click/tap Spotify tooltip to go artist&apos;s Spotify</Typography>
-        </ListItem>
-        <ListItem>
-          <Typography level="title-sm">Search keywords like &quot;concert&quot; or &quot;NBA&quot; to filter events</Typography>
-        </ListItem>
-        <ListItem>
-          <Typography level="title-sm">Drag range slider to 0 to see all events regardless of location</Typography>
-        </ListItem>
-      </List>
-    </Flexbox>
+    <List marker="disc" sx={{ "--ListItem-minHeight": "1rem" }}>
+      <ListItem>
+        <Typography fontSize="sm">Hover/tap event icon to see event type</Typography>
+      </ListItem>
+      <ListItem>
+        <Typography fontSize="sm">Click/tap artist&apos;s name to see genres</Typography>
+      </ListItem>
+      <ListItem>
+        <Typography fontSize="sm">Click/tap Spotify tooltip to go artist&apos;s Spotify</Typography>
+      </ListItem>
+      <ListItem>
+        <Typography fontSize="sm">Search keywords like &quot;concert&quot; or &quot;NBA&quot; to filter events</Typography>
+      </ListItem>
+      <ListItem>
+        <Typography fontSize="sm">Drag range slider to 0 to see all events regardless of location</Typography>
+      </ListItem>
+    </List>
   );
 });
 

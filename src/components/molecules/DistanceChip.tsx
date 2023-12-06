@@ -1,7 +1,6 @@
 import { Chip, Typography } from "@mui/joy";
 import { convertDistance, getPreciseDistance } from "geolib";
 import { memo } from "react";
-import { isMobile } from "react-device-detect";
 
 import { SGVenue } from "../../api/interfaces/SeatGeek.ts";
 import { useLocationStore } from "../../stores/useLocationStore.ts";
@@ -14,7 +13,7 @@ export const DistanceChip = memo(function DistanceChip(props: { venue?: SGVenue 
   const location = useLocationStore((state) => state.location);
 
   return (
-    <Chip size="sm" sx={styles.distanceChip} variant="outlined">
+    <Chip size="sm" variant="outlined">
       <Typography {...styles.distance}>
         {eventLocation && location ?
           convertDistance(
@@ -36,10 +35,7 @@ export const DistanceChip = memo(function DistanceChip(props: { venue?: SGVenue 
 
 const styles = {
   distance: {
-    fontSize: isMobile ? "0.65rem" : "0.7rem",
+    fontSize: "xs",
     sx: { userSelect: "none" },
-  },
-  distanceChip: {
-    height: "1rem",
   },
 };

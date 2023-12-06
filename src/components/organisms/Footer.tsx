@@ -23,15 +23,15 @@ export const Footer = memo(function Footer() {
   const lastPage = sgEventCount ? Math.ceil(sgEventCount / rowsPerPage) : undefined;
 
   return (
-    <Flexbox flexDirection="column" position={isMobile ? "inherit" : "sticky"} {...styles.mainFlex}>
-      <Flexbox flexWrap="wrap" gap={isMobile ? 1 : 2}>
+    <Flexbox flexDirection="column" position={isMobile ? undefined : "sticky"} {...styles.mainFlex}>
+      <Flexbox columnGap={isMobile ? 1 : 2} flexWrap="wrap" rowGap={0}>
         <FooterFilter />
         <FooterRows />
         <FooterRangeSlider />
         <FooterSort />
         <FooterPagination lastPage={lastPage} />
       </Flexbox>
-      <Typography level="body-sm">
+      <Typography level="body-sm" sx={{ userSelect: "none" }}>
         Page {page} of {lastPage ?? "..."}
       </Typography>
     </Flexbox>
@@ -41,13 +41,13 @@ export const Footer = memo(function Footer() {
 const styles = {
   mainFlex: {
     component: m.div,
-    gap: isMobile ? 1 : 0,
     layout: true,
     my: 1.25,
+    rowGap: isMobile ? 2 : 0,
     transition: { duration: 0.25 },
     width: isMobile ? 0.9 : "auto",
     ...(!isMobile && {
-      bottom: 25,
+      bottom: "1.5rem",
       px: 3,
       py: 1,
       sx: { backdropFilter: "blur(0.5rem)", border: 1, borderColor: "neutral.outlinedBorder", borderRadius: 25, zIndex: "badge" },

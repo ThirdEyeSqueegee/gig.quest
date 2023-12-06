@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-pascal-case */
 import { Typography } from "@mui/joy";
 import { memo } from "react";
-import { isMobile } from "react-device-detect";
 import * as NBAIcons from "react-nba-logos";
 
 export const NBATeam = memo(function NBATeam(props: { team?: string }) {
@@ -221,11 +220,6 @@ export const NBATeam = memo(function NBATeam(props: { team?: string }) {
 
 const styles = {
   typography: {
-    fontSize: isMobile ? "0.9rem" : "1rem",
-    slotProps: {
-      startDecorator: {
-        sx: { mr: 0.5 },
-      },
-    },
+    slotProps: { startDecorator: { sx: { mr: 0.5 } } },
   },
 };

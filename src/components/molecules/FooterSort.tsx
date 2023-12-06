@@ -13,24 +13,12 @@ export const FooterSort = memo(function FooterSort() {
   return (
     !tableView && (
       <Flexbox gap={1}>
-        <Typography fontSize="0.75rem" level="body-sm">
+        <Typography level="body-xs" sx={{ userSelect: "none" }}>
           Sort:
         </Typography>
-        <Select
-          defaultValue="Date"
-          indicator={<FiChevronDown />}
-          size="sm"
-          slotProps={{
-            listbox: {
-              sx: {
-                fontSize: "0.75rem",
-              },
-            },
-          }}
-          {...styles.select}
-        >
+        <Select defaultValue="Date" indicator={<FiChevronDown />} size="sm" slotProps={{ listbox: { sx: { fontSize: "xs" } } }} {...styles.select}>
           <Option onClick={sorting.toggleSortDate} value="Date">
-            Date{" "}
+            Date
             {sorting.sortDate === undefined ?
               null
             : sorting.sortDate ?
@@ -38,7 +26,7 @@ export const FooterSort = memo(function FooterSort() {
             : <FiChevronDown fontSize="small" />}
           </Option>
           <Option onClick={sorting.toggleSortPopularity} value="Popularity">
-            Popularity{" "}
+            Popularity
             {sorting.sortPopularity === undefined ?
               null
             : sorting.sortPopularity ?
@@ -46,7 +34,7 @@ export const FooterSort = memo(function FooterSort() {
             : <FiChevronDown fontSize="small" />}
           </Option>
           <Option onClick={sorting.toggleSortLowestPrice} value="$ lo">
-            $ lo{" "}
+            $ lo
             {sorting.sortLowestPrice === undefined ?
               null
             : sorting.sortLowestPrice ?
@@ -54,7 +42,7 @@ export const FooterSort = memo(function FooterSort() {
             : <FiChevronDown fontSize="small" />}
           </Option>
           <Option onClick={sorting.toggleSortHighestPrice} value="$ hi">
-            $ hi{" "}
+            $ hi
             {sorting.sortHighestPrice === undefined ?
               null
             : sorting.sortHighestPrice ?
@@ -62,7 +50,7 @@ export const FooterSort = memo(function FooterSort() {
             : <FiChevronDown fontSize="small" />}
           </Option>
           <Option onClick={sorting.toggleSortAvgPrice} value="$ avg">
-            $ avg{" "}
+            $ avg
             {sorting.sortAvgPrice === undefined ?
               null
             : sorting.sortAvgPrice ?
@@ -80,7 +68,7 @@ const styles = {
     sx: {
       [`& .${selectClasses.indicator}`]: {
         [`&.${selectClasses.expanded}`]: { transform: "rotate(-180deg)" },
-        transition: "0.2s",
+        transition: "0.25s",
       },
       backgroundColor: "transparent",
     },

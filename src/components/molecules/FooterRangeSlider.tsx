@@ -12,7 +12,7 @@ export const FooterRangeSlider = memo(function FooterRangeSlider() {
 
   return (
     <Flexbox gap={1.5}>
-      <Typography fontSize="0.75rem" level="body-sm">
+      <Typography level="body-xs" sx={{ userSelect: "none" }}>
         Range:
       </Typography>
       <Flexbox gap={0.5}>
@@ -33,7 +33,7 @@ export const FooterRangeSlider = memo(function FooterRangeSlider() {
               setRange("15mi");
             }}
             size="sm"
-            sx={{ "&:hover, &:active": { backgroundColor: "transparent" }, "--IconButton-size": "1.5rem", ml: 0.25 }}
+            sx={{ "&:hover, &:active": { backgroundColor: "transparent" }, "--IconButton-size": "1rem", ml: 0.75 }}
           >
             <MdReplay fontSize="small" />
           </IconButton>

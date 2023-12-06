@@ -9,7 +9,8 @@ import { MdClose } from "react-icons/md";
 import { useSearchStore } from "../../stores/useSearchStore.ts";
 
 export const SearchInput = memo(function SearchInput() {
-  const search = useSearchStore((state) => state);
+  const searchTerm = useSearchStore((state) => state.searchTerm);
+  const setSearchTerm = useSearchStore((state) => state.setSearchTerm);
 
   useHotkeys(
     "/",
@@ -25,7 +26,7 @@ export const SearchInput = memo(function SearchInput() {
 
   return (
     <Input
-      onChange={(e) => search.setSearchTerm(e.target.value)}
+      onChange={(e) => setSearchTerm(e.target.value)}
       slotProps={{
         input: {
           component: m.input,
@@ -35,10 +36,10 @@ export const SearchInput = memo(function SearchInput() {
           whileHover: { width: isMobile ? "17.5rem" : "20rem" },
         },
       }}
-      value={search.searchTerm}
-      {...(search.searchTerm && {
+      value={searchTerm}
+      {...(searchTerm && {
         endDecorator: (
-          <IconButton onClick={() => search.setSearchTerm("")} sx={styles.iconButton}>
+          <IconButton onClick={() => setSearchTerm("")} sx={styles.iconButton}>
             <MdClose />
           </IconButton>
         ),

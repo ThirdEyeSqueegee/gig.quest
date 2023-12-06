@@ -16,7 +16,7 @@ export const FooterFilter = memo(function FooterFilter() {
 
   return (
     <Flexbox gap={1}>
-      <Typography fontSize="0.75rem" level="body-sm">
+      <Typography level="body-xs" sx={{ userSelect: "none" }}>
         Filter:
       </Typography>
       <Select
@@ -45,7 +45,7 @@ export const FooterFilter = memo(function FooterFilter() {
               }}
               onMouseDown={(e) => e.stopPropagation()}
               size="sm"
-              sx={{ "&:hover, &:active": { backgroundColor: "transparent" }, "--IconButton-size": "1.5rem" }}
+              sx={{ "&:hover, &:active": { backgroundColor: "transparent" }, "--IconButton-size": "1rem" }}
             >
               <MdClose />
             </IconButton>
@@ -100,7 +100,7 @@ const styles = {
       "&:hover": { backgroundColor: "rgba(0, 0, 0, 0.25)" },
       [`& .${selectClasses.indicator}`]: {
         [`&.${selectClasses.expanded}`]: { transform: "rotate(-180deg)" },
-        transition: "0.2s",
+        transition: "0.25s",
       },
       backgroundColor: "transparent",
     },

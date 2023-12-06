@@ -13,7 +13,7 @@ export const FooterRows = memo(function FooterRows() {
 
   return (
     <Flexbox gap={1}>
-      <Typography fontSize="0.75rem" level="body-sm">
+      <Typography level="body-xs" sx={{ userSelect: "none" }}>
         Rows:
       </Typography>
       <Select
@@ -40,7 +40,7 @@ const styles = {
       "&:hover": { backgroundColor: "rgba(0, 0, 0, 0.25)" },
       [`& .${selectClasses.indicator}`]: {
         [`&.${selectClasses.expanded}`]: { transform: "rotate(-180deg)" },
-        transition: "0.2s",
+        transition: "0.25s",
       },
       backgroundColor: "transparent",
     },

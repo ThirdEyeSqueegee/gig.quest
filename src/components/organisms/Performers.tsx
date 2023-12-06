@@ -1,7 +1,6 @@
 import { Typography } from "@mui/joy";
 import { Artist } from "@spotify/web-api-ts-sdk";
 import { Fragment, memo } from "react";
-import { isMobile } from "react-device-detect";
 
 import { SGEventDetails } from "../../api/interfaces/SeatGeek.ts";
 import { useSpotifyArtists } from "../../hooks/useSpotifyArtists.ts";
@@ -22,8 +21,8 @@ export const Performers = memo(function Performers(props: { eventDetails?: SGEve
 
   if (eventDetails?.event.type === "music_festival") {
     return (
-      <Flexbox flexWrap="wrap" {...styles.flex}>
-        <Typography {...styles.typography}>
+      <Flexbox flexWrap="wrap" justifyContent="start">
+        <Typography>
           {eventDetails.event.short_title
             ?.replaceAll("Music Festival", "")
             .replaceAll("Festival", "")
@@ -39,7 +38,7 @@ export const Performers = memo(function Performers(props: { eventDetails?: SGEve
     const [homeTeam, awayTeam] = eventDetails.performers;
 
     return (
-      <Flexbox flexWrap="wrap" {...styles.flex}>
+      <Flexbox flexWrap="wrap" justifyContent="start">
         <NBATeam team={homeTeam} />
         <Typography level="body-sm" mx={1} my="auto">
           vs.
@@ -53,7 +52,7 @@ export const Performers = memo(function Performers(props: { eventDetails?: SGEve
     const [homeTeam, awayTeam] = eventDetails.performers;
 
     return (
-      <Flexbox flexWrap="wrap" {...styles.flex}>
+      <Flexbox flexWrap="wrap" justifyContent="start">
         <NFLTeam team={homeTeam} />
         <Typography level="body-sm" mx={1} my="auto">
           vs.
@@ -67,7 +66,7 @@ export const Performers = memo(function Performers(props: { eventDetails?: SGEve
     const [homeTeam, awayTeam] = eventDetails.performers;
 
     return (
-      <Flexbox flexWrap="wrap" {...styles.flex}>
+      <Flexbox flexWrap="wrap" justifyContent="start">
         <MLBTeam team={homeTeam} />
         <Typography level="body-sm" mx={1} my="auto">
           vs.
@@ -78,13 +77,13 @@ export const Performers = memo(function Performers(props: { eventDetails?: SGEve
   }
 
   return (
-    <Flexbox flexWrap="wrap" {...styles.flex}>
+    <Flexbox flexWrap="wrap" justifyContent="start">
       {eventDetails?.performers.map((p, i) => {
         return (
           <Fragment key={p}>
             {eventDetails?.event.type === "concert" ?
               <SpotifyTooltip artist={artistItemsMap ? artistItemsMap.get(p) : ({ id: "loading" } as Artist)} performerName={p} />
-            : <Typography {...styles.typography}>{p}</Typography>}
+            : <Typography>{p}</Typography>}
             {eventDetails && i !== eventDetails.performers.length - 1 ?
               <Typography level="body-sm" mx={1} my="auto">
                 {eventDetails.is1v1 ? "vs." : "//"}
@@ -96,12 +95,3 @@ export const Performers = memo(function Performers(props: { eventDetails?: SGEve
     </Flexbox>
   );
 });
-
-const styles = {
-  flex: {
-    justifyContent: "start",
-  },
-  typography: {
-    fontSize: isMobile ? "0.9rem" : "1rem",
-  },
-};

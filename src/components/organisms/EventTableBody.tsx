@@ -79,7 +79,7 @@ export const EventTableBody = memo(function EventTableBody() {
               <Venue venue={details.event.venue} />
             </td>
             <td>
-              <DateAndTime datetime={details.event.datetime_local} size="0.9rem" />
+              <DateAndTime datetime={details.event.datetime_local} />
             </td>
             <td>
               <Prices stats={details.event.stats} type="lo" />

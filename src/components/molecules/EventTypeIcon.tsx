@@ -57,9 +57,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
       case "mlb":
         return (
           <Tooltip title="MLB" {...styles.tooltip}>
-            <Flexbox {...styles.iconBox}>
-              <m.img height={size ? +size.replace("rem", "") * 16 : 24} src={MLBLogo} />
-            </Flexbox>
+            <m.img height={size ? +size.replace("rem", "") * 16 : 24} src={MLBLogo} {...styles.iconBox} />
           </Tooltip>
         );
       case "ncaa_baseball":
@@ -97,9 +95,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
       case "nfl":
         return (
           <Tooltip title="NFL" {...styles.tooltip}>
-            <Flexbox {...styles.iconBox}>
-              <m.img height={size ? +size.replace("rem", "") * 16 : 24} src={NFLLogo} />
-            </Flexbox>
+            <m.img height={size ? +size.replace("rem", "") * 16 : 24} src={NFLLogo} {...styles.iconBox} />
           </Tooltip>
         );
       case "ncaa_football":
@@ -129,9 +125,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
       case "nba":
         return (
           <Tooltip title="NBA" {...styles.tooltip}>
-            <Flexbox {...styles.iconBox}>
-              <m.img height={size ? +size.replace("rem", "") * 16 : 24} src={NBALogo} />
-            </Flexbox>
+            <m.img height={size ? +size.replace("rem", "") * 16 : 24} src={NBALogo} {...styles.iconBox} />
           </Tooltip>
         );
       case "ncaa_basketball":
@@ -177,9 +171,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
       case "nhl":
         return (
           <Tooltip title="NHL" {...styles.tooltip}>
-            <Flexbox {...styles.iconBox}>
-              <m.img height={size ? +size.replace("rem", "") * 16 : 24} src={NHLLogo} />
-            </Flexbox>
+            <m.img height={size ? +size.replace("rem", "") * 16 : 24} src={NHLLogo} {...styles.iconBox} />
           </Tooltip>
         );
       case "ncaa_hockey":
@@ -225,9 +217,7 @@ export const EventTypeIcon = memo(function EventTypeIcon(props: { eventType?: SG
       case "mls":
         return (
           <Tooltip title="MLS" {...styles.tooltip}>
-            <Flexbox {...styles.iconBox}>
-              <m.img height={size ? +size.replace("rem", "") * 16 : 24} src={MLSLogo} />
-            </Flexbox>
+            <m.img height={size ? +size.replace("rem", "") * 16 : 24} src={MLSLogo} {...styles.iconBox} />
           </Tooltip>
         );
       case "ncaa_soccer":

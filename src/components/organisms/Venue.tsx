@@ -15,7 +15,7 @@ export const Venue = memo(function Venue(props: { venue?: SGVenue }) {
     <Flexbox {...styles.flexbox}>
       <Typography
         component="span"
-        fontSize={tableView ? "0.95rem" : "0.75rem"}
+        fontSize={tableView ? "md" : "xs"}
         sx={{ alignItems: "center", display: "inline-flex", flexBasis: tableView ? "95%" : "auto", gap: 0.75 }}
       >
         <Link href={`https://www.google.com/maps/search/${venue?.name?.replaceAll(" ", "+")}`}>{venue?.name}</Link>

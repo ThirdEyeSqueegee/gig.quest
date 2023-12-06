@@ -28,10 +28,7 @@ export const Header = memo(function Header() {
 
   const { scrollYProgress } = useScroll();
   const [lerps, setLerps] = useState({
-    headerGap: 1,
-    headerHeight: 95,
-    locationBoxHeight: 25,
-    locationIconHeight: 24,
+    locationIconHeight: 1.5,
     locationTitleHeight: 0.875,
     searchMarginRight: 2,
     searchMarginTop: -4.5,
@@ -40,30 +37,27 @@ export const Header = memo(function Header() {
 
   useMotionValueEvent(scrollYProgress, "change", (v) => {
     setLerps({
-      headerGap: lerp(1, 0, v),
-      headerHeight: lerp(95, 50, v),
-      locationBoxHeight: lerp(25, 10, v),
-      locationIconHeight: lerp(24, 12, v),
+      locationIconHeight: lerp(1.5, 0.75, v),
       locationTitleHeight: lerp(0.875, 0.6, v),
       searchMarginRight: lerp(2, 6, v),
-      searchMarginTop: lerp(-4.5, -5, v),
+      searchMarginTop: lerp(-4.5, -5.5, v),
       titleSize: lerp(2.5, 1.5, v),
     });
   });
 
   return (
-    <Flexbox flexDirection="column" width={1}>
-      <Flexbox flexDirection="column" gap={isMobile ? 1 : lerps.headerGap}>
+    <Flexbox flexDirection="column" pb={isMobile ? 0 : 1} width={1}>
+      <Flexbox flexDirection="column" gap={isMobile ? 1 : 0}>
         <Typography {...styles.headerText} fontSize={!isMobile ? `${lerps.titleSize}rem` : "2.5rem"}>
           <TypeIt options={{ cursor: false }}>gig.quest</TypeIt>
         </Typography>
-        <Flexbox height={!isMobile ? lerps.locationBoxHeight : "auto"}>
+        <Flexbox>
           <Flexbox {...styles.locationIconBox}>
-            <MdLocationOn color="red" fontSize={!isMobile ? lerps.locationIconHeight : "1.5rem"} />
+            <MdLocationOn color="red" fontSize={!isMobile ? `${lerps.locationIconHeight}rem` : "1.5rem"} />
           </Flexbox>
           <Typography
             fontFamily="Fira Code Variable"
-            fontSize={!isMobile ? `${lerps.locationTitleHeight}rem` : "0.875rem"}
+            fontSize={!isMobile ? `${lerps.locationTitleHeight}rem` : undefined}
             level="body-sm"
             sx={{ userSelect: "none" }}
           >
