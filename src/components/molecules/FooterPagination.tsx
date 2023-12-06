@@ -17,16 +17,21 @@ export const FooterPagination = memo(function FooterPagination(props: { lastPage
 
   return (
     <Flexbox gap={1}>
-      <IconButton disabled={page === 1} onClick={firstPage} {...styles.pageButton}>
+      <IconButton aria-label="Go to first page" disabled={page === 1} onClick={firstPage} {...styles.pageButton}>
         <FaAnglesLeft />
       </IconButton>
-      <IconButton disabled={page === 1} onClick={prevPage} {...styles.pageButton}>
+      <IconButton aria-label="Go to previous page" disabled={page === 1} onClick={prevPage} {...styles.pageButton}>
         <FaAngleLeft />
       </IconButton>
-      <IconButton disabled={page === lastPage} onClick={nextPage} {...styles.pageButton}>
+      <IconButton aria-label="Go to next page" disabled={page === lastPage} onClick={nextPage} {...styles.pageButton}>
         <FaAngleRight />
       </IconButton>
-      <IconButton disabled={page === lastPage} onClick={() => (lastPage ? setPage(lastPage) : undefined)} {...styles.pageButton}>
+      <IconButton
+        aria-label="Go to last page"
+        disabled={page === lastPage}
+        onClick={() => (lastPage ? setPage(lastPage) : undefined)}
+        {...styles.pageButton}
+      >
         <FaAnglesRight />
       </IconButton>
     </Flexbox>

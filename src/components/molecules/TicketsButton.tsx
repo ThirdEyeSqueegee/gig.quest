@@ -12,7 +12,7 @@ export const TicketsButton = memo(function TicketsButton(props: { url?: string }
 
   return (
     <Button sx={{ fontWeight: "md", paddingInline: tableView ? "0.75rem" : "0.5rem" }} {...styles.ticketButton}>
-      <Link href={url} {...styles.link}>
+      <Link aria-label="Tickets link" href={url} {...styles.link}>
         Tickets
       </Link>
     </Button>

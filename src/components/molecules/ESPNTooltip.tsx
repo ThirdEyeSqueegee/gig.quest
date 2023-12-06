@@ -15,11 +15,23 @@ export const ESPNTooltip = memo(function ESPNTooltip(props: { startDecorator?: R
   const [tooltipOpen, setTooltipOpen] = useState(false);
 
   let [wins, losses] = [-1, -1];
+  let winPct = -1;
+  let playoffSeed = -1;
+  let ptsConceded = -1;
+  let ptsScored = -1;
 
-  if (teamData?.record?.items) {
+  if (teamData?.record?.items?.[0].stats) {
     const split = teamData.record.items[0].summary?.split("-");
     wins = split ? +split[0] : -1;
     losses = split ? +split[1] : -1;
+
+    winPct = teamData.record.items[0].stats[17].value ?? -1;
+    winPct *= 100;
+
+    playoffSeed = teamData.record.items[0].stats[10].value ?? -1;
+
+    ptsConceded = teamData.record.items[0].stats[2].value ?? -1;
+    ptsScored = teamData.record.items[0].stats[3].value ?? -1;
   }
 
   return (
@@ -27,25 +39,50 @@ export const ESPNTooltip = memo(function ESPNTooltip(props: { startDecorator?: R
       <Tooltip
         open={tooltipOpen}
         title={
-          <Link href={teamData?.links ? teamData.links[0].href : undefined} {...styles.link}>
+          <Link aria-label="ESPN tooltip" href={teamData?.links ? teamData.links[0].href : undefined} {...styles.link}>
             <Flexbox {...styles.tooltipBox}>
+              <Typography level="body-sm">
+                Playoff seed: <Typography level="title-sm">{playoffSeed !== -1 ? `#${playoffSeed}` : "?"}</Typography>
+              </Typography>
               <Flexbox gap={1}>
+                <Typography level="body-sm">Record:</Typography>
                 <Typography level="body-sm">
                   <Typography color="success">W: </Typography>
-                  {wins === -1 ? "?" : wins}
+                  <Typography level="title-sm">{wins === -1 ? "?" : wins}</Typography>
                 </Typography>
                 <Typography level="body-sm">
                   <Typography color="danger">L: </Typography>
-                  {losses === -1 ? "?" : losses}
+                  <Typography level="title-sm">{losses === -1 ? "?" : losses}</Typography>
                 </Typography>
               </Flexbox>
-              <Typography level="body-sm">{teamData?.standingSummary}</Typography>
+              <Flexbox gap={1}>
+                <Typography level="body-sm">
+                  Win %:{" "}
+                  <Typography
+                    color={
+                      winPct === -1 ? "neutral"
+                      : winPct > 50 ?
+                        "success"
+                      : "warning"
+                    }
+                    level="title-sm"
+                  >
+                    {winPct !== -1 ? winPct.toFixed(1) : "?"}%
+                  </Typography>
+                </Typography>
+              </Flexbox>
+              <Typography level="body-sm">
+                Avg pts. conceded: <Typography level="title-sm">{ptsConceded !== -1 ? ptsConceded.toFixed(1) : "?"}</Typography>
+              </Typography>
+              <Typography level="body-sm">
+                Avg pts. scored: <Typography level="title-sm">{ptsScored !== -1 ? ptsScored.toFixed(1) : "?"}</Typography>
+              </Typography>
             </Flexbox>
           </Link>
         }
         {...styles.tooltip}
       >
-        <Link onClick={() => setTooltipOpen(!tooltipOpen)} startDecorator={startDecorator} {...styles.typography}>
+        <Link aria-label="Sports team link" onClick={() => setTooltipOpen(!tooltipOpen)} startDecorator={startDecorator} {...styles.typography}>
           {team}
         </Link>
       </Tooltip>
@@ -62,7 +99,6 @@ const styles = {
     animate: { opacity: [0, 1] },
     component: m.div,
     sx: { backdropFilter: "blur(0.5rem)", backgroundColor: "transparent", borderRadius: "1rem" },
-    variant: "outlined",
   },
   tooltipBox: {
     flexDirection: "column",

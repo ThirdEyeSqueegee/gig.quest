@@ -35,6 +35,7 @@ export const FooterFilter = memo(function FooterFilter() {
         {...(filter.length > 0 && {
           endDecorator: (
             <IconButton
+              aria-label="Reset filter"
               onClick={() => {
                 setFilter([]);
                 firstPage();

@@ -34,8 +34,16 @@ export const theme = extendTheme({
         arrow: true,
         enterTouchDelay: 25,
         leaveTouchDelay: 3000,
+        modifiers: [
+          {
+            name: "offset",
+            options: {
+              offset: [0, 8],
+            },
+          },
+        ],
         placement: "top",
-        variant: "soft",
+        variant: "outlined",
       },
     },
   },

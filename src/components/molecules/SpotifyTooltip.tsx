@@ -21,7 +21,7 @@ export const SpotifyTooltip = memo(function SpotifyTooltip(props: { artist?: Art
         title={
           !artist || artist.id === "notFound" ?
             <Flexbox {...styles.tooltipBox}>¯\_(ツ)_/¯</Flexbox>
-          : <Link href={artist.external_urls?.spotify} overlay underline="none">
+          : <Link aria-label="Spotify tooltip" href={artist.external_urls?.spotify} overlay underline="none">
               <Flexbox {...styles.tooltipBox}>
                 <Typography {...styles.typography}>{artist.followers?.total.toLocaleString()} followers</Typography>
                 <Flexbox flexWrap="wrap" gap={1}>
@@ -43,7 +43,7 @@ export const SpotifyTooltip = memo(function SpotifyTooltip(props: { artist?: Art
             performerName
           : artist?.id === "loading" ?
             <CircularProgress size="xs" />
-          : <Link>{artist?.name}</Link>}
+          : <Link aria-label="Artist link">{artist?.name}</Link>}
         </Typography>
       </Tooltip>
     </ClickAwayListener>
@@ -55,7 +55,6 @@ const styles = {
     animate: { opacity: [0, 1] },
     component: m.div,
     sx: { backdropFilter: "blur(0.5rem)", backgroundColor: "transparent", borderRadius: "1rem" },
-    variant: "outlined",
   },
   tooltipBox: {
     flexDirection: "column",

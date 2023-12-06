@@ -13,6 +13,7 @@ export const Venue = memo(function Venue(props: { venue?: SGVenue }) {
 
   return (
     <Link
+      aria-label="Venue link"
       endDecorator={<DistanceChip venue={venue} />}
       fontSize={tableView ? "md" : "xs"}
       href={`https://www.google.com/maps/search/${venue?.name?.replaceAll(" ", "+")}`}

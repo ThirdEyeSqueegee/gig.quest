@@ -39,7 +39,7 @@ export const SearchInput = memo(function SearchInput() {
       value={searchTerm}
       {...(searchTerm && {
         endDecorator: (
-          <IconButton onClick={() => setSearchTerm("")} sx={styles.iconButton}>
+          <IconButton aria-label="Reset search" onClick={() => setSearchTerm("")} sx={styles.iconButton}>
             <MdClose />
           </IconButton>
         ),

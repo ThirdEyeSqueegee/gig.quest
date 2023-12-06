@@ -35,7 +35,7 @@ export const HelpButton = memo(function HelpButton() {
   return (
     <ClickAwayListener onClickAway={() => setTooltipOpen(false)}>
       <Tooltip open={tooltipOpen} {...styles.tooltip}>
-        <IconButton onClick={() => setTooltipOpen(!tooltipOpen)} sx={styles.helpButton}>
+        <IconButton aria-label="Help" onClick={() => setTooltipOpen(!tooltipOpen)} sx={styles.helpButton}>
           <FiHelpCircle fontSize="1.5rem" />
         </IconButton>
       </Tooltip>

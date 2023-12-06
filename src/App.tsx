@@ -38,9 +38,9 @@ export const App = memo(function App() {
         <Card {...styles.mainCard}>
           <Flexbox {...styles.headerBox}>
             <Header />
-            <IconButton sx={styles.githubButton}>
+            <IconButton aria-label="GitHub repo button" sx={styles.githubButton}>
               <FiGithub fontSize="1.5rem" />
-              <Link href="https://github.com/ThirdEyeSqueegee/gig.quest" overlay />
+              <Link aria-label="GitHub repo link" href="https://github.com/ThirdEyeSqueegee/gig.quest" overlay />
             </IconButton>
             <HelpButton />
           </Flexbox>

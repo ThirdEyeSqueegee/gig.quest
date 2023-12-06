@@ -25,6 +25,7 @@ export const FooterRangeSlider = memo(function FooterRangeSlider() {
         />
         {range !== "15mi" && (
           <IconButton
+            aria-label="Reset range slider"
             onClick={() => {
               setSliderValue(15);
               setRange("15mi");

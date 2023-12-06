@@ -68,16 +68,17 @@ export const Header = memo(function Header() {
           <TypeIt options={{ cursor: false }}>gig.quest</TypeIt>
         </Typography>
         <Flexbox>
-          <Tooltip open={!location.location} {...styles.locationTooltip}>
-            <IconButton
-              onClick={handleSetLocation}
-              sx={{ "&:hover, &:active": { backgroundColor: "transparent" }, "--IconButton-size": "1rem", px: 0 }}
-            >
+          <IconButton
+            aria-label="Location button"
+            onClick={handleSetLocation}
+            sx={{ "&:hover, &:active": { backgroundColor: "transparent" }, "--IconButton-size": "1rem", px: 0 }}
+          >
+            <Tooltip open={!location.location} {...styles.locationTooltip}>
               <Flexbox {...styles.locationIconBox}>
                 <MdLocationOn color="red" fontSize={!isMobile ? `${lerps.locationIconHeight}rem` : "1.75rem"} />
               </Flexbox>
-            </IconButton>
-          </Tooltip>
+            </Tooltip>
+          </IconButton>
           <Typography fontSize={!isMobile ? `${lerps.locationTitleHeight}rem` : undefined} level="body-sm" sx={{ userSelect: "none" }}>
             {`${
               geolocation ? geolocation.display_name
@@ -133,7 +134,6 @@ const styles = {
     placement: "bottom",
     sx: { backdropFilter: "blur(0.5rem)", backgroundColor: "transparent", userSelect: "none" },
     title: "Click/tap location icon to use precise location",
-    variant: "outlined",
   },
   searchFlex: {
     alignSelf: isMobile ? "center" : "end",
