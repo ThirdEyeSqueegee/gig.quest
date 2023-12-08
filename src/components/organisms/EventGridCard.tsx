@@ -1,5 +1,4 @@
-import loadable from "@loadable/component";
-import { Card, Grid, Skeleton, Typography } from "@mui/joy";
+import { Card, Grid, Typography } from "@mui/joy";
 import { m } from "framer-motion";
 import { memo } from "react";
 import { isMobile } from "react-device-detect";
@@ -7,60 +6,13 @@ import { isMobile } from "react-device-detect";
 import type { SGEventDetails } from "../../api/interfaces/SeatGeek.ts";
 
 import { Flexbox } from "../atoms/Flexbox.tsx";
-
-const DateAndTime = loadable(() => import("../molecules/DateAndTime.tsx"), {
-  fallback: (
-    <Typography fontSize="xs">
-      <Skeleton>Thu, Jan 1, 1970 @ 12:00 AM</Skeleton>
-    </Typography>
-  ),
-  resolveComponent: (component) => component.DateAndTime,
-  ssr: false,
-});
-const EventTypeIcon = loadable(() => import("../molecules/EventTypeIcon.tsx"), {
-  resolveComponent: (component) => component.EventTypeIcon,
-  ssr: false,
-});
-const Prices = loadable(() => import("../molecules/Prices.tsx"), {
-  fallback: (
-    <Typography fontSize="xs">
-      <Skeleton>$$$</Skeleton>
-    </Typography>
-  ),
-  resolveComponent: (component) => component.Prices,
-  ssr: false,
-});
-const TicketsButton = loadable(() => import("../molecules/TicketsButton.tsx"), {
-  fallback: (
-    <Typography>
-      <Skeleton>Tickets</Skeleton>
-    </Typography>
-  ),
-  resolveComponent: (component) => component.TicketsButton,
-  ssr: false,
-});
-const Performers = loadable(() => import("../organisms/Performers.tsx"), {
-  fallback: (
-    <Typography>
-      <Skeleton>Performers</Skeleton>
-    </Typography>
-  ),
-  resolveComponent: (component) => component.Performers,
-  ssr: false,
-});
-const PopularityBar = loadable(() => import("../molecules/PopularityBar.tsx"), {
-  resolveComponent: (component) => component.PopularityBar,
-  ssr: false,
-});
-const Venue = loadable(() => import("../organisms/Venue.tsx"), {
-  fallback: (
-    <Typography>
-      <Skeleton>Venue and distance</Skeleton>
-    </Typography>
-  ),
-  resolveComponent: (component) => component.Venue,
-  ssr: false,
-});
+import { DateAndTime } from "../molecules/DateAndTime.tsx";
+import { EventTypeIcon } from "../molecules/EventTypeIcon.tsx";
+import { PopularityBar } from "../molecules/PopularityBar.tsx";
+import { Prices } from "../molecules/Prices.tsx";
+import { TicketsButton } from "../molecules/TicketsButton.tsx";
+import { Performers } from "./Performers.tsx";
+import { Venue } from "./Venue.tsx";
 
 export const EventGridCard = memo(function EventGridCard(props: { details?: SGEventDetails }) {
   const { details } = props;

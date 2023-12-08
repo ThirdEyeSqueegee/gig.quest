@@ -1,6 +1,5 @@
 import type { Artist } from "@spotify/web-api-ts-sdk";
 
-import loadable from "@loadable/component";
 import { Typography } from "@mui/joy";
 import { Fragment, memo } from "react";
 
@@ -8,23 +7,10 @@ import { Fragment, memo } from "react";
 import { isSGMusicEventType, type SGEventDetails } from "../../api/interfaces/SeatGeek.ts";
 import { useSpotifyArtists } from "../../hooks/useSpotifyArtists.ts";
 import { Flexbox } from "../atoms/Flexbox.tsx";
-
-const MLBTeam = loadable(() => import("../molecules/MLBTeam.tsx"), {
-  resolveComponent: (component) => component.MLBTeam,
-  ssr: false,
-});
-const NBATeam = loadable(() => import("../molecules/NBATeam.tsx"), {
-  resolveComponent: (component) => component.NBATeam,
-  ssr: false,
-});
-const NFLTeam = loadable(() => import("../molecules/NFLTeam.tsx"), {
-  resolveComponent: (component) => component.NFLTeam,
-  ssr: false,
-});
-const SpotifyTooltip = loadable(() => import("../molecules/SpotifyTooltip.tsx"), {
-  resolveComponent: (component) => component.SpotifyTooltip,
-  ssr: false,
-});
+import { MLBTeam } from "../molecules/MLBTeam.tsx";
+import { NBATeam } from "../molecules/NBATeam.tsx";
+import { NFLTeam } from "../molecules/NFLTeam.tsx";
+import { SpotifyTooltip } from "../molecules/SpotifyTooltip.tsx";
 
 export const Performers = memo(function Performers(props: { eventDetails?: SGEventDetails }) {
   const { eventDetails } = props;

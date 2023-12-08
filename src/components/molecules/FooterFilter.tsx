@@ -1,4 +1,3 @@
-import loadable from "@loadable/component";
 import { IconButton, Option, Select, Typography, selectClasses } from "@mui/joy";
 import { memo } from "react";
 import { FiChevronDown } from "react-icons/fi";
@@ -9,11 +8,7 @@ import type { SGEventType } from "../../api/interfaces/SeatGeek.ts";
 import { usePaginationStore } from "../../stores/usePaginationStore.ts";
 import { useSearchStore } from "../../stores/useSearchStore.ts";
 import { Flexbox } from "../atoms/Flexbox.tsx";
-
-const EventTypeIcon = loadable(() => import("./EventTypeIcon.tsx"), {
-  resolveComponent: (components) => components.EventTypeIcon,
-  ssr: false,
-});
+import { EventTypeIcon } from "./EventTypeIcon.tsx";
 
 export const FooterFilter = memo(function FooterFilter() {
   const filter = useSearchStore((state) => state.filter);

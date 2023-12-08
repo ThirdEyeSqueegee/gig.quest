@@ -1,4 +1,3 @@
-import loadable from "@loadable/component";
 import { CircularProgress } from "@mui/joy";
 import { useMeasure, useWindowSize } from "@uidotdev/usehooks";
 import { m } from "framer-motion";
@@ -8,35 +7,13 @@ import { FaHourglassHalf } from "react-icons/fa6";
 import { useSeatGeekEvents } from "../../hooks/useSeatGeekEvents.ts";
 import { usePaginationStore } from "../../stores/usePaginationStore.ts";
 import { Flexbox } from "../atoms/Flexbox.tsx";
-
-const DateAndTime = loadable(() => import("../molecules/DateAndTime.tsx"), {
-  resolveComponent: (component) => component.DateAndTime,
-  ssr: false,
-});
-const EventTypeIcon = loadable(() => import("../molecules/EventTypeIcon.tsx"), {
-  resolveComponent: (component) => component.EventTypeIcon,
-  ssr: false,
-});
-const Prices = loadable(() => import("../molecules/Prices.tsx"), {
-  resolveComponent: (component) => component.Prices,
-  ssr: false,
-});
-const TicketsButton = loadable(() => import("../molecules/TicketsButton.tsx"), {
-  resolveComponent: (component) => component.TicketsButton,
-  ssr: false,
-});
-const Performers = loadable(() => import("../organisms/Performers.tsx"), {
-  resolveComponent: (component) => component.Performers,
-  ssr: false,
-});
-const PopularityBar = loadable(() => import("../molecules/PopularityBar.tsx"), {
-  resolveComponent: (component) => component.PopularityBar,
-  ssr: false,
-});
-const Venue = loadable(() => import("../organisms/Venue.tsx"), {
-  resolveComponent: (component) => component.Venue,
-  ssr: false,
-});
+import { DateAndTime } from "../molecules/DateAndTime.tsx";
+import { EventTypeIcon } from "../molecules/EventTypeIcon.tsx";
+import { PopularityBar } from "../molecules/PopularityBar.tsx";
+import { Prices } from "../molecules/Prices.tsx";
+import { TicketsButton } from "../molecules/TicketsButton.tsx";
+import { Performers } from "./Performers.tsx";
+import { Venue } from "./Venue.tsx";
 
 export const EventTableBody = memo(function EventTableBody() {
   const rowsPerPage = usePaginationStore((state) => state.rowsPerPage);
