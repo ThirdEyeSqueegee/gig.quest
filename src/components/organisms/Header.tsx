@@ -1,14 +1,13 @@
 import loadable from "@loadable/component";
 import { IconButton, Switch, Tooltip, Typography } from "@mui/joy";
 import { useWindowSize } from "@uidotdev/usehooks";
-import { m, useMotionValueEvent, useScroll } from "framer-motion";
-import { memo, useState } from "react";
+import { m } from "framer-motion";
+import { memo } from "react";
 import { isMobile } from "react-device-detect";
 import { FiGrid } from "react-icons/fi";
 import { MdLocationOn, MdTableRows } from "react-icons/md";
 import TypeIt from "typeit-react";
 
-import { lerp } from "../../Utilities.ts";
 import { useSeatGeekEvents } from "../../hooks/useSeatGeekEvents.ts";
 import { useLocationStore } from "../../stores/useLocationStore.ts";
 import { usePaginationStore } from "../../stores/usePaginationStore.ts";
@@ -33,25 +32,6 @@ export const Header = memo(function Header() {
   const { height, width } = useWindowSize();
   const isWidescreen = width && height ? width / height > 4 / 3 : undefined;
 
-  const { scrollYProgress } = useScroll();
-  const [lerps, setLerps] = useState({
-    locationIconHeight: 1.75,
-    locationTitleHeight: 0.875,
-    searchMarginRight: 2,
-    searchMarginTop: -4.5,
-    titleSize: 2.5,
-  });
-
-  useMotionValueEvent(scrollYProgress, "change", (v) => {
-    setLerps({
-      locationIconHeight: lerp(1.75, 0.75, v),
-      locationTitleHeight: lerp(0.875, 0.6, v),
-      searchMarginRight: lerp(2, 6, v),
-      searchMarginTop: lerp(-4.5, -5.5, v),
-      titleSize: lerp(2.5, 1.5, v),
-    });
-  });
-
   const handleSetLocation = () => {
     if (!location.location) {
       navigator.geolocation.getCurrentPosition(
@@ -67,9 +47,9 @@ export const Header = memo(function Header() {
   };
 
   return (
-    <Flexbox flexDirection="column" pb={isMobile ? 0 : 1} width={1}>
+    <Flexbox borderBottom={1} borderColor="neutral.outlinedBorder" flexDirection="column" pb={isMobile ? 0 : 1} width={1}>
       <Flexbox flexDirection="column" gap={isMobile ? 1 : 0}>
-        <Typography {...styles.headerText} fontSize={!isMobile ? `${lerps.titleSize}rem` : "2.5rem"}>
+        <Typography {...styles.headerText} fontSize="2.5rem">
           <TypeIt options={{ cursor: false }}>gig.quest</TypeIt>
         </Typography>
         <Flexbox>
@@ -80,11 +60,11 @@ export const Header = memo(function Header() {
           >
             <Tooltip open={!location.location} {...styles.locationTooltip}>
               <Flexbox {...styles.locationIconBox}>
-                <MdLocationOn color="red" fontSize={!isMobile ? `${lerps.locationIconHeight}rem` : "1.75rem"} />
+                <MdLocationOn color="red" fontSize="1.75rem" />
               </Flexbox>
             </Tooltip>
           </IconButton>
-          <Typography fontSize={!isMobile ? `${lerps.locationTitleHeight}rem` : undefined} level="body-sm" sx={{ userSelect: "none" }}>
+          <Typography level="body-sm" sx={{ userSelect: "none" }}>
             {`${
               geolocation ? geolocation.display_name
               : range === "51mi" ? "Everywhere"
@@ -93,12 +73,7 @@ export const Header = memo(function Header() {
           </Typography>
         </Flexbox>
       </Flexbox>
-      <Flexbox
-        justifyContent={isWidescreen ? "end" : "center"}
-        mr={isMobile ? 0 : lerps.searchMarginRight}
-        mt={isMobile ? 1 : lerps.searchMarginTop}
-        {...styles.searchFlex}
-      >
+      <Flexbox justifyContent={isWidescreen ? "end" : "center"} mr={2} mt={-4.5} {...styles.searchFlex}>
         <SearchInput />
         {!isMobile && (
           <Tooltip title={`Switch to ${view.tableView ? "grid" : "table"} view`} {...styles.switchTooltip}>

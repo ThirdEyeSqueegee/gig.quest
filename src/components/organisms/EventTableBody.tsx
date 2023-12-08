@@ -65,9 +65,9 @@ export const EventTableBody = memo(function EventTableBody() {
 
   if (sgLoading) {
     return (
-      <tbody style={{ height: sgEventsDetails && sgEventsDetails.length >= rowsPerPage ? tableBodyHeight.current : "auto" }}>
-        <tr>
-          <td>
+      <m.tbody style={{ height: sgEventsDetails && sgEventsDetails.length >= rowsPerPage ? tableBodyHeight.current : "auto" }}>
+        <m.tr>
+          <m.td>
             <Flexbox
               alignItems="start"
               height={tableBodyHeight.current > 0 ? tableBodyHeight.current : "125vh"}
@@ -79,52 +79,52 @@ export const EventTableBody = memo(function EventTableBody() {
                 </CircularProgress>
               </Flexbox>
             </Flexbox>
-          </td>
-        </tr>
-      </tbody>
+          </m.td>
+        </m.tr>
+      </m.tbody>
     );
   }
 
   return (
-    <tbody ref={ref} style={{ height: sgEventsDetails && sgEventsDetails.length >= rowsPerPage ? tableBodyHeight.current : "auto" }}>
+    <m.tbody layout ref={ref} style={{ height: sgEventsDetails && sgEventsDetails.length >= rowsPerPage ? tableBodyHeight.current : "auto" }}>
       {sgEventsDetails?.map((details) => {
         return (
-          <m.tr key={details.event.id} {...styles.tr}>
-            <td>
+          <m.tr key={details.event.id} layout {...styles.tr}>
+            <m.td>
               <Flexbox>
                 <EventTypeIcon eventType={details.event.type} />
               </Flexbox>
-            </td>
-            <td>
+            </m.td>
+            <m.td>
               <Performers eventDetails={details} />
-            </td>
-            <td>
+            </m.td>
+            <m.td>
               <Venue venue={details.event.venue} />
-            </td>
-            <td>
+            </m.td>
+            <m.td>
               <DateAndTime datetime={details.event.datetime_local} />
-            </td>
-            <td>
+            </m.td>
+            <m.td>
               <Prices stats={details.event.stats} type="lo" />
-            </td>
-            <td>
+            </m.td>
+            <m.td>
               <Prices stats={details.event.stats} type="hi" />
-            </td>
-            <td>
+            </m.td>
+            <m.td>
               <Prices stats={details.event.stats} type="avg" />
-            </td>
-            <td>
+            </m.td>
+            <m.td>
               <Flexbox width={0.9}>
                 <PopularityBar score={details.event.score} />
               </Flexbox>
-            </td>
-            <td>
+            </m.td>
+            <m.td>
               <TicketsButton url={details.event.url} />
-            </td>
+            </m.td>
           </m.tr>
         );
       })}
-    </tbody>
+    </m.tbody>
   );
 });
 
