@@ -1,3 +1,4 @@
+import loadable from "@loadable/component";
 import { IconButton, Switch, Tooltip, Typography } from "@mui/joy";
 import { useWindowSize } from "@uidotdev/usehooks";
 import { m, useMotionValueEvent, useScroll } from "framer-motion";
@@ -13,7 +14,11 @@ import { useLocationStore } from "../../stores/useLocationStore.ts";
 import { usePaginationStore } from "../../stores/usePaginationStore.ts";
 import { useViewStore } from "../../stores/useViewStore.ts";
 import { Flexbox } from "../atoms/Flexbox.tsx";
-import { SearchInput } from "../molecules/SearchInput.tsx";
+
+const SearchInput = loadable(() => import("../molecules/SearchInput.tsx"), {
+  resolveComponent: (component) => component.SearchInput,
+  ssr: false,
+});
 
 export const Header = memo(function Header() {
   const range = usePaginationStore((state) => state.range);
@@ -132,6 +137,7 @@ const styles = {
     animate: { opacity: [0, 1], transition: { delay: 0.5 } },
     component: m.div,
     placement: "bottom",
+    size: "lg",
     sx: { backdropFilter: "blur(0.5rem)", backgroundColor: "transparent", userSelect: "none" },
     title: "Click/tap location icon to use precise location",
   },

@@ -86,4 +86,9 @@ module.exports = {
     "@typescript-eslint/return-await": ["warn", "always"],
     "@typescript-eslint/no-confusing-void-expression": ["warn", { ignoreArrowShorthand: true, ignoreVoidOperator: true }],
   },
+  settings: {
+    react: {
+      version: "detect",
+    },
+  },
 };

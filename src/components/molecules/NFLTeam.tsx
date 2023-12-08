@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-pascal-case */
+import loadable from "@loadable/component";
 import { CircularProgress } from "@mui/joy";
 import { memo } from "react";
 import { FaQuestion } from "react-icons/fa6";
@@ -6,7 +7,11 @@ import * as NFLIcons from "react-nfl-logos";
 
 import { NFLTeamsMap } from "../../Utilities.ts";
 import { useESPNTeam } from "../../hooks/useESPNTeam.ts";
-import { ESPNTooltip } from "./ESPNTooltip.tsx";
+
+const ESPNTooltip = loadable(() => import("./ESPNTooltip.tsx"), {
+  resolveComponent: (components) => components.ESPNTooltip,
+  ssr: false,
+});
 
 export const NFLTeam = memo(function NFLTeam(props: { team?: string }) {
   const { team } = props;

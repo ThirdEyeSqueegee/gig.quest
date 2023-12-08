@@ -1,16 +1,30 @@
 import type { Artist } from "@spotify/web-api-ts-sdk";
 
+import loadable from "@loadable/component";
 import { Typography } from "@mui/joy";
 import { Fragment, memo } from "react";
 
-import type { SGEventDetails } from "../../api/interfaces/SeatGeek.ts";
-
+// eslint-disable-next-line perfectionist/sort-named-imports
+import { isSGMusicEventType, type SGEventDetails } from "../../api/interfaces/SeatGeek.ts";
 import { useSpotifyArtists } from "../../hooks/useSpotifyArtists.ts";
 import { Flexbox } from "../atoms/Flexbox.tsx";
-import { MLBTeam } from "../molecules/MLBTeam.tsx";
-import { NBATeam } from "../molecules/NBATeam.tsx";
-import { NFLTeam } from "../molecules/NFLTeam.tsx";
-import { SpotifyTooltip } from "../molecules/SpotifyTooltip.tsx";
+
+const MLBTeam = loadable(() => import("../molecules/MLBTeam.tsx"), {
+  resolveComponent: (component) => component.MLBTeam,
+  ssr: false,
+});
+const NBATeam = loadable(() => import("../molecules/NBATeam.tsx"), {
+  resolveComponent: (component) => component.NBATeam,
+  ssr: false,
+});
+const NFLTeam = loadable(() => import("../molecules/NFLTeam.tsx"), {
+  resolveComponent: (component) => component.NFLTeam,
+  ssr: false,
+});
+const SpotifyTooltip = loadable(() => import("../molecules/SpotifyTooltip.tsx"), {
+  resolveComponent: (component) => component.SpotifyTooltip,
+  ssr: false,
+});
 
 export const Performers = memo(function Performers(props: { eventDetails?: SGEventDetails }) {
   const { eventDetails } = props;
@@ -108,7 +122,7 @@ export const Performers = memo(function Performers(props: { eventDetails?: SGEve
       {eventDetails?.performers.map((p, i) => {
         return (
           <Fragment key={p}>
-            {eventDetails.event.type === "concert" ?
+            {eventDetails.event.type && isSGMusicEventType(eventDetails.event.type) ?
               <SpotifyTooltip artist={artistItemsMap ? artistItemsMap.get(p) : ({ id: "loading" } as Artist)} performerName={p} />
             : <Typography>{p}</Typography>}
             {i !== eventDetails.performers.length - 1 ?

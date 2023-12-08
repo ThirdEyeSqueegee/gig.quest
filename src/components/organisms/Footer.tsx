@@ -1,3 +1,4 @@
+import loadable from "@loadable/component";
 import { Typography } from "@mui/joy";
 import { m } from "framer-motion";
 import { memo } from "react";
@@ -6,11 +7,27 @@ import { isMobile } from "react-device-detect";
 import { useSeatGeekEvents } from "../../hooks/useSeatGeekEvents.ts";
 import { usePaginationStore } from "../../stores/usePaginationStore.ts";
 import { Flexbox } from "../atoms/Flexbox.tsx";
-import { FooterFilter } from "../molecules/FooterFilter.tsx";
-import { FooterPagination } from "../molecules/FooterPagination.tsx";
-import { FooterRangeSlider } from "../molecules/FooterRangeSlider.tsx";
-import { FooterRows } from "../molecules/FooterRows.tsx";
-import { FooterSort } from "../molecules/FooterSort.tsx";
+
+const FooterFilter = loadable(() => import("../molecules/FooterFilter.tsx"), {
+  resolveComponent: (component) => component.FooterFilter,
+  ssr: false,
+});
+const FooterPagination = loadable(() => import("../molecules/FooterPagination.tsx"), {
+  resolveComponent: (component) => component.FooterPagination,
+  ssr: false,
+});
+const FooterRangeSlider = loadable(() => import("../molecules/FooterRangeSlider.tsx"), {
+  resolveComponent: (component) => component.FooterRangeSlider,
+  ssr: false,
+});
+const FooterRows = loadable(() => import("../molecules/FooterRows.tsx"), {
+  resolveComponent: (component) => component.FooterRows,
+  ssr: false,
+});
+const FooterSort = loadable(() => import("../molecules/FooterSort.tsx"), {
+  resolveComponent: (component) => component.FooterSort,
+  ssr: false,
+});
 
 export const Footer = memo(function Footer() {
   const page = usePaginationStore((state) => state.page);

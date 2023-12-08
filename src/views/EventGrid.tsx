@@ -1,3 +1,4 @@
+import loadable from "@loadable/component";
 import { CircularProgress, Grid } from "@mui/joy";
 import { useMeasure } from "@uidotdev/usehooks";
 import { memo, useEffect, useRef } from "react";
@@ -5,9 +6,15 @@ import { isMobile } from "react-device-detect";
 import { FaHourglassHalf } from "react-icons/fa6";
 
 import { Flexbox } from "../components/atoms/Flexbox.tsx";
-import { EventGridCard } from "../components/organisms/EventGridCard.tsx";
 import { useSeatGeekEvents } from "../hooks/useSeatGeekEvents.ts";
 import { usePaginationStore } from "../stores/usePaginationStore.ts";
+
+const EventGridCard = loadable(() => import("../components/organisms/EventGridCard.tsx"), {
+  resolveComponent: (component) => component.EventGridCard,
+  ssr: false,
+});
+
+EventGridCard.preload();
 
 export const EventGrid = memo(function EventGrid() {
   const rowsPerPage = usePaginationStore((state) => state.rowsPerPage);
