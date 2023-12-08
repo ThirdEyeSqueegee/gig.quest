@@ -1,5 +1,5 @@
 import loadable from "@loadable/component";
-import { Card, Grid, Typography } from "@mui/joy";
+import { Card, Grid, Skeleton, Typography } from "@mui/joy";
 import { m } from "framer-motion";
 import { memo } from "react";
 import { isMobile } from "react-device-detect";
@@ -9,6 +9,11 @@ import type { SGEventDetails } from "../../api/interfaces/SeatGeek.ts";
 import { Flexbox } from "../atoms/Flexbox.tsx";
 
 const DateAndTime = loadable(() => import("../molecules/DateAndTime.tsx"), {
+  fallback: (
+    <Typography fontSize="xs">
+      <Skeleton>Thu, Jan 1, 1970 @ 12:00 AM</Skeleton>
+    </Typography>
+  ),
   resolveComponent: (component) => component.DateAndTime,
   ssr: false,
 });
@@ -17,14 +22,29 @@ const EventTypeIcon = loadable(() => import("../molecules/EventTypeIcon.tsx"), {
   ssr: false,
 });
 const Prices = loadable(() => import("../molecules/Prices.tsx"), {
+  fallback: (
+    <Typography fontSize="xs">
+      <Skeleton>$$$</Skeleton>
+    </Typography>
+  ),
   resolveComponent: (component) => component.Prices,
   ssr: false,
 });
 const TicketsButton = loadable(() => import("../molecules/TicketsButton.tsx"), {
+  fallback: (
+    <Typography>
+      <Skeleton>Tickets</Skeleton>
+    </Typography>
+  ),
   resolveComponent: (component) => component.TicketsButton,
   ssr: false,
 });
 const Performers = loadable(() => import("../organisms/Performers.tsx"), {
+  fallback: (
+    <Typography>
+      <Skeleton>Performers</Skeleton>
+    </Typography>
+  ),
   resolveComponent: (component) => component.Performers,
   ssr: false,
 });
@@ -33,6 +53,11 @@ const PopularityBar = loadable(() => import("../molecules/PopularityBar.tsx"), {
   ssr: false,
 });
 const Venue = loadable(() => import("../organisms/Venue.tsx"), {
+  fallback: (
+    <Typography>
+      <Skeleton>Venue and distance</Skeleton>
+    </Typography>
+  ),
   resolveComponent: (component) => component.Venue,
   ssr: false,
 });
@@ -41,7 +66,7 @@ export const EventGridCard = memo(function EventGridCard(props: { details?: SGEv
   const { details } = props;
 
   return (
-    <Grid display="flex" flexDirection="column" lg={3} md={6} px={0.5} xs={12}>
+    <Grid {...styles.grid}>
       <Card {...styles.gridCard}>
         <Flexbox alignItems="start" gap={1} justifyContent="space-between">
           <Performers eventDetails={details} />
@@ -85,9 +110,21 @@ export const EventGridCard = memo(function EventGridCard(props: { details?: SGEv
 });
 
 const styles = {
+  grid: {
+    component: m.div,
+    display: "flex",
+    flexDirection: "column",
+    layout: true,
+    lg: 3,
+    md: 6,
+    px: 0.5,
+    xs: 12,
+  },
   gridCard: {
     animate: { opacity: [0, 1] },
     component: m.div,
+    layout: true,
+    minWidth: "100%",
     sx: { flex: 1, justifyContent: "space-between", p: 1 },
     whileHover: isMobile ? null : { boxShadow: "#555555 0 0 5px", transition: { duration: 0.05 } },
   },

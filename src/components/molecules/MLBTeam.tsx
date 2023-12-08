@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-pascal-case */
 import loadable from "@loadable/component";
 import { CircularProgress } from "@mui/joy";
 import { memo } from "react";

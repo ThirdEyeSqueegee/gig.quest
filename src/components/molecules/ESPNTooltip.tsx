@@ -63,7 +63,7 @@ export const ESPNTooltip = memo(function ESPNTooltip(props: { startDecorator?: R
                       winPct === -1 ? "neutral"
                       : winPct > 50 ?
                         "success"
-                      : "warning"
+                      : "danger"
                     }
                     level="title-sm"
                   >

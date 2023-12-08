@@ -44,7 +44,7 @@ export const FooterRangeSlider = memo(function FooterRangeSlider() {
 const styles = {
   iconButton: {
     size: "sm",
-    sx: { "&:hover, &:active": { backgroundColor: "transparent" }, "--IconButton-size": "1rem", ml: 0.75 },
+    sx: { "--IconButton-size": "1rem", "&:hover, &:active": { backgroundColor: "transparent" }, ml: 0.75 },
   },
   rangeSlider: {
     color: "neutral",

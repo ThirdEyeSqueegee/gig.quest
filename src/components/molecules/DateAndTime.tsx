@@ -14,7 +14,7 @@ export const DateAndTime = memo(function DateAndTime(props: { datetime?: string 
 
   return (
     <Tooltip title={date ? formatDistanceToNow(date) : "¯\\_(ツ)_/¯"} {...styles.tooltip}>
-      <Typography fontSize={tableView ? "sm" : "xs"} sx={{ userSelect: "none" }}>
+      <Typography fontSize={tableView ? "sm" : "xs"} {...styles.typography}>
         {date ? format(date, "E, MMM d, y @ p") : "¯\\_(ツ)_/¯"}
       </Typography>
     </Tooltip>
@@ -26,6 +26,7 @@ const styles = {
     animate: { opacity: [0, 1] },
     component: m.div,
     followCursor: true,
-    sx: { backdropFilter: "blur(0.5rem)", backgroundColor: "transparent", borderRadius: "15px" },
+    sx: { backdropFilter: "blur(0.5rem)", backgroundColor: "transparent", borderRadius: "2rem" },
   },
+  typography: { sx: { userSelect: "none" } },
 } as const;

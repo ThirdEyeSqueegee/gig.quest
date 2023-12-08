@@ -11,8 +11,6 @@ const EventTableHeader = loadable(() => import("../components/organisms/EventTab
   ssr: false,
 });
 
-EventTableBody.preload();
-
 export const EventTable = memo(function EventTable() {
   return (
     <Table size="lg">

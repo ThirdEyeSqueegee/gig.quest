@@ -64,7 +64,7 @@ module.exports = {
     "react/jsx-child-element-spacing": "warn",
     "react/jsx-curly-brace-presence": ["warn", "never"],
     "react/jsx-no-leaked-render": "warn",
-    "react/jsx-pascal-case": "warn",
+    "react/jsx-pascal-case": ["warn", { allowNamespace: true }],
     "react/no-access-state-in-setstate": "warn",
     "react/no-array-index-key": "warn",
     "react/no-unstable-nested-components": "warn",
@@ -75,8 +75,8 @@ module.exports = {
 
     "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
 
-    "@typescript-eslint/consistent-type-exports": "warn",
-    "@typescript-eslint/consistent-type-imports": "warn",
+    "@typescript-eslint/consistent-type-exports": ["warn", { fixMixedExportsWithInlineTypeSpecifier: true }],
+    "@typescript-eslint/consistent-type-imports": ["warn", { fixStyle: "inline-type-imports" }],
     "@typescript-eslint/method-signature-style": "warn",
     "@typescript-eslint/no-import-type-side-effects": "warn",
     "@typescript-eslint/no-shadow": "warn",
@@ -85,6 +85,9 @@ module.exports = {
     "@typescript-eslint/prefer-destructuring": "warn",
     "@typescript-eslint/return-await": ["warn", "always"],
     "@typescript-eslint/no-confusing-void-expression": ["warn", { ignoreArrowShorthand: true, ignoreVoidOperator: true }],
+
+    "perfectionist/sort-interfaces": ["warn", { "partition-by-new-line": true }],
+    "perfectionist/sort-objects": ["warn", { "partition-by-new-line": true }],
   },
   settings: {
     react: {

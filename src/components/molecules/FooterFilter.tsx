@@ -47,7 +47,7 @@ export const FooterFilter = memo(function FooterFilter() {
               }}
               onMouseDown={(e) => e.stopPropagation()}
               size="sm"
-              sx={{ "&:hover, &:active": { backgroundColor: "transparent" }, "--IconButton-size": "1rem" }}
+              sx={{ "--IconButton-size": "1rem", "&:hover, &:active": { backgroundColor: "transparent" } }}
             >
               <MdClose />
             </IconButton>

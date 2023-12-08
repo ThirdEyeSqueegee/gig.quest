@@ -8,6 +8,7 @@ export const useSortingStore = create<SortingState>()((set) => ({
   sortHighestPrice: undefined,
   sortLowestPrice: undefined,
   sortPopularity: undefined,
+
   toggleSortAvgPrice: () =>
     set((state) => ({
       sortAvgPrice: !state.sortAvgPrice,

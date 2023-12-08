@@ -14,8 +14,6 @@ const EventGridCard = loadable(() => import("../components/organisms/EventGridCa
   ssr: false,
 });
 
-EventGridCard.preload();
-
 export const EventGrid = memo(function EventGrid() {
   const rowsPerPage = usePaginationStore((state) => state.rowsPerPage);
 

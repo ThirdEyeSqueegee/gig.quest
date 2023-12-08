@@ -76,7 +76,7 @@ export const Header = memo(function Header() {
           <IconButton
             aria-label="Location button"
             onClick={handleSetLocation}
-            sx={{ "&:hover, &:active": { backgroundColor: "transparent" }, "--IconButton-size": "1rem", px: 0 }}
+            sx={{ "--IconButton-size": "1rem", "&:hover, &:active": { backgroundColor: "transparent" }, px: 0 }}
           >
             <Tooltip open={!location.location} {...styles.locationTooltip}>
               <Flexbox {...styles.locationIconBox}>

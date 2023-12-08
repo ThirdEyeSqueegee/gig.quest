@@ -5,7 +5,7 @@ export interface PaginationState {
   range: string;
   rowCountOptions: number[];
   rowsPerPage: number;
-  // eslint-disable-next-line perfectionist/sort-interfaces
+
   firstPage: () => void;
   nextPage: () => void;
   prevPage: () => void;
@@ -21,6 +21,7 @@ export interface SortingState {
   sortHighestPrice?: boolean;
   sortLowestPrice?: boolean;
   sortPopularity?: boolean;
+
   toggleSortAvgPrice: () => void;
   toggleSortDate: () => void;
   toggleSortHighestPrice: () => void;
@@ -30,6 +31,7 @@ export interface SortingState {
 
 export interface ViewState {
   tableView: boolean;
+
   toggleGridView: () => void;
 }
 
@@ -37,6 +39,7 @@ export interface SearchState {
   debSearchTerm: string;
   filter: string[];
   searchTerm: string;
+
   setDebSearchTerm: (term: string) => void;
   setFilter: (filter: string[]) => void;
   setSearchTerm: (term: string) => void;
@@ -44,5 +47,6 @@ export interface SearchState {
 
 export interface LocationState {
   location?: Location;
+
   setLocation: (location: Location) => void;
 }

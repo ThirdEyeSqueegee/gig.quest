@@ -7,7 +7,7 @@ export const usePaginationStore = create<PaginationState>()((set) => ({
   range: "15mi",
   rowCountOptions: [24, 36, 48],
   rowsPerPage: 24,
-  // eslint-disable-next-line perfectionist/sort-objects
+
   firstPage: () => {
     set(() => ({ page: 1 }));
     window.scrollTo({ behavior: "smooth", top: 0 });
