@@ -46,9 +46,9 @@ export const HelpButton = memo(function HelpButton() {
 const styles = {
   helpButton: {
     "&:hover, &:active": { backgroundColor: "transparent" },
-    left: "0.2rem",
+    left: "0.5rem",
     position: "absolute",
-    top: "0.25rem",
+    top: "0.5rem",
   },
   list: {
     marker: "disc",

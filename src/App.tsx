@@ -1,12 +1,10 @@
-import { Card, Divider, IconButton, Link } from "@mui/joy";
+import { Card, Divider } from "@mui/joy";
 import { useDebounce } from "@uidotdev/usehooks";
 import { LazyMotion, domMax, m } from "framer-motion";
 import { memo, useEffect } from "react";
 import { isMobile } from "react-device-detect";
-import { FiGithub } from "react-icons/fi";
 
 import { Flexbox } from "./components/atoms/Flexbox.tsx";
-import { HelpButton } from "./components/molecules/HelpButton.tsx";
 import { Footer } from "./components/organisms/Footer.tsx";
 import { Header } from "./components/organisms/Header.tsx";
 import { useLocationStore } from "./stores/useLocationStore.ts";
@@ -38,11 +36,6 @@ export const App = memo(function App() {
         <Card {...styles.mainCard}>
           <Flexbox {...styles.headerBox}>
             <Header />
-            <IconButton aria-label="GitHub repo button" sx={styles.githubButton}>
-              <FiGithub fontSize="1.5rem" />
-              <Link aria-label="GitHub repo link" href="https://github.com/ThirdEyeSqueegee/gig.quest" overlay />
-            </IconButton>
-            <HelpButton />
           </Flexbox>
           {tableView ?
             <EventTable />
@@ -56,12 +49,6 @@ export const App = memo(function App() {
 });
 
 const styles = {
-  githubButton: {
-    "&:hover, &:active": { backgroundColor: "transparent" },
-    position: "absolute",
-    right: "0.2rem",
-    top: "0.25rem",
-  },
   headerBox: {
     position: "sticky",
     ...(!isMobile && {

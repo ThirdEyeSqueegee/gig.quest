@@ -1,17 +1,19 @@
-import { IconButton, Switch, Tooltip, Typography } from "@mui/joy";
+import { IconButton, Link, Switch, Tooltip, Typography } from "@mui/joy";
 import { useWindowSize } from "@uidotdev/usehooks";
-import { m } from "framer-motion";
-import { memo } from "react";
+import { m, scroll } from "framer-motion";
+import { memo, useState } from "react";
 import { isMobile } from "react-device-detect";
-import { FiGrid } from "react-icons/fi";
+import { FiGithub, FiGrid } from "react-icons/fi";
 import { MdLocationOn, MdTableRows } from "react-icons/md";
 import TypeIt from "typeit-react";
 
+import { lerp } from "../../Utilities.ts";
 import { useSeatGeekEvents } from "../../hooks/useSeatGeekEvents.ts";
 import { useLocationStore } from "../../stores/useLocationStore.ts";
 import { usePaginationStore } from "../../stores/usePaginationStore.ts";
 import { useViewStore } from "../../stores/useViewStore.ts";
 import { Flexbox } from "../atoms/Flexbox.tsx";
+import { HelpButton } from "../molecules/HelpButton.tsx";
 import { SearchInput } from "../molecules/SearchInput.tsx";
 
 export const Header = memo(function Header() {
@@ -26,6 +28,18 @@ export const Header = memo(function Header() {
 
   const { height, width } = useWindowSize();
   const isWidescreen = width && height ? width / height > 4 / 3 : undefined;
+
+  const [headerTextHeight, setHeaderTextHeight] = useState(2.5);
+  const [locationIconHeight, setLocationIconHeight] = useState(1.75);
+  const [locationHeight, setLocationHeight] = useState(0.875);
+  const [searchMarginRight, setSearchMarginRight] = useState(2.5);
+
+  scroll((progress) => {
+    setHeaderTextHeight(lerp(2.5, 1.5, progress));
+    setLocationIconHeight(lerp(1.75, 1, progress));
+    setLocationHeight(lerp(0.875, 0.6, progress));
+    setSearchMarginRight(lerp(2.5, 6.5, progress));
+  });
 
   const handleSetLocation = () => {
     if (!location.location) {
@@ -43,19 +57,24 @@ export const Header = memo(function Header() {
 
   return (
     <Flexbox borderBottom={1} borderColor="neutral.outlinedBorder" flexDirection="column" pb={isMobile ? 0 : 1} width={1}>
+      <IconButton aria-label="GitHub repo button" sx={styles.githubButton}>
+        <FiGithub fontSize="1.5rem" />
+        <Link aria-label="GitHub repo link" href="https://github.com/ThirdEyeSqueegee/gig.quest" overlay />
+      </IconButton>
+      <HelpButton />
       <Flexbox flexDirection="column" gap={isMobile ? 1 : 0}>
-        <Typography {...styles.headerText}>
+        <Typography {...styles.headerText} fontSize={`${headerTextHeight}rem`}>
           <TypeIt options={{ cursor: false }}>gig.quest</TypeIt>
         </Typography>
         <Flexbox>
           <IconButton aria-label="Location button" onClick={handleSetLocation} {...styles.iconButton}>
             <Tooltip open={!location.location} {...styles.locationTooltip}>
               <Flexbox {...styles.locationIconBox}>
-                <MdLocationOn color="red" fontSize="1.75rem" />
+                <MdLocationOn color="red" fontSize={`${locationIconHeight}rem`} />
               </Flexbox>
             </Tooltip>
           </IconButton>
-          <Typography level="body-sm" sx={{ userSelect: "none" }}>
+          <Typography fontSize={`${locationHeight}rem`} sx={{ userSelect: "none" }}>
             {`${
               geolocation ? geolocation.display_name
               : range === "51mi" ? "Everywhere"
@@ -64,7 +83,7 @@ export const Header = memo(function Header() {
           </Typography>
         </Flexbox>
       </Flexbox>
-      <Flexbox justifyContent={isWidescreen ? "end" : "center"} {...styles.searchFlex}>
+      <Flexbox justifyContent={isWidescreen ? "end" : "center"} {...styles.searchFlex} {...(!isMobile && { mr: searchMarginRight, mt: -5 })}>
         <SearchInput />
         {!isMobile && (
           <Tooltip title={`Switch to ${view.tableView ? "grid" : "table"} view`} {...styles.switchTooltip}>
@@ -85,10 +104,15 @@ export const Header = memo(function Header() {
 });
 
 const styles = {
+  githubButton: {
+    "&:hover, &:active": { backgroundColor: "transparent" },
+    position: "absolute",
+    right: "0.5rem",
+    top: "0.5rem",
+  },
   headerText: {
     component: m.span,
     fontFamily: "Fira Code Variable",
-    fontSize: "2.5rem",
     sx: { userSelect: "none" },
     whileHover: { rotate: [0, 3, -3, 3, -3, 0], transition: { duration: 0.75 } },
   },
@@ -114,9 +138,8 @@ const styles = {
   searchFlex: {
     alignSelf: isMobile ? "center" : "end",
     gap: 2,
-    ...(!isMobile && {
-      mr: 2,
-      mt: -4.5,
+    ...(isMobile && {
+      my: 1,
     }),
   },
   switchTooltip: {
