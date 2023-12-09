@@ -51,7 +51,7 @@ const styles = {
     defaultValue: 15,
     max: 51,
     min: 1,
-    slotProps: { valueLabel: { sx: { backdropFilter: "blur(0.5rem)", background: "transparent" } } },
+    slotProps: { valueLabel: { sx: { backdropFilter: "blur(0.5rem)", background: "transparent", borderRadius: "2rem" } } },
     sx: { minWidth: "8rem" },
     valueLabelDisplay: "auto",
   },

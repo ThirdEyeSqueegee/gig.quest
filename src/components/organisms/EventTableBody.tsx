@@ -1,18 +1,20 @@
-import { CircularProgress } from "@mui/joy";
+import { CircularProgress, Typography } from "@mui/joy";
 import { useMeasure, useWindowSize } from "@uidotdev/usehooks";
 import { m } from "framer-motion";
 import { memo, useEffect, useRef } from "react";
 import { FaHourglassHalf } from "react-icons/fa6";
 
+import { isSGBigFourEventType, isSGMusicEventType } from "../../api/interfaces/SeatGeek.ts";
 import { useSeatGeekEvents } from "../../hooks/useSeatGeekEvents.ts";
 import { usePaginationStore } from "../../stores/usePaginationStore.ts";
 import { Flexbox } from "../atoms/Flexbox.tsx";
+import { BigFourGame } from "../molecules/BigFourGame.tsx";
 import { DateAndTime } from "../molecules/DateAndTime.tsx";
 import { EventTypeIcon } from "../molecules/EventTypeIcon.tsx";
 import { PopularityBar } from "../molecules/PopularityBar.tsx";
 import { Prices } from "../molecules/Prices.tsx";
 import { TicketsButton } from "../molecules/TicketsButton.tsx";
-import { Performers } from "./Performers.tsx";
+import { ConcertPerformers } from "./ConcertPerformers.tsx";
 import { Venue } from "./Venue.tsx";
 
 export const EventTableBody = memo(function EventTableBody() {
@@ -73,7 +75,13 @@ export const EventTableBody = memo(function EventTableBody() {
               </Flexbox>
             </m.td>
             <m.td>
-              <Performers eventDetails={details} />
+              {details.event.type ?
+                isSGMusicEventType(details.event.type) ?
+                  <ConcertPerformers eventDetails={details} />
+                : isSGBigFourEventType(details.event.type) && details.performers ?
+                  <BigFourGame details={details} />
+                : <Typography>{details.event.short_title}</Typography>
+              : null}
             </m.td>
             <m.td>
               <Venue venue={details.event.venue} />

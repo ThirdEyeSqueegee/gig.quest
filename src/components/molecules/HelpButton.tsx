@@ -57,7 +57,7 @@ const styles = {
   tooltip: {
     animate: { opacity: [0, 1] },
     component: m.div,
-    sx: { backdropFilter: "blur(0.5rem)", backgroundColor: "rgba(0, 0, 0, 0.25)" },
+    sx: { backdropFilter: "blur(0.5rem)", backgroundColor: "rgba(0, 0, 0, 0.25)", borderRadius: "2rem" },
     title: <HelpBox />,
     variant: "outlined",
   },

@@ -52,7 +52,7 @@ const styles = {
       bottom: "1.5rem",
       px: 3,
       py: 1,
-      sx: { backdropFilter: "blur(0.5rem)", border: 1, borderColor: "neutral.outlinedBorder", borderRadius: 25, zIndex: "badge" },
+      sx: { backdropFilter: "blur(0.5rem)", border: 1, borderColor: "neutral.outlinedBorder", borderRadius: "2rem", zIndex: "badge" },
     }),
   },
 } as const;

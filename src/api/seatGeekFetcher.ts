@@ -2,10 +2,10 @@ import axios from "axios";
 
 import type { Location, SGEventDetails, SGEvents, SGEventsDetailsAndMeta } from "./interfaces/SeatGeek.ts";
 
-import { tokenizePerformers } from "../Utilities.ts";
-import { SG1v1SportsEventTypes, SGMusicEventTypes, SGSportsEventTypes, SGTheaterEventTypes } from "./interfaces/SeatGeek.ts";
+import { tokenizeConcertPerformers, tokenizeMLBGame, tokenizeNBAGame, tokenizeNFLGame, tokenizeNHLGame } from "../Utilities.ts";
+import { SG1v1SportsEventTypes, SGMusicEventTypes, SGSportsEventTypes, SGTheaterEventTypes, isSGMusicEventType } from "./interfaces/SeatGeek.ts";
 
-const majorLeagues = ["nba", "nfl", "nhl", "mlb", "mls"];
+const majorLeagues = ["nba", "nfl", "nhl", "mlb"];
 
 export const seatGeekFetcher = async (
   page: number,
@@ -89,8 +89,32 @@ export const seatGeekFetcher = async (
 
   if (response.data.events) {
     for (const e of response.data.events) {
-      const { is1v1, tokens } = tokenizePerformers(e.performers, e.type);
-      eventsDetails.push({ event: e, is1v1, performers: tokens });
+      if (e.performers && e.type && isSGMusicEventType(e.type) && e.type !== "music_festival") {
+        const tokens = tokenizeConcertPerformers(e.performers);
+        eventsDetails.push({ event: e, performers: tokens });
+        continue;
+      }
+      if (e.title && e.type === "nba") {
+        const { teams } = tokenizeNBAGame(e.title);
+        eventsDetails.push({ event: e, performers: teams });
+        continue;
+      }
+      if (e.title && e.type === "nfl") {
+        const teams = tokenizeNFLGame(e.title);
+        eventsDetails.push({ event: e, performers: teams });
+        continue;
+      }
+      if (e.title && e.type === "nhl") {
+        const teams = tokenizeNHLGame(e.title);
+        eventsDetails.push({ event: e, performers: teams });
+        continue;
+      }
+      if (e.title && e.type === "mlb") {
+        const teams = tokenizeMLBGame(e.title);
+        eventsDetails.push({ event: e, performers: teams });
+        continue;
+      }
+      eventsDetails.push({ event: e });
     }
   }
 

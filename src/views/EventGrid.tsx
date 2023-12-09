@@ -49,7 +49,7 @@ export const EventGrid = memo(function EventGrid() {
 const styles = {
   gridContainer: {
     container: true,
-    mt: isMobile ? 0 : 1,
+    mt: isMobile ? 0 : 0.5,
     spacing: 1,
     width: 1,
   },

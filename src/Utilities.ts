@@ -1,72 +1,67 @@
-import type { SGEventType, SGPerformer } from "./api/interfaces/SeatGeek.ts";
+import type { SGPerformer } from "./api/interfaces/SeatGeek.ts";
 
-import { isSG1v1SportsEventType } from "./api/interfaces/SeatGeek.ts";
+export const tokenizeConcertPerformers = (performers: SGPerformer[]) => {
+  let tokens: string[] = [];
 
-export const tokenizePerformers = (performers?: SGPerformer[], eventType?: SGEventType) => {
-  let is1v1 = false;
-  let str = "";
-
-  if (performers && performers.length > 0 && eventType) {
-    if (isSG1v1SportsEventType(eventType)) {
-      is1v1 = true;
-      if (performers.length === 0) {
-        str = "TBAvs.TBA";
-      } else if (performers.length === 1) {
-        str = `${performers[0].name}vs.TBA`;
-      } else {
-        for (const p of performers) {
-          if (p.name) {
-            if (p.name.includes("In-Season")) {
-              str += `${p.name}vs.`;
-              continue;
-            }
-            if (p.name.includes("Wild Card") || p.name.includes("Divisional") || p.name.includes("Championship")) {
-              str += "TBAvs.";
-              continue;
-            }
-            const teamName = p.name.replaceAll("FC", "").replaceAll("CF", "").replaceAll("SC", "").replaceAll("Football Club", "").trim();
-            if (
-              NBATeamsMap.has(teamName) ||
-              NFLTeamsMap.has(teamName) ||
-              NHLTeamsMap.has(teamName) ||
-              MLBTeamsMap.has(teamName) ||
-              MLSTeamsMap.has(teamName) ||
-              WNBATeamsMap.has(teamName) ||
-              WomensCollegeBasketballTeamsMap.has(teamName) ||
-              MensCollegeBasketballTeamsMap.has(teamName)
-            ) {
-              str += teamName;
-            } else if (!teamName.includes("Playoffs") && !teamName.includes("Final")) {
-              str += `${p.name}`;
-            }
-            str += "vs.";
-          }
-        }
+  if (performers.length > 0) {
+    for (const p of performers) {
+      if (p.name) {
+        tokens.push(p.name);
       }
-    } else if (performers.length > 1) {
-      for (const p of performers) {
-        str += `${p.name}//`;
-      }
-    } else {
-      str += performers[0].name;
     }
   }
 
-  str = str
-    .replaceAll(" Womens Volleyball", "")
-    .replaceAll(" Mens Basketball", "")
-    .replaceAll(" Womens Basketball", "")
-    .replaceAll(" Womens National Hockey", "");
+  tokens = tokens.filter((e) => e && e.length > 0).map((e) => (e ? e.trim() : e));
 
-  const tokens = str
-    .split(is1v1 ? "vs." : "//")
-    .filter((e) => e.length > 0)
-    .map((e) => e.trim());
+  return tokens;
+};
 
-  return {
-    is1v1,
-    tokens,
-  };
+export const tokenizeNBAGame = (title: string) => {
+  let split = title.split(" at ");
+  if (split.length === 2) {
+    return { inSeason: false, teams: [split[1].trim(), split[0].trim()] };
+  }
+  if (split[0].includes("NBA In-Season Tournament: Championship - ")) {
+    split = split[0].replace("NBA In-Season Tournament: Championship - ", "").split(" vs ");
+    return { inSeason: true, teams: [split[0].trim(), split[1].trim()] };
+  }
+  return { inSeason: false, teams: [] };
+};
+
+export const tokenizeNFLGame = (title: string) => {
+  const split = title.split(" at ");
+  if (split[0].includes("AFC") || split[0].includes("NFC")) {
+    return [split[1].trim(), "TBA"];
+  }
+  if (split.length === 2) {
+    return [split[1].trim(), split[0].trim()];
+  }
+  return [];
+};
+
+export const tokenizeNHLGame = (title: string) => {
+  const split = title.split(" at ").map((t) => t.replace("NHL Winter Classic: ", ""));
+  if (split.length === 2) {
+    return [split[1].trim(), split[0].trim()];
+  }
+  return [];
+};
+
+export const tokenizeMLBGame = (title: string) => {
+  const split = title
+    .replace("Premium Seating", "")
+    .replace("Opening Day", "")
+    .replace("Home Opener", "")
+    .replace("Pinstripe Pass", "")
+    .replace("Game 1", "")
+    .replace("Spring Training (Split Squad): ", "")
+    .replace("Spring Training: ", "")
+    .replace("-", "")
+    .split(" at ");
+  if (split.length === 2) {
+    return [split[1].trim(), split[0].trim()];
+  }
+  return [];
 };
 
 export const lerp = (start: number, end: number, amount: number) => {
@@ -121,7 +116,7 @@ export const WNBATeamsMap = new Map([
   ["Washington Mystics", 16],
 ]);
 
-export const WomensCollegeBasketballTeamsMap = new Map([
+export const CollegeBasketballTeamsMap = new Map([
   ["American University Eagles", 44],
   ["Arizona State Sun Devils", 9],
   ["Arizona Wildcats", 12],
@@ -174,59 +169,6 @@ export const WomensCollegeBasketballTeamsMap = new Map([
   ["Yale Bulldogs", 43],
 ]);
 
-export const MensCollegeBasketballTeamsMap = new Map([
-  ["American University Eagles", 44],
-  ["Arizona State Sun Devils", 9],
-  ["Arizona Wildcats", 12],
-  ["Arkansas Razorbacks", 8],
-  ["Auburn Tigers", 2],
-  ["Bellarmine Knights", 91],
-  ["Boise State Broncos", 68],
-  ["Bradley Braves", 71],
-  ["Cal Poly Mustangs", 13],
-  ["California Golden Bears", 25],
-  ["Colorado Buffaloes", 38],
-  ["Colorado State Rams", 36],
-  ["Delaware Blue Hens", 48],
-  ["Florida A&M Rattlers", 50],
-  ["Florida Gators", 57],
-  ["Florida State Seminoles", 52],
-  ["George Washington Revolutionaries", 45],
-  ["Georgetown Hoyas", 46],
-  ["Georgia Bulldogs", 61],
-  ["Georgia Tech Yellow Jackets", 59],
-  ["Hawai'i Rainbow Warriors", 62],
-  ["Howard Bison", 47],
-  ["IUPUI Jaguars", 85],
-  ["Idaho Vandals", 70],
-  ["Indiana Hoosiers", 84],
-  ["Iowa State Cyclones", 66],
-  ["Jacksonville State Gamecocks", 55],
-  ["Kentucky Wildcats", 96],
-  ["Louisville Cardinals", 97],
-  ["Murray State Racers", 93],
-  ["Northern Kentucky Norse", 94],
-  ["Northwestern Wildcats", 77],
-  ["Notre Dame Fighting Irish", 87],
-  ["Sacramento State Hornets", 16],
-  ["San Diego State Aztecs", 21],
-  ["San José State Spartans", 23],
-  ["South Alabama Jaguars", 6],
-  ["South Florida Bulls", 58],
-  ["Southern Illinois Salukis", 79],
-  ["Stanford Cardinal", 24],
-  ["Stetson Hatters", 56],
-  ["UAB Blazers", 5],
-  ["UC Riverside Highlanders", 27],
-  ["UC San Diego Tritons", 28],
-  ["UCLA Bruins", 26],
-  ["UConn Huskies", 41],
-  ["UIC Flames", 82],
-  ["USC Trojans", 30],
-  ["Western Kentucky Hilltoppers", 98],
-  ["Yale Bulldogs", 43],
-]);
-
 export const NFLTeamsMap = new Map([
   ["Arizona Cardinals", 22],
   ["Atlanta Falcons", 1],
@@ -260,6 +202,59 @@ export const NFLTeamsMap = new Map([
   ["Tampa Bay Buccaneers", 27],
   ["Tennessee Titans", 10],
   ["Washington Commanders", 28],
+]);
+
+export const NCAAFootballTeamsMap = new Map([
+  ["Amherst Mammoths", 7],
+  ["Anna Maria College Amcats", 15],
+  ["Arizona State Sun Devils", 9],
+  ["Arizona Wildcats", 12],
+  ["Arkansas Razorbacks", 8],
+  ["Auburn Tigers", 2],
+  ["Birmingham-Southern Panthers", 3],
+  ["Boise State Broncos", 68],
+  ["Bridgewater (MA) Bears", 18],
+  ["Buena Vista Beavers", 63],
+  ["Cal Poly Mustangs", 13],
+  ["California Golden Bears", 25],
+  ["Carroll University (WI) Pioneers", 32],
+  ["Claremont-Mudd-Scripps College Stags", 17],
+  ["Colby College White Mules", 33],
+  ["Colorado Buffaloes", 38],
+  ["Colorado Mesa Mavericks", 11],
+  ["Colorado State Rams", 36],
+  ["Curry College Colonels", 40],
+  ["Delaware Fightin' Blue Hens", 48],
+  ["Dubuque Spartans", 49],
+  ["Elmhurst Bluejays", 72],
+  ["Florida A&M Rattlers", 50],
+  ["Florida Gators", 57],
+  ["Florida State Seminoles", 52],
+  ["Georgetown Hoyas", 46],
+  ["Georgia Bulldogs", 61],
+  ["Georgia Tech Yellow Jackets", 59],
+  ["Grinnell Pioneers", 65],
+  ["Hawai'i Rainbow Warriors", 62],
+  ["Howard Bison", 47],
+  ["Idaho Vandals", 70],
+  ["Iowa State Cyclones", 66],
+  ["Jacksonville State Gamecocks", 55],
+  ["Luther Norse", 67],
+  ["Millikin Big Blue", 74],
+  ["Morehouse College Maroon Tigers", 60],
+  ["Redlands Bulldogs", 29],
+  ["Sacramento State Hornets", 16],
+  ["San Diego State Aztecs", 21],
+  ["San José State Spartans", 23],
+  ["South Alabama Jaguars", 6],
+  ["South Florida Bulls", 58],
+  ["Stanford Cardinal", 24],
+  ["Stetson Hatters", 56],
+  ["UAB Blazers", 5],
+  ["UCLA Bruins", 26],
+  ["UConn Huskies", 41],
+  ["USC Trojans", 30],
+  ["Yale Bulldogs", 43],
 ]);
 
 export const NHLTeamsMap = new Map([

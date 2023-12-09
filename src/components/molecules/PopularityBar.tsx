@@ -46,6 +46,6 @@ const styles = {
     animate: { opacity: [0, 1] },
     component: m.div,
     followCursor: true,
-    sx: { backdropFilter: "blur(0.5rem)", backgroundColor: "transparent" },
+    sx: { backdropFilter: "blur(0.5rem)", backgroundColor: "transparent", borderRadius: "2rem" },
   },
 } as const;

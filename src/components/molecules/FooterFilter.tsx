@@ -82,10 +82,6 @@ export const FooterFilter = memo(function FooterFilter() {
           <EventTypeIcon eventType="mlb" size="1rem" />
           MLB
         </Option>
-        <Option value="mls">
-          <EventTypeIcon eventType="mls" size="1rem" />
-          MLS
-        </Option>
         <Option value="sports">
           <EventTypeIcon eventType="sports" size="1rem" />
           Other Sports

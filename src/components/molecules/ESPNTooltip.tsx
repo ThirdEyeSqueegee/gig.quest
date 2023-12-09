@@ -98,7 +98,7 @@ const styles = {
   tooltip: {
     animate: { opacity: [0, 1] },
     component: m.div,
-    sx: { backdropFilter: "blur(0.5rem)", backgroundColor: "transparent", borderRadius: "1rem" },
+    sx: { backdropFilter: "blur(0.5rem)", backgroundColor: "transparent", borderRadius: "2rem" },
   },
   tooltipBox: {
     flexDirection: "column",

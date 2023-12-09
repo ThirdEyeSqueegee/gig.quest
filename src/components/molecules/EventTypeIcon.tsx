@@ -765,6 +765,6 @@ const styles = {
   tooltip: {
     animate: { opacity: [0, 1] },
     component: m.div,
-    sx: { backdropFilter: "blur(0.5rem)", backgroundColor: "transparent", userSelect: "none" },
+    sx: { backdropFilter: "blur(0.5rem)", backgroundColor: "transparent", borderRadius: "2rem", userSelect: "none" },
   },
 } as const;

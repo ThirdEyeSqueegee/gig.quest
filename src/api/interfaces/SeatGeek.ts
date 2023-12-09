@@ -134,8 +134,7 @@ export interface Location {
 
 export interface SGEventDetails {
   event: SGEvent;
-  is1v1: boolean;
-  performers: string[];
+  performers?: string[];
 }
 
 export interface SGEventsDetailsAndMeta {
@@ -161,6 +160,7 @@ export const SGSportsEventTypes = [
   "college_golf",
   "womens_college_golf",
 
+  "mma",
   "wwe",
 
   "animal_sports",
@@ -229,7 +229,6 @@ export const SG1v1SportsEventTypes = [
 
   "fighting",
   "boxing",
-  "mma",
 
   "wrestling",
   "college_wrestling",
@@ -289,3 +288,5 @@ export const isSG1v1SportsEventType = (eventType: SGEventType): eventType is SG1
   SG1v1SportsEventTypes.includes(eventType as SG1v1SportsEventType);
 export const isSGTheaterEventType = (eventType: SGEventType): eventType is SGTheaterEventType =>
   SGTheaterEventTypes.includes(eventType as SGTheaterEventType);
+export const isSGBigFourEventType = (eventType: SGEventType): eventType is "mlb" | "nba" | "nfl" | "nhl" =>
+  eventType === "nba" || eventType === "nfl" || eventType === "nhl" || eventType === "mlb";

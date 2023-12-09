@@ -32,7 +32,7 @@ export const App = memo(function App() {
 
   return (
     <LazyMotion features={domMax} strict>
-      <Flexbox p={isMobile ? 1 : 2}>
+      <Flexbox p={isMobile ? 0.5 : 2}>
         <Card {...styles.mainCard}>
           <Flexbox {...styles.headerBox}>
             <Header />
@@ -63,7 +63,7 @@ const styles = {
     layout: true,
     sx: {
       alignItems: "center",
-      gap: isMobile ? 1 : 0,
+      gap: 0,
       overflowAnchor: "none",
       p: 0,
       width: 1,

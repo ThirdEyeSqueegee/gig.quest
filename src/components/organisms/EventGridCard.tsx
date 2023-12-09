@@ -3,15 +3,15 @@ import { m } from "framer-motion";
 import { memo } from "react";
 import { isMobile } from "react-device-detect";
 
-import type { SGEventDetails } from "../../api/interfaces/SeatGeek.ts";
-
+// eslint-disable-next-line perfectionist/sort-named-imports
+import { isSGMusicEventType, type SGEventDetails } from "../../api/interfaces/SeatGeek.ts";
 import { Flexbox } from "../atoms/Flexbox.tsx";
 import { DateAndTime } from "../molecules/DateAndTime.tsx";
 import { EventTypeIcon } from "../molecules/EventTypeIcon.tsx";
 import { PopularityBar } from "../molecules/PopularityBar.tsx";
 import { Prices } from "../molecules/Prices.tsx";
 import { TicketsButton } from "../molecules/TicketsButton.tsx";
-import { Performers } from "./Performers.tsx";
+import { ConcertPerformers } from "./ConcertPerformers.tsx";
 import { Venue } from "./Venue.tsx";
 
 export const EventGridCard = memo(function EventGridCard(props: { details?: SGEventDetails }) {
@@ -21,7 +21,9 @@ export const EventGridCard = memo(function EventGridCard(props: { details?: SGEv
     <Grid {...styles.grid}>
       <Card {...styles.gridCard}>
         <Flexbox alignItems="start" gap={1} justifyContent="space-between">
-          <Performers eventDetails={details} />
+          {details?.event.type && isSGMusicEventType(details.event.type) ?
+            <ConcertPerformers eventDetails={details} />
+          : <Typography>{details?.event.short_title}</Typography>}
           <EventTypeIcon eventType={details?.event.type} />
         </Flexbox>
         <Flexbox alignItems="end" gap={1} justifyContent="space-between">

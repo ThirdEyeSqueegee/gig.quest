@@ -19,7 +19,6 @@ import { SearchInput } from "../molecules/SearchInput.tsx";
 export const Header = memo(function Header() {
   const range = usePaginationStore((state) => state.range);
   const firstPage = usePaginationStore((state) => state.firstPage);
-  const setRowsPerPage = usePaginationStore((state) => state.setRowsPerPage);
   const view = useViewStore((state) => state);
   const location = useLocationStore((state) => state);
 
@@ -38,7 +37,7 @@ export const Header = memo(function Header() {
     setHeaderTextHeight(lerp(2.5, 1.5, progress));
     setLocationIconHeight(lerp(1.75, 1, progress));
     setLocationHeight(lerp(0.875, 0.6, progress));
-    setSearchMarginRight(lerp(2.5, 6.5, progress));
+    setSearchMarginRight(lerp(2.5, 7, progress));
   });
 
   const handleSetLocation = () => {
@@ -83,7 +82,7 @@ export const Header = memo(function Header() {
           </Typography>
         </Flexbox>
       </Flexbox>
-      <Flexbox justifyContent={isWidescreen ? "end" : "center"} {...styles.searchFlex} {...(!isMobile && { mr: searchMarginRight, mt: -5 })}>
+      <Flexbox justifyContent={isWidescreen ? "end" : "center"} {...styles.searchFlex} {...(!isMobile && { mr: searchMarginRight, mt: -4.7 })}>
         <SearchInput />
         {!isMobile && (
           <Tooltip title={`Switch to ${view.tableView ? "grid" : "table"} view`} {...styles.switchTooltip}>
@@ -92,7 +91,6 @@ export const Header = memo(function Header() {
               onChange={() => {
                 view.toggleGridView();
                 firstPage();
-                setRowsPerPage(view.tableView ? 36 : 24);
               }}
               {...styles.viewSwitch}
             />
@@ -132,8 +130,8 @@ const styles = {
     component: m.div,
     placement: "bottom",
     size: "lg",
-    sx: { backdropFilter: "blur(0.5rem)", backgroundColor: "transparent", userSelect: "none" },
-    title: "Click/tap location icon to use precise location",
+    sx: { backdropFilter: "blur(0.5rem)", backgroundColor: "transparent", borderRadius: "2rem", userSelect: "none" },
+    title: "Click/tap location icon to allow precise location",
   },
   searchFlex: {
     alignSelf: isMobile ? "center" : "end",
@@ -145,7 +143,7 @@ const styles = {
   switchTooltip: {
     animate: { opacity: [0, 1] },
     component: m.div,
-    sx: { backdropFilter: "blur(0.5rem)", backgroundColor: "transparent", userSelect: "none" },
+    sx: { backdropFilter: "blur(0.5rem)", backgroundColor: "transparent", borderRadius: "2rem", userSelect: "none" },
   },
   viewSwitch: {
     endDecorator: <FiGrid fontSize="small" />,

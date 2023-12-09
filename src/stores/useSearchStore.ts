@@ -4,7 +4,7 @@ import type { SearchState } from "./interfaces/State.ts";
 
 export const useSearchStore = create<SearchState>()((set) => ({
   debSearchTerm: "",
-  filter: [],
+  filter: ["concert"],
   searchTerm: "",
 
   setDebSearchTerm: (debSearchTerm: string) => set(() => ({ debSearchTerm })),
