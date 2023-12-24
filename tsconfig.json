@@ -24,7 +24,7 @@
     "isolatedModules": true,
 
     // Language and environment
-    "jsx": "react-jsx",
+    "jsx": "preserve",
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "target": "ESNext",
 

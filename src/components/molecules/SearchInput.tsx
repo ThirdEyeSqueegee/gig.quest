@@ -54,7 +54,7 @@ const styles = {
     "&:hover, &:active": { backgroundColor: "transparent" },
   },
   searchInput: {
-    placeholder: "Type / to search",
+    placeholder: isMobile ? "Search" : "Type / to search",
     startDecorator: <FiSearch />,
     sx: {
       "--Input-paddingInline": "0.5rem",

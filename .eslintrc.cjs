@@ -11,7 +11,7 @@ module.exports = {
     "prettier",
     "plugin:perfectionist/recommended-natural",
   ],
-  ignorePatterns: ["dist"],
+  ignorePatterns: ["dist", ".eslintrc.cjs"],
   parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaFeatures: {
